@@ -1,56 +1,65 @@
 <template>
-  <q-page padding :class="isDark ? 'dark' : 'light'">
-    <div class="q-pa-md" :class="isDark ? 'dark' : 'light'">
+  <q-page padding>
+    <div class="q-pa-md">
       <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
+
+    <br />
+    <strong>Formulario </strong>
   </q-page>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { getEstadios } from "../services";
 const columns = [
   {
-    name: 'name',
+    name: "nombre",
     required: true,
-    label: 'Nombre',
-    align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
+    label: "Nombre",
+    align: "left",
+    field: "nombre",
+    sortable: true,
   },
-  { name: 'pais', align: 'center', label: 'Pais', field:'pais', sortable: true },
-  { name: 'ciudad', align: 'center', label: 'Ciudad', field:'ciudad', sortable: true },
-
-]
-
-const rows = [
   {
-    name: ' ',
-    pais: '',
-    ciudad: ''
+    name: "pais",
+    align: "center",
+    label: "Pais",
+    field: "pais",
+    sortable: true,
   },
-
   {
-    name: ' ',
-    pais: '',
-    ciudad: ''
+    name: "ciudad",
+    align: "center",
+    label: "Ciudad",
+    field: "ciudad",
+    sortable: true,
   },
-]
+  {
+    name: "id_jugadores",
+    align: "center",
+    label: "Nombre-Jugadores",
+    field: "nombre_jugadores",
+    sortable: true,
+  },
+  {
+    name: "cancha",
+    align: "center",
+    label: "cancha",
+    field: "cancha",
+    sortable: true,
+  },
+];
 
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
+const rows = ref([]);
+
+onMounted(async () => {
+  rows.value = await getEstadios();
+});
 </script>
 <style>
-
-.q-table{
-color: grey;
-background-color:#77d6f3;
-
+.q-table {
+  color: grey;
+  background-color: #77d6f3;
 }
-
 </style>

@@ -32,6 +32,8 @@ const routes = [
       {path:"/roles", component:()=> import("pages/RolesPage.vue")},
 
       {path:"/usuario",component:()=> import("pages/UsuarioTablePage.vue")},
+      {path:"/permisos",component:()=> import("pages/PermisosPage.vue")},
+      {path:"/prueba",component:()=> import("pages/PruebaPage.vue")},
     ],
   },
 

@@ -1,6 +1,6 @@
 <template>
-  <q-page padding :class="isDark ? 'dark' : 'light'">
-    <div class="q-pa-md" :class="isDark ? 'dark' : 'light'">
+  <q-page padding>
+    <div class="q-pa-md">
       <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
   </q-page>

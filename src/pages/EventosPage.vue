@@ -1,42 +1,31 @@
-
 <template>
-  <q-page padding :class="isDark ? 'dark' : 'light'">
-    <div class="q-pa-md" :class="isDark ? 'dark' : 'light'">
+  <q-page padding>
+    <div class="q-pa-md">
       <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
+
+    <br />
+    <strong>Formulario </strong>
   </q-page>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { getEventos } from "../services";
 const columns = [
   {
-    name: 'name',
+    name: "nombre",
     required: true,
-    label: 'Nombre',
-    align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
+    label: "Nombre",
+    align: "left",
+    field: "nombre",
+    sortable: true,
   },
+];
 
+const rows = ref([]);
 
-]
-
-const rows = [
-  {
-    name: ' '
-
-  },
-
-
-]
-
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
+onMounted(async () => {
+  rows.value = await getEventos();
+});
 </script>

@@ -1,41 +1,39 @@
-
 <template>
-  <q-page padding :class="isDark ? 'dark' : 'light'">
-    <div class="q-pa-md" :class="isDark ? 'dark' : 'light'">
+  <q-page padding>
+    <div class="q-pa-md">
       <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
+    <br />
+    <br />
+
+    <strong>Formulario </strong>
   </q-page>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { getPartidasJugadores } from "../services";
 const columns = [
-
-  { name: 'id_partidas', align: 'center', label: 'Id_Partidas', field:'id_partidas', sortable: true },
-  { name: 'id_jugadores', align: 'center', label: 'Id_Jugadores', field:'id_jugadores', sortable: true },
-]
-
-const rows = [
   {
-    id_partidas: ' ',
-    id_jugadores: ''
+    name: "id_partidas",
+    align: "center",
+    label: "Nombre_Partidas",
+    field: "nombre_partidas",
+    sortable: true,
   },
   {
-    id_partidas: ' ',
-    id_jugadores: ''
+    name: "id_jugadores",
+    align: "center",
+    label: "Nombre_Jugadores",
+    field: "nombre_jugadores",
+    sortable: true,
   },
-  {
-    id_partidas: ' ',
-    id_jugadores: ''
-  },
+];
 
-]
+const rows = ref([]);
 
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
+onMounted(async () => {
+  rows.value = await getPartidasJugadores();
+});
+
 </script>

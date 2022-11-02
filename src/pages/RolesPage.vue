@@ -1,49 +1,27 @@
 <template>
-  <q-page padding :class="isDark ? 'dark' : 'light'">
-    <div class="q-pa-md" :class="isDark ? 'dark' : 'light'">
+  <q-page padding>
+    <div class="q-pa-md">
       <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
   </q-page>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { getRoles} from "../services";
 const columns = [
   {
-    name: 'name',
+    name: "descripcion",
     required: true,
-    label: 'Descripcion',
-    align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
+    label: "Descripcion",
+    align: "left",
+    field: "descripcion",
+    sortable: true,
   },
+];
+const rows = ref([]);
 
-
-
-]
-
-const rows = [
-{
-    name: ' ',
-
-  },
-  {
-    name: ' ',
-
-  },
-  {
-    name: ' ',
-
-  },
-
-]
-
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
+onMounted(async () => {
+  rows.value = await getRoles();
+});
 </script>

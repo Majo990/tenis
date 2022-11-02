@@ -1,66 +1,59 @@
-
 <template>
-  <q-page padding :class="isDark ? 'dark' : 'light'">
-    <div class="q-pa-md" :class="isDark ? 'dark' : 'light'">
+  <q-page padding>
+    <div class="q-pa-md">
       <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
   </q-page>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { getTorneos} from "../services";
+
 const columns = [
-  
-  { name: 'fecha', align: 'center', label: 'Fecha', field:'fecha', sortable: true },
-  { name: 'id_estadios', align: 'center', label: 'Id_Jugadores', field:'id_jugadores', sortable: true },
-  { name: 'pais', align: 'center', label: 'Id_Entrenadores', field:'id_entrenadores', sortable: true },
   {
-    name: 'name',
+    name: "fecha",
+    align: "center",
+    label: "Fecha",
+    field: "fecha",
+    sortable: true,
+  },
+  {
+    name: "id_estadios",
+    align: "center",
+    label: "Nombre-Estadios",
+    field: "nombre_estadios",
+    sortable: true,
+  },
+  {
+    name: "pais",
+    align: "center",
+    label: "pais",
+    field: "pais",
+    sortable: true,
+  },
+  {
+    name: "nombre",
     required: true,
-    label: 'Nombre',
-    align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
+    label: "Nombre",
+    align: "left",
+    field: "nombre",
+    sortable: true,
   },
-  { name: 'ciudad', align: 'center', label: 'Id_Entrenadores', field:'id_entrenadores', sortable: true },
-]
-
-const rows = [
   {
-
-    fecha: '',
-    id_estadios:'',
-    pais:'',
-    name:'',
-    ciudad:''
+    name: "ciudad",
+    align: "center",
+    label: "ciudad",
+    field: "ciudad",
+    sortable: true,
   },
+];
 
-  {
+const rows = ref([]);
 
-    fecha: '',
-   id_estadios:'',
-   pais:'',
-   name:'',
-   ciudad:''
-},
+onMounted(async () => {
+  rows.value = await getTorneos();
+});
 
-{
 
-  fecha: '',
-  id_estadios:'',
-  pais:'',
-  name:'',
-  ciudad:''
-},
-
-]
-
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
 </script>

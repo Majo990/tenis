@@ -66,6 +66,14 @@ import { defineComponent, ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 
 const linksList = [
+
+{
+    title: "Home",
+    icon: "mdi-align-horizontal-right",
+    link: "/Home",
+  },
+
+
   {
     title: "Arbitros",
     icon: "mdi-account-tie-outline",
@@ -182,11 +190,10 @@ const linksList = [
     link: "/Roles",
   },
 
-
   {
-    title: "UsuarioTable",
-    icon: "mdi-hail",
-    link: "/Usuario",
+    title: "Prueba",
+    icon:"",
+    link: "/Prueba",
   },
 ];
 

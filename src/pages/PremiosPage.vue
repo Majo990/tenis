@@ -1,53 +1,42 @@
 <template>
-  <q-page padding :class="isDark ? 'dark' : 'light'">
-    <div class="q-pa-md" :class="isDark ? 'dark' : 'light'">
+  <q-page padding>
+    <div class="q-pa-md">
       <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
   </q-page>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { getPremios} from "../services";
+
 const columns = [
   {
-    name: 'name',
+    name: "nombre",
     required: true,
-    label: 'Nombre',
-    align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
-  },
-  { name: 'tipo', align: 'center', label: 'Tipo', field:'Tipo', sortable: true },
-  { name: 'stock', align: 'center', label: 'Stock', field:'stock', sortable: true },
-
-
-]
-
-const rows = [
-{
-    name: ' ',
-    tipo:'',
-    stock:''
+    label: "Nombre",
+    align: "left",
+     field:"nombre",
+    sortable: true,
   },
   {
-    name: ' ',
-    tipo:'',
-    stock:''
+    name: "tipo",
+    align: "center",
+    label: "Tipo",
+    field: "tipo",
+    sortable: true,
   },
   {
-    name: ' ',
-    tipo:'',
-    stock:''
+    name: "stock",
+    align: "center",
+    label: "Stock",
+    field: "stock",
+    sortable: true,
   },
+];
+const rows = ref([]);
 
-]
-
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
+onMounted(async () => {
+  rows.value = await getPremios();
+});
 </script>

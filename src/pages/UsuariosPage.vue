@@ -14,8 +14,13 @@
       >
         <template v-slot:append> </template>
       </q-input>
+      <q-btn color="primary" label="Crear" />
+      <q-btn color="secondary" label="Leer " />
+      <q-btn color="amber" label="Actualizar" />
+      <q-btn color="red" label="Borrar" />
     </div>
     <br />
+    <br/>
     <q-table
       :rows="rows"
       :columns="columns"
@@ -25,34 +30,34 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from "vue";
-import { getArbitros } from "../services";
+import { getUsuarios} from "../services";
 const columns = [
   {
-    name: "name",
+    name: "usuarios",
     required: true,
-    label: "Nombre",
+    label: "Usuarios",
     align: "left",
-    field: "nombre",
+    field: "usuarios",
     format: (val) => `${val}`,
     sortable: true,
   },
   {
-    name: "id_sanciones",
+    name: "id_roles",
     align: "center",
-    label: "Nombre-Sanciones",
-    field: "nombre_sanciones",
+    label: "Descripcion-Roles",
+    field: "descripcion_roles",
     sortable: true,
   },
 ];
-
+/*
 export default {
   setup() {
     const rows = ref([]);
 
     onMounted(async () => {
-      rows.value = await getArbitros();
+      rows.value = await getUsuarios();
     });
     return {
       columns,
@@ -68,7 +73,7 @@ export default {
       date: ref(""),
     };
   },
-};
+};*/
 </script>
 
 <style>
