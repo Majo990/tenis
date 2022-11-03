@@ -1,10 +1,35 @@
 <template>
   <q-page padding>
-    <div class="q-pa-md">
+    <strong>Formulario </strong>
+    <q-page class="q-pa-md">
+      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <div class="row">
+        <div class="col-6">
+          <div class="row justify-between q-gutter-md">
+
+            <q-input
+      v-model.number="model"
+      type="number"
+      filled
+      style="max-width: 200px"
+       hint="NroRonda"
+      label="Ingrese su Nro Ronda "/>
+</div>
+        </div>
+      </div>
+      <div class="col-6 q-gutter-md text-center items-center">
+
+<q-btn color="primary" label="Crear" />
+<q-btn color="secondary" label="Leer " />
+<q-btn color="amber" label="Actualizar" />
+<q-btn color="red" label="Borrar" />
+
+</div>
       <q-table :rows="rows" :columns="columns" row-key="name" />
-    </div>
+      </q-form>
+    </q-page>
   </q-page>
-</template>
+    </template>
 
 <script setup>
 import { ref, onMounted } from "vue";

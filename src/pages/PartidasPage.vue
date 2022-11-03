@@ -1,12 +1,104 @@
 <template>
   <q-page padding>
+    <q-form>
     <div class="q-pa-md">
-      <q-table :rows="rows" :columns="columns" row-key="name" />
-    </div>
-    <br />
-    <br />
+      <strong>Formulario </strong>
+      <div class="row">
+        <div class="col-6">
+          <div class="row justify-between q-gutter-md">
 
-    <strong>Formulario </strong>
+            <q-input
+              filled
+              v-model="nombrepartida"
+              label="Ingrese el Nombre Partida "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Nombre Partida',
+              ]"
+              style="width: 47%"
+            />
+
+            <q-input
+              filled
+              v-model="descriparti"
+              label="Ingrese la Descripcion Partida"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Descripcion',
+              ]"
+            />
+
+              <div class="row justify-between q-gutter-md">
+            <q-input
+              filled
+              v-model="nombrejugador"
+              label="Ingrese su NombreJugador"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su NombreJugador',
+              ]"
+            />
+
+            <q-input
+              filled
+              v-model="nombretorneo"
+              label="Ingrese su NombreTorneo"
+              lazy-rules
+              style="width: 47%"
+             :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su NombreTorneo',
+              ]"
+            />
+              </div>
+
+      <div class="q-gutter-sm row">
+
+      <q-input filled v-model="timeWithSeconds" mask="fulltime" hint="Tiempo-Inicio" :rules="['fulltime']">
+        <template v-slot:append>
+          <q-icon name="access_time" class="cursor-pointer">
+            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+              <q-time
+              v-model="timeWithSeconds"
+                with-seconds
+                format24h>
+
+      <q-input v-model="time" filled type="time" hint="Tiempo-Duracion" />
+
+      <q-input filled v-model="timeWithSeconds" mask="fulltime" hint="Tiempo-Finalizacion"  :rules="['fulltime']">
+        <template v-slot:append>
+          <q-icon name="access_time" class="cursor-pointer">
+            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+              <q-time
+              v-model="timeWithSeconds"
+                with-seconds
+                format24h>
+              </q-time>
+
+                <div class="row items-center justify-end">
+                  <q-btn v-close-popup label="Close" color="primary"  />
+                </div>
+                </q-popup-proxy>
+          </q-icon>
+        </template>
+
+</q-input>
+              </q-time>
+            </q-popup-proxy>
+          </q-icon>
+        </template>
+      </q-input>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </q-form>
   </q-page>
 </template>
 

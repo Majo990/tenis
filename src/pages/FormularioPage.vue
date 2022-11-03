@@ -1,72 +1,29 @@
-
-
-
-
 <template>
-
-<q-page>
-
-  <div class="letra">
-  <h3>Formulario Datos Precargados</h3><!--$indigo-13-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital@1&display=swap" rel="stylesheet">
+  <div class="q-pa-md" style="max-width: 300px">
+    <q-input filled v-model="date" mask="date" :rules="['date']">
+      <template v-slot:append>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+            <q-date v-model="date">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
   </div>
+</template>
 
-</q-page>
+<script>
+import { ref } from 'vue'
 
-
-  <div class="q-pa-md">
-
-Nombre
-Apellido
-Edad
-Sexo
-Pais
-Ciudad
-Dni
-Nacionalidad
-Email
-Direccion
-Celular
-Codigo_Postal
-
-
-arbitros,comportamientos,entrenadores,
-equipos,estadios,eventos , faltas,historial-partidas,
-Jueces,Jugadores,partidas,,Partidas-Jugadores,
-premios,rondas,Sanciones,torneos. 
-
-perfiles,permisos,roles,usuarios,
-
-
-  <q-input outlined v-model="text" label="" />
-  <q-input outlined v-model="text" label="" />
-  <q-input outlined v-model="text" label="" />
-  <q-input outlined v-model="text" label="" />
-
-
-
-  </div>
-  </template>
-
-  <script>
-
-
-  </script>
-
-
-  <style>
-
-.letra{
-  text-align: center;
+export default {
+  setup () {
+    return {
+      date: ref('2019/02/01')
+    }
+  }
 }
-
-h3{
-  color: blueviolet;
-}
-
-
-
-
-  </style>
+</script>

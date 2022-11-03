@@ -5,15 +5,46 @@
 
 <div class="col-6 q-gutter-md text-center items-center">
   <strong>Formulario </strong>
-  <br/>
-<q-input standout v-model="text" label="Nombre"   style="width: 30%"  />
+      <div class="row">
+        <div class="col-6">
+          <div class="row justify-between q-gutter-md">
 
-<q-input standout v-model="text" label="Nombre-Jugadores" style="width: 30%" />
+            <q-input
+              filled
+              v-model="name"
+              label="Ingrese su NombreEntrenador "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Nombre',
+              ]"
+              style="width: 47%"
+            />
 
-          <q-btn color="primary" label="Crear" />
+            <q-input
+              filled
+              v-model="nombrejugadores"
+              label="Ingrese el NombreJugadores"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese el  Nombre-Jugadores',
+              ]"
+            />
+          </div>
+        </div>
+      </div>
+
+
+<div class="col-6 q-gutter-md text-center items-center">
+
+        <q-btn color="primary" label="Crear" />
           <q-btn color="secondary" label="Leer " />
           <q-btn color="amber" label="Actualizar" />
           <q-btn color="red" label="Borrar" />
+
+  </div>
 
         </div>
         <br/>

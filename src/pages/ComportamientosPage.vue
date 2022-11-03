@@ -1,27 +1,63 @@
 
 <template>
   <q-page padding >
-    <div class="q-pa-md" >
-      <q-table :rows="rows" :columns="columns" row-key="name" />
-
-    </div>
+    <div class="q-pa-md">
 
 
+      <strong>Formulario </strong>
+      <div class="row">
+        <div class="col-6">
+          <div class="row justify-between q-gutter-md">
 
-<div class="col-6 q-gutter-md text-center items-center">
-  <strong>Formulario </strong>
-  <br/>
-<q-input standout v-model="text" label="Descripcion"   style="width: 30%"  />
+            <q-input
+              filled
+              v-model="descripcion"
+              label="Ingrese su Descripcion "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Descripcion',
+              ]"
+              style="width: 47%"
+            />
 
-<q-input standout v-model="text" label="Nombre-Jugadores" style="width: 30%" />
-<q-input standout v-model="text" label="Nombre-Arbitros" style="width: 30%" />
+            <q-input
+              filled
+              v-model="nombrejugadores"
+              label="Ingrese el Nombre-Jugadores"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Nombre-Jugadores',
+              ]"
+            />
+          </div>
+
+          <q-input
+              filled
+              v-model="nombrearbitros"
+              label="Ingrese el Nombre-Arbitros"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Nombre-Arbitros',
+              ]"
+            />
+          </div>
+        </div>
+        <div class="col-6 q-gutter-md text-center items-center">
 
           <q-btn color="primary" label="Crear" />
           <q-btn color="secondary" label="Leer " />
           <q-btn color="amber" label="Actualizar" />
           <q-btn color="red" label="Borrar" />
+
         </div>
 
+      <q-table :rows="rows" :columns="columns" row-key="name" />
+    </div>
   </q-page>
 </template>
 

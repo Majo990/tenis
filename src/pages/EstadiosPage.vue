@@ -1,17 +1,96 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-table :rows="rows" :columns="columns" row-key="name" />
-    </div>
+      <strong>Formulario </strong>
+      <div class="row">
+        <div class="col-6">
+          <div class="row justify-between q-gutter-md">
 
-    <br />
-    <strong>Formulario </strong>
+            <q-input
+              filled
+              v-model="name"
+              label="Ingrese su Nombre "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Nombre',
+              ]"
+              style="width: 47%"
+            />
+
+            <q-input
+              filled
+              v-model="pais"
+              label="Ingrese su Pais"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Pais',
+              ]"
+            />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
+            <q-input
+              filled
+              v-model="ciudad"
+              label="Ingrese su Ciudad"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+              ]"
+            />
+
+            <q-input
+              filled
+              v-model="nombrejugador"
+              label="Ingrese su Nombre-Jugador"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Nombre-Jugador',
+              ]"
+            />
+
+            <q-input
+              filled
+              v-model="cancha"
+              label="Ingrese su Cancha"
+              lazy-rules
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Cancha',
+              ]"
+            />
+
+          </div>
+
+            <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn color="primary" label="Crear" />
+          <q-btn color="secondary" label="Leer " />
+          <q-btn color="amber" label="Actualizar" />
+          <q-btn color="red" label="Borrar" />
+            </div>
+          </div>
+        </div>
+      </div>
+    <br/>
+
+      <q-table :rows="rows" :columns="columns" row-key="name" />
+
   </q-page>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { getEstadios } from "../services";
+
+
 const columns = [
   {
     name: "nombre",

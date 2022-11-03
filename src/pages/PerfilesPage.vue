@@ -95,14 +95,24 @@
                 (val && val.length > 0) || 'Por favor ingrese su Nacionalidad',
             ]"
           />
+
          </div>
 
          <div class="row justify-between q-gutter-md">
-          <q-input v-model="email" filled type="email" hint="Email"  style="width: 47%" />
+          <q-input v-model="email" filled type="email" hint="Email"  style="width: 47%"
+          lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) || 'Por favor ingrese su Email',
+            ]"/>
          </div>
 
-         <q-input v-model="email" filled type="Direccion" hint="Direccion" style="width: 47%" />
-          <q-icon name="fa-light fa-location-dot" @click="text = ''"/>
+         <q-input v-model="direccion" filled type="Direccion" hint="Direccion" style="width: 47%" />
+          <q-icon name="fa-light fa-location-dot" @click="text = ''"             lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) || 'Por favor ingrese su Direccion',
+            ]"/>
         </div>
            <br/>
           <div class="row justify-between q-gutter-md">
@@ -155,12 +165,12 @@
         </div>
 
     </q-form>
-
+  <br/>
     <q-table :rows="rows" :columns="columns" row-key="name" />
   </q-page>
 </template>
 
-<script >
+<script  >
 import { useQuasar } from "quasar";
 
 import { ref, onMounted } from "vue";
