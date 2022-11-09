@@ -5,7 +5,6 @@
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
-
             <q-input
               filled
               v-model="name"
@@ -17,16 +16,78 @@
               ]"
               style="width: 47%"
             />
+            <q-select
+              filled
+              v-model="model"
+              :options="os"
+              style="width: 47%"
+              label="Seleccione Nombre Jugadores "
+            />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
+            <q-select
+              filled
+              v-model="model"
+              :options="p"
+              style="width: 47%"
+              label="Seleccione su Cancha "
+            />
+
+            <q-select
+              filled
+              v-model="model"
+              :options="ns"
+              style="width: 47%"
+              label="Seleccione Departamento "
+            />
+            </div>
+<br/>
+          <div class="row justify-between q-gutter-md">
+            <q-select
+              filled
+              v-model="model"
+              :options="ops"
+              style="width: 47%"
+              label="Seleccione cesped "
+            />
 
             <q-input
               filled
-              v-model="pais"
-              label="Ingrese su Pais"
+              v-model="name"
+              label="Ingrese su Administrador "
               lazy-rules
-              style="width: 47%"
               :rules="[
                 (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Pais',
+                  (val && val.length > 0) ||
+                  'Por favor ingrese su NombreAdminsitra',
+              ]"
+              style="width: 47%"
+            />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
+            <q-input
+              filled
+              v-model="name"
+              label="Ingrese el Nombre Propietario "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) ||
+                  'Por favor ingrese su NombrePropietario',
+              ]"
+              style="width: 47%"
+            />
+
+            <q-input
+              ref="inputRef"
+              filled
+              v-model="model9"
+              label="Ingrese su Ubigeo"
+              style="width: 47%"
+              :rules="[
+                (val) => val.length <= 8 || 'Por favor ingrse su Ubigeo',
               ]"
             />
           </div>
@@ -34,62 +95,60 @@
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
-              v-model="ciudad"
-              label="Ingrese su Ciudad"
+              v-model="name"
+              label="Ingrese su Direccion  "
               lazy-rules
-              style="width: 47%"
               :rules="[
                 (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                  (val && val.length > 0) || 'Por favor ingrese su Direccion',
               ]"
+              style="width: 47%"
             />
 
-            <q-input
+            <q-select
               filled
-              v-model="nombrejugador"
-              label="Ingrese su Nombre-Jugador"
-              lazy-rules
+              v-model="model"
+              :options="options"
               style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre-Jugador',
-              ]"
+              label="Seleccione su Pais "
             />
-
-            <q-input
-              filled
-              v-model="cancha"
-              label="Ingrese su Cancha"
-              lazy-rules
-              style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Cancha',
-              ]"
-            />
-
           </div>
 
-            <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn color="primary" label="Crear" />
-          <q-btn color="secondary" label="Leer " />
-          <q-btn color="amber" label="Actualizar" />
-          <q-btn color="red" label="Borrar" />
-            </div>
+          <div class="row justify-between q-gutter-md">
+            <q-select
+              filled
+              v-model="model"
+              :options="options"
+              style="width: 47%"
+              label="Seleccione su Ciudades "
+            />
+
+            <q-select
+              filled
+              v-model="model"
+              :options="options"
+              style="width: 47%"
+              label="Seleccione su Provincia "
+            />
+          </div>
+<br/>
+          <div class="col-6 q-gutter-md text-center items-center">
+            <q-btn color="primary" label="Crear" />
+            <q-btn color="secondary" label="Leer " />
+            <q-btn color="amber" label="Actualizar" />
+            <q-btn color="red" label="Borrar" />
           </div>
         </div>
       </div>
-    <br/>
-
-      <q-table :rows="rows" :columns="columns"  row-key="name"  separator="cell" />
-
+    </div>
+    <br />
+    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
   </q-page>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { getEstadios } from "../services";
-
 
 const columns = [
   {
@@ -101,33 +160,85 @@ const columns = [
     sortable: true,
   },
   {
-    name: "pais",
-    align: "center",
-    label: "Pais",
-    field: "pais",
-    sortable: true,
-  },
-  {
-    name: "ciudad",
-    align: "center",
-    label: "Ciudad",
-    field: "ciudad",
-    sortable: true,
-  },
-  {
     name: "id_jugadores",
     align: "center",
     label: "Nombre-Jugadores",
     field: "nombre_jugadores",
     sortable: true,
   },
+
   {
     name: "cancha",
     align: "center",
-    label: "cancha",
+    label: "Cancha",
     field: "cancha",
     sortable: true,
   },
+  {
+    name: "cancha",
+    align: "center",
+    label: "Cancha",
+    field: "cancha",
+    sortable: true,
+  },
+
+  {
+    name: "cesped",
+    align: "center",
+    label: "Cesped",
+    field: "cesped",
+    sortable: true,
+  },
+  {
+    name: "administrador",
+    align: "center",
+    label: "Administradores",
+    field: "adminsitrador",
+    sortable: true,
+  },
+  {
+    name: "propietario",
+    align: "center",
+    label: "Propietario",
+    field: "propietario",
+    sortable: true,
+  },
+  {
+    name: "ubigeo",
+    align: "center",
+    label: "Ubigeo",
+    field: "ubigeo",
+    sortable: true,
+  },
+  {
+    name: "direccion",
+    align: "center",
+    label: "Direccion",
+    field: "direccion",
+    sortable: true,
+  },
+  {
+    name: "id_paises",
+    align: "center",
+    label: "Nombre-Paises",
+    field: "id_paises",
+    sortable: true,
+  },
+  {
+    name: "id_ciudades",
+    align: "center",
+    label: "Nombre-Ciudades",
+    field: "nombre_ciudades",
+    sortable: true,
+  },
+  {
+    name: "id_provincia",
+    align: "center",
+    label: "Nombre-Provincia",
+    field: "nombre_provincia",
+    sortable: true,
+  },
+
 ];
 
 const rows = ref([]);

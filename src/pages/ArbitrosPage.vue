@@ -1,59 +1,241 @@
-
 <template>
   <div class="q-pa-md">
     <q-page padding>
-    <div class="q-pa-md">
+      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <div class="q-pa-md">
+        <strong>Formulario </strong>
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                v-model="nombrearbitro"
+                label="Ingrese su Nombre arbitro "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su NombreArbitr',
+                ]"
+                style="width: 47%"
+              />
+              <q-input
+                filled
+                v-model="nombrearbitro"
+                label="Ingrese su Apellido "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Apellido',
+                ]"
+                style="width: 47%"
+              />
+            </div>
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                type="number"
+                v-model="age"
+                label="Selecione Edad"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Please type your age',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor selecione su edad',
+                ]"
+              />
+                <q-select
+                  filled
+                  v-model="model"
+                  :options="options"
+                  style="width: 348px"
+                  label="Seleccione sexo "
+                  lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Por favor seleccione su sexo',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor selecione su sexo',
+                ]"
+                />
+              <!-- <div  class="q-pa-md" style="max-width: 300px">-->
 
-      <strong>Formulario </strong>
-      <div class="row">
-        <div class="col-6">
-          <div class="row justify-between q-gutter-md">
+                    <q-input
+                      filled
+                      v-model="price"
+                      style="width: 47%"
+                      label="Ingrese su Altura"
+                      mask="#.##"
+                      fill-mask="0"
+                      reverse-fill-mask
+                      input-class="text-right"
+                      suffix="m"
+                      lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Please type your age',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor ingrese altura',
+                ]"
+                    ></q-input>
+                    <q-input
+                      filled
+                      v-model="price"
+                      style="width: 47%"
+                      label="Ingrese su Peso"
+                      mask="#.##"
+                      fill-mask="0"
+                      reverse-fill-mask
+                      input-class="text-right"
+                      suffix="kg"
+                      lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Por favor ingrese su peso',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor ingrese su peso',
+                ]"
+                >
+                    </q-input>
 
-            <q-input
-              filled
-              v-model="nombrearbitro"
-              label="Ingrese su Nombre arbitro "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre',
-              ]"
-              style="width: 47%"
-            />
 
+                <!----<q-input
+                  standout
+                  v-model="email"
+                  type="email"
+                  prefix="Email:"
+                  suffix="@gmail.com"
+                  lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Por favor seleccione su email',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor ingrese su email',
+                ]"
+                >
+                  <template v-slot:prepend>
+                     <q-icon name="mail" /
+                  </template>
+                </q-input>-->
+              </div>
+                <q-input
+                  v-model="date"
+                  filled
+                  type="date"
+                  style="width: 47%"
+                  hint="seleccione Fecha Nacimiento"
+                  lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Por favor seleccione su Fecha',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor seleccione su Fecha',
+                ]"
+                />
 
-          </div>
+                <q-select
+                  filled
+                  v-model="models"
+                  :options="pais"
+                  style="width: 47%"
+                  label="Seleccione su Pais "
+                  lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Por favor seleccione su pais',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor seleccione su pais',
+                ]"
+                />
 
+            <div class="row justify-between q-gutter-md">
+                <q-select
+                  filled
+                  v-model="model"
+                  :options="options"
+                  style="width: 47%"
+                  label="Seleccione su Ciudades "
+                  lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Por favor seleccione su ciudad',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor seleccione su ciudad',
+                ]"
+                />
+              </div>
+             </div>
+              </div>
+            </div>
+          </q-form>
+        </q-page>
+  </div>
 
-          <div class="col-6 q-gutter-md text-center items-center">
-
-            <q-btn color="primary" label="Crear" />
-          <q-btn color="secondary" label="Leer " />
-          <q-btn color="amber" label="Actualizar" />
-          <q-btn color="red" label="Borrar" />
-
-          </div>
-        </div>
-      </div>
-    <br/>
-      <q-table
+            <div class="col-6 q-gutter-md text-center items-center">
+              <q-btn color="primary" label="Crear" />
+              <q-btn color="secondary" label="Leer " />
+              <q-btn color="amber" label="Actualizar" />
+              <q-btn color="red" label="Borrar" />
+            </div>
+         <q-table
         :rows="rows"
         :columns="columns"
         row-key="name"
-        separator="cell"
+        separator="cell"/>
 
-      />
-<br/>
-<br/>
 
-    </div>
-    </q-page>
-  </div>
-  </template>
+</template>
 
 <script>
 import { ref, onMounted } from "vue";
 import { getArbitros } from "../services";
+import { useQuasar } from "quasar";
+// eslint-disable-next-line vue/no-export-in-script-setup
+
+// eslint-disable-next-line vue/no-export-in-script-setup
+export default {
+  setup() {
+    const $q = useQuasar();
+
+    const name = ref(null);
+    const age = ref(null);
+    const accept = ref(false);
+
+    return {
+      model: ref(null),
+      options: ["Femenino", "Masculino"],
+
+      models: ref(null),
+      pais: ["Ecuador", "Peru", "Paris", "Argentina", "Chile", "Bolivia"],
+
+      onSubmit() {
+        if (accept.value !== true) {
+          $q.notify({
+            color: "red-5",
+            textColor: "white",
+            icon: "warning",
+            message: "You need to accept the license and terms first",
+          });
+        } else {
+          $q.notify({
+            color: "green-4",
+            textColor: "white",
+            icon: "cloud_done",
+            message: "Submitted",
+          });
+        }
+      },
+      onReset() {
+        name.value = null;
+        age.value = null;
+        accept.value = false;
+      },
+    };
+  },
+};
+
 const columns = [
   {
     name: "name",
@@ -61,21 +243,64 @@ const columns = [
     label: "Nombre",
     align: "left",
     field: "nombre",
-    format: (val) => `${val}`,
     sortable: true,
   },
-  { name: 'id_jugadores', align: 'center', label: 'Nombre-Jugadores', field:'nombre_jugadores', sortable: true },
-]
-
-export default {
-  setup () {
-    return {
-      separator: ref('vertical'),
-      separatorOptions: [
-        { label: 'Cell', value: 'cell' },
-      ]
-    }
-  }
-}
+  {
+    name: "apellido",
+    align: "center",
+    label: "Apellido",
+    field: "apellido_arbitros",
+    sortable: true,
+  },
+  {
+    name: "edad",
+    align: "center",
+    label: "Edad",
+    field: "edad",
+    sortable: true,
+  },
+  {
+    name: "sexo",
+    align: "center",
+    label: "Sexo",
+    field: "sexo",
+    sortable: true,
+  },
+  {
+    name: "altura",
+    align: "center",
+    label: "Altura",
+    field: "altura",
+    sortable: true,
+  },
+  {
+    name: "peso",
+    align: "center",
+    label: "peso",
+    field: "Peso",
+    sortable: true,
+  },
+  {
+    name: "fecha_nacimiento",
+    align: "center",
+    label: "Fecha_Nacimiento",
+    field: "fecha_nacimiento",
+    sortable: true,
+  },
+  {
+    name: "id_paises",
+    align: "center",
+    label: "Nombre-Paises",
+    field: "nombre_paises",
+    sortable: true,
+  },
+  {
+    name: "id_ciudades",
+    align: "center",
+    label: "Nombre-Ciudades",
+    field: "nombre_ciudades",
+    sortable: true,
+  },
+];
 </script>
-
+<style></style>

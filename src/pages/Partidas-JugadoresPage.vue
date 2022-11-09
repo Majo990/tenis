@@ -47,7 +47,13 @@
       </div>
     </q-form>
     <br />
-    <q-table :rows="rows" :columns="columns" row-key="name" :filter="filter"  separator="cell" />
+    <q-table
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      :filter="filter"
+      separator="cell"
+    />
   </q-page>
 </template>
 

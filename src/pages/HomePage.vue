@@ -30,12 +30,10 @@
               <div
                 class="bg-white rounded-borders"
                 style="width: 50px; height: 30px"
-              >
-            </div>
+              ></div>
             </div>
           </q-card-section>
         </q-card>
-
 
         <q-card flat>
           <q-card-section>
@@ -63,8 +61,7 @@
               <div
                 class="bg-white rounded-borders"
                 style="width: 50px; height: 30px"
-              >
-            </div>
+              ></div>
             </div>
           </q-card-section>
         </q-card>
@@ -94,8 +91,7 @@
               <div
                 class="bg-white rounded-borders"
                 style="width: 50px; height: 30px"
-              >
-            </div>
+              ></div>
             </div>
           </q-card-section>
         </q-card>
@@ -125,15 +121,18 @@
               <div
                 class="bg-white rounded-borders"
                 style="width: 50px; height: 30px"
-              >
-            </div>
+              ></div>
             </div>
           </q-card-section>
         </q-card>
 
-
         <h6>Proximos Encuentros:</h6>
-        <q-table :rows="rows" :columns="columns" row-key="name"  separator="cell" />
+        <q-table
+          :rows="rows"
+          :columns="columns"
+          row-key="name"
+          separator="cell"
+        />
       </div>
 
       <div class="col-6 q-col-gutter-md">
@@ -155,7 +154,12 @@
         </div>
         <h8>Resultados</h8>
 
-        <q-table :rows="rows2" :columns="columns2" row-key="name1"  separator="cell" />
+        <q-table
+          :rows="rows2"
+          :columns="columns2"
+          row-key="name1"
+          separator="cell"
+        />
       </div>
     </div>
   </q-page>
@@ -260,17 +264,18 @@ onMounted(async () => {
 </script>
 
 <style>
-col-6 q-col-gutter-md{
+col-6 q-col-gutter-md {
   background-color: aquamarine;
 }
-h2{
+h2 {
   color: rgb(150, 188, 15);
   text-align: center;
   font-size: 89px;
   -webkit-text-stroke: 1.5px rgb(71, 207, 8);
 }
 q-page {
-  background-color: aqua;
+  background-color: #4fb4c8;
+
 }
 
 .card-example {

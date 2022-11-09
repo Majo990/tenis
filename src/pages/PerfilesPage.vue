@@ -39,7 +39,7 @@
               :rules="[
                 (val) => (val !== null && val !== '') || 'Please type your age',
                 (val) =>
-                  (val > 0 && val < 100) || 'Por favor selecione su edad',
+                  (val > 1 && val < 80) || 'Por favor selecione su edad',
               ]"
             />
 
@@ -74,55 +74,62 @@
           </div>
 
           <div class="row justify-between q-gutter-md">
+            <q-input
+              ref="inputRef"
+              filled
+              v-model="model9"
+              label="Ingrese su DNI"
+              style="width: 47%"
+              :rules="[(val) => val.length <= 8 || 'Por favor ingrse su DNI']"
+            />
+
+            <q-input
+              filled
+              v-model="nacionalidad"
+              label="Ingrese su Nacionalidad "
+              style="width: 47%"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) ||
+                  'Por favor ingrese su Nacionalidad',
+              ]"
+            />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
+            <q-input standout v-model="email" type="email" prefix="Email:" suffix="@gmail.com">
+        <template v-slot:prepend>
+          <q-icon name="mail" />
+        </template>
+            </q-input>
+          </div>
 
           <q-input
-            ref="inputRef"
+            v-model="direccion"
             filled
-            v-model="model9"
-            label="Ingrese su DNI"
+            type="Direccion"
+            hint="Direccion"
             style="width: 47%"
-            :rules="[(val) => val.length <= 8 || 'Por favor ingrse su DNI']"
           />
-
-          <q-input
-            filled
-            v-model="nacionalidad"
-            label="Ingrese su Nacionalidad "
-            style="width: 47%"
+          <q-icon
+            name="fa-light fa-location-dot"
+            @click="text = ''"
             lazy-rules
             :rules="[
               (val) =>
-                (val && val.length > 0) || 'Por favor ingrese su Nacionalidad',
+                (val && val.length > 0) || 'Por favor ingrese su Direccion',
             ]"
           />
-
-         </div>
-
-         <div class="row justify-between q-gutter-md">
-          <q-input v-model="email" filled type="email" hint="Email"  style="width: 47%"
-          lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'Por favor ingrese su Email',
-            ]"/>
-         </div>
-
-         <q-input v-model="direccion" filled type="Direccion" hint="Direccion" style="width: 47%" />
-          <q-icon name="fa-light fa-location-dot" @click="text = ''"             lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'Por favor ingrese su Direccion',
-            ]"/>
         </div>
-           <br/>
-          <div class="row justify-between q-gutter-md">
+        <br />
+        <div class="row justify-between q-gutter-md">
           <q-input
             filled
             v-model="phone"
             label="N° Celular"
             mask="(+##) ### - ###- ###"
             hint="Mask: (+##) ### - ###-###"
-
             lazy-rules
             :rules="[
               (val) => (val !== null && val !== '') || 'Por N°Celular',
@@ -141,40 +148,38 @@
               (val) => val.length <= 8 || 'Por favor ingrese su Cod.Postal',
             ]"
           />
-          </div>
+        </div>
 
-
-          <div>
-            <q-btn label="Enviar" type="submit" color="info" />
-            <q-btn
-              label="Restablecer"
-              type="reset"
-              color="negative"
-              flat
-              class="q-ml-sm"
-            />
-            <br />
-          </div>
+        <div>
+          <q-btn label="Enviar" type="submit" color="info" />
+          <q-btn
+            label="Restablecer"
+            type="reset"
+            color="negative"
+            flat
+            class="q-ml-sm"
+          />
           <br />
         </div>
-        <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn color="primary" label="Crear" />
-          <q-btn color="secondary" label="Leer " />
-          <q-btn color="amber" label="Actualizar" />
-          <q-btn color="red" label="Borrar" />
-        </div>
-
+        <br />
+      </div>
+      <div class="col-6 q-gutter-md text-center items-center">
+        <q-btn color="primary" label="Crear" />
+        <q-btn color="secondary" label="Leer " />
+        <q-btn color="amber" label="Actualizar" />
+        <q-btn color="red" label="Borrar" />
+      </div>
     </q-form>
-  <br/>
-    <q-table :rows="rows" :columns="columns" row-key="name"  separator="cell" />
+    <br />
+    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
   </q-page>
 </template>
 
-<script  >
+<script>
 import { useQuasar } from "quasar";
 
 import { ref, onMounted } from "vue";
-import { getPerfiles} from "../services";
+import { getPerfiles } from "../services";
 
 export default {
   setup() {
@@ -218,14 +223,13 @@ export default {
   },
 };
 
-
 const columns = [
   {
     name: "nombre",
     required: true,
     label: "Nombre",
     align: "left",
-     field:"nombre",
+    field: "nombre",
     sortable: true,
   },
   {
@@ -318,8 +322,6 @@ const rows = ref([]);
 onMounted(async () => {
   rows.value = await getPerfiles();
 });
-
-
 </script>
 
 <style>

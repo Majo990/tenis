@@ -34,6 +34,11 @@ const routes = [
       {path:"/usuario",component:()=> import("pages/UsuarioTablePage.vue")},
       {path:"/permisos",component:()=> import("pages/PermisosPage.vue")},
       {path:"/prueba",component:()=> import("pages/PruebaPage.vue")},
+
+      {path:"/provincia",component:()=> import("pages/ProvinciaPage.vue")},
+      {path:"/paises",component:()=> import("pages/PaisesPage.vue")},
+      {path:"/ciudades",component:()=> import("pages/CiudadesPage.vue")},
+
     ],
   },
 

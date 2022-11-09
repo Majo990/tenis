@@ -2,100 +2,105 @@
   <q-page padding>
     <div class="q-pa-md">
       <strong>Formulario </strong>
-
+      <div class="q-gutter-md">
+        <div class="buscador">
+          <q-input v-model="filter" debounce="500" filled placeholder="Buscar">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+          <!-- <q-badge color="teal">Model: "{{ search }}"</q-badge>--->
+        </div>
+      </div>
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
-            <q-input
+            <q-select
               filled
-              v-model="nombre"
-              label="Ingrese el Nombre Jugador "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese su Nombre Jugador',
-              ]"
+              v-model="models"
+              :options="pais"
+              label="Seleccione jugador"
               style="width: 47%"
-            />
-
-            <q-input
-              filled
-              v-model="fechahora"
-              label="Ingrese su Fecha hora ver "
-              lazy-rules
-              style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Fecha-Hora ',
-              ]"
             />
           </div>
 
           <div class="row justify-between q-gutter-md">
-            <q-input
+            <q-select
               filled
-              v-model="nombrejugadores"
-              label="Ingrese su Nro Ronda"
-              lazy-rules
+              v-model="models"
+              :options="pais"
+              label="Seleccione su fecha-hora"
               style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nro Ronda',
-              ]"
             />
 
-            <q-input
+            <q-select
               filled
-              v-model="nombreentrenadores"
-              label="Ingrese el Puntaje"
-              lazy-rules
+              v-model="models"
+              :options="pais"
+              label="Seleccione Nombre ronda"
               style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese el Puntage',
-              ]"
             />
           </div>
 
           <div class="row justify-between q-gutter-md">
-            <q-input
+            <q-select
               filled
-              v-model="nombreeventos"
-              label="Ingrese su Nombre-Eventos"
-              lazy-rules
+              v-model="models"
+              :options="pais"
+              label="Seleccione su Puntaje"
               style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese su NombreEvento',
-              ]"
             />
 
-            <q-input
+            <q-select
               filled
-              v-model="nombrejuez"
-              label="Ingrese el Nombre Juez"
-              lazy-rules
+              v-model="models"
+              :options="pais"
+              label="Seleccione su evento"
               style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese su NombreJueces',
-              ]"
+            />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
+            <q-select
+              filled
+              v-model="models"
+              :options="pais"
+              label="Seleccione su Nombre Juez"
+              style="width: 47%"
             />
 
-            <q-input
+            <q-select
               filled
-              v-model="nombrejuez"
-              label="Ingrese el Nombre Premios"
-              lazy-rules
+              v-model="models"
+              :options="pais"
+              label="Seleccione su Nombre Premio"
               style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese el Nombre Premios',
-              ]"
+            />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
+            <q-select
+              filled
+              v-model="models"
+              :options="pais"
+              label="Seleccione su Nombre Faltas"
+              style="width: 47%"
+            />
+
+            <q-select
+              filled
+              v-model="models"
+              :options="pais"
+              label="Seleccione su Nombre Partidas"
+              style="width: 47%"
+            />
+
+            <q-select
+              filled
+              v-model="models"
+              :options="pais"
+              label="Seleccione su Nombre Arbitros "
+              style="width: 47%"
             />
           </div>
         </div>
@@ -108,7 +113,12 @@
       </div>
       <br />
 
-      <q-table :rows="rows" :columns="columns" row-key="name"  separator="cell"/>
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        row-key="name"
+        separator="cell"
+      />
     </div>
   </q-page>
 </template>
@@ -166,6 +176,27 @@ const columns = [
     field: "nombre_Premios",
     sortable: true,
   },
+  {
+    name: "id_faltas",
+    align: "center",
+    label: "Nombre-Faltas",
+    field: "nombre_Faltas",
+    sortable: true,
+  },
+  {
+    name: "id_partidas",
+    align: "center",
+    label: "Nombre-Partidas",
+    field: "nombre_Partidas",
+    sortable: true,
+  },
+  {
+    name: "id_arbitros",
+    align: "center",
+    label: "Nombre-Arbitros",
+    field: "nombre_Arbitros",
+    sortable: true,
+  },
 ];
 
 const rows = ref([]);
@@ -178,5 +209,8 @@ onMounted(async () => {
 .q-table {
   color: grey;
   background-color: hsl(189, 84%, 71%);
+}
+.buscador {
+  width: 600px;
 }
 </style>

@@ -20,19 +20,14 @@
       <q-btn color="red" label="Borrar" />
     </div>
     <br />
-    <br/>
-    <q-table
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-      separator="cell"
-    />
+    <br />
+    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { getUsuarios} from "../services";
+import { getUsuarios } from "../services";
 const columns = [
   {
     name: "usuarios",

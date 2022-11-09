@@ -3,7 +3,7 @@
     <div class="q-pa-md">
       <strong>Formulario </strong>
       <div class="row">
-        <div class="col-6">
+        <div  class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
@@ -16,46 +16,48 @@
               ]"
               style="width: 47%"
             />
-
-            <q-input
-              filled
-              v-model="nombrejugadores"
-              label="Ingrese el Nombre-Jugadores"
-              lazy-rules
-              style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese su Nombre-Jugadores',
-              ]"
-            />
+            <q-select
+                  filled
+                  v-model="model"
+                  :options="jugadores"
+                  style="width: 47%"
+                  label="Seleccione Nombre Jugadores "
+                />
           </div>
 
-          <q-input
-            filled
-            v-model="nombrearbitros"
-            label="Ingrese el Nombre-Arbitros"
-            lazy-rules
-            style="width: 47%"
-            :rules="[
-              (val) =>
-                (val && val.length > 0) ||
-                'Por favor ingrese su Nombre-Arbitros',
-            ]"
-          />
+          <div class="row justify-between q-gutter-md">
+
+          <q-select
+                  filled
+                  v-model="model"
+                  :options="arbitro"
+                  style="width: 47%"
+                  label="Seleccione Nombre Arbitro"
+                />
+                <q-select
+                  filled
+                  v-model="model"
+                  :options="sancion"
+                  style="width: 47%"
+                  label="Seleccione Nombre Sancion"
+                />
+          </div>
         </div>
       </div>
+<br/>
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn color="primary" label="Crear" />
         <q-btn color="secondary" label="Leer " />
         <q-btn color="amber" label="Actualizar" />
         <q-btn color="red" label="Borrar" />
+        <br/>
+         <q-table
+        :rows="rows"
+        :columns="columns"
+        row-key="name"
+        separator="cell"
+      />
       </div>
-
-      <q-markup-table separator="cell">
-        
-      </q-markup-table>
-
     </div>
   </q-page>
 </template>
@@ -86,6 +88,13 @@ const columns = [
     field: "nombre_arbitros",
     sortable: true,
   },
+  {
+    name: "id_sanciones",
+    align: "center",
+    label: "Nombre-Sancion",
+    field: "nombre_sancion",
+    sortable: true,
+  },
 ];
 
 const rows = ref([]);
@@ -97,7 +106,7 @@ onMounted(async () => {
 
 <style>
 .q-table {
-  color: grey;
+  color: rgb(26, 25, 24);
   background-color: #f3eb77;
 }
 </style>

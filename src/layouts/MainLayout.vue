@@ -190,6 +190,25 @@ const linksList = [
     link: "/Roles",
   },
 
+  {
+    title: "Paises",
+    icon: "fa-solid fa-earth-americas",
+    link: "/Paises",
+  },
+
+  {
+    title: "Ciudades",
+    icon: "fa-solid fa-city",
+    link: "/Ciudades",
+  },
+
+  {
+    title: "Provincia",
+    icon: "fa-solid fa-flag"
+
+
+  },
+
 ];
 
 export default defineComponent({

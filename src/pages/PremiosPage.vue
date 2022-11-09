@@ -1,82 +1,64 @@
 <template>
   <q-page padding>
-    <q-form  @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-    <div  class="q-pa-md">
-      <strong>Formulario </strong>
-      <div class="row">
-        <div class="col-6">
-          <div  class="row justify-between q-gutter-md">
+    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <div class="q-pa-md">
+        <strong>Formulario </strong>
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                v-model="nombrepremio"
+                label="Ingrese su Nombre Premio "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su Nombre Premio',
+                ]"
+                style="width: 47%"
+              />
 
-            <q-input
-              filled
-              v-model="nombrepremio"
-              label="Ingrese su Nombre Premio "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre Premio',
-              ]"
-              style="width: 47%"
-            />
-
-            <q-select
-              filled
-              v-model="model"
-              :options="options"
-              style="width: 47%"
-              label="Seleccione el Tipo Premio "
-            />
-
-
-            <q-input v-model="tel" filled type="tel" lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese el Stock',
-              ]"
-              style="width: 47%" hint="Stock" />
-              </div>
-            </div>
+              <q-select
+                filled
+                v-model="model"
+                :options="premio"
+                style="width: 47%"
+                label="Seleccione el Tipo Premio "
+              />
+                        </div>
           </div>
-    </div>
-    <div class="col-6 q-gutter-md text-center items-center">
-
-           <q-btn color="primary" label="Crear" />
-          <q-btn color="secondary" label="Leer " />
-         <q-btn color="amber" label="Actualizar" />
-           <q-btn color="red" label="Borrar" />
-    </div>
-
-
+        </div>
+      </div>
+      <div class="col-6 q-gutter-md text-center items-center">
+        <q-btn color="primary" label="Crear" />
+        <q-btn color="secondary" label="Leer " />
+        <q-btn color="amber" label="Actualizar" />
+        <q-btn color="red" label="Borrar" />
+      </div>
     </q-form>
 
-      <q-table :rows="rows" :columns="columns" row-key="name" />
-
+    <q-table :rows="rows" :columns="columns" row-key="name" />
   </q-page>
 </template>
 
-<script setup>
+<script >
 import { ref, onMounted } from "vue";
-import { getPremios} from "../services";
+import { getPremios } from "../services";
 
-
-const [(nombrepremio)] {
+export default{
   setup() {
-    const $q = useQuasar();
+return {
+  model: ref(null),
+  premio: ["Viaje", "Medallas","Dolares","Soles"],
 
-    return {
-      model: ref(null),
-      options: ["Dinero", "Medallas Oro", "Medallas Plata", "Medallas Bronce","Viajes"],
-
-
-
-      onReset() {
-        nombrepremio.value = null;
-        age.value = null;
-        accept.value = false;
-    },
-  };
-},
+  models: ref(null),
+  pais: ["Ecuador", "Peru", "Paris", "Argentina", "Chile", "Bolivia"],
 };
+  },
+}
+
+
 
 
 const columns = [
@@ -85,7 +67,7 @@ const columns = [
     required: true,
     label: "Nombre",
     align: "left",
-     field:"nombre",
+    field: "nombre",
     sortable: true,
   },
   {
