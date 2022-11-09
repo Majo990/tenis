@@ -1,4 +1,6 @@
+
 <template>
+  <div class="q-pa-md">
     <q-page padding>
     <div class="q-pa-md">
 
@@ -19,17 +21,7 @@
               style="width: 47%"
             />
 
-            <q-input
-              filled
-              v-model="nombresanciones"
-              label="Ingrese el Nombre-Sanciones"
-              lazy-rules
-              style="width: 47%"
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre-Sanciones',
-              ]"
-            />
+
           </div>
 
 
@@ -48,16 +40,18 @@
         :rows="rows"
         :columns="columns"
         row-key="name"
-        separator="vertical"
+        separator="cell"
+
       />
 <br/>
 <br/>
 
     </div>
     </q-page>
-</template>
+  </div>
+  </template>
 
-<script setup>
+<script>
 import { ref, onMounted } from "vue";
 import { getArbitros } from "../services";
 const columns = [
@@ -70,18 +64,18 @@ const columns = [
     format: (val) => `${val}`,
     sortable: true,
   },
-  {
-    name: "id_sanciones",
-    align: "center",
-    label: "Nombre-Sanciones",
-    field: "nombre_sanciones",
-    sortable: true,
-  },
-];
+  { name: 'id_jugadores', align: 'center', label: 'Nombre-Jugadores', field:'nombre_jugadores', sortable: true },
+]
 
-const rows = ref([]);
-
-onMounted(async () => {
-  rows.value = await getArbitros();
-});
+export default {
+  setup () {
+    return {
+      separator: ref('vertical'),
+      separatorOptions: [
+        { label: 'Cell', value: 'cell' },
+      ]
+    }
+  }
+}
 </script>
+

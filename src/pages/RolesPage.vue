@@ -31,7 +31,7 @@
 </div>
 </q-form>
 <br/>
-<q-table :rows="rows" :columns="columns" row-key="name" />
+<q-table :rows="rows" :columns="columns" row-key="name"  separator="cell"/>
   </q-page>
 </template>
 

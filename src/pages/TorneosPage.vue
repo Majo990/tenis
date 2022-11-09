@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-table :rows="rows" :columns="columns" row-key="name" />
+      <q-table :rows="rows" :columns="columns" row-key="name"  separator="cell" />
     </div>
   </q-page>
 </template>

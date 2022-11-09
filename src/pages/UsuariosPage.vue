@@ -25,7 +25,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
-      separator="vertical"
+      separator="cell"
     />
   </div>
 </template>

@@ -190,11 +190,6 @@ const linksList = [
     link: "/Roles",
   },
 
-  {
-    title: "Prueba",
-    icon:"",
-    link: "/Prueba",
-  },
 ];
 
 export default defineComponent({

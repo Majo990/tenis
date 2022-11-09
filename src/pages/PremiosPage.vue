@@ -58,8 +58,8 @@
 import { ref, onMounted } from "vue";
 import { getPremios} from "../services";
 
-/*
-export default {
+
+const [(nombrepremio)] {
   setup() {
     const $q = useQuasar();
 
@@ -70,7 +70,7 @@ export default {
 
 
       onReset() {
-        name.value = null;
+        nombrepremio.value = null;
         age.value = null;
         accept.value = false;
     },
@@ -78,7 +78,6 @@ export default {
 },
 };
 
-*/
 
 const columns = [
   {

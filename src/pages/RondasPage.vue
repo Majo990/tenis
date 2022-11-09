@@ -25,7 +25,7 @@
 <q-btn color="red" label="Borrar" />
 
 </div>
-      <q-table :rows="rows" :columns="columns" row-key="name" />
+      <q-table :rows="rows" :columns="columns" row-key="name"  separator="cell"/>
       </q-form>
     </q-page>
   </q-page>
