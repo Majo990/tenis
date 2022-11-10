@@ -37,18 +37,19 @@
                   filled
                   v-model="model"
                   :options="options"
-                  style="width: 47%"
+                  style="width:80%"
                   label="Seleccione Nombre Jugadores "
                 />
                 <q-select
                   filled
                   v-model="model"
                   :options="options"
-                  style="width: 47%"
+                  style="width: 80%"
                   label="Seleccione Nombre Torneo"
                 />
               </div>
 
+              <div class="row justify-between q-gutter-md">
               <div class="q-gutter-sm row">
                 <q-input
                   filled
@@ -75,6 +76,7 @@
                             type="time"
                             hint="Tiempo-Duracion"
                           />
+                        </q-time>
 
                           <q-input
                             filled
@@ -109,6 +111,7 @@
                             </template>
                           </q-input>
                         </q-time>
+                    </div>
                       </q-popup-proxy>
                     </q-icon>
                   </template>
@@ -190,6 +193,7 @@ const columns = [
     field: "nro_rondas",
     sortable: true,
   },
+
 ];
 
 const rows = ref([]);

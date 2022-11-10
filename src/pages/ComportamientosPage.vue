@@ -41,16 +41,18 @@
                   style="width: 47%"
                   label="Seleccione Nombre Sancion"
                 />
+                <br/>
           </div>
         </div>
       </div>
-<br/>
+      <br/>
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn color="primary" label="Crear" />
         <q-btn color="secondary" label="Leer " />
         <q-btn color="amber" label="Actualizar" />
         <q-btn color="red" label="Borrar" />
         <br/>
+
          <q-table
         :rows="rows"
         :columns="columns"

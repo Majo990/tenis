@@ -33,66 +33,23 @@
               />
             </div>
             <div class="row justify-between q-gutter-md">
-              <q-input
+              <q-select
                 filled
-                type="number"
-                v-model="age"
-                label="Ingrese Nombre Entrenadores"
+                v-model="models"
+                :options="pais"
                 style="width: 47%"
+                label="Seleccione su Nombre Entrenador "
+                lazy-rules
                 :rules="[
                   (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su NombreEntrenadores',
+                    (val !== null && val !== '') ||
+                    'Por favor seleccione su pais',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor seleccione su pais',
                 ]"
               />
 
-              <div class="row justify-between q-gutter-md">
-                <q-select
-                  filled
-                  v-model="models"
-                  :options="pais"
-                  label="Seleccione su Pais"
-                  style="width: 47%"
-                />
-
-                <q-input
-                  filled
-                  v-model="ciudad"
-                  label="Ingrese su  Ciudad"
-                  style="width: 47%"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                  ]"
-                />
-              </div>
-
-              <div class="row justify-between q-gutter-md">
-                <q-input
-                  ref="inputRef"
-                  filled
-                  v-model="model9"
-                  label="Ingrese su DNI"
-                  style="width: 47%"
-                  :rules="[
-                    (val) => val.length <= 8 || 'Por favor ingrse su DNI',
-                  ]"
-                />
-
-                <q-input
-                  filled
-                  v-model="sancion"
-                  label="Ingrese su NombreSancion "
-                  style="width: 47%"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su NombreSancion',
-                  ]"
-                />
-                <q-input
+              <q-input
                 filled
                 type="number"
                 v-model="age"
@@ -106,25 +63,203 @@
                     (val > 1 && val < 80) || 'Por favor selecione su edad',
                 ]"
               />
-
-              </div>
             </div>
-          </div>
 
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn color="primary" label="Crear" />
-            <q-btn color="secondary" label="Leer " />
-            <q-btn color="amber" label="Actualizar" />
-            <q-btn color="red" label="Borrar" />
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                v-model="model"
+                :options="options"
+                style="width: 348px"
+                label="Seleccione sexo "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') ||
+                    'Por favor seleccione su sexo',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor selecione su sexo',
+                ]"
+              />
+
+              <q-select
+                filled
+                v-model="model"
+                :options="options"
+                style="width: 348px"
+                label="Seleccione Arbitros "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') ||
+                    'Por favor seleccione su arbitro',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor selecione arbitro',
+                ]"
+              />
+            </div>
+
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                v-model="model"
+                :options="options"
+                style="width: 348px"
+                label="Seleccione equipos "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') ||
+                    'Por favor seleccione su equipos',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor selecione su equipos',
+                ]"
+              />
+              <q-select
+                filled
+                v-model="model"
+                :options="options"
+                style="width: 348px"
+                label="Seleccione torneos "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') ||
+                    'Por favor seleccione su torneos',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor selecione su torneos',
+                ]"
+              />
+            </div>
+
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                v-model="model"
+                :options="options"
+                style="width: 348px"
+                label="Seleccione NombreSancion "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') ||
+                    'Por favor seleccione su nombresancion',
+                  (val) =>
+                    (val > 1 && val < 80) ||
+                    'Por favor selecione su nombre-sancion',
+                ]"
+              />
+              <q-input
+                filled
+                v-model="price"
+                style="width: 47%"
+                label="Ingrese su Altura"
+                mask="#.##"
+                fill-mask="0"
+                reverse-fill-mask
+                input-class="text-right"
+                suffix="m"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Please type your age',
+                  (val) => (val > 1 && val < 80) || 'Por favor ingrese altura',
+                ]"
+              ></q-input>
+            </div>
+
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                v-model="price"
+                style="width: 47%"
+                label="Ingrese su Peso"
+                mask="#.##"
+                fill-mask="0"
+                reverse-fill-mask
+                input-class="text-right"
+                suffix="kg"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Por favor ingrese su peso',
+                  (val) => (val > 1 && val < 80) || 'Por favor ingrese su peso',
+                ]"
+              >
+              </q-input>
+              <q-select
+                filled
+                v-model="models"
+                :options="pais"
+                label="Seleccione su Pais"
+                style="width: 47%"
+              />
+            </div>
+
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                v-model="ciudad"
+                label="Ingrese su  Ciudad"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                ]"
+              />
+
+              <q-input
+                filled
+                v-model="name"
+                label="Ingrese posicion "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su posicion',
+                ]"
+                style="width: 47%"
+              />
+              <q-select
+                filled
+                v-model="models"
+                :options="pais"
+                label="Seleccione su pais reside"
+                style="width: 47%"
+              />
+            </div>
+
+            <!---    <div class="row justify-between q-gutter-md">
+                <q-input
+                  ref="inputRef"
+                  filled
+                  v-model="model9"
+                  label="Ingrese su DNI"
+                  style="width: 47%"
+                  :rules="[
+                    (val) => val.length <= 8 || 'Por favor ingrse su DNI',
+                  ]"
+                />
+        -->
+        <br/>
+
+            <div class="col-6 q-gutter-md text-center items-center">
+              <q-btn color="primary" label="Crear" />
+              <q-btn color="secondary" label="Leer " />
+              <q-btn color="amber" label="Actualizar" />
+              <q-btn color="red" label="Borrar" />
+
+              <br />
+            </div>
+            <br/>
+            <q-table
+              :rows="rows"
+              :columns="columns"
+              row-key="name"
+              separator="cell"
+            />
           </div>
-          <br />
         </div>
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          row-key="name"
-          separator="cell"
-        />
       </q-form>
     </div>
   </q-page>
@@ -220,7 +355,35 @@ const columns = [
     field: "Peso",
     sortable: true,
   },
+  {
+    name: "id_paises",
+    align: "center",
+    label: "Nombre-Paises",
+    field: "nombre_paises",
+    sortable: true,
+  },
+  {
+    name: "id_ciudades",
+    align: "center",
+    label: "Nombre-Ciudades",
+    field: "nombre_ciudades",
+    sortable: true,
+  },
+  {
+    name: "posicion",
+    align: "center",
+    label: "Posicon",
+    field: "posicion",
+    sortable: true,
+  },
 
+  {
+    name: "reside_paises",
+    align: "center",
+    label: "Residencia",
+    field: "reside_paises",
+    sortable: true,
+  },
 ];
 
 const rows = ref([]);

@@ -120,20 +120,24 @@
                   </template>
                 </q-input>-->
               </div>
-                <q-input
-                  v-model="date"
-                  filled
-                  type="date"
-                  style="width: 47%"
-                  hint="seleccione Fecha Nacimiento"
-                  lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Por favor seleccione su Fecha',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor seleccione su Fecha',
-                ]"
-                />
+              <div class="q-pa-md" style="max-width: 300px">
+    <q-input filled v-model="date" mask="date" :rules="['date']">
+      <template v-slot:append>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+            <q-date v-model="date">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+  </div>
+          </div>
+        </div>
+
 
                 <q-select
                   filled
@@ -149,7 +153,7 @@
                     (val > 1 && val < 80) || 'Por favor seleccione su pais',
                 ]"
                 />
-
+              </div>
             <div class="row justify-between q-gutter-md">
                 <q-select
                   filled
@@ -166,12 +170,6 @@
                 ]"
                 />
               </div>
-             </div>
-              </div>
-            </div>
-          </q-form>
-        </q-page>
-  </div>
 
             <div class="col-6 q-gutter-md text-center items-center">
               <q-btn color="primary" label="Crear" />
@@ -179,19 +177,25 @@
               <q-btn color="amber" label="Actualizar" />
               <q-btn color="red" label="Borrar" />
             </div>
+            <br/>
          <q-table
         :rows="rows"
         :columns="columns"
         row-key="name"
         separator="cell"/>
 
-
+          </q-form>
+        </q-page>
+  </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
 import { getArbitros } from "../services";
 import { useQuasar } from "quasar";
+import {ref} from 'vue';
+
+
 // eslint-disable-next-line vue/no-export-in-script-setup
 
 // eslint-disable-next-line vue/no-export-in-script-setup
@@ -206,6 +210,13 @@ export default {
     return {
       model: ref(null),
       options: ["Femenino", "Masculino"],
+
+      return {
+      date: ref('2019/02/01')
+            };
+
+
+
 
       models: ref(null),
       pais: ["Ecuador", "Peru", "Paris", "Argentina", "Chile", "Bolivia"],
@@ -235,6 +246,9 @@ export default {
     };
   },
 };
+
+
+
 
 const columns = [
   {

@@ -12,6 +12,8 @@
           <!-- <q-badge color="teal">Model: "{{ search }}"</q-badge>--->
         </div>
       </div>
+      <br />
+
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
@@ -22,9 +24,7 @@
               label="Seleccione jugador"
               style="width: 47%"
             />
-          </div>
 
-          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -32,7 +32,10 @@
               label="Seleccione su fecha-hora"
               style="width: 47%"
             />
+          </div>
+          <br/>
 
+          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -40,9 +43,6 @@
               label="Seleccione Nombre ronda"
               style="width: 47%"
             />
-          </div>
-
-          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -50,7 +50,9 @@
               label="Seleccione su Puntaje"
               style="width: 47%"
             />
-
+          </div>
+          <br/>
+          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -58,9 +60,6 @@
               label="Seleccione su evento"
               style="width: 47%"
             />
-          </div>
-
-          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -68,7 +67,9 @@
               label="Seleccione su Nombre Juez"
               style="width: 47%"
             />
-
+          </div>
+          <br/>
+          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -76,9 +77,7 @@
               label="Seleccione su Nombre Premio"
               style="width: 47%"
             />
-          </div>
 
-          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -86,7 +85,10 @@
               label="Seleccione su Nombre Faltas"
               style="width: 47%"
             />
+          </div>
+          <br/>
 
+          <div class="row justify-between q-gutter-md">
             <q-select
               filled
               v-model="models"
@@ -140,7 +142,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-  },
+  }, //ya esta
   {
     name: "id_rondas",
     align: "center",
@@ -154,7 +156,7 @@ const columns = [
     label: "Puntaje",
     field: "puntaje",
     sortable: true,
-  },
+  }, //ya esta
   {
     name: "id_eventos",
     align: "center",

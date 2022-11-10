@@ -42,7 +42,14 @@
               ]"
               style="width: 55%"
             />
+
           </div>
+          <div class="col-6 q-gutter-md text-center items-center">
+              <q-btn color="primary" label="Crear" />
+              <q-btn color="secondary" label="Leer " />
+              <q-btn color="amber" label="Actualizar" />
+              <q-btn color="red" label="Borrar" />
+            </div>
         </div>
       </div>
     </q-form>
