@@ -9,6 +9,7 @@
             <div class="row justify-between q-gutter-md">
               <q-input
                 filled
+                dense
                 v-model="apellido"
                 label="Pequeña descipcion "
                 lazy-rules
@@ -20,6 +21,7 @@
               />
               <q-select
                 filled
+                dense
                 v-model="model"
                 :options="options"
                 style="width: 47%"
@@ -30,29 +32,21 @@
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn color="primary" label="Crear" />
-        <q-btn color="secondary" label="Leer " />
-        <q-btn color="amber" label="Actualizar" />
-        <q-btn color="red" label="Borrar" />
+        <q-btn dense color="primary" label="Crear" />
+        <q-btn dense color="secondary" label="Leer " />
+        <q-btn dense color="amber" label="Actualizar" />
+        <q-btn dense color="red" label="Borrar" />
       </div>
     </q-form>
     <br />
-    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
+    <q-table dense :rows="rows" :columns="columns" row-key="name" separator="cell" />
   </q-page>
 </template>
 
-<script>
+<script setup >
 import { ref, onMounted } from "vue";
 import { getRoles } from "../services";
 
-export default {
-  setup() {
-    return {
-      model: ref(null),
-      premio: ["Administrador", "Cliente"],
-    };
-  },
-};
 
 const columns = [
   {
@@ -63,6 +57,7 @@ const columns = [
     field: "descripcion",
     sortable: true,
   },
+
 ];
 const rows = ref([]);
 

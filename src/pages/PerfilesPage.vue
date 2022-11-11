@@ -6,6 +6,7 @@
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
+              dense
               v-model="name"
               label="Ingrese su Nombre "
               lazy-rules
@@ -18,6 +19,7 @@
 
             <q-input
               filled
+              dense
               v-model="apellido"
               label="Ingrese su Apellido "
               lazy-rules
@@ -28,9 +30,11 @@
               ]"
             />
           </div>
+
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
+              dense
               type="number"
               v-model="age"
               label="Selecione Edad"
@@ -38,38 +42,17 @@
               lazy-rules
               :rules="[
                 (val) => (val !== null && val !== '') || 'Please type your age',
-                (val) =>
-                  (val > 1 && val < 80) || 'Por favor selecione su edad',
+                (val) => (val > 1 && val < 80) || 'Por favor selecione su edad',
               ]"
             />
 
             <q-select
               filled
+              dense
               v-model="model"
               :options="options"
               style="width: 47%"
               label="Seleccione sexo "
-            />
-          </div>
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              filled
-              v-model="models"
-              :options="pais"
-              label="Seleccione su Pais"
-              style="width: 47%"
-            />
-
-            <q-input
-              filled
-              v-model="ciudad"
-              label="Ingrese su Ciudad "
-              style="width: 47%"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-              ]"
             />
           </div>
 
@@ -77,6 +60,7 @@
             <q-input
               ref="inputRef"
               filled
+              dense
               v-model="model9"
               label="Ingrese su DNI"
               style="width: 47%"
@@ -85,6 +69,7 @@
 
             <q-input
               filled
+              dense
               v-model="nacionalidad"
               label="Ingrese su Nacionalidad "
               style="width: 47%"
@@ -98,10 +83,17 @@
           </div>
 
           <div class="row justify-between q-gutter-md">
-            <q-input standout v-model="email" type="email" prefix="Email:" suffix="@gmail.com">
-        <template v-slot:prepend>
-          <q-icon name="mail" />
-        </template>
+            <q-input
+              dense
+              standout
+              v-model="email"
+              type="email"
+              prefix="Email:"
+              suffix="@gmail.com"
+            >
+              <template v-slot:prepend>
+                <q-icon name="mail" />
+              </template>
             </q-input>
           </div>
 
@@ -126,6 +118,7 @@
         <div class="row justify-between q-gutter-md">
           <q-input
             filled
+            dense
             v-model="phone"
             label="N° Celular"
             mask="(+##) ### - ###- ###"
@@ -150,6 +143,34 @@
           />
         </div>
 
+        <div class="row justify-between q-gutter-md">
+          <q-select
+            filled
+            v-model="pais"
+            dense
+            :options="paises"
+            map-options
+            emit-value
+            option-value="country"
+            option-label="country"
+            label="Seleccione su Pais"
+            style="width: 47%"
+          />
+
+          <q-select
+            filled
+            dense
+            v-model="ciudad"
+            :options="ciudades"
+            label="Ingrese su  Ciudad"
+            style="width: 47%"
+            lazy-rules
+            :rules="[
+              (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+            ]"
+          />
+        </div>
+
         <div>
           <q-btn label="Enviar" type="submit" color="info" />
           <q-btn
@@ -164,64 +185,28 @@
         <br />
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn color="primary" label="Crear" />
-        <q-btn color="secondary" label="Leer " />
-        <q-btn color="amber" label="Actualizar" />
-        <q-btn color="red" label="Borrar" />
+        <q-btn dense color="primary" label="Crear" />
+        <q-btn dense color="secondary" label="Leer " />
+        <q-btn dense color="amber" label="Actualizar" />
+        <q-btn dense color="red" label="Borrar" />
       </div>
     </q-form>
     <br />
-    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
+    <q-table
+      dense
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      separator="cell"
+    />
   </q-page>
 </template>
 
-<script>
+<script setup>
 import { useQuasar } from "quasar";
 
-import { ref, onMounted } from "vue";
-import { getPerfiles } from "../services";
-
-export default {
-  setup() {
-    const $q = useQuasar();
-
-    const name = ref(null);
-    const age = ref(null);
-    const accept = ref(false);
-
-    return {
-      model: ref(null),
-      options: ["Femenino", "Masculino"],
-
-      models: ref(null),
-      pais: ["Ecuador", "Peru", "Paris", "Argentina", "Chile", "Bolivia"],
-
-      onSubmit() {
-        if (accept.value !== true) {
-          $q.notify({
-            color: "red-5",
-            textColor: "white",
-            icon: "warning",
-            message: "You need to accept the license and terms first",
-          });
-        } else {
-          $q.notify({
-            color: "green-4",
-            textColor: "white",
-            icon: "cloud_done",
-            message: "Submitted",
-          });
-        }
-      },
-
-      onReset() {
-        name.value = null;
-        age.value = null;
-        accept.value = false;
-      },
-    };
-  },
-};
+import { ref, onMounted,computed } from "vue";
+import { getPerfiles,getPaises } from "../services";
 
 const columns = [
   {
@@ -318,9 +303,18 @@ const columns = [
   },
 ];
 const rows = ref([]);
+const paises = ref([]);
+const pais = ref([]);
+const ciudad = ref([]);
+
+
+const ciudades = computed(
+  () => paises.value.find((p) => p.country === pais.value)?.cities
+);
 
 onMounted(async () => {
   rows.value = await getPerfiles();
+  paises.value = await getPaises();
 });
 </script>
 

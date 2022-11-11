@@ -24,7 +24,6 @@ export async function getJugadores() {
   return r.data;
 }
 
-
 export async function getArbitros() {
   const r = await api.get("/arbitros");
   return r.data;
@@ -34,7 +33,6 @@ export async function getComportamientos() {
   const r = await api.get("/comportamientos");
   return r.data;
 }
-
 
 export async function getEntrenadores() {
   const r = await api.get("/entrenadores");
@@ -61,7 +59,6 @@ export async function getFaltas() {
   return r.data;
 }
 
-
 export async function getHistorialPartidas() {
   const r = await api.get("/historial_partidas");
   return r.data;
@@ -82,7 +79,6 @@ export async function getPartidas() {
   return r.data;
 }
 
-
 export async function getPartidasJugadores() {
   const r = await api.get("/partidas_jugadores");
   return r.data;
@@ -98,30 +94,25 @@ export async function getRondas() {
   return r.data;
 }
 
-
 export async function getSanciones() {
   const r = await api.get("/sanciones");
   return r.data;
 }
-
 
 export async function getTorneos() {
   const r = await api.get("/torneos");
   return r.data;
 }
 
-
 export async function getUsuarios() {
   const r = await api.get("/usuarios");
   return r.data;
 }
 
-
 export async function getPermisos() {
   const r = await api.get("/permisos");
   return r.data;
 }
-
 
 export async function getPerfiles() {
   const r = await api.get("/perfiles");
@@ -130,5 +121,10 @@ export async function getPerfiles() {
 
 export async function getRoles() {
   const r = await api.get("/roles");
+  return r.data;
+}
+
+export async function getPaises() {
+  const r = await api.get("/paises");
   return r.data;
 }

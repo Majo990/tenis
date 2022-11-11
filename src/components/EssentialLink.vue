@@ -1,5 +1,12 @@
 <template>
-  <q-item clickable tag="a" target="_self" :href="link" dense>
+  <q-item
+    clickable
+    tag="a"
+    target="_self"
+    :href="link"
+    dense
+    :class="$route.path === link ? 'text-primary' : ''"
+  >
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>

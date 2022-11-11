@@ -10,6 +10,7 @@
               v-model="descripcion"
               label="Ingrese su Descripcion "
               lazy-rules
+              dense
               :rules="[
                 (val) =>
                   (val && val.length > 0) || 'Por favor ingrese su Descripcion',
@@ -21,6 +22,7 @@
                   v-model="model"
                   :options="jugadores"
                   style="width: 47%"
+                  dense
                   label="Seleccione Nombre Jugadores "
                 />
           </div>
@@ -31,6 +33,7 @@
                   filled
                   v-model="model"
                   :options="arbitro"
+                  dense
                   style="width: 47%"
                   label="Seleccione Nombre Arbitro"
                 />
@@ -38,6 +41,7 @@
                   filled
                   v-model="model"
                   :options="sancion"
+                  dense
                   style="width: 47%"
                   label="Seleccione Nombre Sancion"
                 />
@@ -47,16 +51,17 @@
       </div>
       <br/>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn color="primary" label="Crear" />
-        <q-btn color="secondary" label="Leer " />
-        <q-btn color="amber" label="Actualizar" />
-        <q-btn color="red" label="Borrar" />
+        <q-btn  dense color="primary" label="Crear" />
+        <q-btn   dense color="secondary" label="Leer " />
+        <q-btn   dense color="amber" label="Actualizar" />
+        <q-btn  dense color="red" label="Borrar" />
         <br/>
 
          <q-table
         :rows="rows"
         :columns="columns"
         row-key="name"
+        dense
         separator="cell"
       />
       </div>

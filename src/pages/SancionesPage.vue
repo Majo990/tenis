@@ -12,6 +12,7 @@
                   v-model="nombresancion"
                   label="Ingrese el Nombre-Sancion "
                   lazy-rules
+                  dense
                   :rules="[
                     (val) =>
                       (val && val.length > 0) ||
@@ -23,15 +24,16 @@
             </div>
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn color="primary" label="Crear" />
+            <q-btn dense color="primary" label="Crear" />
             <q-btn color="secondary" label="Leer " />
-            <q-btn color="amber" label="Actualizar" />
-            <q-btn color="red" label="Borrar" />
+            <q-btn dense color="amber" label="Actualizar" />
+            <q-btn dense color="red" label="Borrar" />
           </div>
         </q-form>
       </div>
 
       <q-table
+      dense
         :rows="rows"
         :columns="columns"
         row-key="name"

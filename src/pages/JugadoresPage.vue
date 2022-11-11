@@ -11,6 +11,7 @@
                 v-model="name"
                 label="Ingrese el Nombre-Jugador "
                 lazy-rules
+                dense
                 :rules="[
                   (val) =>
                     (val && val.length > 0) ||
@@ -24,6 +25,7 @@
                 v-model="nacionalidad"
                 label="Ingrese su Nacionalidad"
                 lazy-rules
+                dense
                 style="width: 47%"
                 :rules="[
                   (val) =>
@@ -36,6 +38,7 @@
               <q-select
                 filled
                 v-model="models"
+                dense
                 :options="pais"
                 style="width: 47%"
                 label="Seleccione su Nombre Entrenador "
@@ -53,6 +56,7 @@
                 filled
                 type="number"
                 v-model="age"
+                dense
                 label="Selecione Edad"
                 style="width: 47%"
                 lazy-rules
@@ -70,6 +74,7 @@
                 filled
                 v-model="model"
                 :options="options"
+                dense
                 style="width: 348px"
                 label="Seleccione sexo "
                 lazy-rules
@@ -89,6 +94,7 @@
                 style="width: 348px"
                 label="Seleccione Arbitros "
                 lazy-rules
+                dense
                 :rules="[
                   (val) =>
                     (val !== null && val !== '') ||
@@ -106,6 +112,7 @@
                 :options="options"
                 style="width: 348px"
                 label="Seleccione equipos "
+                dense
                 lazy-rules
                 :rules="[
                   (val) =>
@@ -119,6 +126,7 @@
                 filled
                 v-model="model"
                 :options="options"
+                dense
                 style="width: 348px"
                 label="Seleccione torneos "
                 lazy-rules
@@ -136,6 +144,7 @@
               <q-select
                 filled
                 v-model="model"
+                dense
                 :options="options"
                 style="width: 348px"
                 label="Seleccione NombreSancion "
@@ -160,6 +169,7 @@
                 input-class="text-right"
                 suffix="m"
                 lazy-rules
+                dense
                 :rules="[
                   (val) =>
                     (val !== null && val !== '') || 'Please type your age',
@@ -175,6 +185,7 @@
                 style="width: 47%"
                 label="Ingrese su Peso"
                 mask="#.##"
+                dense
                 fill-mask="0"
                 reverse-fill-mask
                 input-class="text-right"
@@ -189,17 +200,24 @@
               </q-input>
               <q-select
                 filled
-                v-model="models"
-                :options="pais"
+                v-model="pais"
+                dense
+                :options="paises"
+                map-options
+                emit-value
+                option-value="country"
+                option-label="country"
                 label="Seleccione su Pais"
                 style="width: 47%"
               />
             </div>
 
             <div class="row justify-between q-gutter-md">
-              <q-input
+              <q-select
                 filled
+                dense
                 v-model="ciudad"
+                :options="ciudades"
                 label="Ingrese su  Ciudad"
                 style="width: 47%"
                 lazy-rules
@@ -212,19 +230,13 @@
               <q-input
                 filled
                 v-model="name"
+                dense
                 label="Ingrese posicion "
                 lazy-rules
                 :rules="[
                   (val) =>
                     (val && val.length > 0) || 'Por favor ingrese su posicion',
                 ]"
-                style="width: 47%"
-              />
-              <q-select
-                filled
-                v-model="models"
-                :options="pais"
-                label="Seleccione su pais reside"
                 style="width: 47%"
               />
             </div>
@@ -241,18 +253,19 @@
                   ]"
                 />
         -->
-        <br/>
+            <br />
 
             <div class="col-6 q-gutter-md text-center items-center">
-              <q-btn color="primary" label="Crear" />
-              <q-btn color="secondary" label="Leer " />
-              <q-btn color="amber" label="Actualizar" />
-              <q-btn color="red" label="Borrar" />
+              <q-btn dense color="primary" label="Crear" />
+              <q-btn dense color="secondary" label="Leer " />
+              <q-btn dense color="amber" label="Actualizar" />
+              <q-btn dense color="red" label="Borrar" />
 
               <br />
             </div>
-            <br/>
+            <br />
             <q-table
+              dense
               :rows="rows"
               :columns="columns"
               row-key="name"
@@ -266,8 +279,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getJugadores } from "../services";
+import { ref, onMounted, computed } from "vue";
+import { getJugadores, getPaises } from "../services";
 
 const columns = [
   {
@@ -376,19 +389,19 @@ const columns = [
     field: "posicion",
     sortable: true,
   },
-
-  {
-    name: "reside_paises",
-    align: "center",
-    label: "Residencia",
-    field: "reside_paises",
-    sortable: true,
-  },
 ];
 
 const rows = ref([]);
+const paises = ref([]);
+const pais = ref([]);
+const ciudad = ref([]);
+
+const ciudades = computed(
+  () => paises.value.find((p) => p.country === pais.value)?.cities
+);
 
 onMounted(async () => {
   rows.value = await getJugadores();
+  paises.value = await getPaises();
 });
 </script>

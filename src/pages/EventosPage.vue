@@ -7,6 +7,7 @@
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
+              dense
               v-model="nombreevento"
               label="Ingrese su Nombre Evento "
               lazy-rules
@@ -21,14 +22,15 @@
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn color="primary" label="Crear" />
-        <q-btn color="secondary" label="Leer " />
-        <q-btn color="amber" label="Actualizar" />
-        <q-btn color="red" label="Borrar" />
+        <q-btn   dense color="primary" label="Crear" />
+        <q-btn   dense    color="secondary" label="Leer " />
+        <q-btn     dense color="amber" label="Actualizar" />
+        <q-btn    dense color="red" label="Borrar" />
       </div>
       <br />
       <q-table
         :rows="rows"
+        dense
         :columns="columns"
         row-key="name"
         separator="cell"

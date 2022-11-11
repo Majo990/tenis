@@ -11,6 +11,7 @@
                 v-model="name"
                 label="Ingrese su NombreEntrenador "
                 lazy-rules
+                dense
                 :rules="[
                   (val) =>
                     (val && val.length > 0) || 'Por favor ingrese su Nombre',
@@ -22,79 +23,107 @@
                 filled
                 v-model="model"
                 :options="options"
+                dense
                 style="width: 47%"
                 label="Seleccione Nombre Jugadores "
               />
 
-                <q-input
-                  filled
-                  v-model="name"
-                  label="Ingrese su Apellido Entrenador "
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Nombre',
-                  ]"
-                  style="width: 47%"
-                />
-                <q-input
-                  filled
-                  type="number"
-                  v-model="age"
-                  label="Selecione Edad"
-                  style="width: 47%"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') || 'Please type your age',
-                    (val) =>
-                      (val > 1 && val < 80) || 'Por favor selecione su edad',
-                  ]"
-                />
+              <q-input
+                filled
+                v-model="name"
+                label="Ingrese su Apellido Entrenador "
+                lazy-rules
+                dense
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Nombre',
+                ]"
+                style="width: 47%"
+              />
+              <q-input
+                filled
+                type="number"
+                v-model="age"
+                dense
+                label="Selecione Edad"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') || 'Please type your age',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor selecione su edad',
+                ]"
+              />
 
-                <q-select
-                  filled
-                  v-model="model"
+              <div class="q-pa-lg">
+                <q-option-group
+                  v-model="group"
                   :options="options"
-                  style="width: 47%"
-                  label="Seleccione sexo "
+                  color="primary"
+                  inline
                 />
-                <q-input
-                  v-model="date"
-                  filled
-                  type="date"
-                  style="width: 47%"
-                  hint="seleccione Fecha Nacimiento"
-                />
+              </div>
+              <q-input
+                v-model="date"
+                filled
+                dense
+                type="date"
+                style="width: 47%"
+                hint="seleccione Fecha Nacimiento"
+              />
 
-                <q-select
-                  filled
-                  v-model="model"
-                  :options="options"
-                  style="width: 47%"
-                  label="Seleccione Paises "
-                />
+              <q-select
+                filled
+                v-model="pais"
+                dense
+                :options="paises"
+                map-options
+                emit-value
+                option-value="country"
+                option-label="country"
+                label="Seleccione su Pais"
+                style="width: 47%"
+              />
 
-                <q-select
-                  filled
-                  v-model="model"
-                  :options="options"
-                  style="width: 47%"
-                  label="Seleccione Ciudades"
-                />
+              <q-select
+                filled
+                dense
+                v-model="ciudad"
+                :options="ciudades"
+                label="Ingrese su  Ciudad"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                ]"
+              />
             </div>
           </div>
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn color="primary" label="Crear" />
-          <q-btn color="secondary" label="Leer " />
-          <q-btn color="amber" label="Actualizar" />
-          <q-btn color="red" label="Borrar" />
+          <q-btn dense color="primary" label="Crear" />
+          <q-btn dense color="secondary" label="Leer " />
+          <q-btn dense color="amber" label="Actualizar" />
+          <q-btn dense color="red" label="Borrar" />
+        </div>
+
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn label="Enviar" type="submit" color="info" />
+          <q-btn
+            label="Restablecer"
+            type="reset"
+            color="negative"
+            flat
+            class="q-ml-sm"
+          />
         </div>
       </div>
       <br />
       <q-table
+        dense
         :rows="rows"
         :columns="columns"
         row-key="name"
@@ -105,8 +134,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getEntrenadores } from "../services";
+import { ref, onMounted, computed } from "vue";
+import { getEntrenadores, getPaises } from "../services";
+
+const options = ref(null);
+
 const columns = [
   {
     name: "nombre",
@@ -169,9 +201,23 @@ const columns = [
 ];
 
 const rows = ref([]);
+const name = ref(null);
+const age = ref(null);
+const model = ref(null);
+
+const paises = ref([]);
+const pais = ref([]);
+const ciudad = ref([]);
+
+const date = ref("2019-02-01");
+
+const ciudades = computed(
+  () => paises.value.find((p) => p.country === pais.value)?.cities
+);
 
 onMounted(async () => {
   rows.value = await getEntrenadores();
+  paises.value = await getPaises();
 });
 
 const text = ref(null);

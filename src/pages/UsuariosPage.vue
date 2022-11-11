@@ -2,11 +2,12 @@
   <div class="q-pa-md">
     <strong>Formulario </strong>
     <div class="q-gutter-md row items-start">
-      <q-input v-model="usuario" filled type="usuario" hint="Usuario" />
+      <q-input dense v-model="usuario" filled type="usuario" hint="Usuario" />
 
-      <q-input v-model="password" filled type="password" hint="Password" />
+      <q-input dense v-model="password" filled type="password" hint="Password" />
 
       <q-input
+      dense
         v-model="password"
         filled
         :type="isPwd ? 'password' : 'text'"
@@ -14,20 +15,20 @@
       >
         <template v-slot:append> </template>
       </q-input>
-      <q-btn color="primary" label="Crear" />
-      <q-btn color="secondary" label="Leer " />
-      <q-btn color="amber" label="Actualizar" />
-      <q-btn color="red" label="Borrar" />
+      <q-btn dense color="primary" label="Crear" />
+      <q-btn  dense color="secondary" label="Leer " />
+      <q-btn dense color="amber" label="Actualizar" />
+      <q-btn dense color="red" label="Borrar" />
     </div>
     <br />
     <br />
-    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
+    <q-table dense :rows="rows" :columns="columns" row-key="name" separator="cell" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getUsuarios } from "../services";
+import { ref,onMounted} from "vue";
+import { getUsuarios} from "../services";
 const columns = [
   {
     name: "usuarios",
@@ -46,29 +47,12 @@ const columns = [
     sortable: true,
   },
 ];
-/*
-export default {
-  setup() {
-    const rows = ref([]);
+const rows = ref([]);
 
-    onMounted(async () => {
-      rows.value = await getUsuarios();
-    });
-    return {
-      columns,
-      rows,
-      password: ref(""),
-      isPwd: ref(true),
+onMounted(async () => {
+  rows.value = await getUsuarios();
+});
 
-      usuario: ref(""),
-      search: ref(""),
-      tel: ref(""),
-      url: ref(""),
-      time: ref(""),
-      date: ref(""),
-    };
-  },
-};*/
 </script>
 
 <style>

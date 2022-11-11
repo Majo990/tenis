@@ -6,6 +6,7 @@
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-input
+              dense
               filled
               v-model="name"
               label="Ingrese su Nombre "
@@ -20,6 +21,7 @@
               filled
               v-model="model"
               :options="os"
+              dense
               style="width: 47%"
               label="Seleccione Nombre Jugadores "
             />
@@ -27,6 +29,7 @@
 
           <div class="row justify-between q-gutter-md">
             <q-select
+              dense
               filled
               v-model="model"
               :options="p"
@@ -36,16 +39,18 @@
 
             <q-select
               filled
+              dense
               v-model="model"
               :options="ns"
               style="width: 47%"
               label="Seleccione Departamento "
             />
-            </div>
-<br/>
+          </div>
+          <br />
           <div class="row justify-between q-gutter-md">
             <q-select
               filled
+              dense
               v-model="model"
               :options="ops"
               style="width: 47%"
@@ -57,6 +62,7 @@
               v-model="name"
               label="Ingrese su Administrador "
               lazy-rules
+              dense
               :rules="[
                 (val) =>
                   (val && val.length > 0) ||
@@ -69,6 +75,7 @@
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
+              dense
               v-model="name"
               label="Ingrese el Nombre Propietario "
               lazy-rules
@@ -83,6 +90,7 @@
             <q-input
               ref="inputRef"
               filled
+              dense
               v-model="model9"
               label="Ingrese su Ubigeo"
               style="width: 47%"
@@ -95,6 +103,7 @@
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
+              dense
               v-model="name"
               label="Ingrese su Direccion  "
               lazy-rules
@@ -106,49 +115,60 @@
             />
 
             <q-select
-              filled
-              v-model="model"
-              :options="options"
-              style="width: 47%"
-              label="Seleccione su Pais "
-            />
-          </div>
+                filled
+                v-model="pais"
+                dense
+                :options="paises"
+                map-options
+                emit-value
+                option-value="country"
+                option-label="country"
+                label="Seleccione su Pais"
+                style="width: 47%"
+              />
+            </div>
 
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              filled
-              v-model="model"
-              :options="options"
-              style="width: 47%"
-              label="Seleccione su Ciudades "
-            />
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                dense
+                v-model="ciudad"
+                :options="ciudades"
+                label="Ingrese su  Ciudad"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                ]"
+              />
 
-            <q-select
-              filled
-              v-model="model"
-              :options="options"
-              style="width: 47%"
-              label="Seleccione su Provincia "
-            />
+
           </div>
-<br/>
+          <br />
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn color="primary" label="Crear" />
-            <q-btn color="secondary" label="Leer " />
-            <q-btn color="amber" label="Actualizar" />
-            <q-btn color="red" label="Borrar" />
+            <q-btn dense color="primary" label="Crear" />
+            <q-btn dense color="secondary" label="Leer " />
+            <q-btn dense color="amber" label="Actualizar" />
+            <q-btn dense color="red" label="Borrar" />
           </div>
         </div>
       </div>
     </div>
     <br />
-    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
+    <q-table
+      dense
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      separator="cell"
+    />
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getEstadios } from "../services";
+import { ref, onMounted, computed } from "vue";
+import { getEstadios, getPaises } from "../services";
 
 const columns = [
   {
@@ -221,7 +241,7 @@ const columns = [
     name: "id_paises",
     align: "center",
     label: "Nombre-Paises",
-    field: "id_paises",
+    field: "nombre_paises",
     sortable: true,
   },
   {
@@ -231,20 +251,24 @@ const columns = [
     field: "nombre_ciudades",
     sortable: true,
   },
-  {
-    name: "id_provincia",
-    align: "center",
-    label: "Nombre-Provincia",
-    field: "nombre_provincia",
-    sortable: true,
-  },
 
 ];
 
 const rows = ref([]);
 
+
+const paises = ref([]);
+const pais = ref([]);
+const ciudad = ref([]);
+
+const ciudades = computed(
+  () => paises.value.find((p) => p.country === pais.value)?.cities
+);
+
+
 onMounted(async () => {
   rows.value = await getEstadios();
+  paises.value = await getPaises();
 });
 </script>
 <style>

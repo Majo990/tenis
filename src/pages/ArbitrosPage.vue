@@ -2,253 +2,230 @@
   <div class="q-pa-md">
     <q-page padding>
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-      <div class="q-pa-md">
-        <strong>Formulario </strong>
-        <div class="row">
-          <div class="col-6">
-            <div class="row justify-between q-gutter-md">
-              <q-input
-                filled
-                v-model="nombrearbitro"
-                label="Ingrese su Nombre arbitro "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su NombreArbitr',
-                ]"
-                style="width: 47%"
-              />
-              <q-input
-                filled
-                v-model="nombrearbitro"
-                label="Ingrese su Apellido "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Apellido',
-                ]"
-                style="width: 47%"
-              />
-            </div>
-            <div class="row justify-between q-gutter-md">
-              <q-input
-                filled
-                type="number"
-                v-model="age"
-                label="Selecione Edad"
-                style="width: 47%"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Please type your age',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor selecione su edad',
-                ]"
-              />
+        <div class="q-pa-md">
+          <strong>Formulario </strong>
+          <div class="row">
+            <div class="col-6">
+              <div class="row justify-between q-gutter-md">
+                <q-input
+                  filled
+                  dense
+                  v-model="nombrearbitro"
+                  label="Ingrese su Nombre arbitro "
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su NombreArbitr',
+                  ]"
+                  style="width: 47%"
+                />
+                <q-input
+                  dense
+                  filled
+                  v-model="nombrearbitro"
+                  label="Ingrese su Apellido "
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su Apellido',
+                  ]"
+                  style="width: 47%"
+                />
+              </div>
+              <div class="row justify-between q-gutter-md">
+                <q-input
+                  filled
+                  dense
+                  type="number"
+                  v-model="age"
+                  label="Selecione Edad"
+                  style="width: 47%"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val !== null && val !== '') || 'Por favor ingrese edad',
+                    (val) =>
+                      (val > 1 && val < 80) || 'Por favor selecione su edad',
+                  ]"
+                />
+
+                <!-- <div  class="q-pa-md" style="max-width: 300px">-->
+
+                <q-input
+                  filled
+                  v-model="price"
+                  style="width: 47%"
+                  label="Ingrese su Altura"
+                  mask="#.##"
+                  fill-mask="0"
+                  dense
+                  reverse-fill-mask
+                  input-class="text-right"
+                  suffix="m"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val !== null && val !== '') || 'Por favor ingrese altura',
+                    (val) =>
+                      (val > 1 && val < 80) || 'Por favor ingrese altura',
+                  ]"
+                ></q-input>
+              </div>
+              <div class="row justify-between q-gutter-md">
+                <q-input
+                  filled
+                  v-model="price"
+                  style="width: 47%"
+                  label="Ingrese su Peso"
+                  mask="#.##"
+                  dense
+                  fill-mask="0"
+                  reverse-fill-mask
+                  input-class="text-right"
+                  suffix="kg"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val !== null && val !== '') ||
+                      'Por favor ingrese su peso',
+                    (val) =>
+                      (val > 1 && val < 80) || 'Por favor ingrese su peso',
+                  ]"
+                >
+                </q-input>
+                <q-input
+                  filled
+                  v-model="date"
+                  mask="date"
+                  dense
+                  :rules="['date']"
+                  style="width: 47%"
+                  lazy-rules
+                >
+                  <template v-slot:append>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-date v-model="date">
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
+              <div class="row justify-between q-gutter-md">
                 <q-select
                   filled
-                  v-model="model"
-                  :options="options"
-                  style="width: 348px"
-                  label="Seleccione sexo "
+                  v-model="pais"
+                  dense
+                  :options="paises"
+                  map-options
+                  emit-value
+                  option-value="country"
+                  option-label="country"
+                  label="Seleccione su Pais"
+                  style="width: 47%"
                   lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Por favor seleccione su sexo',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor selecione su sexo',
-                ]"
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor seleccione su pais',
+                  ]"
                 />
-              <!-- <div  class="q-pa-md" style="max-width: 300px">-->
 
-                    <q-input
-                      filled
-                      v-model="price"
-                      style="width: 47%"
-                      label="Ingrese su Altura"
-                      mask="#.##"
-                      fill-mask="0"
-                      reverse-fill-mask
-                      input-class="text-right"
-                      suffix="m"
-                      lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Please type your age',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor ingrese altura',
-                ]"
-                    ></q-input>
-                    <q-input
-                      filled
-                      v-model="price"
-                      style="width: 47%"
-                      label="Ingrese su Peso"
-                      mask="#.##"
-                      fill-mask="0"
-                      reverse-fill-mask
-                      input-class="text-right"
-                      suffix="kg"
-                      lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Por favor ingrese su peso',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor ingrese su peso',
-                ]"
-                >
-                    </q-input>
-
-
-                <!----<q-input
-                  standout
-                  v-model="email"
-                  type="email"
-                  prefix="Email:"
-                  suffix="@gmail.com"
+                <q-select
+                  filled
+                  dense
+                  v-model="ciudad"
+                  :options="ciudades"
+                  label="Ingrese su  Ciudad"
+                  style="width: 47%"
                   lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Por favor seleccione su email',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor ingrese su email',
-                ]"
-                >
-                  <template v-slot:prepend>
-                     <q-icon name="mail" /
-                  </template>
-                </q-input>-->
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                  ]"
+                />
               </div>
-              <div class="q-pa-md" style="max-width: 300px">
-    <q-input filled v-model="date" mask="date" :rules="['date']">
-      <template v-slot:append>
-        <q-icon name="event" class="cursor-pointer">
-          <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-            <q-date v-model="date">
-              <div class="row items-center justify-end">
-                <q-btn v-close-popup label="Close" color="primary" flat />
-              </div>
-            </q-date>
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
-  </div>
+            </div>
           </div>
         </div>
 
-
-                <q-select
-                  filled
-                  v-model="models"
-                  :options="pais"
-                  style="width: 47%"
-                  label="Seleccione su Pais "
-                  lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Por favor seleccione su pais',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor seleccione su pais',
-                ]"
-                />
-              </div>
-            <div class="row justify-between q-gutter-md">
-                <q-select
-                  filled
-                  v-model="model"
-                  :options="options"
-                  style="width: 47%"
-                  label="Seleccione su Ciudades "
-                  lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Por favor seleccione su ciudad',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor seleccione su ciudad',
-                ]"
-                />
-              </div>
-
-            <div class="col-6 q-gutter-md text-center items-center">
-              <q-btn color="primary" label="Crear" />
-              <q-btn color="secondary" label="Leer " />
-              <q-btn color="amber" label="Actualizar" />
-              <q-btn color="red" label="Borrar" />
-            </div>
-            <br/>
-         <q-table
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        separator="cell"/>
-
-          </q-form>
-        </q-page>
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn dense color="primary" label="Crear" />
+          <q-btn dense color="secondary" label="Leer " />
+          <q-btn dense color="amber" label="Actualizar" />
+          <q-btn dense color="red" label="Borrar" />
+        </div>
+        <br />
+        <q-table
+          :rows="rows"
+          :columns="columns"
+          row-key="name"
+          separator="cell"
+          dense
+        />
+      </q-form>
+    </q-page>
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from "vue";
-import { getArbitros } from "../services";
+<script setup>
+import { ref, onMounted, computed } from "vue";
+import { getArbitros, getPaises } from "../services";
 import { useQuasar } from "quasar";
-import {ref} from 'vue';
 
+// import { ref } from "vue";
+
+// eslint-disable-next-line vue/no-export-in-script-setup
 
 // eslint-disable-next-line vue/no-export-in-script-setup
 
-// eslint-disable-next-line vue/no-export-in-script-setup
-export default {
-  setup() {
-    const $q = useQuasar();
+const $q = useQuasar();
+const name = ref(null);
+const age = ref(null);
+const accept = ref(false);
 
-    const name = ref(null);
-    const age = ref(null);
-    const accept = ref(false);
+const date = ref("2019/02/01");
 
-    return {
-      model: ref(null),
-      options: ["Femenino", "Masculino"],
+const price = ref(null);
+const nombrearbitro = ref(null);
 
-      return {
-      date: ref('2019/02/01')
-            };
+function onSubmit() {
+  if (accept.value !== true) {
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      message: "You need to accept the license and terms first",
+    });
+  } else {
+    $q.notify({
+      color: "green-4",
+      textColor: "white",
+      icon: "cloud_done",
+      message: "Submitted",
+    });
+  }
+}
 
-
-
-
-      models: ref(null),
-      pais: ["Ecuador", "Peru", "Paris", "Argentina", "Chile", "Bolivia"],
-
-      onSubmit() {
-        if (accept.value !== true) {
-          $q.notify({
-            color: "red-5",
-            textColor: "white",
-            icon: "warning",
-            message: "You need to accept the license and terms first",
-          });
-        } else {
-          $q.notify({
-            color: "green-4",
-            textColor: "white",
-            icon: "cloud_done",
-            message: "Submitted",
-          });
-        }
-      },
-      onReset() {
-        name.value = null;
-        age.value = null;
-        accept.value = false;
-      },
-    };
-  },
-};
-
-
-
+function onReset() {
+  name.value = null;
+  age.value = null;
+  accept.value = false;
+}
 
 const columns = [
   {
@@ -316,5 +293,19 @@ const columns = [
     sortable: true,
   },
 ];
+
+const rows = ref([]);
+const paises = ref([]);
+const pais = ref([]);
+const ciudad = ref([]);
+
+const ciudades = computed(
+  () => paises.value.find((p) => p.country === pais.value)?.cities
+);
+
+onMounted(async () => {
+  rows.value = await getArbitros();
+  paises.value = await getPaises();
+});
 </script>
 <style></style>

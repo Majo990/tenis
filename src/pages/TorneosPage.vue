@@ -4,19 +4,45 @@
       <strong>Formulario </strong>
 
       <div class="row justify-between q-gutter-md">
-        <q-input v-model="date" filled type="date" hint="seleccione Fecha" />
+        <q-input
+          dense
+          filled
+          v-model="date"
+          mask="date"
+          :rules="['date']"
+          style="width: 47%"
+        >
+          <template v-slot:append>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date v-model="date">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+
         <q-select
           filled
           v-model="model"
+          dense
           :options="options"
           style="width: 47%"
-          label="Seleccione Nombre Estadios"
+          label="Seleccione su Estadios "
         />
       </div>
 
       <div class="row justify-between q-gutter-md">
         <q-input
           filled
+          dense
           v-model="nombrearbitro"
           label="Ingrese su Nombre  Torneo "
           lazy-rules
@@ -26,57 +52,62 @@
           ]"
           style="width: 47%"
         />
+
+        <q-select
+          filled
+          v-model="pais"
+          dense
+          :options="paises"
+          map-options
+          emit-value
+          option-value="country"
+          option-label="country"
+          label="Seleccione su Pais"
+          style="width: 47%"
+        />
       </div>
 
       <div class="row justify-between q-gutter-md">
         <q-select
           filled
-          v-model="model"
-          :options="options"
+          dense
+          v-model="ciudad"
+          :options="ciudades"
+          label="Ingrese su  Ciudad"
           style="width: 47%"
-          label="Seleccione su Pais "
-        />
-        <q-input
-          filled
-          v-model="nombrearbitro"
-          label="Ingrese su Nombre arbitro "
           lazy-rules
           :rules="[
-            (val) =>
-              (val && val.length > 0) || 'Por favor ingrese su NombreArbitr',
+            (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
           ]"
-          style="width: 47%"
         />
-
-        <q-select
-          filled
-          v-model="model"
-          :options="options"
-          style="width: 47%"
-          label="Seleccione su Ciudades "
-        />
-
-        <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn color="primary" label="Crear" />
-          <q-btn color="secondary" label="Leer " />
-          <q-btn color="amber" label="Actualizar" />
-          <q-btn color="red" label="Borrar" />
-        </div>
       </div>
-
-      <q-table
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        separator="cell"
-      />
     </div>
+
+    <br />
+
+    <div class="col-6 q-gutter-md text-center items-center">
+      <q-btn dense color="primary" label="Crear" />
+      <q-btn dense color="secondary" label="Leer " />
+      <q-btn dense color="amber" label="Actualizar" />
+      <q-btn dense color="red" label="Borrar" />
+    </div>
+
+    <br />
+    <q-table
+      dense
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      separator="cell"
+    />
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getTorneos } from "../services";
+import { ref, onMounted,computed } from "vue";
+import { getTorneos ,getPaises} from "../services";
+
+const date = ref("2020/02/01");
 
 const columns = [
   {
@@ -94,18 +125,19 @@ const columns = [
     sortable: true,
   },
   {
-    name: "pais",
-    align: "center",
-    label: "pais",
-    field: "pais",
-    sortable: true,
-  },
-  {
     name: "nombre",
     required: true,
     label: "Nombre",
     align: "left",
     field: "nombre",
+    sortable: true,
+  },
+
+  {
+    name: "pais",
+    align: "center",
+    label: "pais",
+    field: "pais",
     sortable: true,
   },
   {
@@ -118,8 +150,17 @@ const columns = [
 ];
 
 const rows = ref([]);
+const paises = ref([]);
+const pais = ref([]);
+const ciudad = ref([]);
+
+const ciudades = computed(
+  () => paises.value.find((p) => p.country === pais.value)?.cities
+);
+
 
 onMounted(async () => {
   rows.value = await getTorneos();
+  paises.value = await getPaises();
 });
 </script>

@@ -8,42 +8,51 @@
               filled
               type="number"
               v-model="age"
+              dense
               label="Selecione Nro"
               style="width: 47%"
               lazy-rules
               :rules="[
-                (val) => (val !== null && val !== '') || 'Por favor selecione NroRonda',
+                (val) =>
+                  (val !== null && val !== '') ||
+                  'Por favor selecione NroRonda',
                 (val) => (val > 1 && val < 80) || 'Por favor selecione Nro',
               ]"
             />
 
-          <q-input
-            filled
-            v-model="fecha"
-            style="width:47%"
-            mask="date"
-            lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Por favor ingrese su fecha',
-            ]"
-          >
-            <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy
-                  cover
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
-                  <q-date v-model="fecha">
-                    <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="primary" flat />
-                    </div>
-                  </q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-
+            <q-input
+              filled
+              dense
+              v-model="fecha"
+              style="width: 47%"
+              mask="date"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su fecha',
+              ]"
+            >
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date v-model="fecha">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
           </div>
         </div>
       </div>
@@ -51,6 +60,7 @@
       <div class="row justify-between q-gutter-md">
         <q-select
           filled
+          dense
           v-model="model"
           :options="options"
           style="width: 47%"
@@ -59,15 +69,17 @@
         <q-select
           filled
           v-model="model"
+          dense
           :options="options"
           style="width: 47%"
           label="Seleccione Nombre Arbitros "
         />
       </div>
-<br/>
+      <br />
       <div class="row justify-between q-gutter-md">
         <q-select
           filled
+          dense
           v-model="model"
           :options="options"
           style="width: 47%"
@@ -76,6 +88,7 @@
         <q-select
           filled
           v-model="model"
+          dense
           :options="options"
           style="width: 47%"
           label="Seleccione Nombre Partidas "
@@ -83,13 +96,14 @@
       </div>
 
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn color="primary" label="Crear" />
-        <q-btn color="secondary" label="Leer " />
-        <q-btn color="amber" label="Actualizar" />
-        <q-btn color="red" label="Borrar" />
+        <q-btn dense color="primary" label="Crear" />
+        <q-btn dense color="secondary" label="Leer " />
+        <q-btn dense color="amber" label="Actualizar" />
+        <q-btn dense color="red" label="Borrar" />
       </div>
       <br />
       <q-table
+        dense
         :rows="rows"
         :columns="columns"
         row-key="name"
@@ -163,9 +177,8 @@ onMounted(async () => {
   background-color: #f3abe7;
 }
 
-v-model{
+v-model {
   text-align: center;
   margin-left: 50%;
 }
-
 </style>

@@ -11,6 +11,7 @@
                 v-model="nombrepremio"
                 label="Ingrese su Nombre Premio "
                 lazy-rules
+                dense
                 :rules="[
                   (val) =>
                     (val && val.length > 0) ||
@@ -21,44 +22,58 @@
 
               <q-select
                 filled
+                dense
                 v-model="model"
                 :options="premio"
                 style="width: 47%"
                 label="Seleccione el Tipo Premio "
               />
-                        </div>
+            </div>
+
+
+            <div class="row justify-between q-gutter-md">
+            <q-select
+                filled
+                dense
+                v-model="equipos"
+                :options="equipos"
+                style="width: 47%"
+                label="Seleccione equipos "
+              />
+
+              <q-select
+                filled
+                dense
+                v-model="jugadores"
+                :options="jugadores"
+                style="width: 47%"
+                label="Seleccione Jugadores "
+              />
+            </div>
           </div>
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn color="primary" label="Crear" />
-        <q-btn color="secondary" label="Leer " />
-        <q-btn color="amber" label="Actualizar" />
-        <q-btn color="red" label="Borrar" />
+        <q-btn    dense color="primary" label="Crear" />
+        <q-btn     dense color="secondary" label="Leer " />
+        <q-btn    dense color="amber" label="Actualizar" />
+        <q-btn     dense color="red" label="Borrar" />
       </div>
     </q-form>
 
-    <q-table :rows="rows" :columns="columns" row-key="name" />
+    <q-table     dense :rows="rows" :columns="columns" row-key="name" />
   </q-page>
 </template>
 
-<script >
+<script setup>
 import { ref, onMounted } from "vue";
 import { getPremios } from "../services";
 
-export default{
-  setup() {
-return {
-  model: ref(null),
-  premio: ["Viaje", "Medallas","Dolares","Soles"],
 
-  models: ref(null),
-  pais: ["Ecuador", "Peru", "Paris", "Argentina", "Chile", "Bolivia"],
-};
-  },
-}
-
-
+const nombrepremio=ref(null);
+ const premio= ref(null);
+const equipos=ref(null);
+const jugadores=ref(null);
 
 
 const columns = [
@@ -78,12 +93,21 @@ const columns = [
     sortable: true,
   },
   {
-    name: "stock",
+    name: "id_equipos",
     align: "center",
-    label: "Stock",
-    field: "stock",
+    label: "Nombre Equipos",
+    field: "nombre_equipos",
     sortable: true,
   },
+  {
+    name: "id_jugadores",
+    align: "center",
+    label: "Nombre-Jugadores",
+    field: "nombre_jugadores",
+    sortable: true,
+  },
+
+
 ];
 const rows = ref([]);
 

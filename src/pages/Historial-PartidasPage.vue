@@ -4,7 +4,7 @@
       <strong>Formulario </strong>
       <div class="q-gutter-md">
         <div class="buscador">
-          <q-input v-model="filter" debounce="500" filled placeholder="Buscar">
+          <q-input  dense v-model="filter" debounce="500" filled placeholder="Buscar">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
@@ -18,6 +18,7 @@
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-select
+            dense
               filled
               v-model="models"
               :options="pais"
@@ -27,6 +28,7 @@
 
             <q-select
               filled
+              dense
               v-model="models"
               :options="pais"
               label="Seleccione su fecha-hora"
@@ -38,12 +40,14 @@
           <div class="row justify-between q-gutter-md">
             <q-select
               filled
+              dense
               v-model="models"
               :options="pais"
               label="Seleccione Nombre ronda"
               style="width: 47%"
             />
             <q-select
+            dense
               filled
               v-model="models"
               :options="pais"
@@ -54,6 +58,7 @@
           <br/>
           <div class="row justify-between q-gutter-md">
             <q-select
+            dense
               filled
               v-model="models"
               :options="pais"
@@ -61,6 +66,7 @@
               style="width: 47%"
             />
             <q-select
+            dense
               filled
               v-model="models"
               :options="pais"
@@ -71,7 +77,8 @@
           <br/>
           <div class="row justify-between q-gutter-md">
             <q-select
-              filled
+            dense
+            filled
               v-model="models"
               :options="pais"
               label="Seleccione su Nombre Premio"
@@ -79,6 +86,7 @@
             />
 
             <q-select
+            dense
               filled
               v-model="models"
               :options="pais"
@@ -91,6 +99,7 @@
           <div class="row justify-between q-gutter-md">
             <q-select
               filled
+              dense
               v-model="models"
               :options="pais"
               label="Seleccione su Nombre Partidas"
@@ -101,21 +110,25 @@
               filled
               v-model="models"
               :options="pais"
+              dense
               label="Seleccione su Nombre Arbitros "
               style="width: 47%"
             />
           </div>
         </div>
       </div>
+
+    <br/>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn color="primary" label="Crear" />
-        <q-btn color="secondary" label="Leer " />
-        <q-btn color="amber" label="Actualizar" />
-        <q-btn color="red" label="Borrar" />
+        <q-btn   dense color="primary" label="Crear" />
+        <q-btn    dense color="secondary" label="Leer " />
+        <q-btn   dense color="amber" label="Actualizar" />
+        <q-btn   dense color="red" label="Borrar" />
       </div>
       <br />
 
       <q-table
+      dense
         :rows="rows"
         :columns="columns"
         row-key="name"

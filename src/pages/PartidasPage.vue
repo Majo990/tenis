@@ -11,6 +11,7 @@
                 v-model="nombrepartida"
                 label="Ingrese el Nombre Partida "
                 lazy-rules
+                dense
                 :rules="[
                   (val) =>
                     (val && val.length > 0) ||
@@ -24,6 +25,7 @@
                 v-model="descriparti"
                 label="Ingrese la Descripcion Partida"
                 lazy-rules
+                dense
                 style="width: 47%"
                 :rules="[
                   (val) =>
@@ -31,103 +33,144 @@
                     'Por favor ingrese su Descripcion',
                 ]"
               />
+            </div>
 
-              <div class="row justify-between q-gutter-md">
-                <q-select
-                  filled
-                  v-model="model"
-                  :options="options"
-                  style="width:80%"
-                  label="Seleccione Nombre Jugadores "
-                />
-                <q-select
-                  filled
-                  v-model="model"
-                  :options="options"
-                  style="width: 80%"
-                  label="Seleccione Nombre Torneo"
-                />
-              </div>
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                dense
+                v-model="model"
+                :options="options"
+                style="width: 47%"
+                label="Seleccione Nombre Jugadores "
+              />
+              <q-select
+                filled
+                dense
+                v-model="model"
+                :options="options"
+                style="width: 47%"
+                label="Seleccione Nombre Torneo"
+              />
+            </div>
 
-              <div class="row justify-between q-gutter-md">
-              <div class="q-gutter-sm row">
-                <q-input
-                  filled
-                  v-model="timeWithSeconds"
-                  mask="fulltime"
-                  hint="Tiempo-Inicio"
-                  :rules="['fulltime']"
-                >
-                  <template v-slot:append>
-                    <q-icon name="access_time" class="cursor-pointer">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-time
-                          v-model="timeWithSeconds"
-                          with-seconds
-                          format24h
-                        >
-                          <q-input
-                            v-model="time"
-                            filled
-                            type="time"
-                            hint="Tiempo-Duracion"
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                dense
+                v-model="fecha"
+                style="width: 47%"
+                mask="date"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su fecha',
+                ]"
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date v-model="fecha">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
                           />
-                        </q-time>
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
 
-                          <q-input
-                            filled
-                            v-model="timeWithSeconds"
-                            mask="fulltime"
-                            hint="Tiempo-Finalizacion"
-                            :rules="['fulltime']"
-                          >
-                            <template v-slot:append>
-                              <q-icon name="access_time" class="cursor-pointer">
-                                <q-popup-proxy
-                                  cover
-                                  transition-show="scale"
-                                  transition-hide="scale"
-                                >
-                                  <q-time
-                                    v-model="timeWithSeconds"
-                                    with-seconds
-                                    format24h
-                                  >
-                                  </q-time>
-
-                                  <div class="row items-center justify-end">
-                                    <q-btn
-                                      v-close-popup
-                                      label="Close"
-                                      color="primary"
-                                    />
-                                  </div>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </q-time>
-                    </div>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
+              <q-input
+                filled
+                dense
+                style="width: 47%"
+                v-model="timeWithSeconds"
+                mask="fulltime"
+                hint="Tiempo-Inicio"
+                :rules="['fulltime']"
+              >
+                <template v-slot:append>
+                  <q-icon name="access_time" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
             </div>
           </div>
+
+          <q-input
+            filled
+            dense
+            style="width: 47%"
+            v-model="tiempo"
+            mask="fulltime"
+            hint="Tiempo-Duracion"
+            :rules="['fulltime']"
+          >
+            <template v-slot:append>
+              <q-icon name="access_time" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+
+        <div class="row justify-between q-gutter-md">
+          <q-input
+            filled
+            dense
+            style="width: 47%"
+            v-model="timeWithSeconds"
+            mask="fulltime"
+            hint="Tiempo-Finaliza"
+            :rules="['fulltime']"
+          >
+            <template v-slot:append>
+              <q-icon name="access_time" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
         </div>
       </div>
     </q-form>
   </q-page>
 </template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 import { getPartidas } from "../services";
+
+const fecha = ref("2020-02-01");
+
+
+ tiempo : ref('04:00:00');
+ timeWithSeconds : ref('00:30:00');
+  fulltime: ref('4:30:00');
+
 const columns = [
   {
     name: "name",
@@ -193,7 +236,6 @@ const columns = [
     field: "nro_rondas",
     sortable: true,
   },
-
 ];
 
 const rows = ref([]);

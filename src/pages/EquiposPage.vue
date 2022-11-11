@@ -7,6 +7,7 @@
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
+              dense
               v-model="nombre"
               label="Ingrese su Nombre "
               lazy-rules
@@ -17,79 +18,93 @@
               style="width: 47%"
             />
 
-            <q-input
-              v-model="date"
+            <q-input dense filled v-model="date" mask="date" :rules="['date']">
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date v-model="date">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+          <div class="row justify-between q-gutter-md">
+            <q-select
               filled
-              type="date"
-              hint="seleccione Fecha_Fundo"
+              dense
+              v-model="model"
+              :options="options"
+              style="width: 47%"
+              label="Seleccione Nombre Jugadores "
+            />
+
+            <q-select
+              filled
+              v-model="model"
+              dense
+              :options="options"
+              style="width: 47%"
+              label="Seleccione Nombre Entrenadores "
             />
           </div>
-        </div>
-
-        <div class="row justify-between q-gutter-md">
-          <q-select
-            filled
-            v-model="model"
-            :options="options"
-            style="width: 47%"
-            label="Seleccione Nombre Jugadores "
-          />
-          <q-select
-            filled
-            v-model="model"
-            :options="options"
-            style="width: 47%"
-            label="Seleccione Nombre Entrenadores "
-          />
-        </div>
-      </div>
-
-      <div class="row justify-between q-gutter-md">
-        <div class="q-pa-md" style="max-width: 300px">
-       <q-input
-      v-model="text"
-      filled
-      type="textarea"
-    />
-     </div>
-
-        <q-input
-          filled
-          v-model="descripcion"
-          label="Ingrese su Simbolo"
-          lazy-rules
-          :rules="[
-            (val) => (val && val.length > 0) || 'Por favor ingrese su Simbolo',
-          ]"
-          style="width: 47%"
-        />
-
-        <div class="row justify-between q-gutter-md">
-          <q-input
-            filled
-            v-model="descripcion"
-            label="Ingrese su Indumentaria_Uniforme"
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) ||
-                'Por favor ingrese su IndumentariaUniforme',
-            ]"
-            style="width: 47%"
-          />
-          <q-input
-            filled
-            v-model="nombre"
-            label="Ingrese su Presidente "
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'Por favor ingrese su Presidente',
-            ]"
-            style="width: 47%"
-          />
           <div class="row justify-between q-gutter-md">
             <q-input
+              filled
+              v-model="descripcion"
+              label="Ingrese su Simbolo"
+              lazy-rules
+              dense
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Simbolo',
+              ]"
+              style="width: 47%"
+            />
+
+            <q-input
+              filled
+              dense
+              v-model="descripcion"
+              label="Ingrese su Indumentaria_Uniforme"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) ||
+                  'Por favor ingrese su IndumentariaUniforme',
+              ]"
+              style="width: 30%"
+            />
+          </div>
+          <div class="row justify-between q-gutter-md">
+            <q-input
+              filled
+              dense
+              v-mode
+              l="nombre"
+              label="Ingrese su Presidente "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Presidente',
+              ]"
+              style="width: 47%"
+            />
+
+            <q-input
+              dense
               filled
               v-model="descripcion"
               label="Ingrese su Apodo "
@@ -99,39 +114,51 @@
                   (val && val.length > 0) || 'Por favor ingrese su Apodos',
               ]"
             />
-            <q-select
-              filled
-              v-model="model"
-              :options="options"
-              style="width: 47%"
-              label="Seleccione Nombre Estadios"
-            />
-            <div class="row justify-between q-gutter-md">
-              <q-select
-                filled
-                v-model="model"
-                :options="options"
-                style="width: 47%"
-                label="Seleccione Nombre Paises"
-              />
-              <q-select
-                filled
-                v-model="model"
-                :options="options"
-                style="width: 47%"
-                label="Seleccione Nombre Ciudades"
-              />
-            </div>
           </div>
         </div>
+
+        <q-select
+          filled
+          dense
+          v-model="model"
+          :options="nombreestadios"
+          style="width: 47%"
+          label="Seleccione Nombre Estadios"
+        />
+
+        <q-select
+          filled
+          v-model="pais"
+          dense
+          :options="paises"
+          map-options
+          emit-value
+          option-value="country"
+          option-label="country"
+          label="Seleccione su Pais"
+          style="width: 47%"
+        />
       </div>
+
+      <q-select
+        filled
+        dense
+        v-model="ciudad"
+        :options="ciudades"
+        label="Ingrese su  Ciudad"
+        style="width: 47%"
+        lazy-rules
+        :rules="[
+          (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+        ]"
+      />
     </div>
 
     <div class="col-6 q-gutter-md text-center items-center">
-      <q-btn color="primary" label="Crear" />
-      <q-btn color="secondary" label="Leer " />
-      <q-btn color="amber" label="Actualizar" />
-      <q-btn color="red" label="Borrar" />
+      <q-btn dense color="primary" label="Crear" />
+      <q-btn dense color="secondary" label="Leer " />
+      <q-btn dense color="amber" label="Actualizar" />
+      <q-btn dense color="red" label="Borrar" />
     </div>
     <br />
     <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
@@ -139,8 +166,50 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getEquipos } from "src/services";
+import { ref, onMounted,computed } from "vue";
+import { getEquipos, getPaises } from "src/services";
+import { useQuasar } from "quasar";
+
+const $q = useQuasar();
+const name = ref(null);
+const age = ref(null);
+const accept = ref(false);
+
+const model = ref(null);
+
+const date = ref("2019/02/01");
+
+const nombreestadios = ref(null);
+const options = ref(null);
+const descripcion = ref(null);
+const nombre = ref(null);
+const text = ref(null);
+
+
+function onSubmit() {
+  if (accept.value !== true) {
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      message: "You need to accept the license and terms first",
+    });
+  } else {
+    $q.notify({
+      color: "green-4",
+      textColor: "white",
+      icon: "cloud_done",
+      message: "Submitted",
+    });
+  }
+}
+
+function onReset() {
+  name.value = null;
+  age.value = null;
+  accept.value = false;
+}
+
 const columns = [
   {
     name: "name",
@@ -192,7 +261,8 @@ const columns = [
     label: "Indumentaria-Uniforme",
     field: "indumentaria_uniforme",
     sortable: true,
-  },  {
+  },
+  {
     name: "presidente",
     align: "center",
     label: "Presidente",
@@ -227,13 +297,22 @@ const columns = [
     field: "nombre_ciudades",
     sortable: true,
   },
-
 ];
 
 const rows = ref([]);
+const paises = ref([]);
+const pais = ref([]);
+const ciudad = ref([]);
+
+const ciudades = computed(
+  () => paises.value.find((p) => p.country === pais.value)?.cities
+);
+
+
 
 onMounted(async () => {
   rows.value = await getEquipos();
+  paises.value = await getPaises();
 });
 </script>
 <style>
