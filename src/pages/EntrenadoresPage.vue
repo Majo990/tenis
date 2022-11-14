@@ -8,8 +8,8 @@
             <div class="row justify-between q-gutter-md">
               <q-input
                 filled
-                v-model="name"
-                label="Ingrese su NombreEntrenador "
+                v-model="nombre"
+                label="Ingrese su Nombre "
                 lazy-rules
                 dense
                 :rules="[
@@ -21,8 +21,8 @@
 
               <q-select
                 filled
-                v-model="model"
-                :options="options"
+                v-model="nombre_jugador"
+                :options="nombre_jugadores"
                 dense
                 style="width: 47%"
                 label="Seleccione Nombre Jugadores "
@@ -30,7 +30,7 @@
 
               <q-input
                 filled
-                v-model="name"
+                v-model="apellido"
                 label="Ingrese su Apellido Entrenador "
                 lazy-rules
                 dense
@@ -42,8 +42,8 @@
               />
               <q-input
                 filled
-                type="number"
-                v-model="age"
+                type="edad"
+                v-model="edad"
                 dense
                 label="Selecione Edad"
                 style="width: 47%"
@@ -65,7 +65,7 @@
                 />
               </div>
               <q-input
-                v-model="date"
+                v-model="fecha_nacimiento"
                 filled
                 dense
                 type="date"
@@ -78,7 +78,6 @@
                 v-model="pais"
                 dense
                 :options="paises"
-                map-options
                 emit-value
                 option-value="country"
                 option-label="country"
@@ -201,15 +200,16 @@ const columns = [
 ];
 
 const rows = ref([]);
-const name = ref(null);
-const age = ref(null);
-const model = ref(null);
+const nombre = ref(null);
+const edad = ref(null);
+const nombre_jugadores = ref(null);
+const apellido = ref(null);
 
 const paises = ref([]);
 const pais = ref([]);
 const ciudad = ref([]);
 
-const date = ref("2019-02-01");
+const fecha_nacimiento = ref("2019-02-01");
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === pais.value)?.cities
@@ -220,7 +220,6 @@ onMounted(async () => {
   paises.value = await getPaises();
 });
 
-const text = ref(null);
 </script>
 <style>
 .q-table {

@@ -7,3 +7,5 @@ console.log(sexo.length)
 let premios=
 ["Medallas Oro","Medallas Plata","Medallas Bronce","Trofeo","Viajes","Dinero" ]
 console.log(premios.length)
+
+

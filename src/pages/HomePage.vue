@@ -152,7 +152,6 @@
           >
           </q-avatar>
         </div>
-        <h8>Resultados</h8>
 
         <q-table
           :rows="rows2"
@@ -275,7 +274,6 @@ h2 {
 }
 q-page {
   background-color: #4fb4c8;
-
 }
 
 .card-example {

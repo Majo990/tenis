@@ -92,8 +92,7 @@
             <q-input
               filled
               dense
-              v-mode
-              l="nombre"
+              v-model="nombre"
               label="Ingrese su Presidente "
               lazy-rules
               :rules="[
@@ -166,7 +165,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted,computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { getEquipos, getPaises } from "src/services";
 import { useQuasar } from "quasar";
 
@@ -177,14 +176,13 @@ const accept = ref(false);
 
 const model = ref(null);
 
-const date = ref("2019/02/01");
+const date = ref("2019-02-01");
 
 const nombreestadios = ref(null);
 const options = ref(null);
 const descripcion = ref(null);
 const nombre = ref(null);
 const text = ref(null);
-
 
 function onSubmit() {
   if (accept.value !== true) {
@@ -308,11 +306,9 @@ const ciudades = computed(
   () => paises.value.find((p) => p.country === pais.value)?.cities
 );
 
-
-
 onMounted(async () => {
-  rows.value = await getEquipos();
-  paises.value = await getPaises();
+  //rows.value = await getEquipos();
+  //paises.value = await getPaises();
 });
 </script>
 <style>

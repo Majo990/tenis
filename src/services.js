@@ -29,6 +29,11 @@ export async function getArbitros() {
   return r.data;
 }
 
+export async function crearArbitros(params) {
+  const r = await api.post("/arbitros", params);
+  return r.data;
+}
+
 export async function getComportamientos() {
   const r = await api.get("/comportamientos");
   return r.data;

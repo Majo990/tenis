@@ -72,8 +72,8 @@
             <div class="row justify-between q-gutter-md">
               <q-select
                 filled
-                v-model="model"
-                :options="options"
+                v-model="sexo"
+                :options="sexo"
                 dense
                 style="width: 348px"
                 label="Seleccione sexo "

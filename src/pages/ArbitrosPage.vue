@@ -23,7 +23,7 @@
                 <q-input
                   dense
                   filled
-                  v-model="nombrearbitro"
+                  v-model="apellidoarbitro"
                   label="Ingrese su Apellido "
                   lazy-rules
                   :rules="[
@@ -55,7 +55,7 @@
 
                 <q-input
                   filled
-                  v-model="price"
+                  v-model="altura"
                   style="width: 47%"
                   label="Ingrese su Altura"
                   mask="#.##"
@@ -67,7 +67,8 @@
                   lazy-rules
                   :rules="[
                     (val) =>
-                      (val !== null && val !== '') || 'Por favor ingrese altura',
+                      (val !== null && val !== '') ||
+                      'Por favor ingrese altura',
                     (val) =>
                       (val > 1 && val < 80) || 'Por favor ingrese altura',
                   ]"
@@ -76,7 +77,7 @@
               <div class="row justify-between q-gutter-md">
                 <q-input
                   filled
-                  v-model="price"
+                  v-model="peso"
                   style="width: 47%"
                   label="Ingrese su Peso"
                   mask="#.##"
@@ -103,6 +104,7 @@
                   :rules="['date']"
                   style="width: 47%"
                   lazy-rules
+                  label="Ingrese su Fecha Nacimiento"
                 >
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
@@ -164,7 +166,7 @@
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" />
+          <q-btn dense color="primary" label="Crear" type="submit" />
           <q-btn dense color="secondary" label="Leer " />
           <q-btn dense color="amber" label="Actualizar" />
           <q-btn dense color="red" label="Borrar" />
@@ -184,7 +186,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { getArbitros, getPaises } from "../services";
+import { getArbitros, getPaises, crearArbitros } from "../services";
 import { useQuasar } from "quasar";
 
 // import { ref } from "vue";
@@ -198,27 +200,27 @@ const name = ref(null);
 const age = ref(null);
 const accept = ref(false);
 
-const date = ref("2019/02/01");
+const date = ref("2019-02-01");
 
-const price = ref(null);
+const altura = ref(null);
+const peso = ref(null);
 const nombrearbitro = ref(null);
+const apellidoarbitro = ref(null);
+const sexo = ref(null);
 
-function onSubmit() {
-  if (accept.value !== true) {
-    $q.notify({
-      color: "red-5",
-      textColor: "white",
-      icon: "warning",
-      message: "You need to accept the license and terms first",
-    });
-  } else {
-    $q.notify({
-      color: "green-4",
-      textColor: "white",
-      icon: "cloud_done",
-      message: "Submitted",
-    });
-  }
+
+async function onSubmit() {
+  await crearArbitros({
+    nombre: name.value,
+    apellido: apellidoarbitro.value,
+    edad: age.value,
+    sexo: sexo.value,
+    altura: altura.value,
+    peso: peso.value,
+    fecha_nacimiento: date.value,
+    nombre_paises:pais.value,
+    nombre_ciudades: ciudad.value,
+  });
 }
 
 function onReset() {
@@ -279,14 +281,14 @@ const columns = [
     sortable: true,
   },
   {
-    name: "id_paises",
+    name: "nombre_paises",
     align: "center",
     label: "Nombre-Paises",
     field: "nombre_paises",
     sortable: true,
   },
   {
-    name: "id_ciudades",
+    name: "nombre_ciudades",
     align: "center",
     label: "Nombre-Ciudades",
     field: "nombre_ciudades",
