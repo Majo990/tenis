@@ -8,7 +8,7 @@
             <q-input
               dense
               filled
-              v-model="name"
+              v-model="nombre"
               label="Ingrese su Nombre "
               lazy-rules
               :rules="[
@@ -19,7 +19,7 @@
             />
             <q-select
               filled
-              v-model="model"
+              v-model="nombre_jugadores"
               :options="os"
               dense
               style="width: 47%"
@@ -29,37 +29,38 @@
 
           <div class="row justify-between q-gutter-md">
             <q-select
-              dense
               filled
-              v-model="model"
-              :options="p"
+              v-model="cancha"
+              dense
+              label="Seleccione su cancha"
+              :options="canchas"
               style="width: 47%"
-              label="Seleccione su Cancha "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor seleccione su cancha',
+              ]"
             />
 
             <q-select
               filled
+              v-model="cesped"
               dense
-              v-model="model"
-              :options="ns"
+              label="Seleccione su cesped"
+              :options="cespeds"
               style="width: 47%"
-              label="Seleccione Departamento "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor seleccione su cesped',
+              ]"
             />
           </div>
-          <br />
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              filled
-              dense
-              v-model="model"
-              :options="ops"
-              style="width: 47%"
-              label="Seleccione cesped "
-            />
 
+          <div class="row justify-between q-gutter-md">
             <q-input
               filled
-              v-model="name"
+              v-model="adminsitrador"
               label="Ingrese su Administrador "
               lazy-rules
               dense
@@ -70,13 +71,11 @@
               ]"
               style="width: 47%"
             />
-          </div>
 
-          <div class="row justify-between q-gutter-md">
             <q-input
               filled
               dense
-              v-model="name"
+              v-model="propietario"
               label="Ingrese el Nombre Propietario "
               lazy-rules
               :rules="[
@@ -86,25 +85,28 @@
               ]"
               style="width: 47%"
             />
-
-            <q-input
-              ref="inputRef"
-              filled
-              dense
-              v-model="model9"
-              label="Ingrese su Ubigeo"
-              style="width: 47%"
-              :rules="[
-                (val) => val.length <= 8 || 'Por favor ingrse su Ubigeo',
-              ]"
-            />
           </div>
 
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
+              v-model="ubigeo"
+              label="Ingese su ubigeo"
               dense
-              v-model="name"
+              mask="######"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su ubigeo',
+              ]"
+              style="width: 47%"
+            />
+
+            <q-input
+              filled
+              dense
+              v-model="direccion"
+              icon="mdi-map-marker-outline"
               label="Ingrese su Direccion  "
               lazy-rules
               :rules="[
@@ -115,46 +117,46 @@
             />
 
             <q-select
-                filled
-                v-model="pais"
-                dense
-                :options="paises"
-                map-options
-                emit-value
-                option-value="country"
-                option-label="country"
-                label="Seleccione su Pais"
-                style="width: 47%"
-              />
-            </div>
+              filled
+              v-model="pais"
+              dense
+              :options="paises"
+              map-options
+              emit-value
+              option-value="country"
+              option-label="country"
+              label="Seleccione su Pais"
+              style="width: 47%"
+              lazy-rules
+              :rules="[
+                (val) => (val && val.length > 0) || 'Por favor ingrese su Pais',
+              ]"
+            />
 
-            <div class="row justify-between q-gutter-md">
-              <q-select
-                filled
-                dense
-                v-model="ciudad"
-                :options="ciudades"
-                label="Ingrese su  Ciudad"
-                style="width: 47%"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                ]"
-              />
-
-
+            <q-select
+              filled
+              dense
+              v-model="ciudad"
+              :options="ciudades"
+              label="Ingrese su  Ciudad"
+              style="width: 47%"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+              ]"
+            />
           </div>
-          <br />
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" />
-            <q-btn dense color="secondary" label="Leer " />
-            <q-btn dense color="amber" label="Actualizar" />
-            <q-btn dense color="red" label="Borrar" />
-          </div>
+        </div>
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn dense color="primary" label="Crear" type="submit" />
+          <q-btn dense color="secondary" label="Leer " />
+          <q-btn dense color="amber" label="Actualizar" />
+          <q-btn dense color="red" label="Borrar" />
         </div>
       </div>
     </div>
+
     <br />
     <q-table
       dense
@@ -251,20 +253,29 @@ const columns = [
     field: "nombre_ciudades",
     sortable: true,
   },
-
 ];
 
 const rows = ref([]);
 
-
 const paises = ref([]);
 const pais = ref([]);
 const ciudad = ref([]);
+let canchas = [
+  "cancha1",
+  "cancha2",
+  "cancha3",
+  "cancha4",
+  "cancha5",
+  "cancha6",
+];
+const cancha = ref(null);
+
+let cespeds = ["sintetico", "natural", "piso"];
+const cesped = ref(null);
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === pais.value)?.cities
 );
-
 
 onMounted(async () => {
   rows.value = await getEstadios();

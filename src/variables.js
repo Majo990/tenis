@@ -1,4 +1,4 @@
-let sexo = ["Femenino", "Masculino"]
+/*let sexo = ["Femenino", "Masculino"]
 
 console.log(sexo.length)
 // 2
@@ -9,3 +9,4 @@ let premios=
 console.log(premios.length)
 
 
+*/

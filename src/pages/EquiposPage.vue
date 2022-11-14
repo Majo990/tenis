@@ -18,7 +18,14 @@
               style="width: 47%"
             />
 
-            <q-input dense filled v-model="date" mask="date" :rules="['date']">
+            <q-input dense filled v-model="date"
+
+
+            style="width: 47%"
+            mask="date"
+
+            label="Ingrese la fecha-fundo equipo"
+            :rules="['date']">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy
@@ -60,7 +67,28 @@
               label="Seleccione Nombre Entrenadores "
             />
           </div>
+          <br/>
           <div class="row justify-between q-gutter-md">
+            <q-input
+                v-model="textareaModel"
+                filled
+                clearable
+                type="textarea"
+                autogrow
+                label="Ingrese la Descripcion equipo"
+                lazy-rules
+                dense
+                style="width:47%"
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su Descripcion',
+                ]"
+                :shadow-text="textareaShadowText"
+                @keydown="processTextareaFill"
+                @focus="processTextareaFill"
+              />
+
             <q-input
               filled
               v-model="descripcion"
@@ -73,6 +101,9 @@
               ]"
               style="width: 47%"
             />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
 
             <q-input
               filled
@@ -85,10 +116,9 @@
                   (val && val.length > 0) ||
                   'Por favor ingrese su IndumentariaUniforme',
               ]"
-              style="width: 30%"
+              style="width: 47%"
             />
-          </div>
-          <div class="row justify-between q-gutter-md">
+
             <q-input
               filled
               dense
@@ -101,29 +131,33 @@
               ]"
               style="width: 47%"
             />
-
+          </div>
+          <div class="row justify-between q-gutter-md">
             <q-input
               dense
               filled
               v-model="descripcion"
               label="Ingrese su Apodo "
+              style="width: 47%"
               lazy-rules
               :rules="[
                 (val) =>
                   (val && val.length > 0) || 'Por favor ingrese su Apodos',
-              ]"
-            />
-          </div>
-        </div>
+              ]"/>
 
-        <q-select
-          filled
-          dense
-          v-model="model"
-          :options="nombreestadios"
-          style="width: 47%"
-          label="Seleccione Nombre Estadios"
-        />
+              <q-select
+                filled
+                dense
+                v-model="model"
+                :options="nombrejugador"
+                style="width: 47%"
+                label="Seleccione Nombre equipo"
+              />
+
+      </div>
+
+    </div>
+
 
         <q-select
           filled
@@ -135,9 +169,8 @@
           option-value="country"
           option-label="country"
           label="Seleccione su Pais"
-          style="width: 47%"
+          style="width: 50%"
         />
-      </div>
 
       <q-select
         filled
@@ -145,13 +178,13 @@
         v-model="ciudad"
         :options="ciudades"
         label="Ingrese su  Ciudad"
-        style="width: 47%"
+        style="width:23%"
         lazy-rules
         :rules="[
           (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
         ]"
       />
-    </div>
+
 
     <div class="col-6 q-gutter-md text-center items-center">
       <q-btn dense color="primary" label="Crear" />
@@ -160,8 +193,17 @@
       <q-btn dense color="red" label="Borrar" />
     </div>
     <br />
-    <q-table :rows="rows" :columns="columns" row-key="name" separator="cell" />
+    <q-table
+      dense
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      separator="cell"
+       />
+    </div>
+    </div>
   </q-page>
+
 </template>
 
 <script setup>
@@ -184,23 +226,6 @@ const descripcion = ref(null);
 const nombre = ref(null);
 const text = ref(null);
 
-function onSubmit() {
-  if (accept.value !== true) {
-    $q.notify({
-      color: "red-5",
-      textColor: "white",
-      icon: "warning",
-      message: "You need to accept the license and terms first",
-    });
-  } else {
-    $q.notify({
-      color: "green-4",
-      textColor: "white",
-      icon: "cloud_done",
-      message: "Submitted",
-    });
-  }
-}
 
 function onReset() {
   name.value = null;
@@ -210,12 +235,11 @@ function onReset() {
 
 const columns = [
   {
-    name: "name",
+    name: "nombre",
     required: true,
     label: "Nombre",
     align: "left",
-    field: (row) => row.name,
-    format: (val) => `${val}`,
+   field:"nombre",
     sortable: true,
   },
   {
@@ -307,8 +331,8 @@ const ciudades = computed(
 );
 
 onMounted(async () => {
-  //rows.value = await getEquipos();
-  //paises.value = await getPaises();
+  rows.value = await getEquipos();
+  paises.value = await getPaises();
 });
 </script>
 <style>

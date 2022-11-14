@@ -47,26 +47,24 @@
               ]"
             />
             <q-select
-              filled
-              dense
-              v-model="model"
-              :options="options"
-              style="width: 348px"
-              label="Seleccione sexo "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val !== null && val !== '') ||
-                  'Por favor seleccione su sexo',
-                (val) => (val > 1 && val < 80) || 'Por favor selecione su sexo',
-              ]"
-            />
+                  filled
+                  v-model="sexo"
+                  dense
+                  label="Seleccione su sexo"
+                  :options="sexos"
+                  style="width: 47%"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor seleccione su pais',
+                  ]"
+                />
             <!-- <div  class="q-pa-md" style="max-width: 300px">-->
 
             <q-input
               filled
               dense
-              v-model="price"
+              v-model="altura"
               style="width: 47%"
               label="Ingrese su Altura"
               mask="#.##"
@@ -83,7 +81,7 @@
             <q-input
               filled
               dense
-              v-model="price"
+              v-model="peso"
               style="width: 47%"
               label="Ingrese su Peso"
               mask="#.##"
@@ -187,7 +185,8 @@
 import { ref, onMounted, computed } from "vue";
 import { getJueces, getPaises } from "../services";
 
-
+const peso=ref(null)
+const altura=ref(null)
 const date = ref("2019/02/01");
 const columns = [
   {
@@ -255,6 +254,11 @@ const rows = ref([]);
 const paises = ref([]);
 const pais = ref([]);
 const ciudad = ref([]);
+
+let sexos = ["Femenino", "Masculino"]
+
+const sexo=ref(null);
+
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === pais.value)?.cities

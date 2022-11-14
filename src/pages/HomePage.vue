@@ -128,6 +128,7 @@
 
         <h6>Proximos Encuentros:</h6>
         <q-table
+          dense
           :rows="rows"
           :columns="columns"
           row-key="name"
@@ -156,6 +157,7 @@
         <q-table
           :rows="rows2"
           :columns="columns2"
+          dense
           row-key="name1"
           separator="cell"
         />

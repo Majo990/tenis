@@ -8,7 +8,7 @@
             <div class="row justify-between q-gutter-md">
               <q-input
                 filled
-                v-model="nombrepartida"
+                v-model="nombre"
                 label="Ingrese el Nombre Partida "
                 lazy-rules
                 dense
@@ -21,17 +21,23 @@
               />
 
               <q-input
+                v-model="textareaModel"
                 filled
-                v-model="descriparti"
+                clearable
+                type="textarea"
+                autogrow
                 label="Ingrese la Descripcion Partida"
                 lazy-rules
                 dense
-                style="width: 47%"
+                style="width:47%"
                 :rules="[
                   (val) =>
                     (val && val.length > 0) ||
                     'Por favor ingrese su Descripcion',
                 ]"
+                :shadow-text="textareaShadowText"
+                @keydown="processTextareaFill"
+                @focus="processTextareaFill"
               />
             </div>
 
@@ -40,7 +46,7 @@
                 filled
                 dense
                 v-model="model"
-                :options="options"
+                :options="nombrejugador"
                 style="width: 47%"
                 label="Seleccione Nombre Jugadores "
               />
@@ -48,16 +54,17 @@
                 filled
                 dense
                 v-model="model"
-                :options="options"
+                :options="nombretorneo"
                 style="width: 47%"
                 label="Seleccione Nombre Torneo"
               />
             </div>
-
+            <br />
             <div class="row justify-between q-gutter-md">
               <q-input
                 filled
                 dense
+                label="Ingrese la fecha partida"
                 v-model="fecha"
                 style="width: 47%"
                 mask="date"
@@ -93,10 +100,10 @@
                 filled
                 dense
                 style="width: 47%"
-                v-model="timeWithSeconds"
-                mask="fulltime"
-                hint="Tiempo-Inicio"
-                :rules="['fulltime']"
+                v-model="tiempoinicio"
+                mask="finalizacion"
+                label="Ingrese tiempo inicia partida"
+                :rules="['tiempoduracion']"
               >
                 <template v-slot:append>
                   <q-icon name="access_time" class="cursor-pointer">
@@ -115,10 +122,10 @@
           <q-input
             filled
             dense
-            style="width: 47%"
+            style="width: 60%"
             v-model="tiempo"
             mask="fulltime"
-            hint="Tiempo-Duracion"
+            label="Ingrese la duracion partida"
             :rules="['fulltime']"
           >
             <template v-slot:append>
@@ -128,34 +135,53 @@
                   transition-show="scale"
                   transition-hide="scale"
                 >
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+        <div class="row justify-between q-gutter-md">
+          <q-input
+            filled
+            dense
+            style="width: 20%"
+            label="Ingrese la finalizo partida"
+            v-model="timeWithSeconds"
+            mask="fulltime"
+            :rules="['fulltime']"
+          >
+            <template v-slot:append>
+              <q-icon name="access_time" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-time v-model="timeWithSeconds" with-seconds format24h>
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-time>
                 </q-popup-proxy>
               </q-icon>
             </template>
           </q-input>
         </div>
 
-        <div class="row justify-between q-gutter-md">
-          <q-input
-            filled
-            dense
-            style="width: 47%"
-            v-model="timeWithSeconds"
-            mask="fulltime"
-            hint="Tiempo-Finaliza"
-            :rules="['fulltime']"
-          >
-            <template v-slot:append>
-              <q-icon name="access_time" class="cursor-pointer">
-                <q-popup-proxy
-                  cover
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn dense color="primary" label="Crear" type="submit" />
+          <q-btn dense color="secondary" label="Leer " />
+          <q-btn dense color="amber" label="Actualizar" />
+          <q-btn dense color="red" label="Borrar" />
         </div>
+        <br />
+        <q-table
+          :rows="rows"
+          :columns="columns"
+          row-key="name"
+          separator="cell"
+          dense
+        />
       </div>
     </q-form>
   </q-page>
@@ -165,15 +191,17 @@ import { ref, onMounted } from "vue";
 import { getPartidas } from "../services";
 
 const fecha = ref("2020-02-01");
+const tiempoinicio = ref(null);
+const nombretorneo = ref(null);
+const descriparti = ref(null);
 
-
- tiempo : ref('04:00:00');
- timeWithSeconds : ref('00:30:00');
-  fulltime: ref('4:30:00');
+const tiempoinicios = ref("04:00:00");
+const tiempoduraciones = ref("00:30:00");
+const finalizaciones = ref("4:30:00");
 
 const columns = [
   {
-    name: "name",
+    name: "nombre",
     required: true,
     label: "Nombre",
     align: "left",

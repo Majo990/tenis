@@ -57,6 +57,35 @@
           </div>
 
           <div class="row justify-between q-gutter-md">
+            <q-select
+              filled
+              v-model="pais"
+              dense
+              :options="paises"
+              map-options
+              emit-value
+              option-value="country"
+              option-label="country"
+              label="Seleccione su Pais"
+              style="width: 47%"
+            />
+
+            <q-select
+              filled
+              dense
+              v-model="ciudad"
+              :options="ciudades"
+              label="Ingrese su  Ciudad"
+              style="width: 47%"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+              ]"
+            />
+          </div>
+
+          <div class="row justify-between q-gutter-md">
             <q-input
               ref="inputRef"
               filled
@@ -95,96 +124,71 @@
                 <q-icon name="mail" />
               </template>
             </q-input>
+            <q-input
+              dense
+              standout
+              bottom-slots
+              v-model="text"
+              label="Ingrese su direccion"
+              style="width: 47%"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su direccion ',
+              ]"
+            />
+            <q-input
+              filled
+              dense
+              v-model="phone"
+              label="N° Celular"
+              mask="(+##) ### - ###- ###"
+              style="width: 47%"
+              lazy-rules
+              :rules="[
+                (val) => (val !== null && val !== '') || 'Por N°Celular',
+                (val) =>
+                  (val > 0 && val < 100) || 'Por favor ingrese su N°Celular',
+              ]"
+            />
+            <q-input
+              filled
+              dense
+              v-model="model"
+              label="Ingrese su Cod.Postal"
+              style="width: 47%"
+              :rules="[
+                (val) => val.length <= 8 || 'Por favor ingrese su Cod.Postal',
+              ]"
+            />
+
+            <q-input
+              filled
+              dense
+              v-model="name"
+              label="Ingrese su Nombre usuario "
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Nombre usuario',
+              ]"
+              style="width: 47%"
+            />
+
           </div>
-
-          <q-input
-            v-model="direccion"
-            filled
-            type="Direccion"
-            hint="Direccion"
-            style="width: 47%"
-          />
-          <q-icon
-            name="fa-light fa-location-dot"
-            @click="text = ''"
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'Por favor ingrese su Direccion',
-            ]"
-          />
         </div>
-        <br />
-        <div class="row justify-between q-gutter-md">
-          <q-input
-            filled
-            dense
-            v-model="phone"
-            label="N° Celular"
-            mask="(+##) ### - ###- ###"
-            hint="Mask: (+##) ### - ###-###"
-            lazy-rules
-            :rules="[
-              (val) => (val !== null && val !== '') || 'Por N°Celular',
-              (val) =>
-                (val > 0 && val < 100) || 'Por favor ingrese su N°Celular',
-            ]"
-          />
-
-          <q-input
-            ref="inputRef"
-            filled
-            v-model="model"
-            label="Ingrese su Cod.Postal"
-            style="width: 47%"
-            :rules="[
-              (val) => val.length <= 8 || 'Por favor ingrese su Cod.Postal',
-            ]"
-          />
-        </div>
-
-        <div class="row justify-between q-gutter-md">
-          <q-select
-            filled
-            v-model="pais"
-            dense
-            :options="paises"
-            map-options
-            emit-value
-            option-value="country"
-            option-label="country"
-            label="Seleccione su Pais"
-            style="width: 47%"
-          />
-
-          <q-select
-            filled
-            dense
-            v-model="ciudad"
-            :options="ciudades"
-            label="Ingrese su  Ciudad"
-            style="width: 47%"
-            lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-            ]"
-          />
-        </div>
-
-        <div>
-          <q-btn label="Enviar" type="submit" color="info" />
-          <q-btn
-            label="Restablecer"
-            type="reset"
-            color="negative"
-            flat
-            class="q-ml-sm"
-          />
-          <br />
-        </div>
-        <br />
       </div>
+        <br/>
+
+
       <div class="col-6 q-gutter-md text-center items-center">
+        <q-btn
+          label="Restablecer"
+          type="reset"
+          color="negative"
+          flat
+          class="q-ml-sm"
+        />
         <q-btn dense color="primary" label="Crear" />
         <q-btn dense color="secondary" label="Leer " />
         <q-btn dense color="amber" label="Actualizar" />
@@ -205,8 +209,8 @@
 <script setup>
 import { useQuasar } from "quasar";
 
-import { ref, onMounted,computed } from "vue";
-import { getPerfiles,getPaises } from "../services";
+import { ref, onMounted, computed } from "vue";
+import { getPerfiles, getPaises } from "../services";
 
 const columns = [
   {
@@ -306,8 +310,6 @@ const rows = ref([]);
 const paises = ref([]);
 const pais = ref([]);
 const ciudad = ref([]);
-
-
 const ciudades = computed(
   () => paises.value.find((p) => p.country === pais.value)?.cities
 );

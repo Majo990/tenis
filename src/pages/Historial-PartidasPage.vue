@@ -4,7 +4,13 @@
       <strong>Formulario </strong>
       <div class="q-gutter-md">
         <div class="buscador">
-          <q-input  dense v-model="filter" debounce="500" filled placeholder="Buscar">
+          <q-input
+            dense
+            v-model="filter"
+            debounce="500"
+            filled
+            placeholder="Buscar"
+          >
             <template v-slot:append>
               <q-icon name="search" />
             </template>
@@ -18,10 +24,10 @@
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-select
-            dense
+              dense
               filled
-              v-model="models"
-              :options="pais"
+              v-model="jugador"
+              :options="jugador"
               label="Seleccione jugador"
               style="width: 47%"
             />
@@ -29,78 +35,78 @@
             <q-select
               filled
               dense
-              v-model="models"
-              :options="pais"
+              v-model="fecha"
+              :options="fecha"
               label="Seleccione su fecha-hora"
               style="width: 47%"
             />
           </div>
-          <br/>
+          <br />
 
           <div class="row justify-between q-gutter-md">
             <q-select
               filled
               dense
-              v-model="models"
-              :options="pais"
+              v-model="ronda"
+              :options="ronda"
               label="Seleccione Nombre ronda"
               style="width: 47%"
             />
             <q-select
-            dense
+              dense
               filled
-              v-model="models"
-              :options="pais"
+              v-model="puntaje"
+              :options="puntaje"
               label="Seleccione su Puntaje"
               style="width: 47%"
             />
           </div>
-          <br/>
+          <br />
           <div class="row justify-between q-gutter-md">
             <q-select
-            dense
+              dense
               filled
-              v-model="models"
-              :options="pais"
+              v-model="evento"
+              :options="evento"
               label="Seleccione su evento"
               style="width: 47%"
             />
             <q-select
-            dense
+              dense
               filled
-              v-model="models"
-              :options="pais"
+              v-model="juez"
+              :options="jueces"
               label="Seleccione su Nombre Juez"
               style="width: 47%"
             />
           </div>
-          <br/>
+          <br />
           <div class="row justify-between q-gutter-md">
             <q-select
-            dense
-            filled
-              v-model="models"
-              :options="pais"
+              dense
+              filled
+              v-model="premio"
+              :options="premios"
               label="Seleccione su Nombre Premio"
               style="width: 47%"
             />
 
             <q-select
-            dense
+              dense
               filled
-              v-model="models"
+              v-model="faltas"
               :options="pais"
               label="Seleccione su Nombre Faltas"
               style="width: 47%"
             />
           </div>
-          <br/>
+          <br />
 
           <div class="row justify-between q-gutter-md">
             <q-select
               filled
               dense
-              v-model="models"
+              v-model="partidas"
               :options="pais"
               label="Seleccione su Nombre Partidas"
               style="width: 47%"
@@ -108,7 +114,7 @@
 
             <q-select
               filled
-              v-model="models"
+              v-model="arbitros"
               :options="pais"
               dense
               label="Seleccione su Nombre Arbitros "
@@ -118,17 +124,17 @@
         </div>
       </div>
 
-    <br/>
+      <br />
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn   dense color="primary" label="Crear" />
-        <q-btn    dense color="secondary" label="Leer " />
-        <q-btn   dense color="amber" label="Actualizar" />
-        <q-btn   dense color="red" label="Borrar" />
+        <q-btn dense color="primary" label="Crear" />
+        <q-btn dense color="secondary" label="Leer " />
+        <q-btn dense color="amber" label="Actualizar" />
+        <q-btn dense color="red" label="Borrar" />
       </div>
       <br />
 
       <q-table
-      dense
+        dense
         :rows="rows"
         :columns="columns"
         row-key="name"
@@ -215,6 +221,16 @@ const columns = [
 ];
 
 const rows = ref([]);
+const jugador=ref(null);
+const ronda=ref(null);
+const puntaje=ref(null);
+const fecha=ref(null);
+const evento=ref(null);
+const jueces=ref(null);
+const premio=ref(null);
+const faltas=ref(null);
+const partidas=ref(null);
+const arbitros=ref(null);
 
 onMounted(async () => {
   rows.value = await getHistorialPartidas();

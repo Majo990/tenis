@@ -1,13 +1,13 @@
 <template>
-  <q-page padding>
     <div class="q-pa-md">
+      <q-page padding>
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
-              type="number"
-              v-model="age"
+              type="nro"
+              v-model="nro"
               dense
               label="Selecione Nro"
               style="width: 47%"
@@ -87,14 +87,15 @@
         />
         <q-select
           filled
-          v-model="model"
+          v-model="partida"
           dense
-          :options="options"
+          :options="partidas"
           style="width: 47%"
           label="Seleccione Nombre Partidas "
         />
       </div>
 
+      <br />
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn dense color="primary" label="Crear" />
         <q-btn dense color="secondary" label="Leer " />
@@ -109,8 +110,8 @@
         row-key="name"
         separator="cell"
       />
+    </q-page>
     </div>
-  </q-page>
 </template>
 
 <script setup>

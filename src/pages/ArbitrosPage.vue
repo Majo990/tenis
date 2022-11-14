@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-page padding>
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="q-pa-md">
           <strong>Formulario </strong>
           <div class="row">
@@ -10,7 +10,7 @@
                 <q-input
                   filled
                   dense
-                  v-model="nombrearbitro"
+                  v-model="arbitro.nombre"
                   label="Ingrese su Nombre arbitro "
                   lazy-rules
                   :rules="[
@@ -23,7 +23,7 @@
                 <q-input
                   dense
                   filled
-                  v-model="apellidoarbitro"
+                  v-model="arbitro.apellido"
                   label="Ingrese su Apellido "
                   lazy-rules
                   :rules="[
@@ -39,7 +39,7 @@
                   filled
                   dense
                   type="number"
-                  v-model="age"
+                  v-model="arbitro.edad"
                   label="Selecione Edad"
                   style="width: 47%"
                   lazy-rules
@@ -50,12 +50,22 @@
                       (val > 1 && val < 80) || 'Por favor selecione su edad',
                   ]"
                 />
-
-                <!-- <div  class="q-pa-md" style="max-width: 300px">-->
-
+                <q-select
+                  filled
+                  v-model="arbitro.sexo"
+                  dense
+                  label="Seleccione su sexo"
+                  :options="sexos"
+                  style="width: 47%"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor seleccione su pais',
+                  ]"
+                />
                 <q-input
                   filled
-                  v-model="altura"
+                  v-model="arbitro.altura"
                   style="width: 47%"
                   label="Ingrese su Altura"
                   mask="#.##"
@@ -73,11 +83,10 @@
                       (val > 1 && val < 80) || 'Por favor ingrese altura',
                   ]"
                 ></q-input>
-              </div>
-              <div class="row justify-between q-gutter-md">
+
                 <q-input
                   filled
-                  v-model="peso"
+                  v-model="arbitro.peso"
                   style="width: 47%"
                   label="Ingrese su Peso"
                   mask="#.##"
@@ -96,9 +105,11 @@
                   ]"
                 >
                 </q-input>
+              </div>
+              <div class="row justify-between q-gutter-md">
                 <q-input
                   filled
-                  v-model="date"
+                  v-model="arbitro.fecha_nacimiento"
                   mask="date"
                   dense
                   :rules="['date']"
@@ -127,11 +138,10 @@
                     </q-icon>
                   </template>
                 </q-input>
-              </div>
-              <div class="row justify-between q-gutter-md">
+
                 <q-select
                   filled
-                  v-model="pais"
+                  v-model="arbitro.nombre_paises"
                   dense
                   :options="paises"
                   map-options
@@ -146,11 +156,12 @@
                       (val && val.length > 0) || 'Por favor seleccione su pais',
                   ]"
                 />
-
+              </div>
+              <div class="row justify-between q-gutter-md">
                 <q-select
                   filled
                   dense
-                  v-model="ciudad"
+                  v-model="arbitro.nombre_ciudades"
                   :options="ciudades"
                   label="Ingrese su  Ciudad"
                   style="width: 47%"
@@ -167,67 +178,30 @@
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="secondary" label="Leer " />
-          <q-btn dense color="amber" label="Actualizar" />
-          <q-btn dense color="red" label="Borrar" />
+          <q-btn dense color="secondary" label="Seleccione" type="" />
+          <q-btn dense color="amber" label="Actualizar" type="" />
+          <q-btn dense color="red" label="Borrar" type="" />
         </div>
         <br />
         <q-table
           :rows="rows"
           :columns="columns"
-          row-key="name"
           separator="cell"
           dense
-        />
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
       </q-form>
     </q-page>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, reactive } from "vue";
 import { getArbitros, getPaises, crearArbitros } from "../services";
-import { useQuasar } from "quasar";
-
-// import { ref } from "vue";
-
-// eslint-disable-next-line vue/no-export-in-script-setup
-
-// eslint-disable-next-line vue/no-export-in-script-setup
-
-const $q = useQuasar();
-const name = ref(null);
-const age = ref(null);
-const accept = ref(false);
-
-const date = ref("2019-02-01");
-
-const altura = ref(null);
-const peso = ref(null);
-const nombrearbitro = ref(null);
-const apellidoarbitro = ref(null);
-const sexo = ref(null);
-
-
-async function onSubmit() {
-  await crearArbitros({
-    nombre: name.value,
-    apellido: apellidoarbitro.value,
-    edad: age.value,
-    sexo: sexo.value,
-    altura: altura.value,
-    peso: peso.value,
-    fecha_nacimiento: date.value,
-    nombre_paises:pais.value,
-    nombre_ciudades: ciudad.value,
-  });
-}
-
-function onReset() {
-  name.value = null;
-  age.value = null;
-  accept.value = false;
-}
 
 const columns = [
   {
@@ -295,19 +269,54 @@ const columns = [
     sortable: true,
   },
 ];
-
+const selected = ref([]);
+const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
-const pais = ref([]);
-const ciudad = ref([]);
+
+const arbitro = reactive({
+  nombre: null,
+  apellido: null,
+  edad: null,
+  sexo: null,
+  altura: null,
+  peso: null,
+  fecha_nacimiento: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+});
+
+async function onSubmit() {
+  await crearArbitros(arbitro);
+  
+}
 
 const ciudades = computed(
-  () => paises.value.find((p) => p.country === pais.value)?.cities
+  () => paises.value.find((p) => p.country === arbitro.nombre_paises)?.cities
 );
 
 onMounted(async () => {
   rows.value = await getArbitros();
   paises.value = await getPaises();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    nombre: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    altura: null,
+    peso: null,
+    fecha_nacimiento: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(arbitro, rowSelected);
+}
 </script>
 <style></style>

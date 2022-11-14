@@ -8,7 +8,7 @@
             <q-input
               filled
               dense
-              v-model="nombreevento"
+              v-model="nombre"
               label="Ingrese su Nombre Evento "
               lazy-rules
               :rules="[
@@ -22,10 +22,10 @@
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn   dense color="primary" label="Crear" />
-        <q-btn   dense    color="secondary" label="Leer " />
-        <q-btn     dense color="amber" label="Actualizar" />
-        <q-btn    dense color="red" label="Borrar" />
+        <q-btn dense color="primary" label="Crear" type="submit" />
+        <q-btn dense color="secondary" label="Leer " />
+        <q-btn dense color="amber" label="Actualizar" />
+        <q-btn dense color="red" label="Borrar" />
       </div>
       <br />
       <q-table
@@ -54,6 +54,12 @@ const columns = [
 ];
 
 const rows = ref([]);
+
+async function onSubmit(){
+  await crearEventos({
+    nombre: nombre.value,
+  });
+}
 
 onMounted(async () => {
   rows.value = await getEventos();
