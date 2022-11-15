@@ -178,7 +178,7 @@
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="secondary" label="Seleccione" type="" />
+        
           <q-btn dense color="amber" label="Actualizar" type="" />
           <q-btn dense color="red" label="Borrar" type="" />
         </div>
@@ -288,7 +288,7 @@ const arbitro = reactive({
 
 async function onSubmit() {
   await crearArbitros(arbitro);
-  
+
 }
 
 const ciudades = computed(

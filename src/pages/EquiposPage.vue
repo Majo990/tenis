@@ -8,7 +8,7 @@
             <q-input
               filled
               dense
-              v-model="nombre"
+              v-model="equipo.nombre"
               label="Ingrese su Nombre "
               lazy-rules
               :rules="[
@@ -21,7 +21,7 @@
             <q-input
               dense
               filled
-              v-model="date"
+              v-model="equipo.fecha_fundo"
               style="width: 47%"
               mask="date"
               label="Ingrese la fecha-fundo equipo"
@@ -53,7 +53,7 @@
             <q-select
               filled
               dense
-              v-model="model"
+              v-model="equipo.nombrejugador"
               :options="options"
               style="width: 47%"
               label="Seleccione Nombre Jugadores "
@@ -61,7 +61,7 @@
 
             <q-select
               filled
-              v-model="model"
+              v-model="equipo.id_entrenadores"
               dense
               :options="options"
               style="width: 47%"
@@ -71,7 +71,7 @@
           <br />
           <div class="row justify-between q-gutter-md">
             <q-input
-              v-model="textareaModel"
+              v-model="equipo.descripcion"
               filled
               clearable
               type="textarea"
@@ -91,7 +91,7 @@
 
             <q-input
               filled
-              v-model="descripcion"
+              v-model="equipo.apodos"
               label="Ingrese su Simbolo"
               lazy-rules
               dense
@@ -107,7 +107,7 @@
             <q-input
               filled
               dense
-              v-model="descripcion"
+              v-model="equipo.indumentaria_uniforme"
               label="Ingrese su Indumentaria_Uniforme"
               lazy-rules
               :rules="[
@@ -121,7 +121,7 @@
             <q-input
               filled
               dense
-              v-model="nombre"
+              v-model="equipo.presidente"
               label="Ingrese su Presidente "
               lazy-rules
               :rules="[
@@ -135,7 +135,7 @@
             <q-input
               dense
               filled
-              v-model="descripcion"
+              v-model="equipo.apodos"
               label="Ingrese su Apodo "
               style="width: 47%"
               lazy-rules
@@ -148,7 +148,7 @@
             <q-select
               filled
               dense
-              v-model="model"
+              v-model="equipo.nombrejugador"
               :options="nombrejugador"
               style="width: 47%"
               label="Seleccione Nombre equipo"
@@ -158,7 +158,7 @@
 
         <q-select
           filled
-          v-model="pais"
+          v-model="equipo.nombre_paises"
           dense
           :options="paises"
           map-options
@@ -172,7 +172,7 @@
         <q-select
           filled
           dense
-          v-model="ciudad"
+          v-model="equipo.nombre_ciudades"
           :options="ciudades"
           label="Ingrese su  Ciudad"
           style="width: 23%"
@@ -190,43 +190,24 @@
         </div>
         <br />
         <q-table
-          dense
           :rows="rows"
           :columns="columns"
-          row-key="name"
           separator="cell"
-        />
+          dense
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import { getEquipos, getPaises } from "src/services";
-import { useQuasar } from "quasar";
-
-const $q = useQuasar();
-
-const age = ref(null);
-const accept = ref(false);
-
-const model = ref(null);
-
-const date = ref("2019-02-01");
-
-const nombre=ref(null);
-const nombreestadios = ref(null);
-const options = ref(null);
-const descripcion = ref(null);
-
-const text = ref(null);
-
-function onReset() {
-
-  age.value = null;
-  accept.value = false;
-}
+import { ref, onMounted, computed, reactive } from "vue";
+import { getEquipos, getPaises, crearEquipos } from "src/services";
 
 const columns = [
   {
@@ -316,15 +297,32 @@ const columns = [
   },
 ];
 
+const date = ref("2019-02-01");
+const options = ref([]);
 const rows = ref([]);
 const paises = ref([]);
-const pais = ref([]);
-const ciudad = ref([]);
 
+const equipo = reactive({
+  nombre: null,
+  fecha_fundo: null,
+  id_jugadores: null,
+  id_entrenadores: null,
+  descripcion: null,
+  simbolo: null,
+  indumentaria_uniforme: null,
+  presidente: null,
+  apodos: null,
+  id_estadios: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+});
 
+async function onSubmit() {
+  await crearEquipos(equipo);
+}
 
 const ciudades = computed(
-  () => paises.value.find((p) => p.country === pais.value)?.cities
+  () => paises.value.find((p) => p.country === equipo.pais.value)?.cities
 );
 
 onMounted(async () => {
@@ -332,15 +330,27 @@ onMounted(async () => {
   paises.value = await getPaises();
 });
 
-function handleSelection(details){
-  let rowSelected ={
-    
+function handleSelection(details) {
+  let rowSelected = {
+    nombre: null,
+    fecha_fundo: null,
+    id_jugadores: null,
+    id_entrenadores: null,
+    descripcion: null,
+    simbolo: null,
+    indumentaria_uniforme: null,
+    presidente: null,
+    apodos: null,
+    id_estadios: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
   }
+
+  Object.assign(equipo, rowSelected);
 }
-
-
-
-
 </script>
 <style>
 .q-table {

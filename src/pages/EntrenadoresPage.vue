@@ -8,7 +8,7 @@
             <div class="row justify-between q-gutter-md">
               <q-input
                 filled
-                v-model="nombre"
+                v-model="entrenador.nombre"
                 label="Ingrese su Nombre "
                 lazy-rules
                 dense
@@ -21,8 +21,8 @@
 
               <q-select
                 filled
-                v-model="nombre_jugador"
-                :options="nombre_jugadores"
+                v-model="entrenador.id_jugadores"
+                :options="jugadores"
                 dense
                 style="width: 47%"
                 label="Seleccione Nombre Jugadores "
@@ -30,7 +30,7 @@
 
               <q-input
                 filled
-                v-model="apellido"
+                v-model="entrenador.apellido"
                 label="Ingrese su Apellido Entrenador "
                 lazy-rules
                 dense
@@ -43,7 +43,7 @@
               <q-input
                 filled
                 type="edad"
-                v-model="edad"
+                v-model="entrenador.edad"
                 dense
                 label="Selecione Edad"
                 style="width: 47%"
@@ -58,7 +58,7 @@
 
               <q-select
                 filled
-                v-model="sexo"
+                v-model="entrenador.sexo"
                 dense
                 label="Seleccione su sexo"
                 :options="sexos"
@@ -72,7 +72,7 @@
 
               <q-input
                 filled
-                v-model="fecha_nacimiento"
+                v-model="entrenador.fecha_nacimiento"
                 mask="date"
                 dense
                 :rules="['date']"
@@ -104,7 +104,7 @@
 
               <q-select
                 filled
-                v-model="pais"
+                v-model="entrenador.nombre_paises"
                 dense
                 :options="paises"
                 emit-value
@@ -117,7 +117,7 @@
               <q-select
                 filled
                 dense
-                v-model="ciudad"
+                v-model="entrenador.nombre_ciudades"
                 :options="ciudades"
                 label="Ingrese su  Ciudad"
                 style="width: 47%"
@@ -150,12 +150,16 @@
       </div>
       <br />
       <q-table
-        dense
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        separator="cell"
-      />
+          :rows="rows"
+          :columns="columns"
+          separator="cell"
+          dense
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
     </div>
   </q-page>
 </template>
@@ -224,15 +228,17 @@ const columns = [
     sortable: true,
   },
 ];
+const selected = ref([]);
 const date = ref("2019-02-01");
-const  sexos = ["Femenino", "Masculino"];
-const rows=ref([]);
-const paises=ref([]);
+const sexos = ["Femenino", "Masculino"];
+const rows = ref([]);
+const paises = ref([]);
 
 
 
-const entrenadores = reactive({
+const entrenador = reactive({
   nombre: null,
+  id_jugadores: null,
   apellido: null,
   edad: null,
   sexo: null,
@@ -242,12 +248,12 @@ const entrenadores = reactive({
   nombre_paises: null,
   nombre_ciudades: null,
 });
-async function onSubmit(){
-  await crearEntrenadores(entrenador)
+async function onSubmit() {
+  await crearEntrenadores(entrenador);
 }
 
 const ciudades = computed(
-  () => paises.value.find((p) => p.country === pais.value)?.cities
+  () => paises.value.find((p) => p.country === entrenador.nombre_paises)?.cities
 );
 
 onMounted(async () => {
@@ -258,6 +264,7 @@ onMounted(async () => {
 function handleSelection(details) {
   let rowSelected = {
     nombre: null,
+    id_jugadores: null,
     apellido: null,
     edad: null,
     sexo: null,

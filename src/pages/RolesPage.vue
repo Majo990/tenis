@@ -19,14 +19,7 @@
                     (val && val.length > 0) || 'Por favor ingrese su Apellido',
                 ]"
               />
-              <q-select
-                filled
-                dense
-                v-model="model"
-                :options="options"
-                style="width: 47%"
-                label="Seleccione su Rol"
-              />
+              
             </div>
           </div>
         </div>

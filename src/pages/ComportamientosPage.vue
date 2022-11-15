@@ -1,13 +1,14 @@
 <template>
   <q-page padding>
+    <q-form @submit="onSubmit" class="q-gutter-md">
     <div class="q-pa-md">
       <strong>Formulario </strong>
       <div class="row">
-        <div  class="col-6">
+        <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
-              v-model="descripcion"
+              v-model="comportamiento.descripcion"
               label="Ingrese su Descripcion "
               lazy-rules
               dense
@@ -18,60 +19,88 @@
               style="width: 47%"
             />
             <q-select
-                  filled
-                  v-model="model"
-                  :options="jugadores"
-                  style="width: 47%"
-                  dense
-                  label="Seleccione Nombre Jugadores "
-                />
+              filled
+              v-model="comportamiento.id_jugadores"
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              :options="jugadores"
+              style="width: 47%"
+              dense
+              lazy-rules
+
+              label="Seleccione Nombre Jugadores "
+            />
           </div>
 
           <div class="row justify-between q-gutter-md">
+            <q-select
+              filled
+              v-model="comportamiento.id_arbitros"
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              :options="arbitro"
+              dense
+              style="width: 47%"
+              lazy-rules
 
-          <q-select
-                  filled
-                  v-model="model"
-                  :options="arbitro"
-                  dense
-                  style="width: 47%"
-                  label="Seleccione Nombre Arbitro"
-                />
-                <q-select
-                  filled
-                  v-model="model"
-                  :options="sancion"
-                  dense
-                  style="width: 47%"
-                  label="Seleccione Nombre Sancion"
-                />
-                <br/>
+              label="Seleccione Nombre Arbitro"
+            />
+            <q-select
+              filled
+              v-model="comportamiento.id_sanciones"
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              :options="sancion"
+              dense
+              style="width: 47%"
+              lazy-rules
+
+              label="Seleccione Nombre Sancion"
+            />
+            <br />
           </div>
         </div>
       </div>
-      <br/>
+      <br />
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn  dense color="primary" label="Crear" />
-        <q-btn   dense color="secondary" label="Leer " />
-        <q-btn   dense color="amber" label="Actualizar" />
-        <q-btn  dense color="red" label="Borrar" />
-        <br/>
+        <q-btn dense color="primary" label="Crear" type="submit" />
 
-         <q-table
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        dense
-        separator="cell"
-      />
+        <q-btn dense color="amber" label="Actualizar" />
+        <q-btn dense color="red" label="Borrar" />
+        <br />
+        <q-table
+          :rows="rows"
+          :columns="columns"
+          separator="cell"
+          dense
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
       </div>
     </div>
+    </q-form>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getComportamientos } from "../services";
+import { ref, onMounted, reactive } from "vue";
+import {
+  getComportamientos,
+  getJugadores,
+  getArbitros,
+  getSanciones,
+  crearComportamientos,
+} from "../services";
+
 const columns = [
   {
     name: "descripcion",
@@ -104,11 +133,44 @@ const columns = [
   },
 ];
 
+const selected = ref([]);
 const rows = ref([]);
+const jugadores = ref([]);
+const arbitro = ref([]);
+const sancion = ref([]);
+
+const comportamiento = reactive({
+  descripcion: null,
+  id_jugadores: null,
+  id_arbitros: null,
+  id_sanciones: null,
+});
+
+async function onSubmit() {
+  await crearComportamientos(comportamiento);
+}
 
 onMounted(async () => {
   rows.value = await getComportamientos();
+  jugadores.value = await getJugadores();
+  arbitro.value = await getArbitros();
+  sancion.value = await getSanciones();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    descripcion: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_sanciones: null,
+  };
+
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(comportamiento, rowSelected);
+}
 </script>
 
 <style>

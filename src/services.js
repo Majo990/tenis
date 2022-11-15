@@ -39,8 +39,17 @@ export async function getComportamientos() {
   return r.data;
 }
 
+export async function crearComportamientos(params) {
+  const r = await api.post("/comportamientos", params);
+  return r.data;
+}
+
 export async function getEntrenadores() {
   const r = await api.get("/entrenadores");
+  return r.data;
+}
+export async function crearEntrenadores(params) {
+  const r = await api.post("/entrenadores", params);
   return r.data;
 }
 
@@ -48,6 +57,11 @@ export async function getEquipos() {
   const r = await api.get("/equipos");
   return r.data;
 }
+export async function crearEquipos(params) {
+  const r = await api.post("/equipos", params);
+  return r.data;
+}
+
 
 export async function getEstadios() {
   const r = await api.get("/estadios");
@@ -113,6 +127,11 @@ export async function getUsuarios() {
   const r = await api.get("/usuarios");
   return r.data;
 }
+export async function crearUsuarios(params) {
+  const r = await api.post("/usuarios", params);
+  return r.data;
+}
+
 
 export async function getPermisos() {
   const r = await api.get("/permisos");
