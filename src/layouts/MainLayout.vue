@@ -87,6 +87,13 @@ const linksList = [
     icon: "mdi-account-cowboy-hat",
     link: "/Entrenadores",
   },
+
+  {
+    icon: "mdi-account-group",
+    title: "Equipos",
+    link: "/Equipos",
+  },
+
   {
     title: "Estadios",
     icon: "mdi-crop-landscape",
@@ -156,12 +163,6 @@ const linksList = [
     title: "Torneos",
     icon: "mdi-alpha-t-circle",
     link: "/Torneos",
-  },
-
-  {
-    icon: "mdi-account-group",
-    title: "Equipos",
-    link: "/Equipos",
   },
 
   {

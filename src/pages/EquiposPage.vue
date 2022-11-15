@@ -18,14 +18,15 @@
               style="width: 47%"
             />
 
-            <q-input dense filled v-model="date"
-
-
-            style="width: 47%"
-            mask="date"
-
-            label="Ingrese la fecha-fundo equipo"
-            :rules="['date']">
+            <q-input
+              dense
+              filled
+              v-model="date"
+              style="width: 47%"
+              mask="date"
+              label="Ingrese la fecha-fundo equipo"
+              :rules="['date']"
+            >
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy
@@ -67,27 +68,26 @@
               label="Seleccione Nombre Entrenadores "
             />
           </div>
-          <br/>
+          <br />
           <div class="row justify-between q-gutter-md">
             <q-input
-                v-model="textareaModel"
-                filled
-                clearable
-                type="textarea"
-                autogrow
-                label="Ingrese la Descripcion equipo"
-                lazy-rules
-                dense
-                style="width:47%"
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Descripcion',
-                ]"
-                :shadow-text="textareaShadowText"
-                @keydown="processTextareaFill"
-                @focus="processTextareaFill"
-              />
+              v-model="textareaModel"
+              filled
+              clearable
+              type="textarea"
+              autogrow
+              label="Ingrese la Descripcion equipo"
+              lazy-rules
+              dense
+              style="width: 47%"
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Descripcion',
+              ]"
+              :shadow-text="textareaShadowText"
+              @keydown="processTextareaFill"
+              @focus="processTextareaFill"
+            />
 
             <q-input
               filled
@@ -104,7 +104,6 @@
           </div>
 
           <div class="row justify-between q-gutter-md">
-
             <q-input
               filled
               dense
@@ -143,21 +142,19 @@
               :rules="[
                 (val) =>
                   (val && val.length > 0) || 'Por favor ingrese su Apodos',
-              ]"/>
+              ]"
+            />
 
-              <q-select
-                filled
-                dense
-                v-model="model"
-                :options="nombrejugador"
-                style="width: 47%"
-                label="Seleccione Nombre equipo"
-              />
-
-      </div>
-
-    </div>
-
+            <q-select
+              filled
+              dense
+              v-model="model"
+              :options="nombrejugador"
+              style="width: 47%"
+              label="Seleccione Nombre equipo"
+            />
+          </div>
+        </div>
 
         <q-select
           filled
@@ -172,38 +169,36 @@
           style="width: 50%"
         />
 
-      <q-select
-        filled
-        dense
-        v-model="ciudad"
-        :options="ciudades"
-        label="Ingrese su  Ciudad"
-        style="width:23%"
-        lazy-rules
-        :rules="[
-          (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-        ]"
-      />
+        <q-select
+          filled
+          dense
+          v-model="ciudad"
+          :options="ciudades"
+          label="Ingrese su  Ciudad"
+          style="width: 23%"
+          lazy-rules
+          :rules="[
+            (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+          ]"
+        />
 
-
-    <div class="col-6 q-gutter-md text-center items-center">
-      <q-btn dense color="primary" label="Crear" />
-      <q-btn dense color="secondary" label="Leer " />
-      <q-btn dense color="amber" label="Actualizar" />
-      <q-btn dense color="red" label="Borrar" />
-    </div>
-    <br />
-    <q-table
-      dense
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-      separator="cell"
-       />
-    </div>
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn dense color="primary" label="Crear" />
+          <q-btn dense color="secondary" label="Leer " />
+          <q-btn dense color="amber" label="Actualizar" />
+          <q-btn dense color="red" label="Borrar" />
+        </div>
+        <br />
+        <q-table
+          dense
+          :rows="rows"
+          :columns="columns"
+          row-key="name"
+          separator="cell"
+        />
+      </div>
     </div>
   </q-page>
-
 </template>
 
 <script setup>
@@ -212,7 +207,7 @@ import { getEquipos, getPaises } from "src/services";
 import { useQuasar } from "quasar";
 
 const $q = useQuasar();
-const name = ref(null);
+
 const age = ref(null);
 const accept = ref(false);
 
@@ -220,15 +215,15 @@ const model = ref(null);
 
 const date = ref("2019-02-01");
 
+const nombre=ref(null);
 const nombreestadios = ref(null);
 const options = ref(null);
 const descripcion = ref(null);
-const nombre = ref(null);
+
 const text = ref(null);
 
-
 function onReset() {
-  name.value = null;
+
   age.value = null;
   accept.value = false;
 }
@@ -239,7 +234,7 @@ const columns = [
     required: true,
     label: "Nombre",
     align: "left",
-   field:"nombre",
+    field: "nombre",
     sortable: true,
   },
   {
@@ -326,6 +321,8 @@ const paises = ref([]);
 const pais = ref([]);
 const ciudad = ref([]);
 
+
+
 const ciudades = computed(
   () => paises.value.find((p) => p.country === pais.value)?.cities
 );
@@ -334,6 +331,16 @@ onMounted(async () => {
   rows.value = await getEquipos();
   paises.value = await getPaises();
 });
+
+function handleSelection(details){
+  let rowSelected ={
+    
+  }
+}
+
+
+
+
 </script>
 <style>
 .q-table {

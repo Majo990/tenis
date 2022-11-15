@@ -56,54 +56,51 @@
                 ]"
               />
 
-
               <q-select
-                  filled
-                  v-model="sexo"
-                  dense
-                  label="Seleccione su sexo"
-                  :options="sexos"
-                  style="width: 47%"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor seleccione su pais',
-                  ]"
-                />
-
+                filled
+                v-model="sexo"
+                dense
+                label="Seleccione su sexo"
+                :options="sexos"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor seleccione su pais',
+                ]"
+              />
 
               <q-input
-                  filled
-                  v-model="date"
-                  mask="date"
-                  dense
-                  :rules="['date']"
-                  style="width: 47%"
-                  lazy-rules
-                  label="Ingrese su Fecha Nacimiento"
-                >
-                  <template v-slot:append>
-                    <q-icon name="event" class="cursor-pointer">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-date v-model="date">
-                          <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="primary"
-                              flat
-                            />
-                          </div>
-                        </q-date>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-
+                filled
+                v-model="fecha_nacimiento"
+                mask="date"
+                dense
+                :rules="['date']"
+                style="width: 47%"
+                lazy-rules
+                label="Ingrese su Fecha Nacimiento"
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date v-model="date">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
 
               <q-select
                 filled
@@ -142,7 +139,6 @@
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
-        
           <q-btn
             label="Restablecer"
             type="reset"
@@ -165,10 +161,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import { getEntrenadores, getPaises } from "../services";
-
-const options = ref([]);
+import { ref, onMounted, computed, reactive } from "vue";
+import { getEntrenadores, getPaises, crearEntrenadores } from "../services";
 
 const columns = [
   {
@@ -231,24 +225,26 @@ const columns = [
   },
 ];
 const date = ref("2019-02-01");
-let sexos = ["Femenino", "Masculino"];
-
-const sexo = ref(null);
-
-const rows = ref([]);
-const nombre = ref(null);
-const edad = ref(null);
-const nombre_jugadores = ref(null);
-const apellido = ref(null);
-
-const paises = ref([]);
-const pais = ref([]);
-const ciudad = ref([]);
-
-const nombre_jugador = ref(null);
-const group = ref(null);
+const  sexos = ["Femenino", "Masculino"];
+const rows=ref([]);
+const paises=ref([]);
 
 
+
+const entrenadores = reactive({
+  nombre: null,
+  apellido: null,
+  edad: null,
+  sexo: null,
+  altura: null,
+  peso: null,
+  fecha_nacimiento: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+});
+async function onSubmit(){
+  await crearEntrenadores(entrenador)
+}
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === pais.value)?.cities
@@ -258,6 +254,26 @@ onMounted(async () => {
   rows.value = await getEntrenadores();
   paises.value = await getPaises();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    nombre: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    altura: null,
+    peso: null,
+    fecha_nacimiento: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  };
+
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(entrenador, rowSelected);
+}
 </script>
 <style>
 .q-table {
