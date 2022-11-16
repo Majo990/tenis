@@ -134,6 +134,12 @@ export async function getPartidasJugadores() {
   return r.data;
 }
 
+export async function crearPartidasJugadores(params) {
+  const r = await api.post("/partidas_jugadores", params);
+  return r.data;
+}
+
+
 export async function getPremios() {
   const r = await api.get("/premios");
   return r.data;

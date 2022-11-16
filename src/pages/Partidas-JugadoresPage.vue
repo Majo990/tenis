@@ -24,32 +24,32 @@
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-select
-              dense
-              filled
-              v-model="models"
-              :options="pais"
-              label="Seleccione su Nombre Partidas"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre',
-              ]"
-              style="width: 55%"
-            />
+                filled
+                v-model="partidajugador.partidas"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="partidas"
+                style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione Nombre Jugadores "
+              />
 
             <q-select
-              filled
-              v-model="models"
-              :options="pais"
-              dense
-              label="Seleccione el Nombre Jugadores"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre',
-              ]"
-              style="width: 55%"
-            />
+                filled
+                v-model="partidajugador.jugadores"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="jugadores"
+                style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione Nombre Jugadores "
+              />
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn dense color="primary" label="Crear" />
@@ -62,19 +62,22 @@
     </q-form>
     <br />
     <q-table
-      dense
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-      :filter="filter"
-      separator="cell"
-    />
+              :rows="rows"
+              :columns="columns"
+              separator="cell"
+              dense
+              row-key="id"
+              selection="single"
+              v-model:selected="selected"
+              @selection="handleSelection"
+            >
+            </q-table>
   </q-page>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { getPartidasJugadores } from "../services";
+import { getJugadores, getPartidas, getPartidasJugadores, crearPartidasJugadores } from "../services";
 const columns = [
   {
     name: "id_partidas",
@@ -94,10 +97,39 @@ const columns = [
 
 const rows = ref([]);
 const filter = ref("");
+const jugadores=ref([]);
+const partidas=ref([]);
+
+
+const partidajugador=reactive({
+  id_partidas:null,
+    id_jugadores:null,
+});
+
+async function onSubmit() {
+  await crearPartidasJugadores(partidajugador);
+}
+
 
 onMounted(async () => {
   rows.value = await getPartidasJugadores();
+
+  partidas.value=await getPartidas();
+  jugadores.value=await getJugadores();
+
 });
+
+function handleSelection(details){
+  let rowSelected={
+    id_partidas:null,
+    id_jugadores:null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(partidajugador, rowSelected);
+}
 </script>
 <style>
 .buscador {
