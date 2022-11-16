@@ -68,8 +68,18 @@ export async function getEstadios() {
   return r.data;
 }
 
+export async function crearEstadios(params) {
+  const r = await api.post("/estadios", params);
+  return r.data;
+}
+
 export async function getEventos() {
   const r = await api.get("/eventos");
+  return r.data;
+}
+
+export async function crearEventos(params) {
+  const r = await api.post("/eventos", params);
   return r.data;
 }
 
@@ -78,18 +88,39 @@ export async function getFaltas() {
   return r.data;
 }
 
+export async function crearFaltas(params) {
+  const r = await api.post("/faltas", params);
+  return r.data;
+}
+
 export async function getHistorialPartidas() {
   const r = await api.get("/historial_partidas");
   return r.data;
 }
+
+export async function crearHistorialPartidas(params) {
+  const r = await api.post("/historial_partidas", params);
+  return r.data;
+}
+
 
 export async function getJueces() {
   const r = await api.get("/jueces");
   return r.data;
 }
 
+export async function crearJueces(params) {
+  const r = await api.post("/jueces", params);
+  return r.data;
+}
+
 export async function getHome() {
   const r = await api.get("/jugadores");
+  return r.data;
+}
+
+export async function crearJugadores(params) {
+  const r = await api.post("/jugadores", params);
   return r.data;
 }
 

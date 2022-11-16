@@ -2,7 +2,7 @@
   <q-page padding>
     <strong>Formulario </strong>
     <div class="q-pa-md">
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form @submit="onSubmit"  class="q-gutter-md">
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
@@ -257,7 +257,7 @@
 
             <div class="col-6 q-gutter-md text-center items-center">
               <q-btn dense color="primary" label="Crear" />
-              <q-btn dense color="secondary" label="Leer " />
+
               <q-btn dense color="amber" label="Actualizar" />
               <q-btn dense color="red" label="Borrar" />
 
@@ -279,6 +279,7 @@
 </template>
 
 <script setup>
+import { jugadoresController } from "app/express js/src/controllers/jugadores";
 import { ref, onMounted, computed } from "vue";
 import { getJugadores, getPaises } from "../services";
 
@@ -397,11 +398,31 @@ const pais = ref([]);
 const ciudad = ref([]);
 
 const ciudades = computed(
-  () => paises.value.find((p) => p.country === pais.value)?.cities
+  () => paises.value.find((p) => p.country === jugador.nombre_paises)?.cities
 );
 
 onMounted(async () => {
   rows.value = await getJugadores();
   paises.value = await getPaises();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

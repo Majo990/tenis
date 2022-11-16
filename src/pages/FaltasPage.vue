@@ -1,13 +1,18 @@
 <template>
-    <div class="q-pa-md">
-      <q-page padding>
+  <div class="q-pa-md">
+    <q-page padding>
+      <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
-              type="nro"
-              v-model="nro"
+              type="number"
+              v-model="falta.nro"
+              map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
               dense
               label="Selecione Nro"
               style="width: 47%"
@@ -23,7 +28,11 @@
             <q-input
               filled
               dense
-              v-model="fecha"
+              map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+              v-model="falta.fecha_hora"
               style="width: 47%"
               mask="date"
               lazy-rules
@@ -61,16 +70,24 @@
         <q-select
           filled
           dense
-          v-model="model"
-          :options="options"
+          v-model="falta.id_jugadores"
+          map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+          :options="jugadores"
           style="width: 47%"
           label="Seleccione Nombre Jugadores "
         />
         <q-select
           filled
-          v-model="model"
+          v-model="falta.id_arbitros"
+          map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
           dense
-          :options="options"
+          :options="arbitros"
           style="width: 47%"
           label="Seleccione Nombre Arbitros "
         />
@@ -80,15 +97,23 @@
         <q-select
           filled
           dense
-          v-model="model"
-          :options="options"
+          map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+          v-model="falta.id_historial_partidas"
+          :options="historialpartidas"
           style="width: 47%"
           label="Seleccione Nombre Historial-Partidas "
         />
         <q-select
           filled
-          v-model="partida"
+          v-model="falta.id_partidas"
           dense
+          map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
           :options="partidas"
           style="width: 47%"
           label="Seleccione Nombre Partidas "
@@ -97,26 +122,39 @@
 
       <br />
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear" />
-        <q-btn dense color="secondary" label="Leer " />
+        <q-btn dense color="primary" label="Crear" type="submit" />
+
         <q-btn dense color="amber" label="Actualizar" />
         <q-btn dense color="red" label="Borrar" />
       </div>
       <br />
       <q-table
-        dense
         :rows="rows"
         :columns="columns"
-        row-key="name"
         separator="cell"
-      />
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+      </q-form>
     </q-page>
-    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getFaltas } from "../services";
+import { ref, onMounted, reactive } from "vue";
+import {
+  getArbitros,
+  getFaltas,
+  getHistorialPartidas,
+  getJugadores,
+  getPartidas,
+  crearFaltas,
+
+} from "../services";
 
 const columns = [
   {
@@ -163,14 +201,50 @@ const columns = [
     sortable: true,
   },
 ];
-
-const fecha = ref(null);
-
 const rows = ref([]);
+const fecha = ref(null);
+const jugadores=ref([]);
+const historialpartidas=ref([]);
+const arbitros=ref([]);
+const partidas=ref([]);
+
+
+const falta = reactive({
+  nro: null,
+  fecha_hora: null,
+  id_jugadores: null,
+  id_arbitros: null,
+  id_historial_partidas: null,
+  id_partidas: null,
+});
+
+async function onSubmit() {
+  await crearFaltas(faltas);
+}
 
 onMounted(async () => {
   rows.value = await getFaltas();
+  jugadores.value = await getJugadores();
+  arbitros .value= await getArbitros();
+  historialpartidas .value= await getHistorialPartidas();
+  partidas.value = await getPartidas();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    nro: null,
+    fecha_hora: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_historial_partidas: null,
+    id_partidas: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(falta, rowSelected);
+}
 </script>
 <style>
 .q-table {

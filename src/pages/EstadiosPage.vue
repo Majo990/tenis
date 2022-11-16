@@ -1,176 +1,192 @@
 <template>
   <q-page padding>
-    <div class="q-pa-md">
-      <strong>Formulario </strong>
-      <div class="row">
-        <div class="col-6">
-          <div class="row justify-between q-gutter-md">
-            <q-input
-              dense
+    <q-form @submit="onSubmit" class="q-gutter-md">
+      <div class="q-pa-md">
+        <strong>Formulario </strong>
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                dense
+                filled
+                v-model="estadio.nombre"
+                label="Ingrese su Nombre "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Nombre',
+                ]"
+                style="width: 47%"
+              />
+              <q-select
               filled
-              v-model="nombre"
-              label="Ingrese su Nombre "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre',
-              ]"
-              style="width: 47%"
-            />
-            <q-select
-              filled
-              v-model="nombre_jugadores"
-              :options="os"
-              dense
-              style="width: 47%"
-              label="Seleccione Nombre Jugadores "
-            />
-          </div>
-
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              filled
-              v-model="cancha"
-              dense
-              label="Seleccione su cancha"
-              :options="canchas"
-              style="width: 47%"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor seleccione su cancha',
-              ]"
-            />
-
-            <q-select
-              filled
-              v-model="cesped"
-              dense
-              label="Seleccione su cesped"
-              :options="cespeds"
-              style="width: 47%"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor seleccione su cesped',
-              ]"
-            />
-          </div>
-
-          <div class="row justify-between q-gutter-md">
-            <q-input
-              filled
-              v-model="adminsitrador"
-              label="Ingrese su Administrador "
-              lazy-rules
-              dense
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese su NombreAdminsitra',
-              ]"
-              style="width: 47%"
-            />
-
-            <q-input
-              filled
-              dense
-              v-model="propietario"
-              label="Ingrese el Nombre Propietario "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese su NombrePropietario',
-              ]"
-              style="width: 47%"
-            />
-          </div>
-
-          <div class="row justify-between q-gutter-md">
-            <q-input
-              filled
-              v-model="ubigeo"
-              label="Ingese su ubigeo"
-              dense
-              mask="######"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su ubigeo',
-              ]"
-              style="width: 47%"
-            />
-
-            <q-input
-              filled
-              dense
-              v-model="direccion"
-              icon="mdi-map-marker-outline"
-              label="Ingrese su Direccion  "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Direccion',
-              ]"
-              style="width: 47%"
-            />
-
-            <q-select
-              filled
-              v-model="pais"
-              dense
-              :options="paises"
+              v-model="estadio.id_jugadores"
               map-options
               emit-value
-              option-value="country"
-              option-label="country"
-              label="Seleccione su Pais"
+              option-value="id"
+              option-label="nombre"
+              :options="jugadores"
               style="width: 47%"
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || 'Por favor ingrese su Pais',
-              ]"
-            />
-
-            <q-select
-              filled
               dense
-              v-model="ciudad"
-              :options="ciudades"
-              label="Ingrese su  Ciudad"
-              style="width: 47%"
               lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-              ]"
+
+              label="Seleccione Nombre Jugadores "
             />
+            </div>
+
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                v-model="estadio.cancha"
+                dense
+                label="Seleccione su cancha"
+                :options="canchas"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor seleccione su cancha',
+                ]"
+              />
+
+              <q-select
+                filled
+                v-model="estadio.cesped"
+                dense
+                label="Seleccione su cesped"
+                :options="cespeds"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor seleccione su cesped',
+                ]"
+              />
+            </div>
+
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                v-model="estadio.administrador"
+                label="Ingrese su Administrador "
+                lazy-rules
+                dense
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su NombreAdminsitra',
+                ]"
+                style="width: 47%"
+              />
+
+              <q-input
+                filled
+                dense
+                v-model="estadio.propietario"
+                label="Ingrese el Nombre Propietario "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su NombrePropietario',
+                ]"
+                style="width: 47%"
+              />
+            </div>
+
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                v-model="estadio.ubigeo"
+                label="Ingese su ubigeo"
+                dense
+                mask="######"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su ubigeo',
+                ]"
+                style="width: 47%"
+              />
+
+              <q-input
+                filled
+                dense
+                v-model="estadio.direccion"
+                icon="mdi-map-marker-outline"
+                label="Ingrese su Direccion  "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Direccion',
+                ]"
+                style="width: 47%"
+              />
+
+              <q-select
+                filled
+                v-model="estadio.nombre_paises"
+                dense
+                :options="paises"
+                map-options
+                emit-value
+                option-value="country"
+                option-label="country"
+                label="Seleccione su Pais"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Pais',
+                ]"
+              />
+
+              <q-select
+                filled
+                dense
+                v-model="estadio.nombre_ciudades"
+                :options="ciudades"
+                label="Ingrese su  Ciudad"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                ]"
+              />
+            </div>
+          </div>
+          <div class="col-6 q-gutter-md text-center items-center">
+            <q-btn dense color="primary" label="Crear" type="submit" />
+            <q-btn dense color="amber" label="Actualizar" />
+            <q-btn dense color="red" label="Borrar" />
           </div>
         </div>
-        <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="secondary" label="Leer " />
-          <q-btn dense color="amber" label="Actualizar" />
-          <q-btn dense color="red" label="Borrar" />
-        </div>
       </div>
-    </div>
 
-    <br />
-    <q-table
-      dense
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-      separator="cell"
-    />
+      <br />
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+    </q-form>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import { getEstadios, getPaises } from "../services";
+
+import { ref, onMounted, computed, reactive } from "vue";
+import { getEstadios,crearEstadios,
+  getJugadores,
+   getPaises,
+  } from "../services";
 
 const columns = [
   {
@@ -196,13 +212,6 @@ const columns = [
     field: "cancha",
     sortable: true,
   },
-  {
-    name: "cancha",
-    align: "center",
-    label: "Cancha",
-    field: "cancha",
-    sortable: true,
-  },
 
   {
     name: "cesped",
@@ -215,7 +224,7 @@ const columns = [
     name: "administrador",
     align: "center",
     label: "Administradores",
-    field: "adminsitrador",
+    field: "administrador",
     sortable: true,
   },
   {
@@ -256,10 +265,8 @@ const columns = [
 ];
 
 const rows = ref([]);
-
 const paises = ref([]);
-const pais = ref([]);
-const ciudad = ref([]);
+const jugadores=ref([]);
 let canchas = [
   "cancha1",
   "cancha2",
@@ -273,14 +280,56 @@ const cancha = ref(null);
 let cespeds = ["sintetico", "natural", "piso"];
 const cesped = ref(null);
 
+
+
+const estadio = reactive({
+  nombre: null,
+  id_jugadores: null,
+  cancha: null,
+  departamento: null,
+  cesped: null,
+  administrador: null,
+  propietario: null,
+  ubigeo: null,
+  direccion: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+});
+
+async function onSubmit() {
+  await crearEstadios(estadio);
+}
+
 const ciudades = computed(
-  () => paises.value.find((p) => p.country === pais.value)?.cities
+  () => paises.value.find((p) => p.country === estadio.nombre_paises)?.cities
 );
 
 onMounted(async () => {
   rows.value = await getEstadios();
   paises.value = await getPaises();
+  jugadores.value = await getJugadores();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    nombre: null,
+    id_jugadores: null,
+    cancha: null,
+    departamento: null,
+    cesped: null,
+    administrador: null,
+    propietario: null,
+    ubigeo: null,
+    direccion: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(estadio, rowSelected);
+}
 </script>
 <style>
 .q-table {

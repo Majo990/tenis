@@ -1,152 +1,245 @@
 <template>
   <q-page padding>
-    <div class="q-pa-md">
-      <strong>Formulario </strong>
-      <div class="q-gutter-md">
-        <div class="buscador">
-          <q-input
-            dense
-            v-model="filter"
-            debounce="500"
-            filled
-            placeholder="Buscar"
-          >
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-          <!-- <q-badge color="teal">Model: "{{ search }}"</q-badge>--->
-        </div>
-      </div>
-      <br />
-
-      <div class="row">
-        <div class="col-6">
-          <div class="row justify-between q-gutter-md">
-            <q-select
+    <q-form @submit="onSubmit" class="q-gutter-md">
+      <div class="q-pa-md">
+        <strong>Formulario </strong>
+        <div class="q-gutter-md">
+          <div class="buscador">
+            <q-input
               dense
+              v-model="filter"
+              debounce="500"
               filled
-              v-model="jugador"
-              :options="jugador"
-              label="Seleccione jugador"
-              style="width: 47%"
-            />
-
-            <q-select
-              filled
-              dense
-              v-model="fecha"
-              :options="fecha"
-              label="Seleccione su fecha-hora"
-              style="width: 47%"
-            />
-          </div>
-          <br />
-
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              filled
-              dense
-              v-model="ronda"
-              :options="ronda"
-              label="Seleccione Nombre ronda"
-              style="width: 47%"
-            />
-            <q-select
-              dense
-              filled
-              v-model="puntaje"
-              :options="puntaje"
-              label="Seleccione su Puntaje"
-              style="width: 47%"
-            />
-          </div>
-          <br />
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              dense
-              filled
-              v-model="evento"
-              :options="evento"
-              label="Seleccione su evento"
-              style="width: 47%"
-            />
-            <q-select
-              dense
-              filled
-              v-model="juez"
-              :options="jueces"
-              label="Seleccione su Nombre Juez"
-              style="width: 47%"
-            />
-          </div>
-          <br />
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              dense
-              filled
-              v-model="premio"
-              :options="premios"
-              label="Seleccione su Nombre Premio"
-              style="width: 47%"
-            />
-
-            <q-select
-              dense
-              filled
-              v-model="faltas"
-              :options="pais"
-              label="Seleccione su Nombre Faltas"
-              style="width: 47%"
-            />
-          </div>
-          <br />
-
-          <div class="row justify-between q-gutter-md">
-            <q-select
-              filled
-              dense
-              v-model="partidas"
-              :options="pais"
-              label="Seleccione su Nombre Partidas"
-              style="width: 47%"
-            />
-
-            <q-select
-              filled
-              v-model="arbitros"
-              :options="pais"
-              dense
-              label="Seleccione su Nombre Arbitros "
-              style="width: 47%"
-            />
+              placeholder="Buscar"
+            >
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+            <!-- <q-badge color="teal">Model: "{{ search }}"</q-badge>--->
           </div>
         </div>
-      </div>
+        <br />
 
-      <br />
-      <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear" />
-        <q-btn dense color="secondary" label="Leer " />
-        <q-btn dense color="amber" label="Actualizar" />
-        <q-btn dense color="red" label="Borrar" />
-      </div>
-      <br />
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                dense
+                filled
+                v-model="historialpartida.id_jugadores"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="jugadores"
+                label="Seleccione jugador"
+                style="width: 47%"
+              />
 
-      <q-table
-        dense
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        separator="cell"
-      />
-    </div>
+              <q-input
+                filled
+                v-model="date"
+                label="Selecione fecha-hora"
+                dense
+                style="width: 47%"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date v-model="date" mask="YYYY-MM-DD HH:mm">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+
+                <template v-slot:append>
+                  <q-icon name="access_time" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-time v-model="date" mask="YYYY-MM-DD HH:mm" format24h>
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-time>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <br />
+
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                dense
+                v-model="historialpartida.id_rondas"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nro"
+                :options="rondas"
+                label="Seleccione Nombre ronda"
+                style="width: 47%"
+              />
+              <q-select
+                dense
+                filled
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                v-model="historialpartida.puntaje"
+                :options="puntajes"
+                label="Seleccione su Puntaje"
+                style="width: 47%"
+              />
+            </div>
+            <br />
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                dense
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                filled
+                v-model="historialpartida.id_eventos"
+                :options="eventos"
+                label="Seleccione su evento"
+                style="width: 47%"
+              />
+              <q-select
+                dense
+                filled
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                v-model="historialpartida.id_jueces"
+                :options="jueces"
+                label="Seleccione su Nombre Juez"
+                style="width: 47%"
+              />
+            </div>
+            <br />
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                dense
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                filled
+                v-model="historialpartida.id_premios"
+                :options="premios"
+                label="Seleccione su Nombre Premio"
+                style="width: 47%"
+              />
+
+              <q-select
+                dense
+                filled
+                v-model="historialpartida.id_faltas"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nro"
+                :options="faltas"
+                label="Seleccione su Nombre Faltas"
+                style="width: 47%"
+              />
+            </div>
+            <br />
+
+            <div class="row justify-between q-gutter-md">
+              <q-select
+                filled
+                dense
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                v-model="historialpartida.id_partidas"
+                :options="partidas"
+                label="Seleccione su Nombre Partidas"
+                style="width: 47%"
+              />
+
+              <q-select
+                filled
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                v-model="historialpartida.id_arbitros"
+                :options="arbitros"
+                dense
+                label="Seleccione su Nombre Arbitros "
+                style="width: 47%"
+              />
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn dense color="primary" label="Crear" />
+          <q-btn dense color="amber" label="Actualizar" />
+          <q-btn dense color="red" label="Borrar" />
+        </div>
+        <br />
+
+        <q-table
+          :rows="rows"
+          :columns="columns"
+          separator="cell"
+          dense
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
+      </div>
+    </q-form>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getHistorialPartidas } from "../services";
+import { ref, onMounted, reactive } from "vue";
+import {
+  getArbitros,
+  getEventos,
+  getFaltas,
+  getHistorialPartidas,
+  getJueces,
+  getJugadores,
+  getPartidas,
+  getPremios,
+  getRondas,
+  crearHistorialPartidas,
+} from "../services";
 const columns = [
   {
     name: "id_jugadores",
@@ -221,20 +314,70 @@ const columns = [
 ];
 
 const rows = ref([]);
-const jugador=ref(null);
-const ronda=ref(null);
-const puntaje=ref(null);
-const fecha=ref(null);
-const evento=ref(null);
-const jueces=ref(null);
-const premio=ref(null);
-const faltas=ref(null);
-const partidas=ref(null);
-const arbitros=ref(null);
+const jugadores = ref([]);
+const rondas = ref([]);
+
+const date = ref("2019-02-01 12:44");
+
+const eventos = ref(null);
+const jueces = ref(null);
+const premios = ref([]);
+const faltas = ref([]);
+const partidas = ref([]);
+const arbitros = ref([]);
 
 onMounted(async () => {
   rows.value = await getHistorialPartidas();
 });
+
+const historialpartida = reactive({
+  id_jugadores: null,
+  fecha_hora: null,
+  id_rondas: null,
+  puntaje: null,
+  id_eventos: null,
+  id_jueces: null,
+  id_premios: null,
+  id_faltas: null,
+  id_partidas: null,
+  id_arbitros: null,
+});
+
+async function onSubmit() {
+  await crearHistorialPartidas(historialpartida);
+}
+
+onMounted(async () => {
+  rows.value = await getHistorialPartidas();
+  jugadores.value = await getJugadores();
+  rondas.value = await getRondas();
+  eventos.value = await getEventos();
+  jueces.value = await getJueces();
+  premios.value = await getPremios();
+  faltas.value = await getFaltas();
+  partidas.value = await getPartidas();
+  arbitros.value = await getArbitros();
+});
+
+function handleSelection(details) {
+  let rowSelected = {
+    id_jugadores: null,
+    fecha_hora: null,
+    id_rondas: null,
+    puntaje: null,
+    id_eventos: null,
+    id_jueces: null,
+    id_premios: null,
+    id_faltas: null,
+    id_partidas: null,
+    id_arbitros: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(historialpartida, rowSelected);
+}
 </script>
 <style>
 .q-table {

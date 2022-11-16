@@ -115,7 +115,6 @@
                   :rules="['date']"
                   style="width: 47%"
                   lazy-rules
-                  label="Ingrese su Fecha Nacimiento"
                 >
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
@@ -178,7 +177,7 @@
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-        
+
           <q-btn dense color="amber" label="Actualizar" type="" />
           <q-btn dense color="red" label="Borrar" type="" />
         </div>
@@ -270,6 +269,7 @@ const columns = [
   },
 ];
 const selected = ref([]);
+const date = ref("2019/02/01");
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);

@@ -3,7 +3,13 @@
     <div class="q-pa-md">
       <div class="q-gutter-md">
         <div class="buscador">
-          <q-input v-model="filter" dense debounce="500" filled placeholder="Buscar">
+          <q-input
+            v-model="filter"
+            dense
+            debounce="500"
+            filled
+            placeholder="Buscar"
+          >
             <template v-slot:append>
               <q-icon name="search" />
             </template>
@@ -18,7 +24,7 @@
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-select
-            dense
+              dense
               filled
               v-model="models"
               :options="pais"
@@ -44,20 +50,19 @@
               ]"
               style="width: 55%"
             />
-
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
-              <q-btn  dense color="primary" label="Crear" />
-              <q-btn  dense color="secondary" label="Leer " />
-              <q-btn  dense color="amber" label="Actualizar" />
-              <q-btn dense color="red" label="Borrar" />
-            </div>
+            <q-btn dense color="primary" label="Crear" />
+
+            <q-btn dense color="amber" label="Actualizar" />
+            <q-btn dense color="red" label="Borrar" />
+          </div>
         </div>
       </div>
     </q-form>
     <br />
     <q-table
-    dense
+      dense
       :rows="rows"
       :columns="columns"
       row-key="name"
