@@ -19,27 +19,34 @@
                     (val && val.length > 0) || 'Por favor ingrese su Apellido',
                 ]"
               />
-
             </div>
           </div>
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn dense color="primary" label="Crear" />
-
         <q-btn dense color="amber" label="Actualizar" />
         <q-btn dense color="red" label="Borrar" />
       </div>
     </q-form>
     <br />
-    <q-table dense :rows="rows" :columns="columns" row-key="name" separator="cell" />
+    <q-table
+              :rows="rows"
+              :columns="columns"
+              separator="cell"
+              dense
+              row-key="id"
+              selection="single"
+              v-model:selected="selected"
+              @selection="handleSelection"
+            >
+            </q-table>
   </q-page>
 </template>
 
-<script setup >
+<script setup>
 import { ref, onMounted } from "vue";
 import { getRoles } from "../services";
-
 
 const columns = [
   {
@@ -50,7 +57,6 @@ const columns = [
     field: "descripcion",
     sortable: true,
   },
-
 ];
 const rows = ref([]);
 

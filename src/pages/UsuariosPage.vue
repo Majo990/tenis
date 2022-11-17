@@ -1,20 +1,25 @@
 <template>
   <div class="q-pa-md">
     <strong>Formulario </strong>
+    <q-form @submit="onSubmit" class="q-gutter-md">
     <div class="q-gutter-md row items-start">
-      <q-input dense v-model="usuario" filled type="usuario" hint="Usuario" />
+      <q-input dense v-model="usuario.usuarios"
+      style="width: 20%"
+      filled type="usuario" hint="Usuario" />
 
       <q-input
         dense
-        v-model="password"
+        v-model="usuario.contraseña"
         filled
+        style="width: 20%"
         type="password"
         hint="Password"
       />
 
       <q-input
         dense
-        v-model="password"
+        style="width: 20%"
+        v-model="usuario.contraseña"
         filled
         :type="isPwd ? 'password' : 'text'"
         hint="Password with toggle"
@@ -23,21 +28,21 @@
       </q-input>
       <q-select
         filled
-        v-model="rol"
+        v-model="usuario.id_roles"
         dense
-        label="Seleccione su sexo"
+        label="Seleccione su rol"
         :options="roles"
-        style="width: 47%"
+        style="width: 20%"
         lazy-rules
         :rules="[
-          (val) => (val && val.length > 0) || 'Por favor seleccione su pais',
+          (val) => (val && val.length > 0) || 'Por favor seleccione su rol',
         ]"
       />
-
+      <div class="col-6 q-gutter-md text-center items-center">
       <q-btn dense color="primary" label="Crear" />
-      <q-btn dense color="secondary" label="Leer " />
       <q-btn dense color="amber" label="Actualizar" />
       <q-btn dense color="red" label="Borrar" />
+      </div>
     </div>
     <br />
     <br />
@@ -52,14 +57,16 @@
       @selection="handleSelection"
     >
     </q-table>
+  </q-form>
   </div>
+
 </template>
 
 <script setup>
 
  // import { isAsyncFunction } from "util/types";
 import { ref, onMounted, computed,reactive } from "vue";
-import { crearUsuarios, getUsuarios } from "../services";
+import { crearUsuarios, getUsuarios,getRoles } from "../services";
 const columns = [
   {
     name: "usuarios",
@@ -84,7 +91,6 @@ const rows = ref([]);
 const roles = ["Usuario", "Administrador"];
 
 const usuario =reactive( {
-
     usuarios: null,
     contraseña: null,
     id_roles: null,
@@ -93,6 +99,7 @@ const usuario =reactive( {
 async function onSubmit(){
   await crearUsuarios(usuario);
 }
+
 onMounted(async () => {
   rows.value = await getUsuarios();
 });
@@ -107,7 +114,7 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(usuario, rowSelected);
+  Object.assign(usuario,rowSelected);
 }
 </script>
 

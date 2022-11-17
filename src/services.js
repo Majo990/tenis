@@ -62,7 +62,6 @@ export async function crearEquipos(params) {
   return r.data;
 }
 
-
 export async function getEstadios() {
   const r = await api.get("/estadios");
   return r.data;
@@ -103,7 +102,6 @@ export async function crearHistorialPartidas(params) {
   return r.data;
 }
 
-
 export async function getJueces() {
   const r = await api.get("/jueces");
   return r.data;
@@ -139,9 +137,13 @@ export async function crearPartidasJugadores(params) {
   return r.data;
 }
 
-
 export async function getPremios() {
   const r = await api.get("/premios");
+  return r.data;
+}
+
+export async function crearPremios(params) {
+  const r = await api.post("/premios", params);
   return r.data;
 }
 
@@ -159,6 +161,10 @@ export async function getTorneos() {
   const r = await api.get("/torneos");
   return r.data;
 }
+export async function crearTorneos(params) {
+  const r = await api.post("/torneos", params);
+  return r.data;
+}
 
 export async function getUsuarios() {
   const r = await api.get("/usuarios");
@@ -169,14 +175,22 @@ export async function crearUsuarios(params) {
   return r.data;
 }
 
-
 export async function getPermisos() {
   const r = await api.get("/permisos");
+  return r.data;
+}
+export async function crearPermisos(params) {
+  const r = await api.post("/permisos", params);
   return r.data;
 }
 
 export async function getPerfiles() {
   const r = await api.get("/perfiles");
+  return r.data;
+}
+
+export async function crearPerfiles(params) {
+  const r = await api.post("/perfiles", params);
   return r.data;
 }
 

@@ -9,7 +9,7 @@
               <q-input
                 filled
                 dense
-                v-model="nombreusuarios"
+                v-model="permiso.id_usuarios"
                 label="Ingrese el Nombre-Usuarios"
                 lazy-rules
                 style="width: 47%"
@@ -23,7 +23,7 @@
               <q-input
                 filled
                 dense
-                v-model="descripcion"
+                v-model="permiso.descripcion"
                 label="Ingrese su Descripcion "
                 lazy-rules
                 :rules="[
@@ -34,21 +34,24 @@
                 style="width: 47%"
               />
 
-
               <q-select
-                  filled
-                  dense
-                  v-model="models"
-                  :options="pais"
-                  label="Seleccione su Nombre Roles"
-                  style="width: 47%"
-                />
+                filled
+                v-model="permiso.id_roles"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="rol"
+                style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione su rol "
+              />
             </div>
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" />
-
           <q-btn dense color="amber" label="Actualizar" />
           <q-btn dense color="red" label="Borrar" />
         </div>
@@ -56,19 +59,23 @@
 
       <br />
       <q-table
-      dense
         :rows="rows"
         :columns="columns"
-        row-key="name"
         separator="cell"
-      />
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getPermisos } from "src/services";
+import { ref, onMounted, reactive } from "vue";
+import { getPermisos, getRoles } from "src/services";
 
 const columns = [
   {
@@ -90,16 +97,38 @@ const columns = [
     name: "id_roles",
     align: "center",
     label: "Nombre-Roles",
-    field: "descripcion_roles",
+    field: "nombre_roles",
     sortable: true,
   },
 ];
 
-const rows = ref([]);
+const permiso = reactive({
+  id_usuarios: null,
+  descripcion: null,
+  id_roles: null,
+});
+
+async function onSubmit() {
+  await crearPermisos(permiso);
+}
 
 onMounted(async () => {
   rows.value = await getPermisos();
+  rol.value = await getRoles();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    id_usuarios: null,
+    descripcion: null,
+    id_roles: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(permiso, rowSelected);
+}
 </script>
 <style>
 .q-table {

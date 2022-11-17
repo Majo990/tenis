@@ -1,13 +1,13 @@
 <template>
   <q-page padding>
-    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+    <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-input
               filled
               dense
-              v-model="name"
+              v-model="perfil.nombre"
               label="Ingrese su Nombre "
               lazy-rules
               :rules="[
@@ -20,7 +20,7 @@
             <q-input
               filled
               dense
-              v-model="apellido"
+              v-model="perfil.apellido"
               label="Ingrese su Apellido "
               lazy-rules
               style="width: 47%"
@@ -36,7 +36,7 @@
               filled
               dense
               type="number"
-              v-model="age"
+              v-model="perfil.edad"
               label="Selecione Edad"
               style="width: 47%"
               lazy-rules
@@ -49,8 +49,8 @@
             <q-select
               filled
               dense
-              v-model="model"
-              :options="options"
+              v-model="perfil.sexo"
+              :options="sexos"
               style="width: 47%"
               label="Seleccione sexo "
             />
@@ -59,7 +59,7 @@
           <div class="row justify-between q-gutter-md">
             <q-select
               filled
-              v-model="pais"
+              v-model="perfil.nombre_paises"
               dense
               :options="paises"
               map-options
@@ -73,7 +73,11 @@
             <q-select
               filled
               dense
-              v-model="ciudad"
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              v-model="perfil.nombre_ciudades"
               :options="ciudades"
               label="Ingrese su  Ciudad"
               style="width: 47%"
@@ -90,7 +94,7 @@
               ref="inputRef"
               filled
               dense
-              v-model="model9"
+              v-model="perfil.dni"
               label="Ingrese su DNI"
               style="width: 47%"
               :rules="[(val) => val.length <= 8 || 'Por favor ingrse su DNI']"
@@ -99,7 +103,7 @@
             <q-input
               filled
               dense
-              v-model="nacionalidad"
+              v-model="perfil.nacionalidad"
               label="Ingrese su Nacionalidad "
               style="width: 47%"
               lazy-rules
@@ -115,7 +119,7 @@
             <q-input
               dense
               standout
-              v-model="email"
+              v-model="perfil.email"
               type="email"
               prefix="Email:"
               suffix="@gmail.com"
@@ -128,7 +132,7 @@
               dense
               standout
               bottom-slots
-              v-model="text"
+              v-model="perfil.direccion"
               label="Ingrese su direccion"
               style="width: 47%"
               lazy-rules
@@ -140,7 +144,7 @@
             <q-input
               filled
               dense
-              v-model="phone"
+              v-model="perfil.celular"
               label="N° Celular"
               mask="(+##) ### - ###- ###"
               style="width: 47%"
@@ -154,7 +158,7 @@
             <q-input
               filled
               dense
-              v-model="model"
+              v-model="perfil.codigo_postal"
               label="Ingrese su Cod.Postal"
               style="width: 47%"
               :rules="[
@@ -165,21 +169,24 @@
             <q-input
               filled
               dense
-              v-model="name"
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              v-model="perfil.id_usuarios"
               label="Ingrese su Nombre usuario "
               lazy-rules
               :rules="[
                 (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Nombre usuario',
+                  (val && val.length > 0) ||
+                  'Por favor ingrese su Nombre usuario',
               ]"
               style="width: 47%"
             />
-
           </div>
         </div>
       </div>
-        <br/>
-
+      <br />
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
@@ -197,20 +204,27 @@
     </q-form>
     <br />
     <q-table
-      dense
       :rows="rows"
       :columns="columns"
-      row-key="name"
       separator="cell"
-    />
+      dense
+      row-key="id"
+      selection="single"
+      v-model:selected="selected"
+      @selection="handleSelection"
+    >
+    </q-table>
   </q-page>
 </template>
 
 <script setup>
-import { useQuasar } from "quasar";
-
-import { ref, onMounted, computed } from "vue";
-import { getPerfiles, getPaises } from "../services";
+import { ref, onMounted, computed, reactive } from "vue";
+import {
+  getPerfiles,
+  getPaises,
+  crearPerfiles,
+  getUsuarios,
+} from "../services";
 
 const columns = [
   {
@@ -308,16 +322,64 @@ const columns = [
 ];
 const rows = ref([]);
 const paises = ref([]);
-const pais = ref([]);
-const ciudad = ref([]);
+
+const sexos = ["Femenino", "Masculino"];
+const perfil = reactive({
+  nombre: null,
+  apellido: null,
+  edad: null,
+  sexo: null,
+  pais: null,
+  ciudad: null,
+  dni: null,
+  nacionalidad: null,
+  email: null,
+  direccion: null,
+  celular: null,
+  codigo_postal: null,
+  id_usuarios: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+});
+
+async function onSubmit() {
+  await crearPerfiles(perfil);
+}
+
 const ciudades = computed(
-  () => paises.value.find((p) => p.country === pais.value)?.cities
+  () => paises.value.find((p) => p.country === perfil.nombre_paises)?.cities
 );
 
 onMounted(async () => {
   rows.value = await getPerfiles();
   paises.value = await getPaises();
+  usuarios.value = await getUsuarios();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    nombre: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    pais: null,
+    ciudad: null,
+    dni: null,
+    nacionalidad: null,
+    email: null,
+    direccion: null,
+    celular: null,
+    codigo_postal: null,
+    id_usuarios: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(perfil, rowSelected);
+}
 </script>
 
 <style>
