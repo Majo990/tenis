@@ -97,7 +97,7 @@
       <br />
 
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear" />
+        <q-btn dense color="primary" label="Crear" type="submit" />
         <q-btn dense color="amber" label="Actualizar" />
         <q-btn dense color="red" label="Borrar" />
       </div>
@@ -162,6 +162,7 @@ const columns = [
   },
 ];
 
+const estadio=ref([]);
 const rows = ref([]);
 const paises = ref([]);
 const date = ref("2020/02/01");

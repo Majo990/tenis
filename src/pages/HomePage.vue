@@ -161,6 +161,7 @@
           row-key="name1"
           separator="cell"
         />
+
       </div>
     </div>
   </q-page>
@@ -246,6 +247,7 @@ const columns2 = [
 
 const rows = ref([]);
 const rows2 = ref([]);
+
 
 const jugador1 = ref("JUGADOR 1");
 const jugador2 = ref("JUGADOR 2");

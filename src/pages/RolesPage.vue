@@ -10,7 +10,7 @@
               <q-input
                 filled
                 dense
-                v-model="apellido"
+                v-model="rol.descripcion"
                 label="Pequeña descipcion "
                 lazy-rules
                 style="width: 47%"
@@ -24,28 +24,28 @@
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear" />
+        <q-btn dense color="primary" label="Crear"  type="submit" />
         <q-btn dense color="amber" label="Actualizar" />
         <q-btn dense color="red" label="Borrar" />
       </div>
     </q-form>
     <br />
     <q-table
-              :rows="rows"
-              :columns="columns"
-              separator="cell"
-              dense
-              row-key="id"
-              selection="single"
-              v-model:selected="selected"
-              @selection="handleSelection"
-            >
-            </q-table>
+      :rows="rows"
+      :columns="columns"
+      separator="cell"
+      dense
+      row-key="id"
+      selection="single"
+      v-model:selected="selected"
+      @selection="handleSelection"
+    >
+    </q-table>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import { getRoles } from "../services";
 
 const columns = [
@@ -60,7 +60,26 @@ const columns = [
 ];
 const rows = ref([]);
 
+const rol = reactive({
+  descripcion: null,
+});
+
+async function onSubmit() {
+  await crearRoles(rol);
+}
+
 onMounted(async () => {
   rows.value = await getRoles();
 });
+
+function handleSelection(details) {
+  let rowSelected = {
+    descripcion: null,
+  };
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(rol, rowSelected);
+}
 </script>

@@ -1,26 +1,55 @@
 <template>
   <q-page padding>
     <div class="absolute-center text-center">
-      <!---<q-img
-        class="ims"  src="https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-fresh-tennis-sports-advertising-background-backgroundhand-paintedmotiontennis-racketfreshpaintedbranchsimple-image_73519.jpg"
-
-        />-->
-
       <h5>Login Usuario</h5>
       <q-form
         @submit="onSubmit"
         @reset="onReset"
         class="q-pa-md q-gutter-md login img"
       >
-        <q-icon name="mdi-account" size="md" color="blue" />
-        <q-input v-model="usuario" type="text" dark label="Usuario" dense />
-        <!--<q-icon name="lock"--><q-input
+        <q-avatar>
+          <img
+            src="https://th.bing.com/th/id/R.63884fb3108305aa0824560946fe81c6?rik=ut82%2fXweWRqbZA&pid=ImgRaw&r=0"
+          />
+        </q-avatar>
+
+        <!---- <q-input square clearable v-model="username" type="text" dense  label="Username">
+                <template v-slot:prepend>
+                  <q-icon name="person" />
+                </template>
+        </q-input>-->
+        <q-input
+          v-model="usuario"
+          type="text"
+          label="Usuario"
+          dense
+          lazy-rules
+          :rules="[
+            (val) => (val && val.length > 0) || 'Por favor ingrese su Usuario',
+          ]"
+        >
+          <template v-slot:prepend>
+            <q-icon name="person" />
+          </template>
+        </q-input>
+
+        <q-input
           v-model="password"
           type="password"
-          dark
+
           label="Password"
           dense
-        />
+          lazy-rules
+          :rules="[
+            (val) =>
+              (val && val.length > 0) || 'Por favor ingrese su Contraseña',
+          ]"
+        >
+          <template v-slot:prepend>
+            <q-icon name="mdi-lock" />
+          </template>
+        </q-input>
+
         <q-btn
           class="glossy"
           no_caps
@@ -39,6 +68,8 @@
           label="Cancelar"
           no-caps
           onclick=""
+        />
+
         />
       </q-form>
     </div>
@@ -72,17 +103,31 @@ async function onSubmit() {
 function onReset() {
   console.log("reset");
 }
+
+
+
+
 </script>
 <style lang="scss">
 .login {
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 10%;
+  border-width: 1px; //1
+  border-style: solid; //solid
+  border-radius: 10%; //10%
 }
 .img {
-  background-image: url("https://imagenesfrasesbonitas.net/wp-content/uploads/2018/08/FondosPantalla53.jpg");
+  background-image: url("https://th.bing.com/th/id/OIF.crbBO07hjsfeNXLSspdxjA?pid=ImgDet&rs=1");
 }
+
 h5 {
   color: blue;
 }
+
+.q-page {
+  background-image: url("../assets/img/tenis.jpg");
+}
+
+/*
+{
+  border-style::first-line
+}/*
 </style>

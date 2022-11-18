@@ -167,7 +167,7 @@
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" />
+          <q-btn dense color="primary" label="Crear" type="submit" />
 
           <q-btn dense color="amber" label="Actualizar" />
           <q-btn dense color="red" label="Borrar" />
@@ -191,7 +191,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, reactive } from "vue";
 import { getJueces, getPaises, crearJueces } from "../services";
 
 

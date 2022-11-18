@@ -94,18 +94,7 @@
       </div>
       <br />
       <div class="row justify-between q-gutter-md">
-        <q-select
-          filled
-          dense
-          map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-          v-model="falta.id_historial_partidas"
-          :options="historialpartidas"
-          style="width: 47%"
-          label="Seleccione Nombre Historial-Partidas "
-        />
+
         <q-select
           filled
           v-model="falta.id_partidas"
@@ -186,13 +175,14 @@ const columns = [
     field: "nombre_arbitros",
     sortable: true,
   },
+  /*
   {
     name: "id_historial_partidas",
     align: "center",
     label: "Nombre-Historial-Partidas",
     field: "nombre_historial_partidas",
     sortable: true,
-  },
+  },*/
   {
     name: "id_partidas",
     align: "center",

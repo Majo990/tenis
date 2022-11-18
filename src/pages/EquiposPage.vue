@@ -101,9 +101,22 @@
               />
 
               <q-input
+              hint="Ingrese simbolo img"
+
+                @update:model-value="
+                  (val) => {
+                    file = val[0];
+                  }
+                "
+                   v-model="equipo.simbolo"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="simbolo"
+
                 filled
-                v-model="equipo.simbolo"
-                label="Ingrese su Simbolo"
+                type="file"
                 lazy-rules
                 dense
                 :rules="[
@@ -183,7 +196,7 @@
             option-value="country"
             option-label="country"
             label="Seleccione su Pais"
-            style="width: 50%"
+            style="width: 20%"
           />
 
           <q-select
@@ -192,7 +205,7 @@
             v-model="equipo.nombre_ciudades"
             :options="ciudades"
             label="Ingrese su  Ciudad"
-            style="width: 23%"
+            style="width: 35%"
             lazy-rules
             :rules="[
               (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
@@ -329,6 +342,8 @@ const paises = ref([]);
 const jugadores = ref([]);
 const entrenadores = ref([]);
 const estadios = ref([]);
+const file = ref([]);
+const simbolo=ref([]);
 
 const equipo = reactive({
   nombre: null,
@@ -382,10 +397,17 @@ function handleSelection(details) {
 
   Object.assign(equipo, rowSelected);
 }
+
+
 </script>
 <style>
 .q-table {
   color: grey;
   background-color: #1ddf8e;
+}
+
+.q-input.label {
+  font-size: large;
+  text-align: center;
 }
 </style>

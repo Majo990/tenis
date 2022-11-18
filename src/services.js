@@ -127,6 +127,11 @@ export async function getPartidas() {
   return r.data;
 }
 
+export async function crearPartidas(params) {
+  const r = await api.post("/partidas", params);
+  return r.data;
+}
+
 export async function getPartidasJugadores() {
   const r = await api.get("/partidas_jugadores");
   return r.data;
@@ -199,6 +204,10 @@ export async function getRoles() {
   return r.data;
 }
 
+export async function crearRoles(params) {
+  const r = await api.post("/roles", params);
+  return r.data;
+}
 export async function getPaises() {
   const r = await api.get("/paises");
   return r.data;

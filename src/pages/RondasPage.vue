@@ -19,8 +19,8 @@
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" />
- 
+          <q-btn dense color="primary" label="Crear"  type="submit" />
+
           <q-btn   dense color="amber" label="Actualizar" />
           <q-btn  dense color="red" label="Borrar" />
         </div>

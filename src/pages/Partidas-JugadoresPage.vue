@@ -52,7 +52,7 @@
               />
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" />
+            <q-btn dense color="primary" label="Crear" type="submit"  />
 
             <q-btn dense color="amber" label="Actualizar" />
             <q-btn dense color="red" label="Borrar" />
@@ -101,7 +101,7 @@ const jugadores=ref([]);
 const partidas=ref([]);
 
 
-const partidajugador=reactive({
+const partidajugador=({
   id_partidas:null,
     id_jugadores:null,
 });
