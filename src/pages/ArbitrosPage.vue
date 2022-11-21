@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-page padding>
-      <q-form @submit="onSubmit" class="q-gutter-md">
+      <q-form @submit="onSubmit"  class="q-gutter-md">
         <div class="q-pa-md">
           <strong>Formulario </strong>
           <div class="row">
@@ -177,9 +177,8 @@
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-
-          <q-btn dense color="amber" label="Actualizar" type="" />
-          <q-btn dense color="red" label="Borrar" type="" />
+          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
+          <q-btn dense color="red" label="Borrar"  @click="Delete"/>
         </div>
         <br />
         <q-table
@@ -191,6 +190,7 @@
           selection="single"
           v-model:selected="selected"
           @selection="handleSelection"
+
         >
         </q-table>
       </q-form>
@@ -200,7 +200,7 @@
 
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
-import { getArbitros, getPaises, crearArbitros } from "../services";
+import { getArbitros, getPaises, crearArbitros,updateArbitros,deleteArbitros} from "../services";
 
 const columns = [
   {
@@ -275,6 +275,7 @@ const rows = ref([]);
 const paises = ref([]);
 
 const arbitro = reactive({
+  id:null,
   nombre: null,
   apellido: null,
   edad: null,
@@ -290,6 +291,16 @@ async function onSubmit() {
   await crearArbitros(arbitro);
 
 }
+
+async function Actualizar(){
+  await updateArbitros(arbitro);
+
+}
+
+async function Delete(){
+  await deleteArbitros(arbitro);
+}
+
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === arbitro.nombre_paises)?.cities

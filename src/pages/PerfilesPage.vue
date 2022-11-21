@@ -148,12 +148,6 @@
               label="N° Celular"
               mask="(+##) ### - ###- ###"
               style="width: 47%"
-              lazy-rules
-              :rules="[
-                (val) => (val !== null && val !== '') || 'Por N°Celular',
-                (val) =>
-                  (val > 0 && val < 100) || 'Por favor ingrese su N°Celular',
-              ]"
             />
             <q-input
               filled
@@ -172,7 +166,7 @@
               map-options
               emit-value
               option-value="id"
-              option-label="nombre"
+              option-label="usuarios"
               v-model="perfil.id_usuarios"
               label="Ingrese su Nombre usuario "
               lazy-rules
@@ -197,7 +191,6 @@
           class="q-ml-sm"
         />
         <q-btn dense color="primary" label="Crear" type="submit"  />
-
         <q-btn dense color="amber" label="Actualizar" />
         <q-btn dense color="red" label="Borrar" />
       </div>
@@ -320,8 +313,10 @@ const columns = [
     sortable: true,
   },
 ];
+const selected = ref([]);
 const rows = ref([]);
 const paises = ref([]);
+const usuarios=ref([]);
 
 const sexos = ["Femenino", "Masculino"];
 const perfil = reactive({

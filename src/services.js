@@ -28,11 +28,23 @@ export async function getArbitros() {
   const r = await api.get("/arbitros");
   return r.data;
 }
-
+//
 export async function crearArbitros(params) {
   const r = await api.post("/arbitros", params);
   return r.data;
 }
+
+export async function updateArbitros(arbitro) {
+  const r = await api.put("/arbitros/" + arbitro.id, arbitro);
+  return r.data;
+}
+
+export async function deleteArbitros(params) {
+  const r = await api.delete("/arbitros/" + params.id, params);
+  return r.data;
+} //
+
+//
 
 export async function getComportamientos() {
   const r = await api.get("/comportamientos");
@@ -44,6 +56,22 @@ export async function crearComportamientos(params) {
   return r.data;
 }
 
+export async function updateComportamientos(comportamiento) {
+  const r = await api.put(
+    "/comportamientos/" + comportamiento.id,
+    comportamiento
+  );
+  return r.data;
+}
+
+export async function deleteComportamientos(params) {
+  const r = await api.delete("/comportamientos/" + params.id, params);
+  return r.data;
+}
+
+//
+
+//
 export async function getEntrenadores() {
   const r = await api.get("/entrenadores");
   return r.data;
@@ -53,6 +81,19 @@ export async function crearEntrenadores(params) {
   return r.data;
 }
 
+export async function updateEntrenadores(entrenador) {
+  const r = await api.put("/entrenadores/" + entrenador.id, entrenador);
+  return r.data;
+}
+
+export async function deleteEntrenadores(params) {
+  const r = await api.delete("/entrenadores/" + params.id, params);
+  return r.data;
+}
+
+//
+
+//
 export async function getEquipos() {
   const r = await api.get("/equipos");
   return r.data;
@@ -62,6 +103,7 @@ export async function crearEquipos(params) {
   return r.data;
 }
 
+//
 export async function getEstadios() {
   const r = await api.get("/estadios");
   return r.data;
@@ -71,6 +113,16 @@ export async function crearEstadios(params) {
   const r = await api.post("/estadios", params);
   return r.data;
 }
+export async function updateEstadios(estadio) {
+  const r = await api.put("/estadios/" + estadio.id, estadio);
+  return r.data;
+}
+
+export async function deleteEstadios(params) {
+  const r = await api.delete("/estadios/" + params.id, params);
+  return r.data;
+}
+///
 
 export async function getEventos() {
   const r = await api.get("/eventos");
@@ -82,6 +134,18 @@ export async function crearEventos(params) {
   return r.data;
 }
 
+export async function updateEventos(evento) {
+  const r = await api.put("/eventos/" + evento.id, evento);
+  return r.data;
+}
+
+export async function deleteEventos(params) {
+  const r = await api.delete("/eventos/" + params.id, params);
+  return r.data;
+}
+
+//
+
 export async function getFaltas() {
   const r = await api.get("/faltas");
   return r.data;
@@ -91,6 +155,17 @@ export async function crearFaltas(params) {
   const r = await api.post("/faltas", params);
   return r.data;
 }
+export async function updateFaltas(falta) {
+  const r = await api.put("/faltas/" + falta.id, falta);
+  return r.data;
+}
+
+export async function deleteFaltas(params) {
+  const r = await api.delete("/faltas/" + params.id, params);
+  return r.data;
+}
+
+//
 
 export async function getHistorialPartidas() {
   const r = await api.get("/historial_partidas");
@@ -159,6 +234,10 @@ export async function getRondas() {
 
 export async function getSanciones() {
   const r = await api.get("/sanciones");
+  return r.data;
+}
+export async function crearSanciones(params) {
+  const r = await api.post("/sanciones", params);
   return r.data;
 }
 

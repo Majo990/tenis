@@ -141,11 +141,8 @@
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn dense color="primary" label="Crear" type="submit" />
 
-            <q-btn dense color="amber" label="Actualizar" />
-            <q-btn dense color="red" label="Borrar" />
-          </div>
-
-          <div class="col-6 q-gutter-md text-center items-center">
+            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+            <q-btn dense color="red" label="Borrar" @click="Delete"/>
             <q-btn
               label="Restablecer"
               type="reset"
@@ -154,6 +151,7 @@
               class="q-ml-sm"
             />
           </div>
+
         </div>
         <br />
         <q-table
@@ -174,7 +172,10 @@
 
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
-import { getEntrenadores,getPaises,crearEntrenadores ,getJugadores} from "../services";
+import { getEntrenadores,getPaises,crearEntrenadores ,getJugadores,
+  updateEntrenadores, deleteEntrenadores
+
+} from "../services";
 
 const columns = [
   {
@@ -259,6 +260,16 @@ async function onSubmit() {
   await crearEntrenadores(entrenador);
 
 }
+
+async function Actualizar(){
+  await updateEntrenadores(entrenador);
+
+}
+
+async function Delete(){
+  await deleteEntrenadores(entrenador);
+}
+
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === entrenador.nombre_paises)?.cities

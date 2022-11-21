@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-form q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+    <q-form q-form @submit="onSubmit"  class="q-gutter-md">
       <div class="q-pa-md">
         <strong>Formulario </strong>
 
@@ -58,7 +58,9 @@ const columns = [
     sortable: true,
   },
 ];
+
 const rows = ref([]);
+const selected = ref([]);
 
 const rol = reactive({
   descripcion: null,

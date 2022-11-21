@@ -3,13 +3,13 @@
     <div class="q-pa-md">
       <strong>Formulario </strong>
       <div class="q-pa-md">
-        <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+        <q-form @submit="onSubmit"  class="q-gutter-md">
           <div class="row">
             <div class="col-6">
               <div class="row justify-between q-gutter-md">
                 <q-input
                   filled
-                  v-model="nombresancion"
+                  v-model="sancion.nombre"
                   label="Ingrese el Nombre-Sancion "
                   lazy-rules
                   dense
@@ -31,21 +31,24 @@
           </div>
         </q-form>
       </div>
-
       <q-table
-      dense
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        separator="cell"
-      />
+          :rows="rows"
+          :columns="columns"
+          separator="cell"
+          dense
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getSanciones } from "../services";
+import { ref, onMounted,reactive } from "vue";
+import { getSanciones,crearSanciones } from "../services";
 const columns = [
   {
     name: "nombre",
@@ -56,11 +59,34 @@ const columns = [
     sortable: true,
   },
 ];
+
+
+const selected = ref([]);
 const rows = ref([]);
+
+const sancion=reactive({
+  nombe:null,
+});
+
+async function onSubmit(){
+  await crearSanciones(sancion);
+}
 
 onMounted(async () => {
   rows.value = await getSanciones();
 });
+
+function handleSelection(details){
+  let rowSelected= {
+    nombre:null,
+  };
+
+  if (details.added) {
+    Object.assign(rowSelected, details.rows[0]);
+  }
+
+  Object.assign(sancion, rowSelected);
+}
 </script>
 
 <!--mal -->

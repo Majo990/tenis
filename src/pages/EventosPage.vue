@@ -24,8 +24,8 @@
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" />
-          <q-btn dense color="red" label="Borrar" />
+          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar" />
+          <q-btn dense color="red" label="Borrar"  @click="Delete" />
         </div>
         <br />
 
@@ -47,7 +47,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { getEventos, crearEventos } from "../services";
+import { getEventos, crearEventos,updateEventos,deleteEventos } from "../services";
 const columns = [
   {
     name: "nombre",
@@ -63,6 +63,7 @@ const rows = ref([]);
 const nombre =ref([]);
 
 const evento = reactive({
+  id:null,
   nombre: null,
 });
 
@@ -75,6 +76,16 @@ const evento = reactive({
 async function onSubmit() {
   await crearEventos(evento);
 }
+
+async function Actualizar(){
+  await updateEventos(evento);
+
+}
+
+async function Delete(){
+  await deleteEventos(evento);
+}
+
 
 onMounted(async () => {
   rows.value = await getEventos();

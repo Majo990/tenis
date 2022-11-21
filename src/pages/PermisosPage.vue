@@ -1,23 +1,23 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
-              <q-input
+              <q-select
                 filled
-                dense
                 v-model="permiso.id_usuarios"
-                label="Ingrese el Nombre-Usuarios"
-                lazy-rules
+                map-options
+                emit-value
+                option-value="id"
+                option-label="usuarios"
+                :options="usuario"
                 style="width: 47%"
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Nombre-Usuarios',
-                ]"
+                dense
+                lazy-rules
+                label="Seleccione Nombre Usuarios"
               />
 
               <q-input
@@ -40,7 +40,7 @@
                 map-options
                 emit-value
                 option-value="id"
-                option-label="nombre"
+                option-label="descripcion"
                 :options="rol"
                 style="width: 47%"
                 dense
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit"  />
+          <q-btn dense color="primary" label="Crear" type="submit" />
           <q-btn dense color="amber" label="Actualizar" />
           <q-btn dense color="red" label="Borrar" />
         </div>
@@ -75,7 +75,12 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { getPermisos, getRoles } from "src/services";
+import {
+  getPermisos,
+  getRoles,
+  crearPermisos,
+  getUsuarios,
+} from "src/services";
 
 const columns = [
   {
@@ -83,7 +88,7 @@ const columns = [
     required: true,
     label: "Nombre-Usuarios",
     align: "left",
-    field: "usuarios_usuarios",
+    field: "usuarios",
     sortable: true,
   },
   {
@@ -97,10 +102,15 @@ const columns = [
     name: "id_roles",
     align: "center",
     label: "Nombre-Roles",
-    field: "nombre_roles",
+    field: "descripcion_roles",
     sortable: true,
   },
 ];
+
+const selected = ref([]);
+const usuario = ref([]);
+const rol = ref([]);
+const rows =ref([]);
 
 const permiso = reactive({
   id_usuarios: null,
@@ -115,6 +125,7 @@ async function onSubmit() {
 onMounted(async () => {
   rows.value = await getPermisos();
   rol.value = await getRoles();
+  usuario.value = await getUsuarios();
 });
 
 function handleSelection(details) {
@@ -123,6 +134,7 @@ function handleSelection(details) {
     descripcion: null,
     id_roles: null,
   };
+
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);
   }

@@ -121,7 +121,6 @@
                 </template>
               </q-input>
 
-
               <q-input
                 filled
                 dense
@@ -146,7 +145,7 @@
               <q-input
                 filled
                 dense
-                style="width:47%"
+                style="width: 47%"
                 v-model="tiempo"
                 mask="fulltime"
                 label="Ingrese la duracion partida"
@@ -195,31 +194,31 @@
                 </template>
               </q-input>
 
-        <q-select
-          filled
-          map-options
-          emit-value
-          option-value="id"
-          option-label="nombre"
-          v-model="partida.id_rondas"
-          dense
-          :options="rondas"
-          style="width: 47%"
-          label="Seleccione su Ronda"
-          lazy-rules
-          :rules="[
-            (val) =>
-              (val !== null && val !== '') || 'Por favor seleccione su ronda',
-            (val) => (val > 1 && val < 80) || 'Por favor seleccione su ronda',
-          ]"
-        />
-
-          </div>
+              <q-select
+                filled
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                v-model="partida.id_rondas"
+                dense
+                :options="rondas"
+                style="width: 47%"
+                label="Seleccione su Ronda"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') ||
+                    'Por favor seleccione su ronda',
+                  (val) =>
+                    (val > 1 && val < 80) || 'Por favor seleccione su ronda',
+                ]"
+              />
+            </div>
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-
           <q-btn dense color="amber" label="Actualizar" />
           <q-btn dense color="red" label="Borrar" />
         </div>
@@ -253,6 +252,7 @@ const fecha = ref("2020-02-01");
 const tiempoinicio = ref(null);
 const nombretorneo = ref(null);
 const descriparti = ref(null);
+const selected = ref([]);
 
 const tiempoinicios = ref("04:00:00");
 const tiempoduraciones = ref("00:30:00");
@@ -368,6 +368,7 @@ function handleSelection(details) {
   if (details.added) {
     Object.assign(rowSelected, details.row[0]);
   }
+
   Object.assign(partida, rowSelected);
 }
 </script>

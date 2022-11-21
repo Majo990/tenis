@@ -117,12 +117,7 @@
 
                 filled
                 type="file"
-                lazy-rules
-                dense
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Simbolo',
-                ]"
+             
                 style="width: 47%"
               />
             </div>

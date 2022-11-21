@@ -13,15 +13,10 @@
           />
         </q-avatar>
 
-        <!---- <q-input square clearable v-model="username" type="text" dense  label="Username">
-                <template v-slot:prepend>
-                  <q-icon name="person" />
-                </template>
-        </q-input>-->
         <q-input
           v-model="usuario"
           type="text"
-          label="Usuario"
+          label="usuario"
           dense
           lazy-rules
           :rules="[
@@ -36,7 +31,6 @@
         <q-input
           v-model="password"
           type="password"
-
           label="Password"
           dense
           lazy-rules
@@ -70,7 +64,7 @@
           onclick=""
         />
 
-        />
+    
       </q-form>
     </div>
   </q-page>
@@ -103,10 +97,6 @@ async function onSubmit() {
 function onReset() {
   console.log("reset");
 }
-
-
-
-
 </script>
 <style lang="scss">
 .login {
@@ -126,8 +116,4 @@ h5 {
   background-image: url("../assets/img/tenis.jpg");
 }
 
-/*
-{
-  border-style::first-line
-}/*
 </style>

@@ -168,7 +168,6 @@
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-
           <q-btn dense color="amber" label="Actualizar" />
           <q-btn dense color="red" label="Borrar" />
         </div>
@@ -196,6 +195,12 @@ import { getJueces, getPaises, crearJueces } from "../services";
 
 
 const date = ref("2019/02/01");
+const rows = ref([]);
+const paises = ref([]);
+const sexos = ["Femenino", "Masculino"];
+const selected=ref([]);
+
+
 const columns = [
   {
     name: "nombre",
@@ -257,11 +262,6 @@ const columns = [
     sortable: true,
   },
 ];
-const rows = ref([]);
-
-const paises = ref([]);
-
-const sexos = ["Femenino", "Masculino"];
 
 
 const juez = reactive({

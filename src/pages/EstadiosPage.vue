@@ -158,8 +158,8 @@
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn dense color="primary" label="Crear" type="submit" />
-            <q-btn dense color="amber" label="Actualizar" />
-            <q-btn dense color="red" label="Borrar" />
+            <q-btn dense color="amber" label="Actualizar" @click="Actualizar"/>
+            <q-btn dense color="red" label="Borrar" @click="Delete"/>
           </div>
         </div>
       </div>
@@ -186,6 +186,7 @@ import { ref, onMounted, computed, reactive } from "vue";
 import { getEstadios,crearEstadios,
   getJugadores,
    getPaises,
+   updateEstadios,deleteEstadios
   } from "../services";
 
 const columns = [
@@ -283,6 +284,7 @@ const cesped = ref(null);
 
 
 const estadio = reactive({
+  id:null,
   nombre: null,
   id_jugadores: null,
   cancha: null,
@@ -299,6 +301,16 @@ const estadio = reactive({
 async function onSubmit() {
   await crearEstadios(estadio);
 }
+
+async function Actualizar(){
+  await updateEstadios(estadio);
+
+}
+
+async function Delete(){
+  await deleteEstadios(estadio);
+}
+
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === estadio.nombre_paises)?.cities

@@ -112,9 +112,8 @@
       <br />
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn dense color="primary" label="Crear" type="submit" />
-
-        <q-btn dense color="amber" label="Actualizar" />
-        <q-btn dense color="red" label="Borrar" />
+        <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+        <q-btn dense color="red" label="Borrar"  @click="Delete" />
       </div>
       <br />
       <q-table
@@ -142,6 +141,8 @@ import {
   getJugadores,
   getPartidas,
   crearFaltas,
+  updateFaltas,
+  deleteFaltas
 
 } from "../services";
 
@@ -200,6 +201,7 @@ const partidas=ref([]);
 
 
 const falta = reactive({
+  id:null,
   nro: null,
   fecha_hora: null,
   id_jugadores: null,
@@ -209,8 +211,18 @@ const falta = reactive({
 });
 
 async function onSubmit() {
-  await crearFaltas(faltas);
+  await crearFaltas(falta);
 }
+
+async function Actualizar(){
+  await updateFaltas(falta);
+
+}
+
+async function Delete(){
+  await deleteFaltas(falta);
+}
+
 
 onMounted(async () => {
   rows.value = await getFaltas();
