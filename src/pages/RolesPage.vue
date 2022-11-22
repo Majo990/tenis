@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-form q-form @submit="onSubmit"  class="q-gutter-md">
+    <q-form q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
         <strong>Formulario </strong>
 
@@ -24,9 +24,9 @@
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear"  type="submit" />
-        <q-btn dense color="amber" label="Actualizar" />
-        <q-btn dense color="red" label="Borrar" />
+        <q-btn dense color="primary" label="Crear" type="submit" />
+        <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+        <q-btn dense color="red" label="Borrar" @click="Delete" />
       </div>
     </q-form>
     <br />
@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { getRoles } from "../services";
+import { getRoles, crearRoles, updateRoles, deleteRoles } from "../services";
 
 const columns = [
   {
@@ -68,6 +68,14 @@ const rol = reactive({
 
 async function onSubmit() {
   await crearRoles(rol);
+}
+
+async function Actualizar() {
+  await updateRoles(rol);
+}
+
+async function Delete() {
+  await deleteRoles(rol);
 }
 
 onMounted(async () => {

@@ -6,28 +6,39 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
-
-              <q-input
+              <q-select
                 filled
-                dense
-                v-model="permiso.descripcion"
-                label="Ingrese su Descripcion "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Descripcion',
-                ]"
+                v-model="permisorol.id_permisos"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="descripcion"
+                :options="permisos"
                 style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione Nombre Jugadores "
               />
-
+              <q-select
+                filled
+                v-model="permisorol.id_roles"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="descripcion"
+                :options="roles"
+                style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione Nombre Jugadores "
+              />
             </div>
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
-          <q-btn dense color="red" label="Borrar"  @click="Delete"/>
+          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+          <q-btn dense color="red" label="Borrar" @click="Delete" />
         </div>
       </q-form>
 
@@ -50,60 +61,61 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
 import {
+  crearPermisosRoles,
+  updatePermisosRoles,
+  deletePermisosRoles,
+  getRoles,
   getPermisos,
-  crearPermisos,
-deletePermisos,
-updatePermisos,
 } from "src/services";
 
 const columns = [
-
   {
-    name: "descripcion",
+    name: "id_permisos",
     align: "center",
-    label: "Descripcion",
-    field: "descripcion",
+    label: "Permisos",
+    field: "nombre_permisos",
     sortable: true,
   },
-
+  {
+    name: "id_roles",
+    align: "center",
+    label: "Roles",
+    field: "nombre_roles",
+    sortable: true,
+  },
 ];
 
 const selected = ref([]);
-const usuario = ref([]);
+const permisos = ref([]);
 const rol = ref([]);
-const rows =ref([]);
+const rows = ref([]);
 
-const permiso = reactive({
-  id:null,
-  id_usuarios: null,
-  descripcion: null,
+const permisorol = reactive({
+  id: null,
+  id_permisos: null,
   id_roles: null,
 });
 
 async function onSubmit() {
-  await crearPermisos(permiso);
+  await crearPermisosRoles(permisorol);
 }
 
-async function Actualizar(){
-  await updatePermisos(permiso);
-
+async function Actualizar() {
+  await updatePermisosRoles(permisorol);
 }
 
-async function Delete(){
-  await deletePermisos(permiso);
+async function Delete() {
+  await deletePermisosRoles(permisorol);
 }
-
 
 onMounted(async () => {
   rows.value = await getPermisos();
   rol.value = await getRoles();
-  usuario.value = await getUsuarios();
 });
 
 function handleSelection(details) {
   let rowSelected = {
-    id_usuarios: null,
-    descripcion: null,
+    id_permisos: null,
     id_roles: null,
   };
 
@@ -111,7 +123,7 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(permiso, rowSelected);
+  Object.assign(permisorol, rowSelected);
 }
 </script>
 <style>

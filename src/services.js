@@ -102,6 +102,15 @@ export async function crearEquipos(params) {
   const r = await api.post("/equipos", params);
   return r.data;
 }
+export async function updateEquipos(equipo) {
+  const r = await api.put("/equipos/" + equipo.id, equipo);
+  return r.data;
+}
+
+export async function deleteEquipos(params) {
+  const r = await api.delete("/equipos/" + params.id, params);
+  return r.data;
+}
 
 //
 export async function getEstadios() {
@@ -177,6 +186,21 @@ export async function crearHistorialPartidas(params) {
   return r.data;
 }
 
+export async function updateHistorialPartidas(historial_partida) {
+  const r = await api.put(
+    "/historial_partidas/" + historial_partida.id,
+    historial_partida
+  );
+  return r.data;
+}
+
+export async function deleteHistorialPartidas(params) {
+  const r = await api.delete("/historial_partidas/" + params.id, params);
+  return r.data;
+}
+
+//
+
 export async function getJueces() {
   const r = await api.get("/jueces");
   return r.data;
@@ -187,6 +211,16 @@ export async function crearJueces(params) {
   return r.data;
 }
 
+export async function updateJueces(juez) {
+  const r = await api.put("/jueces/" + juez.id, juez);
+  return r.data;
+}
+
+export async function deleteJueces(params) {
+  const r = await api.delete("/jueces/" + params.id, params);
+  return r.data;
+}
+///
 export async function getHome() {
   const r = await api.get("/jugadores");
   return r.data;
@@ -196,6 +230,16 @@ export async function crearJugadores(params) {
   const r = await api.post("/jugadores", params);
   return r.data;
 }
+export async function updateJugadores(jugador) {
+  const r = await api.put("/jugadores/" + jugador.id, jugador);
+  return r.data;
+}
+
+export async function deleteJugadores(params) {
+  const r = await api.delete("/jugadores/" + params.id, params);
+  return r.data;
+}
+///
 
 export async function getPartidas() {
   const r = await api.get("/partidas");
@@ -207,6 +251,17 @@ export async function crearPartidas(params) {
   return r.data;
 }
 
+export async function updatePartidas(partida) {
+  const r = await api.put("/partidas/" + partida.id, partida);
+  return r.data;
+}
+
+export async function deletePartidas(params) {
+  const r = await api.delete("/partidas/" + params.id, params);
+  return r.data;
+}
+
+//
 export async function getPartidasJugadores() {
   const r = await api.get("/partidas_jugadores");
   return r.data;
@@ -217,6 +272,19 @@ export async function crearPartidasJugadores(params) {
   return r.data;
 }
 
+export async function updatePartidasJugadores(partidajugador) {
+  const r = await api.put(
+    "/partidas_jugadores/" + partidajugador.id,
+    partidajugador
+  );
+  return r.data;
+}
+
+export async function deletePartidasJugadores(params) {
+  const r = await api.delete("/partidas_jugadores/" + params.id, params);
+  return r.data;
+}
+///
 export async function getPremios() {
   const r = await api.get("/premios");
   return r.data;
@@ -227,10 +295,38 @@ export async function crearPremios(params) {
   return r.data;
 }
 
+export async function updatePremios(premio) {
+  const r = await api.put("/premios/" + premio.id, premio);
+  return r.data;
+}
+
+export async function deletePremios(params) {
+  const r = await api.delete("/premios/" + params.id, params);
+  return r.data;
+}
+
+///
 export async function getRondas() {
   const r = await api.get("/rondas");
   return r.data;
 }
+
+export async function crearRondas(params) {
+  const r = await api.post("/rondas", params);
+  return r.data;
+}
+
+export async function updateRondas(ronda) {
+  const r = await api.put("/rondas/" + ronda.id, ronda);
+  return r.data;
+}
+
+export async function deleteRondas(params) {
+  const r = await api.delete("/rondas/" + params.id, params);
+  return r.data;
+}
+
+///
 
 export async function getSanciones() {
   const r = await api.get("/sanciones");
@@ -241,6 +337,17 @@ export async function crearSanciones(params) {
   return r.data;
 }
 
+export async function updateSanciones(sancion) {
+  const r = await api.put("/sanciones/" + sancion.id, sancion);
+  return r.data;
+}
+
+export async function deleteSanciones(params) {
+  const r = await api.delete("/sanciones/" + params.id, params);
+  return r.data;
+}
+///
+
 export async function getTorneos() {
   const r = await api.get("/torneos");
   return r.data;
@@ -249,7 +356,7 @@ export async function crearTorneos(params) {
   const r = await api.post("/torneos", params);
   return r.data;
 }
-
+///
 export async function getUsuarios() {
   const r = await api.get("/usuarios");
   return r.data;
@@ -258,7 +365,7 @@ export async function crearUsuarios(params) {
   const r = await api.post("/usuarios", params);
   return r.data;
 }
-
+///
 export async function getPermisos() {
   const r = await api.get("/permisos");
   return r.data;
@@ -267,6 +374,41 @@ export async function crearPermisos(params) {
   const r = await api.post("/permisos", params);
   return r.data;
 }
+
+export async function updatePermisos(permiso) {
+  const r = await api.put("/permisos/" + permiso.id, permiso);
+  return r.data;
+}
+
+export async function deletePermisos(params) {
+  const r = await api.delete("/permisos/" + params.id, params);
+  return r.data;
+}
+
+//
+
+///
+export async function getPermisosRoles() {
+  const r = await api.get("/permisos-roles");
+  return r.data;
+}
+export async function crearPermisosRoles(params) {
+  const r = await api.post("/permisos-roles", params);
+  return r.data;
+}
+
+export async function updatePermisosRoles(permisorol) {
+  const r = await api.put("/permisos-roles/" + permisorol.id, permisorol);
+  return r.data;
+}
+
+export async function deletePermisosRoles(params) {
+  const r = await api.delete("/permisos-roles/" + params.id, params);
+  return r.data;
+}
+
+
+///
 
 export async function getPerfiles() {
   const r = await api.get("/perfiles");
@@ -278,6 +420,17 @@ export async function crearPerfiles(params) {
   return r.data;
 }
 
+export async function updatePerfiles(perfil) {
+  const r = await api.put("/perfiles/" + perfil.id, perfil);
+  return r.data;
+}
+
+export async function deletePerfiles(params) {
+  const r = await api.delete("/perfiles/" + params.id, params);
+  return r.data;
+}
+
+///
 export async function getRoles() {
   const r = await api.get("/roles");
   return r.data;
@@ -287,6 +440,18 @@ export async function crearRoles(params) {
   const r = await api.post("/roles", params);
   return r.data;
 }
+
+export async function updateRoles(rol) {
+  const r = await api.put("/roles/" + rol.id, rol);
+  return r.data;
+}
+
+export async function deleteRoles(params) {
+  const r = await api.delete("/roles/" + params.id, params);
+  return r.data;
+}
+
+//
 export async function getPaises() {
   const r = await api.get("/paises");
   return r.data;

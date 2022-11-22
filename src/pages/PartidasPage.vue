@@ -219,8 +219,8 @@
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" />
-          <q-btn dense color="red" label="Borrar" />
+          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
+          <q-btn dense color="red" label="Borrar" @click="Delete" />
         </div>
         <br />
         <q-table
@@ -246,6 +246,8 @@ import {
   crearPartidas,
   getJugadores,
   getTorneos,
+  updatePartidas,
+  deletePartidas
 } from "../services";
 
 const fecha = ref("2020-02-01");
@@ -346,6 +348,15 @@ async function onSubmit() {
   await crearPartidas(partida);
 }
 
+async function Actualizar() {
+  await updatePartidas(partida);
+}
+
+async function Delete() {
+  await deletePartidas(partida);
+}
+
+
 onMounted(async () => {
   rows.value = await getPartidas();
   jugadores.value = await getJugadores();
@@ -365,8 +376,10 @@ function handleSelection(details) {
     tiempo_fin: null,
     id_rondas: null,
   };
+
+
   if (details.added) {
-    Object.assign(rowSelected, details.row[0]);
+    Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(partida, rowSelected);

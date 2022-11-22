@@ -117,7 +117,7 @@
 
                 filled
                 type="file"
-             
+
                 style="width: 47%"
               />
             </div>
@@ -209,9 +209,8 @@
 
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn dense color="primary" label="Crear" type="submit" />
-
-            <q-btn dense color="amber" label="Actualizar" />
-            <q-btn dense color="red" label="Borrar" />
+            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+            <q-btn dense color="red" label="Borrar" @click="Delete" />
           </div>
           <br />
           <q-table
@@ -240,6 +239,9 @@ import {
   getJugadores,
   getEntrenadores,
   getEstadios,
+updateEquipos,
+deleteEquipos,
+
 } from "src/services";
 
 const columns = [
@@ -341,6 +343,7 @@ const file = ref([]);
 const simbolo=ref([]);
 
 const equipo = reactive({
+  id:null,
   nombre: null,
   fecha_fundo: null,
   id_jugadores: null,
@@ -357,6 +360,14 @@ const equipo = reactive({
 
 async function onSubmit() {
   await crearEquipos(equipo);
+}
+
+async function Actualizar() {
+  await updateEquipos(equipo);
+}
+
+async function Delete() {
+  await deleteEquipos(equipo);
 }
 
 const ciudades = computed(

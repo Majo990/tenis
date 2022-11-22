@@ -168,8 +168,8 @@
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" />
-          <q-btn dense color="red" label="Borrar" />
+          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+          <q-btn dense color="red" label="Borrar" @click="Delete" />
         </div>
         <br />
         <q-table
@@ -183,7 +183,6 @@
           @selection="handleSelection"
         >
         </q-table>
-
       </div>
     </q-form>
   </q-page>
@@ -191,15 +190,19 @@
 
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
-import { getJueces, getPaises, crearJueces } from "../services";
-
+import {
+  getJueces,
+  getPaises,
+  crearJueces,
+  updateJueces,
+  deleteJueces,
+} from "../services";
 
 const date = ref("2019/02/01");
 const rows = ref([]);
 const paises = ref([]);
 const sexos = ["Femenino", "Masculino"];
-const selected=ref([]);
-
+const selected = ref([]);
 
 const columns = [
   {
@@ -207,7 +210,7 @@ const columns = [
     required: true,
     label: "Nombre",
     align: "left",
-    format: "nombre",
+
     field: "nombre",
     sortable: true,
   },
@@ -216,7 +219,7 @@ const columns = [
     required: true,
     label: "Apellido",
     align: "left",
-    format: "apellido",
+
     field: "apellido",
     sortable: true,
   },
@@ -225,7 +228,7 @@ const columns = [
     required: true,
     label: "Fecha-Nacimiento",
     align: "left",
-    format: "fecha_nacimiento",
+
     field: "fecha_nacimiento",
     sortable: true,
   },
@@ -234,7 +237,7 @@ const columns = [
     required: true,
     label: "Edad",
     align: "left",
-    format: "edad",
+
     field: "edad",
     sortable: true,
   },
@@ -243,7 +246,7 @@ const columns = [
     required: true,
     label: "Sexo",
     align: "left",
-    format: "sexo",
+
     field: "sexo",
     sortable: true,
   },
@@ -263,8 +266,8 @@ const columns = [
   },
 ];
 
-
 const juez = reactive({
+  id: null,
   nombre: null,
   apellido: null,
   fecha_nacimiento: null,
@@ -278,6 +281,14 @@ const juez = reactive({
 
 async function onSubmit() {
   await crearJueces(juez);
+}
+
+async function Actualizar() {
+  await updateJueces(juez);
+}
+
+async function Delete() {
+  await deleteJueces(juez);
 }
 
 const ciudades = computed(
@@ -301,6 +312,7 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
+
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);
   }

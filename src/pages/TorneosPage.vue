@@ -98,7 +98,7 @@
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn dense color="primary" label="Crear" type="submit" />
-        <q-btn dense color="amber" label="Actualizar" />
+        <q-btn dense color="amber" label="Actualizar"   />
         <q-btn dense color="red" label="Borrar" />
       </div>
 
@@ -147,17 +147,17 @@ const columns = [
   },
 
   {
-    name: "pais",
+    name: "nombre_paises",
     align: "center",
-    label: "pais",
-    field: "pais",
+    label: "Nombre-Paises",
+    field: "nombre_paises",
     sortable: true,
   },
   {
-    name: "ciudad",
+    name: "nombre_ciudades",
     align: "center",
-    label: "ciudad",
-    field: "ciudad",
+    label: "Nombre-Ciudades",
+    field: "nombre_ciudades",
     sortable: true,
   },
 ];
@@ -166,6 +166,7 @@ const estadio=ref([]);
 const rows = ref([]);
 const paises = ref([]);
 const date = ref("2020/02/01");
+const selected=ref([]);
 
 const torneo = reactive({
   fecha: null,

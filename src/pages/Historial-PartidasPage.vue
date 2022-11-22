@@ -205,8 +205,8 @@
         <br />
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear"  type="submit" />
-          <q-btn dense color="amber" label="Actualizar" />
-          <q-btn dense color="red" label="Borrar" />
+          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
+          <q-btn dense color="red" label="Borrar" @click="Delete"/>
         </div>
         <br />
 
@@ -239,6 +239,9 @@ import {
   getPremios,
   getRondas,
   crearHistorialPartidas,
+  updateHistorialPartidas,
+  deleteHistorialPartidas
+
 } from "../services";
 const columns = [
   {
@@ -259,7 +262,7 @@ const columns = [
     name: "id_rondas",
     align: "center",
     label: "Nro-Rondas",
-    field: "nro_rondas",
+    field: "nro",
     sortable: true,
   },
   {
@@ -287,28 +290,28 @@ const columns = [
     name: "id_premios",
     align: "center",
     label: "Nombre-Premios",
-    field: "nombre_Premios",
+    field: "nombre_premios",
     sortable: true,
   },
   {
     name: "id_faltas",
     align: "center",
     label: "Nombre-Faltas",
-    field: "nombre_Faltas",
+    field: "nro",
     sortable: true,
   },
   {
     name: "id_partidas",
     align: "center",
     label: "Nombre-Partidas",
-    field: "nombre_Partidas",
+    field: "nombre_partidas",
     sortable: true,
   },
   {
     name: "id_arbitros",
     align: "center",
     label: "Nombre-Arbitros",
-    field: "nombre_Arbitros",
+    field: "nombre_arbitros",
     sortable: true,
   },
 ];
@@ -331,6 +334,7 @@ onMounted(async () => {
 });
 
 const historialpartida = reactive({
+  id:null,
   id_jugadores: null,
   fecha_hora: null,
   id_rondas: null,
@@ -346,6 +350,16 @@ const historialpartida = reactive({
 async function onSubmit() {
   await crearHistorialPartidas(historialpartida);
 }
+
+async function Actualizar(){
+  await updateHistorialPartidas(historialpartida);
+
+}
+
+async function Delete(){
+  await deleteHistorialPartidas(historialpartida);
+}
+
 
 onMounted(async () => {
   rows.value = await getHistorialPartidas();

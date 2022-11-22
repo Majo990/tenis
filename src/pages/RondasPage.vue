@@ -2,12 +2,12 @@
   <q-page padding>
     <strong>Formulario </strong>
     <q-page class="q-pa-md">
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <q-input
-              dense
+                dense
                 v-model.number="ronda.nro"
                 type="number"
                 filled
@@ -19,9 +19,9 @@
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear"  type="submit" />
-          <q-btn   dense color="amber" label="Actualizar" />
-          <q-btn  dense color="red" label="Borrar" />
+          <q-btn dense color="primary" label="Crear" type="submit" />
+          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+          <q-btn dense color="red" label="Borrar" @click="Delete" />
         </div>
         <q-table
           :rows="rows"
@@ -41,29 +41,41 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { getRondas } from "../services";
+import {
+  getRondas,
+  crearRondas,
+  updateRondas,
+  deleteRondas,
+} from "../services";
 const columns = [
   { name: "nro", align: "center", label: "Nro", field: "nro", sortable: true },
 ];
 const rows = ref([]);
-const selected=ref([]);
+const selected = ref([]);
 
-
-const ronda=reactive({
-   nro:null,
+const ronda = reactive({
+  nro: null,
 });
 
-async function onSubmit(){
+async function onSubmit() {
   await crearRondas(ronda);
+}
+
+async function Actualizar() {
+  await updateRondas(ronda);
+}
+
+async function Delete() {
+  await deleteRondas(ronda);
 }
 
 onMounted(async () => {
   rows.value = await getRondas();
 });
 
-function handleSelection(details){
-  let rowSelected={
-    nro:null,
+function handleSelection(details) {
+  let rowSelected = {
+    nro: null,
   };
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);

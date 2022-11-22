@@ -39,11 +39,7 @@
               v-model="perfil.edad"
               label="Selecione Edad"
               style="width: 47%"
-              lazy-rules
-              :rules="[
-                (val) => (val !== null && val !== '') || 'Please type your age',
-                (val) => (val > 1 && val < 80) || 'Por favor selecione su edad',
-              ]"
+
             />
 
             <q-select
@@ -215,7 +211,7 @@ import { ref, onMounted, computed, reactive } from "vue";
 import {
   getPerfiles,
   getPaises,
-  crearPerfiles,
+ crearPerfiles,
   getUsuarios,
 } from "../services";
 
@@ -250,17 +246,17 @@ const columns = [
     sortable: true,
   },
   {
-    name: "pais",
+    name: "nombre_paises",
     align: "center",
-    label: "Pais",
-    field: "pais",
+    label: "Nombre-Paises",
+    field: "nombre_paises",
     sortable: true,
   },
   {
-    name: "ciudad",
+    name: "nombre_ciudades",
     align: "center",
-    label: "Ciudad",
-    field: "ciudad",
+    label: "Nombre-Ciudades",
+    field: "nombre_ciudades",
     sortable: true,
   },
   {
@@ -317,6 +313,7 @@ const selected = ref([]);
 const rows = ref([]);
 const paises = ref([]);
 const usuarios=ref([]);
+    const textarea =ref([]);
 
 const sexos = ["Femenino", "Masculino"];
 const perfil = reactive({

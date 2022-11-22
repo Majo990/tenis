@@ -40,7 +40,7 @@
 
             <q-select
               filled
-              v-model="partidajugador.jugadores"
+              v-model="partidajugador.id_jugadores"
               map-options
               emit-value
               option-value="id"
@@ -55,8 +55,8 @@
           <br />
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn dense color="primary" label="Crear" type="submit" />
-            <q-btn dense color="amber" label="Actualizar" />
-            <q-btn dense color="red" label="Borrar" />
+            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+            <q-btn dense color="red" label="Borrar" @click="Delete" />
           </div>
         </div>
       </div>
@@ -83,6 +83,8 @@ import {
   getPartidas,
   getPartidasJugadores,
   crearPartidasJugadores,
+  deletePartidasJugadores,
+  updatePartidasJugadores
 } from "../services";
 const columns = [
   {
@@ -102,17 +104,27 @@ const columns = [
 ];
 
 const rows = ref([]);
-const filter = ref('');
+const filter = ref("");
 const jugadores = ref([]);
 const partidas = ref([]);
-const selected =ref([]);
+const selected = ref([]);
+
 const partidajugador = {
+  id:null,
   id_partidas: null,
   id_jugadores: null,
 };
 
 async function onSubmit() {
   await crearPartidasJugadores(partidajugador);
+}
+
+async function Actualizar() {
+  await updatePartidasJugadores(partidajugador);
+}
+
+async function Delete() {
+  await deletePartidasJugadores(partidajugador);
 }
 
 onMounted(async () => {
@@ -126,8 +138,9 @@ function handleSelection(details) {
     id_partidas: null,
     id_jugadores: null,
   };
+
   if (details.added) {
-    Object.assign(rowSelected, details.row[0]);
+    Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(partidajugador, rowSelected);

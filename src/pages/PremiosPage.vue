@@ -31,14 +31,6 @@
                 :options="tipo"
                 style="width: 47%"
                 label="Seleccione Tipo Premio "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') ||
-                    'Por favor seleccione su premio',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor seleccione su premio',
-                ]"
               />
             </div>
 
@@ -89,11 +81,11 @@
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn dense color="primary" label="Crear" type="submit" />
-        <q-btn dense color="amber" label="Actualizar" />
-        <q-btn dense color="red" label="Borrar" />
+        <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+        <q-btn dense color="red" label="Borrar" @click="Delete" />
       </div>
     </q-form>
-<br/>
+    <br />
 
     <q-table
       :rows="rows"
@@ -110,18 +102,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted,reactive } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import {
   getEquipos,
   getJugadores,
   getPremios,
   crearPremios,
+  updatePremios,
+  deletePremios,
 } from "../services";
 
 const rows = ref([]);
+const selected = ref([]);
 const equipos = ref([]);
 const jugadores = ref([]);
-const tipo=["Medallas Oro","Medallas Plata","Medallas Bronce","Trofeo","Viajes","Dinero" ];
+const tipo = [
+  "Medallas Oro",
+  "Medallas Plata",
+  "Medallas Bronce",
+  "Trofeo",
+  "Viajes",
+  "Dinero",
+];
 
 const columns = [
   {
@@ -155,7 +157,6 @@ const columns = [
   },
 ];
 
-
 const premio = reactive({
   nombre: null,
   tipo: null,
@@ -165,6 +166,14 @@ const premio = reactive({
 
 async function onSubmit() {
   await crearPremios(premio);
+}
+
+async function Actualizar() {
+  await updatePremios(premio);
+}
+
+async function Delete() {
+  await deletePremios(premio);
 }
 
 onMounted(async () => {

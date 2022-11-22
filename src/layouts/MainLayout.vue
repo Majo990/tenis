@@ -178,6 +178,11 @@ const linksList = [
   },
 
   {
+    title: "Permisos-Roles",
+    icon: "mdi-folder-lock",
+    link: "/permisos-roles",
+  },
+  {
     title: "Perfiles",
     icon: "mdi-badge-account",
     link: "/Perfiles",

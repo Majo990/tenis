@@ -2,71 +2,75 @@
   <div class="q-pa-md">
     <strong>Formulario </strong>
     <q-form @submit="onSubmit" class="q-gutter-md">
-    <div class="q-gutter-md row items-start">
-      <q-input dense v-model="usuario.usuarios"
-      style="width: 20%"
-      filled type="usuario" hint="Usuario" />
+      <div class="q-gutter-md row items-start">
+        <q-input
+          dense
+          v-model="usuario.usuarios"
+          style="width: 20%"
+          filled
+          type="usuario"
+          hint="Usuario"
+        />
 
-      <q-input
-        dense
-        v-model="usuario.contraseña"
-        filled
-        style="width: 20%"
-        type="password"
-        hint="Password"
-      />
+        <q-input
+          dense
+          v-model="usuario.contraseña"
+          filled
+          style="width: 20%"
+          type="password"
+          hint="Password"
+        />
 
-      <q-input
-        dense
-        style="width: 20%"
-        v-model="usuario.contraseña"
-        filled
-        :type="isPwd ? 'password' : 'text'"
-        hint="Password with toggle"
-      >
-        <template v-slot:append> </template>
-      </q-input>
-      <q-select
-        filled
-        v-model="usuario.id_roles"
-        dense
-        label="Seleccione su rol"
-        :options="roles"
-        style="width: 20%"
-        lazy-rules
-        :rules="[
-          (val) => (val && val.length > 0) || 'Por favor seleccione su rol',
-        ]"
-      />
-      <div class="col-6 q-gutter-md text-center items-center">
-      <q-btn dense color="primary" label="Crear" type="submit"  />
-      <q-btn dense color="amber" label="Actualizar" />
-      <q-btn dense color="red" label="Borrar" />
+        <q-input
+          dense
+          style="width: 20%"
+          v-model="usuario.contraseña"
+          filled
+          :type="isPwd ? 'password' : 'text'"
+          hint="Password with toggle"
+        >
+          <template v-slot:append> </template>
+        </q-input>
+        <q-select
+                filled
+                v-model="usuario.id_roles"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="descripcion"
+                :options="roles"
+                style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione el Rol "
+              />
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn dense color="primary" label="Crear" type="submit" />
+          <q-btn dense color="amber" label="Actualizar" />
+          <q-btn dense color="red" label="Borrar" />
+        </div>
       </div>
-    </div>
-    <br />
-    <br />
-    <q-table
-      :rows="rows"
-      :columns="columns"
-      separator="cell"
-      dense
-      row-key="id"
-      selection="single"
-      v-model:selected="selected"
-      @selection="handleSelection"
-    >
-    </q-table>
-  </q-form>
+      <br />
+      <br />
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+    </q-form>
   </div>
-
 </template>
 
 <script setup>
-
- // import { isAsyncFunction } from "util/types";
-import { ref, onMounted, computed,reactive } from "vue";
-import { crearUsuarios, getUsuarios,getRoles } from "../services";
+// import { isAsyncFunction } from "util/types";
+import { ref, onMounted, reactive } from "vue";
+import { crearUsuarios, getUsuarios, getRoles } from "../services";
 const columns = [
   {
     name: "usuarios",
@@ -88,20 +92,22 @@ const columns = [
 
 const selected = ref([]);
 const rows = ref([]);
-const roles = ["Usuario", "Administrador"];
+const roles = ref([]);
 
-const usuario =reactive( {
-    usuarios: null,
-    contraseña: null,
-    id_roles: null,
-  });
+const usuario = reactive({
+  id:null,
+  usuarios: null,
+  contraseña: null,
+  id_roles: null,
+});
 
-async function onSubmit(){
+async function onSubmit() {
   await crearUsuarios(usuario);
 }
 
 onMounted(async () => {
   rows.value = await getUsuarios();
+  roles.value = await getRoles();
 });
 
 function handleSelection(details) {
@@ -114,7 +120,7 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(usuario,rowSelected);
+  Object.assign(usuario, rowSelected);
 }
 </script>
 

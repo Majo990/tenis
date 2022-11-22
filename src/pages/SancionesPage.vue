@@ -3,7 +3,7 @@
     <div class="q-pa-md">
       <strong>Formulario </strong>
       <div class="q-pa-md">
-        <q-form @submit="onSubmit"  class="q-gutter-md">
+        <q-form @submit="onSubmit" class="q-gutter-md">
           <div class="row">
             <div class="col-6">
               <div class="row justify-between q-gutter-md">
@@ -24,31 +24,30 @@
             </div>
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" type="submit"  />
-
-            <q-btn dense color="amber" label="Actualizar" />
-            <q-btn dense color="red" label="Borrar" />
+            <q-btn dense color="primary" label="Crear" type="submit" />
+            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+            <q-btn dense color="red" label="Borrar" @click="Delete" />
           </div>
         </q-form>
       </div>
       <q-table
-          :rows="rows"
-          :columns="columns"
-          separator="cell"
-          dense
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        >
-        </q-table>
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted,reactive } from "vue";
-import { getSanciones,crearSanciones } from "../services";
+import { ref, onMounted, reactive } from "vue";
+import { getSanciones, crearSanciones,updateSanciones,deleteSanciones } from "../services";
 const columns = [
   {
     name: "nombre",
@@ -60,25 +59,32 @@ const columns = [
   },
 ];
 
-
 const selected = ref([]);
 const rows = ref([]);
 
-const sancion=reactive({
-  nombe:null,
+const sancion = reactive({
+  nombe: null,
 });
 
-async function onSubmit(){
+async function onSubmit() {
   await crearSanciones(sancion);
+}
+
+async function Actualizar() {
+  await updateSanciones(sancion);
+}
+
+async function Delete() {
+  await deleteSanciones(sancion);
 }
 
 onMounted(async () => {
   rows.value = await getSanciones();
 });
 
-function handleSelection(details){
-  let rowSelected= {
-    nombre:null,
+function handleSelection(details) {
+  let rowSelected = {
+    nombre: null,
   };
 
   if (details.added) {
