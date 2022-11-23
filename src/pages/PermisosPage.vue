@@ -6,11 +6,10 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
-
               <q-input
                 filled
                 dense
-                v-model="permiso.descripcion"
+                v-model="permiso.descripcionpermiso"
                 label="Ingrese su Descripcion "
                 lazy-rules
                 :rules="[
@@ -20,30 +19,32 @@
                 ]"
                 style="width: 47%"
               />
-
             </div>
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
-          <q-btn dense color="red" label="Borrar"  @click="Delete"/>
+          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+          <q-btn dense color="red" label="Borrar" @click="Delete" />
         </div>
       </q-form>
 
       <br />
-      <q-table
-        :rows="rows"
-        :columns="columns"
-        separator="cell"
-        dense
-        row-key="id"
-        selection="single"
-        v-model:selected="selected"
-        @selection="handleSelection"
-      >
-      </q-table>
+        <q-table
+          :rows="rows"
+          :columns="columns"
+          separator="cell"
+          dense
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
     </div>
+
+      <br />
+
   </q-page>
 </template>
 
@@ -52,59 +53,54 @@ import { ref, onMounted, reactive } from "vue";
 import {
   getPermisos,
   crearPermisos,
-deletePermisos,
-updatePermisos,
+  deletePermisos,
+  updatePermisos,
 } from "src/services";
 
 const columns = [
-
   {
-    name: "descripcion",
+    name: "descripcionpermiso",
     align: "center",
     label: "Descripcion",
-    field: "descripcion",
+    field: "descripcionpermiso",
     sortable: true,
   },
-
 ];
 
+
+
+const allTabs=ref([]);
+const tab=ref([]);
+
+
 const selected = ref([]);
-const usuario = ref([]);
-const rol = ref([]);
-const rows =ref([]);
+const rows = ref([]);
 
 const permiso = reactive({
-  id:null,
-  id_usuarios: null,
-  descripcion: null,
-  id_roles: null,
+  id: null,
+  descripcionpermiso: null,
 });
 
 async function onSubmit() {
   await crearPermisos(permiso);
 }
 
-async function Actualizar(){
+async function Actualizar() {
   await updatePermisos(permiso);
-
 }
 
-async function Delete(){
+async function Delete() {
   await deletePermisos(permiso);
 }
 
-
 onMounted(async () => {
   rows.value = await getPermisos();
-  rol.value = await getRoles();
-  usuario.value = await getUsuarios();
 });
 
 function handleSelection(details) {
   let rowSelected = {
-    id_usuarios: null,
-    descripcion: null,
-    id_roles: null,
+    id_permisos: null,
+    descripcionpermiso: null,
   };
 
   if (details.added) {
@@ -114,9 +110,4 @@ function handleSelection(details) {
   Object.assign(permiso, rowSelected);
 }
 </script>
-<style>
-.q-table {
-  color: rgb(128, 128, 128);
-  background-color: #20b393;
-}
-</style>
+<style></style>

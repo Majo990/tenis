@@ -51,7 +51,7 @@
               label="Seleccione sexo "
             />
           </div>
-
+<br/>
           <div class="row justify-between q-gutter-md">
             <q-select
               filled

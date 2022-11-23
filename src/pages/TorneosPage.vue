@@ -98,8 +98,8 @@
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn dense color="primary" label="Crear" type="submit" />
-        <q-btn dense color="amber" label="Actualizar"   />
-        <q-btn dense color="red" label="Borrar" />
+        <q-btn dense color="amber" label="Actualizar" @click="Actualizar"/>
+        <q-btn dense color="red" label="Borrar" @click="Delete" />
       </div>
 
       <br />
@@ -120,7 +120,14 @@
 
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
-import { getTorneos, getPaises, getEstadios, crearTorneos } from "../services";
+import {
+  getTorneos,
+  getPaises,
+  getEstadios,
+  crearTorneos,
+  updateTorneos,
+  deleteTorneos,
+} from "../services";
 
 const columns = [
   {
@@ -162,13 +169,14 @@ const columns = [
   },
 ];
 
-const estadio=ref([]);
+const estadio = ref([]);
 const rows = ref([]);
 const paises = ref([]);
 const date = ref("2020/02/01");
-const selected=ref([]);
+const selected = ref([]);
 
 const torneo = reactive({
+  id: null,
   fecha: null,
   id_estadios: null,
   nombre: null,
@@ -178,6 +186,14 @@ const torneo = reactive({
 
 async function onSubmit() {
   await crearTorneos(torneo);
+}
+
+async function Actualizar() {
+  await updateTorneos(torneo);
+}
+
+async function Delete() {
+  await deleteTorneos(torneo);
 }
 
 const ciudades = computed(

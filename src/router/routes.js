@@ -58,7 +58,7 @@ const routes = [
       },
       { path: "/permisos", component: () => import("pages/PermisosPage.vue") },
       {
-        path: "/permisos-roles",
+        path: "/permisos_roles",
         component: () => import("pages/Permisos-RolesPage.vue"),
       },
     ],

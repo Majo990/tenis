@@ -356,6 +356,17 @@ export async function crearTorneos(params) {
   const r = await api.post("/torneos", params);
   return r.data;
 }
+export async function updateTorneos(torneo) {
+  const r = await api.put("/torneos/" + torneo.id, torneo);
+  return r.data;
+}
+
+export async function deleteTorneos(params) {
+  const r = await api.delete("/torneos/" + params.id, params);
+  return r.data;
+}
+
+
 ///
 export async function getUsuarios() {
   const r = await api.get("/usuarios");
@@ -365,6 +376,17 @@ export async function crearUsuarios(params) {
   const r = await api.post("/usuarios", params);
   return r.data;
 }
+
+export async function updateUsuarios(usuario) {
+  const r = await api.put("/usuarios/" + usuario.id, usuario);
+  return r.data;
+}
+
+export async function deleteUsuarios(params) {
+  const r = await api.delete("/usuarios/" + params.id, params);
+  return r.data;
+}
+
 ///
 export async function getPermisos() {
   const r = await api.get("/permisos");

@@ -32,22 +32,22 @@
           <template v-slot:append> </template>
         </q-input>
         <q-select
-                filled
-                v-model="usuario.id_roles"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="descripcion"
-                :options="roles"
-                style="width: 47%"
-                dense
-                lazy-rules
-                label="Seleccione el Rol "
-              />
+          filled
+          v-model="usuario.id_roles"
+          map-options
+          emit-value
+          option-value="id"
+          option-label="descripcionrol"
+          :options="roles"
+          style="width: 47%"
+          dense
+          lazy-rules
+          label="Seleccione el Rol"
+        />
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" />
-          <q-btn dense color="red" label="Borrar" />
+          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+          <q-btn dense color="red" label="Borrar" @click="Delete" />
         </div>
       </div>
       <br />
@@ -70,7 +70,13 @@
 <script setup>
 // import { isAsyncFunction } from "util/types";
 import { ref, onMounted, reactive } from "vue";
-import { crearUsuarios, getUsuarios, getRoles } from "../services";
+import {
+  crearUsuarios,
+  getUsuarios,
+  getRoles,
+  updateUsuarios,
+  deleteUsuarios
+} from "../services";
 const columns = [
   {
     name: "usuarios",
@@ -95,7 +101,7 @@ const rows = ref([]);
 const roles = ref([]);
 
 const usuario = reactive({
-  id:null,
+  id: null,
   usuarios: null,
   contraseña: null,
   id_roles: null,
@@ -103,6 +109,14 @@ const usuario = reactive({
 
 async function onSubmit() {
   await crearUsuarios(usuario);
+}
+
+async function Actualizar() {
+  await updateUsuarios(usuario);
+}
+
+async function Delete() {
+  await deleteUsuarios(usuario);
 }
 
 onMounted(async () => {

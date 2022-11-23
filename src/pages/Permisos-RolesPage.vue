@@ -66,6 +66,7 @@ import {
   deletePermisosRoles,
   getRoles,
   getPermisos,
+  getPermisosRoles
 } from "src/services";
 
 const columns = [
@@ -112,6 +113,7 @@ onMounted(async () => {
   rows.value = await getPermisos();
   rol.value = await getRoles();
 });
+
 
 function handleSelection(details) {
   let rowSelected = {
