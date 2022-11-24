@@ -61,6 +61,7 @@ const columns = [
 
 const rows = ref([]);
 const nombre =ref([]);
+const selected=ref([]);
 
 const evento = reactive({
   id:null,

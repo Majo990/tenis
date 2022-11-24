@@ -322,7 +322,7 @@ const columns = [
     name: "id_rondas",
     align: "center",
     label: "Nro-Rondas",
-    field: "nro_rondas",
+    field: "descripcion_rondas",
     sortable: true,
   },
 ];

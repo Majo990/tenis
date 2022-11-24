@@ -329,6 +329,10 @@ const faltas = ref([]);
 const partidas = ref([]);
 const arbitros = ref([]);
 
+const selected =ref([]);
+const puntajes=ref([]);
+const filter=ref([]);
+
 onMounted(async () => {
   rows.value = await getHistorialPartidas();
 });

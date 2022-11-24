@@ -2,131 +2,130 @@
   <div class="q-pa-md">
     <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
-      <div class="row">
-        <div class="col-6">
-          <div class="row justify-between q-gutter-md">
-            <q-input
-              filled
-              type="number"
-              v-model="falta.nro"
-              map-options
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <q-input
+                filled
+                type="number"
+                v-model="falta.nro"
+                map-options
                 emit-value
                 option-value="id"
                 option-label="nombre"
-              dense
-              label="Selecione Nro"
-              style="width: 47%"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val !== null && val !== '') ||
-                  'Por favor selecione NroRonda',
-                (val) => (val > 1 && val < 80) || 'Por favor selecione Nro',
-              ]"
-            />
+                dense
+                label="Selecione Nro"
+                style="width: 47%"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val !== null && val !== '') ||
+                    'Por favor selecione NroRonda',
+                  (val) => (val > 1 && val < 80) || 'Por favor selecione Nro',
+                ]"
+              />
 
-            <q-input
-              filled
-              dense
-              map-options
+              <q-input
+                filled
+                dense
+                map-options
                 emit-value
                 option-value="id"
                 option-label="nombre"
-              v-model="falta.fecha_hora"
-              style="width: 47%"
-              mask="date"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su fecha',
-              ]"
-            >
-              <template v-slot:append>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy
-                    cover
-                    transition-show="scale"
-                    transition-hide="scale"
-                  >
-                    <q-date v-model="fecha">
-                      <div class="row items-center justify-end">
-                        <q-btn
-                          v-close-popup
-                          label="Close"
-                          color="primary"
-                          flat
-                        />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
+                v-model="falta.fecha_hora"
+                style="width: 47%"
+                mask="date"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su fecha',
+                ]"
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date v-model="fecha">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="row justify-between q-gutter-md">
-        <q-select
-          filled
-          dense
-          v-model="falta.id_jugadores"
-          map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-          :options="jugadores"
-          style="width: 47%"
-          label="Seleccione Nombre Jugadores "
-        />
-        <q-select
-          filled
-          v-model="falta.id_arbitros"
-          map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-          dense
-          :options="arbitros"
-          style="width: 47%"
-          label="Seleccione Nombre Arbitros "
-        />
-      </div>
-      <br />
-      <div class="row justify-between q-gutter-md">
+        <div class="row justify-between q-gutter-md">
+          <q-select
+            filled
+            dense
+            v-model="falta.id_jugadores"
+            map-options
+            emit-value
+            option-value="id"
+            option-label="nombre"
+            :options="jugadores"
+            style="width: 47%"
+            label="Seleccione Nombre Jugadores "
+          />
+          <q-select
+            filled
+            v-model="falta.id_arbitros"
+            map-options
+            emit-value
+            option-value="id"
+            option-label="nombre"
+            dense
+            :options="arbitros"
+            style="width: 47%"
+            label="Seleccione Nombre Arbitros "
+          />
+        </div>
+        <br />
+        <div class="row justify-between q-gutter-md">
+          <q-select
+            filled
+            v-model="falta.id_partidas"
+            dense
+            map-options
+            emit-value
+            option-value="id"
+            option-label="nombre"
+            :options="partidas"
+            style="width: 47%"
+            label="Seleccione Nombre Partidas "
+          />
+        </div>
 
-        <q-select
-          filled
-          v-model="falta.id_partidas"
+        <br />
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn dense color="primary" label="Crear" type="submit" />
+          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
+          <q-btn dense color="red" label="Borrar" @click="Delete" />
+        </div>
+        <br />
+        <q-table
+          :rows="rows"
+          :columns="columns"
+          separator="cell"
           dense
-          map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-          :options="partidas"
-          style="width: 47%"
-          label="Seleccione Nombre Partidas "
-        />
-      </div>
-
-      <br />
-      <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear" type="submit" />
-        <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-        <q-btn dense color="red" label="Borrar"  @click="Delete" />
-      </div>
-      <br />
-      <q-table
-        :rows="rows"
-        :columns="columns"
-        separator="cell"
-        dense
-        row-key="id"
-        selection="single"
-        v-model:selected="selected"
-        @selection="handleSelection"
-      >
-      </q-table>
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+        >
+        </q-table>
       </q-form>
     </q-page>
   </div>
@@ -142,8 +141,7 @@ import {
   getPartidas,
   crearFaltas,
   updateFaltas,
-  deleteFaltas
-
+  deleteFaltas,
 } from "../services";
 
 const columns = [
@@ -194,14 +192,14 @@ const columns = [
 ];
 const rows = ref([]);
 const fecha = ref(null);
-const jugadores=ref([]);
-const historialpartidas=ref([]);
-const arbitros=ref([]);
-const partidas=ref([]);
-
+const jugadores = ref([]);
+const historialpartidas = ref([]);
+const arbitros = ref([]);
+const partidas = ref([]);
+const selected=ref([]);
 
 const falta = reactive({
-  id:null,
+  id: null,
   nro: null,
   fecha_hora: null,
   id_jugadores: null,
@@ -214,21 +212,19 @@ async function onSubmit() {
   await crearFaltas(falta);
 }
 
-async function Actualizar(){
+async function Actualizar() {
   await updateFaltas(falta);
-
 }
 
-async function Delete(){
+async function Delete() {
   await deleteFaltas(falta);
 }
-
 
 onMounted(async () => {
   rows.value = await getFaltas();
   jugadores.value = await getJugadores();
-  arbitros .value= await getArbitros();
-  historialpartidas .value= await getHistorialPartidas();
+  arbitros.value = await getArbitros();
+  historialpartidas.value = await getHistorialPartidas();
   partidas.value = await getPartidas();
 });
 

@@ -45,11 +45,14 @@
     </div>
     <br />
 
-    <div
-      class="col-6 q-gutter-md text-center items-center"
-      style="max-width: 300px"
+
+    <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md"
+
+      style="max-width: 300px"  style1="max-height:400px"
     >
-      <q-separator spaced />
+      <q-separator  spaced />
       <q-item-label header>Lista Permisos </q-item-label>
 
       <q-item tag="label" v-ripple>
@@ -882,6 +885,9 @@
         </q-item-section>
       </q-item>
     </div>
+            </div>
+          </div>
+  
   </q-page>
 </template>
 
@@ -1044,3 +1050,9 @@ function handleSelection(details) {
   Object.assign(rol, rowSelected);
 }
 </script>
+
+
+<style>
+
+
+</style>
