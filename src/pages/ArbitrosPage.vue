@@ -193,6 +193,12 @@
 
         >
         </q-table>
+<!----
+        <q-page-container>
+        <q-page class="q-pa-md">
+          <p>fkdferuerruirurrjirereirerejrgjfg,ifgg</p>
+        </q-page>
+        </q-page-container>---->
       </q-form>
     </q-page>
   </div>

@@ -19,6 +19,19 @@
                 ]"
                 style="width: 47%"
               />
+              <q-select
+              filled
+              v-model="permiso.id_usuarios"
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              :options="usuario"
+              style="width: 47%"
+              dense
+              lazy-rules
+              label="Seleccione Nombre Usuarios "
+            />
             </div>
           </div>
         </div>
@@ -55,6 +68,7 @@ import {
   crearPermisos,
   deletePermisos,
   updatePermisos,
+  getUsuarios,
 } from "src/services";
 
 const columns = [
@@ -65,19 +79,23 @@ const columns = [
     field: "descripcionpermiso",
     sortable: true,
   },
+  {
+    name: "id_usuario",
+    align: "center",
+    label: "Usuario",
+    field: "usuario_usuario",
+    sortable: true,
+  },
 ];
-
-
-
-const allTabs=ref([]);
-const tab=ref([]);
 
 
 const selected = ref([]);
 const rows = ref([]);
+const usuario=ref([]);
 
 const permiso = reactive({
   id: null,
+  id_usuarios: null,
   descripcionpermiso: null,
 });
 
@@ -95,11 +113,12 @@ async function Delete() {
 
 onMounted(async () => {
   rows.value = await getPermisos();
+  usuario.value=await getUsuarios();
 });
 
 function handleSelection(details) {
   let rowSelected = {
-    id_permisos: null,
+    id_usuarios: null,
     descripcionpermiso: null,
   };
 
@@ -107,7 +126,7 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(permiso, rowSelected);
+  Object.assign(permiso,rowSelected);
 }
 </script>
 <style></style>

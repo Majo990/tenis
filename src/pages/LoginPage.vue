@@ -44,6 +44,7 @@
           </template>
         </q-input>
 
+        <a href="">¿Olvidastes tu Contraseña?</a>
         <q-btn
           class="glossy"
           no_caps
@@ -63,8 +64,6 @@
           no-caps
           onclick=""
         />
-
-    
       </q-form>
     </div>
   </q-page>
@@ -115,5 +114,4 @@ h5 {
 .q-page {
   background-image: url("../assets/img/tenis.jpg");
 }
-
 </style>
