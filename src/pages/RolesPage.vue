@@ -12,7 +12,7 @@
                   <q-input
                     filled
                     dense
-                    v-model="rol.descripcionrol"
+                    v-model="rol.descripcion"
                     label="Pequeña descipcion "
                     lazy-rules
                     style="width: 47%"
@@ -73,45 +73,68 @@ import {
   updateRoles,
   deleteRoles,
   getPermisos,
+  updatePermisos,
+  crearPermisos,
+  deletePermisos,
+  crearPermisosRoles,
 } from "../services";
 
 const columns = [
   {
-    name: "descripcionrol",
+    name: "descripcion",
     required: true,
     label: "Descripcion",
     align: "left",
-    field: "descripcionrol",
+    field: "descripcion",
     sortable: true,
   },
 ];
 
 const rows = ref([]);
-const permisos = ref([]);
 const permisosSelected = ref([]);
 const selected = ref([]);
+const permisos = ref([]);
 
 const rol = reactive({
+  id: null,
   descripcion: null,
 });
 
+//const permisos=reactive({
+//id:null,
+//descripcionpermiso:null,
+//})
+
 async function onSubmit() {
-  await crearRoles(rol);
+  const r = await crearRoles(rol);
+
+  const permisos_roles = permisosSelected.value.map((p) => {
+    return {
+      id_roles: rol.id || r.insertId,
+      id_permisos: p,
+    };
+  });
+
+  for (let i = 0; i < permisos_roles.length; i++) {
+    await crearPermisosRoles(permisos_roles[i]);
+  }
 }
 
 async function Actualizar() {
   await updateRoles(rol);
+  await updatePermisos(permisos);
 }
 
 async function Delete() {
   await deleteRoles(rol);
+  await deletePermisos(permisos);
 }
 
 onMounted(async () => {
   rows.value = await getRoles();
   const per = await getPermisos();
   permisos.value = per.map((p) => ({
-    label: p.descripcionpermiso,
+    label: p.descripcion,
     value: p.id,
   }));
 });
@@ -119,6 +142,7 @@ onMounted(async () => {
 function handleSelection(details) {
   let rowSelected = {
     descripcionrol: null,
+    descripcion: null,
   };
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);

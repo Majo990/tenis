@@ -81,43 +81,32 @@
             <br />
             <div class="row justify-between q-gutter-md">
               <q-input
-                v-model="equipo.descripcion"
-                filled
-                clearable
-                type="textarea"
-                autogrow
-                label="Ingrese la Descripcion equipo"
-                lazy-rules
-                dense
-                style="width: 47%"
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Descripcion',
-                ]"
-                :shadow-text="textareaShadowText"
-                @keydown="processTextareaFill"
-                @focus="processTextareaFill"
-              />
+                  filled
+                  dense
+                  v-model="equipo.descripcion"
+                  label="Ingrese descripcion equipo "
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su NombreArbitr',
+                  ]"
+                  style="width: 47%"
+                />
 
               <q-input
-              hint="Ingrese simbolo img"
-
+                hint="Ingrese simbolo img"
                 @update:model-value="
                   (val) => {
                     file = val[0];
                   }
                 "
-                   v-model="equipo.simbolo"
+                v-model="equipo.simbolo"
                 map-options
                 emit-value
-                option-value="id"
-                option-label="nombre"
                 :options="simbolo"
-
                 filled
                 type="file"
-
                 style="width: 47%"
               />
             </div>
@@ -233,15 +222,8 @@
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
 import {
-  getEquipos,
-  getPaises,
-  crearEquipos,
-  getJugadores,
-  getEntrenadores,
-  getEstadios,
-updateEquipos,
-deleteEquipos,
-
+getEquipos,getPaises,crearEquipos,updateEquipos,deleteEquipos,
+getJugadores,getEstadios,getEntrenadores
 } from "src/services";
 
 const columns = [
@@ -317,14 +299,14 @@ const columns = [
     sortable: true,
   },
   {
-    name: "id_paises",
+    name: "nombre_paises",
     align: "center",
     label: "Nombre-Paises",
     field: "nombre_paises",
     sortable: true,
   },
   {
-    name: "id_ciudades",
+    name: "nombre_ciudades",
     align: "center",
     label: "Nombre-Ciudades",
     field: "nombre_ciudades",
@@ -333,14 +315,16 @@ const columns = [
 ];
 
 const date = ref("2019-02-01");
-
 const rows = ref([]);
 const paises = ref([]);
 const jugadores = ref([]);
 const entrenadores = ref([]);
 const estadios = ref([]);
 const file = ref([]);
-const simbolo=ref([]);
+const simbolo = ref([]);
+const selected=ref([]);
+
+
 
 const equipo = reactive({
   id:null,
@@ -374,12 +358,14 @@ const ciudades = computed(
   () => paises.value.find((p) => p.country === equipo.nombre_paises)?.cities
 );
 
-onMounted(async () => {
-  rows.value = await getEquipos();
-  paises.value = await getPaises();
-  jugadores.value = await getJugadores();
-  entrenadores.value = await getEntrenadores();
-  estadios.value = await getEstadios();
+
+onMounted(async ()=>{
+ rows.value = await getEquipos();
+ paises.value=await getPaises();
+ entrenadores.value=await getEntrenadores();
+ jugadores.value=await getJugadores();
+ estadios.value=await getEstadios();
+
 });
 
 function handleSelection(details) {
@@ -397,14 +383,13 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
+
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(equipo, rowSelected);
 }
-
-
 </script>
 <style>
 .q-table {

@@ -7,7 +7,7 @@
           <q-input
             dense
             filled
-            v-model="date"
+            v-model="torneo.fecha"
             mask="date"
             :rules="['date']"
             style="width: 47%"

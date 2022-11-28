@@ -366,7 +366,6 @@ export async function deleteTorneos(params) {
   return r.data;
 }
 
-
 ///
 export async function getUsuarios() {
   const r = await api.get("/usuarios");
@@ -411,24 +410,23 @@ export async function deletePermisos(params) {
 
 ///
 export async function getPermisosRoles() {
-  const r = await api.get("/permisos-roles");
+  const r = await api.get("/permisos_roles");
   return r.data;
 }
 export async function crearPermisosRoles(params) {
-  const r = await api.post("/permisos-roles", params);
+  const r = await api.post("/permisos_roles", params);
   return r.data;
 }
 
 export async function updatePermisosRoles(permisorol) {
-  const r = await api.put("/permisos-roles/" + permisorol.id, permisorol);
+  const r = await api.put("/permisos_roles/" + permisorol.id, permisorol);
   return r.data;
 }
 
 export async function deletePermisosRoles(params) {
-  const r = await api.delete("/permisos-roles/" + params.id, params);
+  const r = await api.delete("/permisos_roles/" + params.id, params);
   return r.data;
 }
-
 
 ///
 

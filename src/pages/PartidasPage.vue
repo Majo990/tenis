@@ -35,9 +35,7 @@
                     (val && val.length > 0) ||
                     'Por favor ingrese su Descripcion',
                 ]"
-                :shadow-text="textareaShadowText"
-                @keydown="processTextareaFill"
-                @focus="processTextareaFill"
+                
               />
             </div>
 

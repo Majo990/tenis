@@ -73,10 +73,10 @@ import {
 
 const columns = [
   {
-    name: "descripcionpermiso",
+    name: "descripcion",
     align: "center",
     label: "Descripcion",
-    field: "descripcionpermiso",
+    field: "descripcion",
     sortable: true,
   },
   {
@@ -98,6 +98,7 @@ const permiso = reactive({
   id_usuarios: null,
   descripcionpermiso: null,
 });
+
 
 async function onSubmit() {
   await crearPermisos(permiso);

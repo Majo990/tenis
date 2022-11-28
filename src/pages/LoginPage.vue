@@ -16,7 +16,7 @@
         <q-input
           v-model="usuario"
           type="text"
-          label="usuario"
+          label="Usuario"
           dense
           lazy-rules
           :rules="[
