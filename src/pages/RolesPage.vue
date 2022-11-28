@@ -74,9 +74,10 @@ import {
   deleteRoles,
   getPermisos,
   updatePermisos,
-  crearPermisos,
   deletePermisos,
   crearPermisosRoles,
+  updatePermisosRoles,
+  deletePermisosRoles
 } from "../services";
 
 const columns = [
