@@ -15,7 +15,7 @@
             </template>
           </q-input>
 
-          <!---   <q-badge color="teal">Model: "{{ search }}"</q-badge>-->
+           <q-badge color="teal">Model: "{{ search }}"</q-badge>
         </div>
       </div>
     </div>
@@ -104,7 +104,7 @@ const columns = [
 ];
 
 const rows = ref([]);
-const filter = ref("");
+const filter = ref([]);
 const jugadores = ref([]);
 const partidas = ref([]);
 const selected = ref([]);

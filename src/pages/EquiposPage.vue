@@ -81,18 +81,19 @@
             <br />
             <div class="row justify-between q-gutter-md">
               <q-input
-                  filled
-                  dense
-                  v-model="equipo.descripcion"
-                  label="Ingrese descripcion equipo "
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su NombreArbitr',
-                  ]"
-                  style="width: 47%"
-                />
+                v-model="equipo.descripcion"
+                filled
+                autogrow
+                dense
+                label="Ingrese descripcion equipo "
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese descripcion arbitro',
+                ]"
+                style="width: 47%"
+              />
 
               <q-input
                 hint="Ingrese simbolo img"
@@ -222,8 +223,14 @@
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
 import {
-getEquipos,getPaises,crearEquipos,updateEquipos,deleteEquipos,
-getJugadores,getEstadios,getEntrenadores
+  getEquipos,
+  getPaises,
+  crearEquipos,
+  updateEquipos,
+  deleteEquipos,
+  getJugadores,
+  getEstadios,
+  getEntrenadores,
 } from "src/services";
 
 const columns = [
@@ -322,12 +329,10 @@ const entrenadores = ref([]);
 const estadios = ref([]);
 const file = ref([]);
 const simbolo = ref([]);
-const selected=ref([]);
-
-
+const selected = ref([]);
 
 const equipo = reactive({
-  id:null,
+  id: null,
   nombre: null,
   fecha_fundo: null,
   id_jugadores: null,
@@ -358,14 +363,12 @@ const ciudades = computed(
   () => paises.value.find((p) => p.country === equipo.nombre_paises)?.cities
 );
 
-
-onMounted(async ()=>{
- rows.value = await getEquipos();
- paises.value=await getPaises();
- entrenadores.value=await getEntrenadores();
- jugadores.value=await getJugadores();
- estadios.value=await getEstadios();
-
+onMounted(async () => {
+  rows.value = await getEquipos();
+  paises.value = await getPaises();
+  entrenadores.value = await getEntrenadores();
+  jugadores.value = await getJugadores();
+  estadios.value = await getEstadios();
 });
 
 function handleSelection(details) {

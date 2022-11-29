@@ -1,17 +1,19 @@
 <template>
-  <q-page padding>
+  <q-page padding class="bg-fondo"  >
     <div class="row q-col-gutter-md justify-between">
       <div class="col-6 q-gutter-md">
-        <h6>CAMPEONATO FRONTON</h6>
+        <h5>CAMPEONATO FRONTÓN</h5>
 
-        <q-card flat>
+        <q-card flat class="bg-fondo marco" >
+        <q-card flat class="bg-fondo">
+         En juego:
           <q-card-section>
             <div
               class="bg-majo row justify-between items-center q-pa-sm"
               style="width: 100%; height: 45px"
             >
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
 
@@ -28,21 +30,21 @@
               </div>
               {{ jugador2 }}
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
             </div>
           </q-card-section>
         </q-card>
 
-        <q-card flat>
+        <q-card flat class="bg-fondo">
           <q-card-section>
             <div
               class="bg-majo row justify-between items-center q-pa-sm"
               style="width: 100%; height: 45px"
             >
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
 
@@ -59,20 +61,20 @@
               </div>
               {{ jugador4 }}
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
             </div>
           </q-card-section>
         </q-card>
-        <q-card flat>
+        <q-card flat class="bg-fondo">
           <q-card-section>
             <div
               class="bg-majo row justify-between items-center q-pa-sm"
               style="width: 100%; height: 45px"
             >
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
 
@@ -89,20 +91,20 @@
               </div>
               {{ jugador6 }}
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
             </div>
           </q-card-section>
         </q-card>
-        <q-card flat>
+        <q-card flat class="bg-fondo">
           <q-card-section>
             <div
               class="bg-majo row justify-between items-center q-pa-sm"
               style="width: 100%; height: 45px"
             >
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
 
@@ -119,20 +121,21 @@
               </div>
               {{ jugador8 }}
               <div
-                class="bg-white rounded-borders"
+                class="bg-fondo rounded-borders"
                 style="width: 50px; height: 30px"
               ></div>
             </div>
           </q-card-section>
+        </q-card>
         </q-card>
 
         <h6>Proximos Encuentros:</h6>
         <q-table
           dense
           :rows="rows"
+          class="bg-fondo"
           :columns="columns"
           row-key="name"
-          separator="cell"
         />
       </div>
 
@@ -157,9 +160,9 @@
         <q-table
           :rows="rows2"
           :columns="columns2"
+          class="bg-fondo"
           dense
           row-key="name1"
-          separator="cell"
         />
 
       </div>
@@ -276,11 +279,16 @@ h2 {
   font-size: 89px;
   -webkit-text-stroke: 1.5px rgb(71, 207, 8);
 }
-q-page {
-  background-color: #4fb4c8;
-}
 
 .card-example {
   width: 288px;
 }
+
+.q-card.marco{
+   border-style: solid;
+    border-radius:6%;
+  border-width: 1px;
+  padding:30px;
+}
+
 </style>

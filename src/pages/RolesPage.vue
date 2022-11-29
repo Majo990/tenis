@@ -66,6 +66,8 @@
 </template>
 
 <script setup>
+
+
 import { ref, onMounted, reactive } from "vue";
 import {
   getRoles,
@@ -109,6 +111,7 @@ const rol = reactive({
 async function onSubmit() {
   const r = await crearRoles(rol);
 
+
   const permisos_roles = permisosSelected.value.map((p) => {
     return {
       id_roles: rol.id || r.insertId,
@@ -119,6 +122,7 @@ async function onSubmit() {
   for (let i = 0; i < permisos_roles.length; i++) {
     await crearPermisosRoles(permisos_roles[i]);
   }
+
 }
 
 async function Actualizar() {

@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-page padding>
-      <q-form @submit="onSubmit"  class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="q-pa-md">
           <strong>Formulario </strong>
           <div class="row">
@@ -10,6 +10,7 @@
                 <q-input
                   filled
                   dense
+                  type="text"
                   v-model="arbitro.nombre"
                   label="Ingrese su Nombre arbitro "
                   lazy-rules
@@ -47,7 +48,7 @@
                     (val) =>
                       (val !== null && val !== '') || 'Por favor ingrese edad',
                     (val) =>
-                      (val > 1 && val < 80) || 'Por favor selecione su edad',
+                      (val < 18 && val < 70) || 'Por favor selecione su edad',
                   ]"
                 />
                 <q-select
@@ -176,9 +177,27 @@
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
-          <q-btn dense color="red" label="Borrar"  @click="Delete"/>
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Actualizar"
+            @click="Actualizar"
+            icon="fa-solid fa-rotate"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+          />
         </div>
         <br />
         <q-table
@@ -190,10 +209,8 @@
           selection="single"
           v-model:selected="selected"
           @selection="handleSelection"
-
         >
         </q-table>
-
       </q-form>
     </q-page>
   </div>
@@ -201,7 +218,13 @@
 
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
-import { getArbitros, getPaises, crearArbitros,updateArbitros,deleteArbitros} from "../services";
+import {
+  getArbitros,
+  getPaises,
+  crearArbitros,
+  updateArbitros,
+  deleteArbitros,
+} from "../services";
 
 const columns = [
   {
@@ -275,8 +298,10 @@ const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
 
+
+
 const arbitro = reactive({
-  id:null,
+  id: null,
   nombre: null,
   apellido: null,
   edad: null,
@@ -288,19 +313,21 @@ const arbitro = reactive({
   nombre_ciudades: null,
 });
 
+
+
 async function onSubmit() {
   await crearArbitros(arbitro);
-
+ 
 }
 
-async function Actualizar(){
+async function Actualizar() {
   await updateArbitros(arbitro);
-
 }
 
-async function Delete(){
+async function Delete() {
   await deleteArbitros(arbitro);
 }
+
 
 
 const ciudades = computed(
@@ -330,5 +357,7 @@ function handleSelection(details) {
 
   Object.assign(arbitro, rowSelected);
 }
+
+
 </script>
 <style></style>
