@@ -19,6 +19,7 @@
                     'Por favor ingrese su Nombre Juez',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
 
               <q-input
@@ -32,6 +33,7 @@
                     (val && val.length > 0) || 'Por favor ingrese su Apellido',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
             </div>
             <div class="row justify-between q-gutter-md">
@@ -65,43 +67,7 @@
               />
               <!-- <div  class="q-pa-md" style="max-width: 300px">-->
 
-              <q-input
-                filled
-                dense
-                v-model="juez.altura"
-                style="width: 47%"
-                label="Ingrese su Altura"
-                mask="#.##"
-                fill-mask="0"
-                reverse-fill-mask
-                input-class="text-right"
-                suffix="m"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Please type your age',
-                  (val) => (val > 1 && val < 80) || 'Por favor ingrese altura',
-                ]"
-              ></q-input>
-              <q-input
-                filled
-                dense
-                v-model="juez.peso"
-                style="width: 47%"
-                label="Ingrese su Peso"
-                mask="#.##"
-                fill-mask="0"
-                reverse-fill-mask
-                input-class="text-right"
-                suffix="kg"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Por favor ingrese su peso',
-                  (val) => (val > 1 && val < 80) || 'Por favor ingrese su peso',
-                ]"
-              >
-              </q-input>
+
             </div>
             <div class="row justify-between q-gutter-md">
               <q-input
@@ -167,9 +133,27 @@
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-          <q-btn dense color="red" label="Borrar" @click="Delete" />
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+          />
         </div>
         <br />
         <q-table
@@ -210,7 +194,6 @@ const columns = [
     required: true,
     label: "Nombre",
     align: "left",
-
     field: "nombre",
     sortable: true,
   },
@@ -219,7 +202,6 @@ const columns = [
     required: true,
     label: "Apellido",
     align: "left",
-
     field: "apellido",
     sortable: true,
   },
@@ -228,7 +210,6 @@ const columns = [
     required: true,
     label: "Fecha-Nacimiento",
     align: "left",
-
     field: "fecha_nacimiento",
     sortable: true,
   },
@@ -237,7 +218,6 @@ const columns = [
     required: true,
     label: "Edad",
     align: "left",
-
     field: "edad",
     sortable: true,
   },
@@ -246,7 +226,6 @@ const columns = [
     required: true,
     label: "Sexo",
     align: "left",
-
     field: "sexo",
     sortable: true,
   },
@@ -318,5 +297,14 @@ function handleSelection(details) {
   }
 
   Object.assign(juez, rowSelected);
+}
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>

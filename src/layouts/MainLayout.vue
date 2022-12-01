@@ -32,7 +32,7 @@
             round
             dense
             icon="logout"
-            @click="$router.replace('/login')"
+            to="/login"
           />
         </div>
       </q-toolbar>

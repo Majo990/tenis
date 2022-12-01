@@ -17,6 +17,7 @@
                     (val && val.length > 0) || 'Por favor ingrese su Nombre',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
 
               <q-input
@@ -95,20 +96,14 @@
                 style="width: 47%"
               />
 
-              <q-input
-                hint="Ingrese simbolo img"
-                @update:model-value="
-                  (val) => {
-                    file = val[0];
-                  }
-                "
-                v-model="equipo.simbolo"
-                map-options
-                emit-value
-                :options="simbolo"
+              <q-file
+                dense
+                @update:model-value="updateSimbolo"
+                v-model="simbolo"
                 filled
-                type="file"
                 style="width: 47%"
+                label="Seleccione imagen "
+                accept=".png, .jpg, .gif, .tiff,  .jpeg image/*"
               />
             </div>
 
@@ -125,6 +120,7 @@
                     'Por favor ingrese su IndumentariaUniforme',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
 
               <q-input
@@ -139,6 +135,7 @@
                     'Por favor ingrese su Presidente',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
             </div>
             <div class="row justify-between q-gutter-md">
@@ -148,6 +145,7 @@
                 v-model="equipo.apodos"
                 label="Ingrese su Apodo "
                 style="width: 47%"
+                :onkeydown="onkeyDown"
                 lazy-rules
                 :rules="[
                   (val) =>
@@ -189,8 +187,8 @@
             dense
             v-model="equipo.nombre_ciudades"
             :options="ciudades"
-            label="Ingrese su  Ciudad"
-            style="width: 35%"
+            label="Seleccione su  Ciudad"
+            style="width: 37%"
             lazy-rules
             :rules="[
               (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
@@ -198,9 +196,27 @@
           />
 
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" type="submit" />
-            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-            <q-btn dense color="red" label="Borrar" @click="Delete" />
+            <q-btn
+              dense
+              color="primary"
+              label="Crear"
+              type="submit"
+              icon="fa-solid fa-folder-plus"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Editar"
+              @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
+            />
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              icon="fa-solid fa-trash-can"
+            />
           </div>
           <br />
           <q-table
@@ -306,14 +322,14 @@ const columns = [
     sortable: true,
   },
   {
-    name: "nombre_paises",
+    name: "id_paises",
     align: "center",
     label: "Nombre-Paises",
     field: "nombre_paises",
     sortable: true,
   },
   {
-    name: "nombre_ciudades",
+    name: "id_ciudades",
     align: "center",
     label: "Nombre-Ciudades",
     field: "nombre_ciudades",
@@ -327,7 +343,6 @@ const paises = ref([]);
 const jugadores = ref([]);
 const entrenadores = ref([]);
 const estadios = ref([]);
-const file = ref([]);
 const simbolo = ref([]);
 const selected = ref([]);
 
@@ -392,6 +407,19 @@ function handleSelection(details) {
   }
 
   Object.assign(equipo, rowSelected);
+}
+
+function updateSimbolo(simbolo) {
+  equipo.simbolo = simbolo.name;
+}
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>
 <style>

@@ -15,7 +15,7 @@
             </template>
           </q-input>
 
-           <q-badge color="teal">Model: "{{ search }}"</q-badge>
+          <!---<q-badge color="teal">Model: "{{ search }}"</q-badge>--->
         </div>
       </div>
     </div>
@@ -25,8 +25,8 @@
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
             <q-select
-              filled
-              v-model="partidajugador.partidas"
+            filled
+              v-model="partidajugador.id_partidas"
               map-options
               emit-value
               option-value="id"
@@ -54,9 +54,27 @@
           </div>
           <br />
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" type="submit" />
-            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-            <q-btn dense color="red" label="Borrar" @click="Delete" />
+            <q-btn
+              dense
+              color="primary"
+              label="Crear"
+              type="submit"
+              icon="fa-solid fa-folder-plus"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Editar"
+              @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
+            />
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              icon="fa-solid fa-trash-can"
+            />
           </div>
         </div>
       </div>
@@ -77,14 +95,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import {
   getJugadores,
   getPartidas,
   getPartidasJugadores,
   crearPartidasJugadores,
   deletePartidasJugadores,
-  updatePartidasJugadores
+  updatePartidasJugadores,
 } from "../services";
 const columns = [
   {
@@ -109,11 +127,11 @@ const jugadores = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
 
-const partidajugador = {
-  id:null,
+const partidajugador = reactive({
+  id: null,
   id_partidas: null,
   id_jugadores: null,
-};
+});
 
 async function onSubmit() {
   await crearPartidasJugadores(partidajugador);
@@ -140,10 +158,10 @@ function handleSelection(details) {
   };
 
   if (details.added) {
-    Object.assign(rowSelected, details.rows[0]);
+    Object.assign(rowSelected,details.rows[0]);
   }
 
-  Object.assign(partidajugador, rowSelected);
+  Object.assign(partidajugador,rowSelected);
 }
 </script>
 <style>

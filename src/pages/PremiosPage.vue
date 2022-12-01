@@ -18,6 +18,7 @@
                     'Por favor ingrese su NombrePremio',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
 
               <q-select
@@ -80,9 +81,27 @@
         </div>
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear" type="submit" />
-        <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-        <q-btn dense color="red" label="Borrar" @click="Delete" />
+        <q-btn
+          dense
+          color="primary"
+          label="Crear"
+          type="submit"
+          icon="fa-solid fa-folder-plus"
+        />
+        <q-btn
+          dense
+          color="amber"
+          label="Editar"
+          @click="Actualizar"
+          icon="fa-solid fa-pen-to-square"
+        />
+        <q-btn
+          dense
+          color="red"
+          label="Borrar"
+          @click="Delete"
+          icon="fa-solid fa-trash-can"
+        />
       </div>
     </q-form>
     <br />
@@ -195,5 +214,14 @@ function handleSelection(details) {
   }
 
   Object.assign(premio, rowSelected);
+}
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>

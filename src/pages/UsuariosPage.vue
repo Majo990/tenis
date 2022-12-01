@@ -10,6 +10,7 @@
           filled
           type="usuario"
           hint="Usuario"
+          :onkeydown="onkeyDown"
         />
 
         <q-input
@@ -34,7 +35,6 @@
         <q-select
           filled
           v-model="usuario.id_roles"
-          map-options
           emit-value
           option-value="id"
           option-label="descripcionrol"
@@ -84,14 +84,13 @@ const columns = [
     label: "Usuarios",
     align: "left",
     field: "usuarios",
-    format: (val) => `${val}`,
     sortable: true,
   },
   {
     name: "id_roles",
     align: "center",
     label: "Descripcion-Roles",
-    field: "descripcion_roles",
+    field: "descripcion_rol",
     sortable: true,
   },
 ];
@@ -134,8 +133,18 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(usuario, rowSelected);
+  Object.assign(usuario,rowSelected);
 }
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
+}
+
 </script>
 
 <style>
@@ -143,7 +152,7 @@ h3 {
   color: rgb(28, 234, 241);
   -webkit-text-stroke: 1.5px rgb(198, 11, 245);
 }
-.q-gutter-md row items-start {
+.q-gutter-md  items-start {
   color: beige;
 }
 </style>

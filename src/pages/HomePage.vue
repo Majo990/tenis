@@ -1,141 +1,142 @@
 <template>
-  <q-page padding class="bg-fondo"  >
+  <q-page padding class="bg-fondo">
     <div class="row q-col-gutter-md justify-between">
       <div class="col-6 q-gutter-md">
         <h5>CAMPEONATO FRONTÓN</h5>
 
-        <q-card flat class="bg-fondo marco" >
-        <q-card flat class="bg-fondo">
-         En juego:
-          <q-card-section>
-            <div
-              class="bg-majo row justify-between items-center q-pa-sm"
-              style="width: 100%; height: 45px"
-            >
+        <q-card flat class="bg-fondo marco">
+          <q-card flat class="bg-fondo">
+            En juego:
+            <q-card-section>
               <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
-
-              {{ jugador1 }}
-
-              <div class="text-center">
-                VS
+                class="bg-majo row justify-between items-center q-pa-sm"
+                style="width: 100%; height: 45px"
+              >
                 <div
-                  class="bg-blue-2 text-caption full-height"
-                  style="width: 100px"
-                >
-                  Cancha 01
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
+
+                {{ jugador1 }}
+
+                <div class="text-center">
+                  VS
+                  <div
+                    class="bg-blue-2 text-caption full-height"
+                    style="width: 100px"
+                  >
+                    Cancha 01
+                  </div>
                 </div>
-              </div>
-              {{ jugador2 }}
-              <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
-            </div>
-          </q-card-section>
-        </q-card>
-
-        <q-card flat class="bg-fondo">
-          <q-card-section>
-            <div
-              class="bg-majo row justify-between items-center q-pa-sm"
-              style="width: 100%; height: 45px"
-            >
-              <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
-
-              {{ jugador3 }}
-
-              <div class="text-center">
-                VS
+                {{ jugador2 }}
                 <div
-                  class="bg-blue-2 text-caption full-height"
-                  style="width: 100px"
-                >
-                  Cancha 02
-                </div>
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
               </div>
-              {{ jugador4 }}
-              <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
-            </div>
-          </q-card-section>
-        </q-card>
-        <q-card flat class="bg-fondo">
-          <q-card-section>
-            <div
-              class="bg-majo row justify-between items-center q-pa-sm"
-              style="width: 100%; height: 45px"
-            >
-              <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
+            </q-card-section>
+          </q-card>
 
-              {{ jugador5 }}
-
-              <div class="text-center">
-                VS
+          <q-card flat class="bg-fondo">
+            <q-card-section>
+              <div
+                class="bg-majo row justify-between items-center q-pa-sm"
+                style="width: 100%; height: 45px"
+              >
                 <div
-                  class="bg-blue-2 text-caption full-height"
-                  style="width: 100px"
-                >
-                  Cancha 03
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
+
+                {{ jugador3 }}
+
+                <div class="text-center">
+                  VS
+                  <div
+                    class="bg-blue-2 text-caption full-height"
+                    style="width: 100px"
+                  >
+                    Cancha 02
+                  </div>
                 </div>
-              </div>
-              {{ jugador6 }}
-              <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
-            </div>
-          </q-card-section>
-        </q-card>
-        <q-card flat class="bg-fondo">
-          <q-card-section>
-            <div
-              class="bg-majo row justify-between items-center q-pa-sm"
-              style="width: 100%; height: 45px"
-            >
-              <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
-
-              {{ jugador7 }}
-
-              <div class="text-center">
-                VS
+                {{ jugador4 }}
                 <div
-                  class="bg-blue-2 text-caption full-height"
-                  style="width: 100px"
-                >
-                  Cancha 04
-                </div>
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
               </div>
-              {{ jugador8 }}
+            </q-card-section>
+          </q-card>
+          <q-card flat class="bg-fondo">
+            <q-card-section>
               <div
-                class="bg-fondo rounded-borders"
-                style="width: 50px; height: 30px"
-              ></div>
-            </div>
-          </q-card-section>
-        </q-card>
+                class="bg-majo row justify-between items-center q-pa-sm"
+                style="width: 100%; height: 45px"
+              >
+                <div
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
+
+                {{ jugador5 }}
+
+                <div class="text-center">
+                  VS
+                  <div
+                    class="bg-blue-2 text-caption full-height"
+                    style="width: 100px"
+                  >
+                    Cancha 03
+                  </div>
+                </div>
+                {{ jugador6 }}
+                <div
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
+              </div>
+            </q-card-section>
+          </q-card>
+          <q-card flat class="bg-fondo">
+            <q-card-section>
+              <div
+                class="bg-majo row justify-between items-center q-pa-sm"
+                style="width: 100%; height: 45px"
+              >
+                <div
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
+
+                {{ jugador7 }}
+
+                <div class="text-center">
+                  VS
+                  <div
+                    class="bg-blue-2 text-caption full-height"
+                    style="width: 100px"
+                  >
+                    Cancha 04
+                  </div>
+                </div>
+                {{ jugador8 }}
+                <div
+                  class="bg-fondo rounded-borders"
+                  style="width: 50px; height: 30px"
+                ></div>
+              </div>
+            </q-card-section>
+          </q-card>
         </q-card>
 
         <h6>Proximos Encuentros:</h6>
         <q-table
           dense
           :rows="rows"
-          class="bg-fondo"
+          class="bg-fondo table1"
           :columns="columns"
           row-key="name"
+          separator="none"
         />
       </div>
 
@@ -162,9 +163,9 @@
           :columns="columns2"
           class="bg-fondo"
           dense
+          separator="none"
           row-key="name1"
         />
-
       </div>
     </div>
   </q-page>
@@ -251,7 +252,6 @@ const columns2 = [
 const rows = ref([]);
 const rows2 = ref([]);
 
-
 const jugador1 = ref("JUGADOR 1");
 const jugador2 = ref("JUGADOR 2");
 
@@ -284,11 +284,15 @@ h2 {
   width: 288px;
 }
 
-.q-card.marco{
-   border-style: solid;
-    border-radius:6%;
+.q-card.marco {
+  border-style: solid;
+  border-radius: 6%;
   border-width: 1px;
-  padding:30px;
+  padding: 30px;
 }
 
+.table1 tr:first-child th {
+  border-style: solid;
+  border-width: 1px;
+}
 </style>

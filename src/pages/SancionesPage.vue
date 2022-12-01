@@ -19,14 +19,33 @@
                       'Por favor ingrese su NombreJugador',
                   ]"
                   style="width: 47%"
+                  :onkeydown="onkeyDown"
                 />
               </div>
             </div>
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" type="submit" />
-            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-            <q-btn dense color="red" label="Borrar" @click="Delete" />
+            <q-btn
+              dense
+              color="primary"
+              label="Crear"
+              type="submit"
+              icon="fa-solid fa-folder-plus"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Editar"
+              @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
+            />
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              icon="fa-solid fa-trash-can"
+            />
           </div>
         </q-form>
       </div>
@@ -47,7 +66,12 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { getSanciones, crearSanciones,updateSanciones,deleteSanciones } from "../services";
+import {
+  getSanciones,
+  crearSanciones,
+  updateSanciones,
+  deleteSanciones,
+} from "../services";
 const columns = [
   {
     name: "nombre",
@@ -92,6 +116,15 @@ function handleSelection(details) {
   }
 
   Object.assign(sancion, rowSelected);
+}
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>
 

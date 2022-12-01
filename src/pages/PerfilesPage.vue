@@ -15,6 +15,7 @@
                   (val && val.length > 0) || 'Por favor ingrese su Nombre',
               ]"
               style="width: 47%"
+              :onkeydown="onkeyDown"
             />
 
             <q-input
@@ -28,6 +29,7 @@
                 (val) =>
                   (val && val.length > 0) || 'Por favor ingrese su Apellido',
               ]"
+            :onkeydown="onkeyDown"
             />
           </div>
 
@@ -51,7 +53,7 @@
               label="Seleccione sexo "
             />
           </div>
-<br/>
+      <br/>
           <div class="row justify-between q-gutter-md">
             <q-select
               filled
@@ -94,7 +96,8 @@
               label="Ingrese su DNI"
               style="width: 47%"
               :rules="[(val) => val.length <= 8 || 'Por favor ingrse su DNI']"
-            />
+              mask="########"
+              />
 
             <q-input
               filled
@@ -108,6 +111,7 @@
                   (val && val.length > 0) ||
                   'Por favor ingrese su Nacionalidad',
               ]"
+               :onkeydown="onkeyDown"
             />
           </div>
 
@@ -115,10 +119,11 @@
             <q-input
               dense
               standout
-              v-model="perfil.email"
+              v-model="email"
               type="email"
               prefix="Email:"
               suffix="@gmail.com"
+
             >
               <template v-slot:prepend>
                 <q-icon name="mail" />
@@ -142,7 +147,7 @@
               dense
               v-model="perfil.celular"
               label="N° Celular"
-              mask="(+##) ### - ###- ###"
+              mask=" ### - ###- ###"
               style="width: 47%"
             />
             <q-input
@@ -155,24 +160,19 @@
                 (val) => val.length <= 8 || 'Por favor ingrese su Cod.Postal',
               ]"
             />
-
-            <q-input
-              filled
-              dense
-              map-options
-              emit-value
-              option-value="id"
-              option-label="usuarios"
-              v-model="perfil.id_usuarios"
-              label="Ingrese su Nombre usuario "
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese su Nombre usuario',
-              ]"
-              style="width: 47%"
-            />
+            <q-select
+                filled
+                v-model="perfil.id_usuarios"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="usuario"
+                :options="usuarios"
+                style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione Nombre usuarios"
+              />
           </div>
         </div>
       </div>
@@ -187,8 +187,8 @@
           class="q-ml-sm"
         />
         <q-btn dense color="primary" label="Crear" type="submit"  />
-        <q-btn dense color="amber" label="Actualizar" />
-        <q-btn dense color="red" label="Borrar" />
+        <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"  />
+        <q-btn dense color="red" label="Borrar"   @click="Delete"/>
       </div>
     </q-form>
     <br />
@@ -207,12 +207,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, reactive } from "vue";
+
+import { ref, onMounted, computed, reactive} from "vue" ;
 import {
   getPerfiles,
   getPaises,
  crearPerfiles,
   getUsuarios,
+updatePerfiles,
+deletePerfiles,
+
 } from "../services";
 
 const columns = [
@@ -313,7 +317,8 @@ const selected = ref([]);
 const rows = ref([]);
 const paises = ref([]);
 const usuarios=ref([]);
-    const textarea =ref([]);
+const email=ref([]);
+
 
 const sexos = ["Femenino", "Masculino"];
 const perfil = reactive({
@@ -336,6 +341,14 @@ const perfil = reactive({
 
 async function onSubmit() {
   await crearPerfiles(perfil);
+}
+
+async function Actualizar() {
+  await updatePerfiles(perfil);
+}
+
+async function Delete() {
+  await deletePerfiles(perfil);
 }
 
 const ciudades = computed(
@@ -372,6 +385,37 @@ function handleSelection(details) {
 
   Object.assign(perfil, rowSelected);
 }
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
+}
+
+
+
+/*
+const email = {
+  email:{required, email}
+}
+
+  function mensajeError(campo) {
+  if(campo=== 'email'){
+    if(!this.$v.email.email) return 'Debe ser un email'
+    if (!this.$v.email.required) return 'campo requerido '
+  }
+}
+
+
+ :error-message="mensajeError('email')"
+              :error="$v.email.$invalid"
+              counter
+              maxlength="30"
+*/
+
 </script>
 
 <style>

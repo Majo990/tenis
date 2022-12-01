@@ -92,7 +92,7 @@
             label="Seleccione Nombre Arbitros "
           />
         </div>
-        <br />
+
         <div class="row justify-between q-gutter-md">
           <q-select
             filled
@@ -108,13 +108,30 @@
           />
         </div>
 
-        <br />
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-          <q-btn dense color="red" label="Borrar" @click="Delete" />
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+          />
         </div>
-        <br />
+
         <q-table
           :rows="rows"
           :columns="columns"
@@ -196,7 +213,7 @@ const jugadores = ref([]);
 const historialpartidas = ref([]);
 const arbitros = ref([]);
 const partidas = ref([]);
-const selected=ref([]);
+const selected = ref([]);
 
 const falta = reactive({
   id: null,

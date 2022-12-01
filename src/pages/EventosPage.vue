@@ -18,14 +18,33 @@
                     'Por favor ingrese su NombreEvento',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
             </div>
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar" />
-          <q-btn dense color="red" label="Borrar"  @click="Delete" />
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+          />
         </div>
         <br />
 
@@ -47,7 +66,12 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { getEventos, crearEventos,updateEventos,deleteEventos } from "../services";
+import {
+  getEventos,
+  crearEventos,
+  updateEventos,
+  deleteEventos,
+} from "../services";
 const columns = [
   {
     name: "nombre",
@@ -60,11 +84,11 @@ const columns = [
 ];
 
 const rows = ref([]);
-const nombre =ref([]);
-const selected=ref([]);
+const nombre = ref([]);
+const selected = ref([]);
 
 const evento = reactive({
-  id:null,
+  id: null,
   nombre: null,
 });
 
@@ -78,15 +102,13 @@ async function onSubmit() {
   await crearEventos(evento);
 }
 
-async function Actualizar(){
+async function Actualizar() {
   await updateEventos(evento);
-
 }
 
-async function Delete(){
+async function Delete() {
   await deleteEventos(evento);
 }
-
 
 onMounted(async () => {
   rows.value = await getEventos();
@@ -101,5 +123,14 @@ function handleSelection(details) {
   }
 
   Object.assign(evento, rowSelected);
+}
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>

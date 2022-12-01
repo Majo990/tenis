@@ -7,31 +7,21 @@
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <q-input
-                filled
-                dense
-                v-model="permiso.descripcionpermiso"
-                label="Ingrese su Descripcion "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Descripcion',
-                ]"
-                style="width: 47%"
-              />
-              <q-select
               filled
-              v-model="permiso.id_usuarios"
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              :options="usuario"
-              style="width: 47%"
-              dense
-              lazy-rules
-              label="Seleccione Nombre Usuarios "
-            />
+                  dense
+                  type="text"
+                  v-model="permiso.descripcion"
+                  label="Ingrese su Nombre arbitro "
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su NombreDescripcion',
+                  ]"
+                  style="width: 47%"
+                  :onkeydown="onkeyDown"
+              />
+             
             </div>
           </div>
         </div>
@@ -79,13 +69,6 @@ const columns = [
     field: "descripcion",
     sortable: true,
   },
-  {
-    name: "id_usuario",
-    align: "center",
-    label: "Usuario",
-    field: "usuario_usuario",
-    sortable: true,
-  },
 ];
 
 
@@ -96,7 +79,7 @@ const usuario=ref([]);
 const permiso = reactive({
   id: null,
   id_usuarios: null,
-  descripcionpermiso: null,
+  descripcion: null,
 });
 
 
@@ -120,7 +103,7 @@ onMounted(async () => {
 function handleSelection(details) {
   let rowSelected = {
     id_usuarios: null,
-    descripcionpermiso: null,
+    descripcion: null,
   };
 
   if (details.added) {
@@ -129,5 +112,15 @@ function handleSelection(details) {
 
   Object.assign(permiso,rowSelected);
 }
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
+}
+
 </script>
 <style></style>

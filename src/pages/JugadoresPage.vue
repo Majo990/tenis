@@ -18,6 +18,7 @@
                     'Por favor ingrese su NombreJugador',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
 
               <q-input
@@ -32,6 +33,7 @@
                     (val && val.length > 0) ||
                     'Por favor ingrese su Nacionalidad',
                 ]"
+                 :onkeydown="onkeyDown"
               />
             </div>
             <div class="row justify-between q-gutter-md">
@@ -287,6 +289,7 @@ import { ref, onMounted, computed, reactive } from "vue";
 import {
   crearJugadores,
   deleteJugadores,
+  updateJugadores,
   getArbitros,
   getEntrenadores,
   getEquipos,
@@ -294,7 +297,6 @@ import {
   getPaises,
   getSanciones,
   getTorneos,
-updateJugadores,
 } from "../services";
 
 const columns = [
@@ -479,4 +481,14 @@ function handleSelection(details) {
 
   Object.assign(jugador, rowSelected);
 }
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
+}
+
 </script>

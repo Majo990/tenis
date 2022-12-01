@@ -34,6 +34,7 @@
                 option-label="nombre"
                 :options="jugadores"
                 label="Seleccione jugador"
+                
                 style="width: 47%"
               />
 
@@ -204,9 +205,27 @@
 
         <br />
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear"  type="submit" />
-          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
-          <q-btn dense color="red" label="Borrar" @click="Delete"/>
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+          />
         </div>
         <br />
 
@@ -240,8 +259,7 @@ import {
   getRondas,
   crearHistorialPartidas,
   updateHistorialPartidas,
-  deleteHistorialPartidas
-
+  deleteHistorialPartidas,
 } from "../services";
 const columns = [
   {
@@ -329,16 +347,16 @@ const faltas = ref([]);
 const partidas = ref([]);
 const arbitros = ref([]);
 
-const selected =ref([]);
-const puntajes=ref([]);
-const filter=ref([]);
+const selected = ref([]);
+const puntajes = ref([]);
+const filter = ref([]);
 
 onMounted(async () => {
   rows.value = await getHistorialPartidas();
 });
 
 const historialpartida = reactive({
-  id:null,
+  id: null,
   id_jugadores: null,
   fecha_hora: null,
   id_rondas: null,
@@ -355,15 +373,13 @@ async function onSubmit() {
   await crearHistorialPartidas(historialpartida);
 }
 
-async function Actualizar(){
+async function Actualizar() {
   await updateHistorialPartidas(historialpartida);
-
 }
 
-async function Delete(){
+async function Delete() {
   await deleteHistorialPartidas(historialpartida);
 }
-
 
 onMounted(async () => {
   rows.value = await getHistorialPartidas();

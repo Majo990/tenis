@@ -62,6 +62,7 @@
                 (val && val.length > 0) || 'Por favor ingrese el Nombre Torneo',
             ]"
             style="width: 47%"
+            :onkeydown="onkeyDown"
           />
 
           <q-select
@@ -84,7 +85,7 @@
             dense
             v-model="torneo.nombre_ciudades"
             :options="ciudades"
-            label="Ingrese su  Ciudad"
+            label="Seleccione  su  Ciudad"
             style="width: 47%"
             lazy-rules
             :rules="[
@@ -97,9 +98,27 @@
       <br />
 
       <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn dense color="primary" label="Crear" type="submit" />
-        <q-btn dense color="amber" label="Actualizar" @click="Actualizar"/>
-        <q-btn dense color="red" label="Borrar" @click="Delete" />
+        <q-btn
+          dense
+          color="primary"
+          label="Crear"
+          type="submit"
+          icon="fa-solid fa-folder-plus"
+        />
+        <q-btn
+          dense
+          color="amber"
+          label="Editar"
+          @click="Actualizar"
+          icon="fa-solid fa-pen-to-square"
+        />
+        <q-btn
+          dense
+          color="red"
+          label="Borrar"
+          @click="Delete"
+          icon="fa-solid fa-trash-can"
+        />
       </div>
 
       <br />
@@ -154,7 +173,7 @@ const columns = [
   },
 
   {
-    name: "nombre_paises",
+    name: "id_paises",
     align: "center",
     label: "Nombre-Paises",
     field: "nombre_paises",
@@ -218,5 +237,14 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
   Object.assign(torneo, rowSelected);
+}
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>

@@ -6,19 +6,26 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
-              <q-input
-                filled
-                v-model="comportamiento.descripcion"
-                label="Ingrese su Descripcion "
-                lazy-rules
-                dense
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Descripcion',
-                ]"
-                style="width: 47%"
-              />
+              <div>
+                <label
+                  >Ingrese descripcion Arbitro
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  v-model="comportamiento.descripcion"
+                  label="Ingrese su Descripcion "
+                  lazy-rules
+                  dense
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su Descripcion',
+                  ]"
+                  style="width: 47%"
+                />
+              </div>
+
               <q-select
                 filled
                 v-model="comportamiento.id_jugadores"
@@ -67,9 +74,27 @@
         </div>
         <br />
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-          <q-btn dense color="red" label="Borrar" @click="Delete" />
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+          />
           <br />
           <q-table
             :rows="rows"
@@ -127,7 +152,7 @@ const columns = [
     name: "id_sanciones",
     align: "center",
     label: "Nombre-Sancion",
-    field: "nombre_sancion",
+    field: "nombre_sanciones",
     sortable: true,
   },
 ];
@@ -139,7 +164,7 @@ const arbitro = ref([]);
 const sancion = ref([]);
 
 const comportamiento = reactive({
-  id:null,
+  id: null,
   descripcion: null,
   id_jugadores: null,
   id_arbitros: null,

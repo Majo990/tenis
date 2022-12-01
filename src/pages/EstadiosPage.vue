@@ -17,21 +17,21 @@
                     (val && val.length > 0) || 'Por favor ingrese su Nombre',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
               <q-select
-              filled
-              v-model="estadio.id_jugadores"
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              :options="jugadores"
-              style="width: 47%"
-              dense
-              lazy-rules
-
-              label="Seleccione Nombre Jugadores "
-            />
+                filled
+                v-model="estadio.id_jugadores"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="jugadores"
+                style="width: 47%"
+                dense
+                lazy-rules
+                label="Seleccione Nombre Jugadores "
+              />
             </div>
 
             <div class="row justify-between q-gutter-md">
@@ -77,6 +77,7 @@
                     'Por favor ingrese su NombreAdminsitra',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
 
               <q-input
@@ -91,6 +92,7 @@
                     'Por favor ingrese su NombrePropietario',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
             </div>
 
@@ -155,16 +157,35 @@
                 ]"
               />
             </div>
-          </div>
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" type="submit" />
-            <q-btn dense color="amber" label="Actualizar" @click="Actualizar"/>
-            <q-btn dense color="red" label="Borrar" @click="Delete"/>
+
+            <div class="col-6 q-gutter-md text-center items-center">
+              <q-btn
+                dense
+                color="primary"
+                label="Crear"
+                type="submit"
+                icon="fa-solid fa-folder-plus"
+              />
+              <q-btn
+                dense
+                color="amber"
+                label="Editar"
+                @click="Actualizar"
+                icon="fa-solid fa-pen-to-square"
+              />
+              <q-btn
+                dense
+                color="red"
+                label="Borrar"
+                @click="Delete"
+                icon="fa-solid fa-trash-can"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      <br />
+
       <q-table
         :rows="rows"
         :columns="columns"
@@ -173,21 +194,24 @@
         row-key="id"
         selection="single"
         v-model:selected="selected"
-        @selection="handleSelection"
-      >
+        @selection="handleSelection">
+
+
       </q-table>
     </q-form>
   </q-page>
 </template>
 
 <script setup>
-
 import { ref, onMounted, computed, reactive } from "vue";
-import { getEstadios,crearEstadios,
+import {
+  getEstadios,
+  crearEstadios,
   getJugadores,
-   getPaises,
-   updateEstadios,deleteEstadios
-  } from "../services";
+  getPaises,
+  updateEstadios,
+  deleteEstadios,
+} from "../services";
 
 const columns = [
   {
@@ -267,7 +291,7 @@ const columns = [
 
 const rows = ref([]);
 const paises = ref([]);
-const jugadores=ref([]);
+const jugadores = ref([]);
 let canchas = [
   "cancha1",
   "cancha2",
@@ -281,10 +305,8 @@ const cancha = ref(null);
 let cespeds = ["sintetico", "natural", "piso"];
 const cesped = ref(null);
 
-
-
 const estadio = reactive({
-  id:null,
+  id: null,
   nombre: null,
   id_jugadores: null,
   cancha: null,
@@ -302,15 +324,13 @@ async function onSubmit() {
   await crearEstadios(estadio);
 }
 
-async function Actualizar(){
+async function Actualizar() {
   await updateEstadios(estadio);
-
 }
 
-async function Delete(){
+async function Delete() {
   await deleteEstadios(estadio);
 }
-
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === estadio.nombre_paises)?.cities
@@ -341,6 +361,15 @@ function handleSelection(details) {
   }
 
   Object.assign(estadio, rowSelected);
+}
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>
 <style>

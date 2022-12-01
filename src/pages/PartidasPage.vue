@@ -18,6 +18,7 @@
                     'Por favor ingrese su Nombre Partida',
                 ]"
                 style="width: 47%"
+                :onkeydown="onkeyDown"
               />
 
               <q-input
@@ -35,7 +36,8 @@
                     (val && val.length > 0) ||
                     'Por favor ingrese su Descripcion',
                 ]"
-                
+                     :onkeydown="onkeyDown"
+
               />
             </div>
 
@@ -46,19 +48,19 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                v-model="partida.id_jugadores"
+                v-model="partida.id_deportes"
                 dense
-                :options="jugadores"
+                :options="deportes"
                 style="width: 47%"
-                label="Seleccione su Nombre Jugadores "
+                label="Seleccione su Deportes  "
                 lazy-rules
                 :rules="[
                   (val) =>
                     (val !== null && val !== '') ||
-                    'Por favor seleccione su jugadores',
+                    'Por favor seleccione su deportes',
                   (val) =>
                     (val > 1 && val < 80) ||
-                    'Por favor seleccione su jugadores',
+                    'Por favor seleccione su deportes ',
                 ]"
               />
               <q-select
@@ -326,7 +328,7 @@ const columns = [
 ];
 
 const rows = ref([]);
-const jugadores = ref([]);
+const deportes=ref([])
 const torneos = ref([]);
 const rondas = ref([]);
 
@@ -381,5 +383,15 @@ function handleSelection(details) {
   }
 
   Object.assign(partida, rowSelected);
+}
+
+
+function onkeyDown(evt) {
+  if (
+    (evt.keyCode >= 48 && evt.keyCode <= 57) ||
+    (evt.keyCode >= 96 && evt.keyCode <= 105)
+  ) {
+    evt.preventDefault();
+  }
 }
 </script>

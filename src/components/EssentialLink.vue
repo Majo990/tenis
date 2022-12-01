@@ -3,7 +3,7 @@
     clickable
     tag="a"
     target="_self"
-    :href="link"
+    :to="link"
     dense
     :class="$route.path === link ? 'text-primary' : ''"
   >
