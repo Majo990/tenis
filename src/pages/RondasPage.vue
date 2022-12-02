@@ -6,15 +6,19 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
-              <q-input
-                dense
-                v-model.number="ronda.nro"
-                type="number"
-                filled
-                style="max-width: 200px"
-                hint="NroRonda"
-                label="Ingrese su Nro Ronda "
-              />
+              <div>
+                <label
+                  >Ingrese nombre entrenador
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  dense
+                  v-model.number="ronda.nro"
+                  type="number"
+                  filled
+                  hint="NroRonda"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -25,6 +29,7 @@
             label="Crear"
             type="submit"
             icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
           />
           <q-btn
             dense
@@ -32,6 +37,7 @@
             label="Editar"
             @click="Actualizar"
             icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
           />
           <q-btn
             dense
@@ -39,6 +45,7 @@
             label="Borrar"
             @click="Delete"
             icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
           />
         </div>
         <q-table
@@ -58,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive,computed } from "vue";
 import {
   getRondas,
   crearRondas,
@@ -95,10 +102,33 @@ function handleSelection(details) {
   let rowSelected = {
     nro: null,
   };
-  if (details.added) {
+
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
+
+  if (details.added)
+  {
+    botonbloqueoactualizar.value = false;
+  botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(ronda, rowSelected);
 }
+
+//
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(ronda).every((key) => ronda[key] && ronda[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>

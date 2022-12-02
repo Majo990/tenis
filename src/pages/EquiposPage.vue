@@ -6,50 +6,56 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
-              <q-input
-                filled
-                dense
-                v-model="equipo.nombre"
-                label="Ingrese su Nombre "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Nombre',
-                ]"
-                style="width: 47%"
-                :onkeydown="onkeyDown"
-              />
+              <div>
+                <label
+                  >Ingrese nombre equipo <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="equipo.nombre"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor ingrese su Nombre',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
+              </div>
 
-              <q-input
-                dense
-                filled
-                v-model="equipo.fecha_fundo"
-                style="width: 47%"
-                mask="date"
-                label="Ingrese la fecha-fundo equipo"
-                :rules="['date']"
-              >
-                <template v-slot:append>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy
-                      cover
-                      transition-show="scale"
-                      transition-hide="scale"
-                    >
-                      <q-date v-model="date">
-                        <div class="row items-center justify-end">
-                          <q-btn
-                            v-close-popup
-                            label="Close"
-                            color="primary"
-                            flat
-                          />
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
+              <div>
+                <label
+                  >Ingrese fecha equipos <span class="text-red">*</span></label
+                >
+                <q-input
+                  dense
+                  filled
+                  v-model="equipo.fecha_fundo"
+                  mask="date"
+                  :rules="['date']"
+                >
+                  <template v-slot:append>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-date v-model="date">
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
             </div>
             <div class="row justify-between q-gutter-md">
               <q-select
@@ -96,15 +102,19 @@
                 style="width: 47%"
               />
 
-              <q-file
-                dense
-                @update:model-value="updateSimbolo"
-                v-model="simbolo"
-                filled
-                style="width: 47%"
-                label="Seleccione imagen "
-                accept=".png, .jpg, .gif, .tiff,  .jpeg image/*"
-              />
+              <div>
+                <label
+                  >Seleccione su img del equipo
+                  <span class="text-red">*</span></label
+                >
+                <q-file
+                  dense
+                  @update:model-value="updateSimbolo"
+                  v-model="simbolo"
+                  filled
+                  accept=".png, .jpg, .gif, .tiff,  .jpeg image/*"
+                />
+              </div>
             </div>
 
             <div class="row justify-between q-gutter-md">
@@ -123,20 +133,28 @@
                 :onkeydown="onkeyDown"
               />
 
+
+              <div>
+                <label
+                  >Ingrese su presidente del equipo
+                  <span class="text-red">*</span></label
+                >
+
               <q-input
                 filled
                 dense
                 v-model="equipo.presidente"
-                label="Ingrese su Presidente "
+             
                 lazy-rules
                 :rules="[
                   (val) =>
                     (val && val.length > 0) ||
                     'Por favor ingrese su Presidente',
                 ]"
-                style="width: 47%"
+
                 :onkeydown="onkeyDown"
               />
+              </div>
             </div>
             <div class="row justify-between q-gutter-md">
               <q-input
@@ -347,7 +365,6 @@ const simbolo = ref([]);
 const selected = ref([]);
 
 const equipo = reactive({
-  id: null,
   nombre: null,
   fecha_fundo: null,
   id_jugadores: null,

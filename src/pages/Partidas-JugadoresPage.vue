@@ -35,7 +35,7 @@
               style="width: 47%"
               dense
               lazy-rules
-              label="Seleccione Nombre Jugadores "
+              label="Seleccione Nombre Partidas "
             />
 
             <q-select
@@ -128,7 +128,7 @@ const partidas = ref([]);
 const selected = ref([]);
 
 const partidajugador = reactive({
-  id: null,
+
   id_partidas: null,
   id_jugadores: null,
 });

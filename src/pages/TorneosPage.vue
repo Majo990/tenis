@@ -195,7 +195,7 @@ const date = ref("2020/02/01");
 const selected = ref([]);
 
 const torneo = reactive({
-  id: null,
+  
   fecha: null,
   id_estadios: null,
   nombre: null,

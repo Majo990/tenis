@@ -7,20 +7,25 @@
           <div class="row">
             <div class="col-6">
               <div class="row justify-between q-gutter-md">
-                <q-input
-                  filled
-                  v-model="sancion.nombre"
-                  label="Ingrese el Nombre-Sancion "
-                  lazy-rules
-                  dense
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su NombreJugador',
-                  ]"
-                  style="width: 47%"
-                  :onkeydown="onkeyDown"
-                />
+                <div>
+                  <label
+                    >Ingrese nombre sancion
+                    <span class="text-red">*</span></label
+                  >
+
+                  <q-input
+                    filled
+                    v-model="sancion.nombre"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su NombreJugador',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -31,6 +36,7 @@
               label="Crear"
               type="submit"
               icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
             />
             <q-btn
               dense
@@ -38,6 +44,7 @@
               label="Editar"
               @click="Actualizar"
               icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
             />
             <q-btn
               dense
@@ -45,6 +52,7 @@
               label="Borrar"
               @click="Delete"
               icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
             />
           </div>
         </q-form>
@@ -58,6 +66,7 @@
         selection="single"
         v-model:selected="selected"
         @selection="handleSelection"
+
       >
       </q-table>
     </div>
@@ -65,7 +74,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive ,computed} from "vue";
 import {
   getSanciones,
   crearSanciones,
@@ -110,8 +119,11 @@ function handleSelection(details) {
   let rowSelected = {
     nombre: null,
   };
-
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -126,6 +138,21 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(sancion).every((key) => sancion[key] && sancion[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
+
+
 </script>
 
 <!--mal -->

@@ -141,12 +141,11 @@
                     >
                     <q-input
                       filled
-                      v-model="arbitro.fecha_nacimiento"
+                      v-model="date"
                       mask="date"
                       dense
                       :rules="['date']"
-                      style="width: 47%"
-                      lazy-rules
+                   
                     >
                       <template v-slot:append>
                         <q-icon name="event" class="cursor-pointer">
@@ -223,6 +222,7 @@
             label="Crear"
             type="submit"
             icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
           />
           <q-btn
             dense
@@ -230,6 +230,7 @@
             label="Editar"
             @click="Actualizar"
             icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
           />
           <q-btn
             dense
@@ -237,6 +238,7 @@
             label="Borrar"
             @click="Delete"
             icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
           />
         </div>
 
@@ -335,13 +337,16 @@ const columns = [
   },
 ];
 const selected = ref([]);
-const date = ref("2019/02/01");
+
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
 
+const date = ref("2022/10/15");
+
+// can supply only what needed (the rest will be taken from current locale):
+
 const arbitro = reactive({
-  id: null,
   nombre: null,
   apellido: null,
   edad: null,
@@ -395,33 +400,29 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(arbitro, rowSelected);
 }
 
-/*const $btn = document.querySelector("q-btn"),
-$form=document.querySelector("form");
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(arbitro).every((key) => arbitro[key] && arbitro[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
 
- $form.addEventListener("keyup", e =>{
-  let disable =false ;
+const botonbloqueoactualizar = ref(true);
 
-  if($form.nombre.value === "") disable=true ;
-  if($form.apellido.value === "") disable=true ;
-  if($form.edad.value === "") disable=true ;
-  if($form.sexo.value === "") disable=true ;
-  if($form.altura.value === "") disable=true ;
-  if($form.peso.value === "") disable=true ;
-  if($form.fecha_nacimiento.value === "") disable=true ;
-  if($form.nombre_paises.value === "") disable=true ;
-  if($form.nombre_ciudades.value === "") disable=true;
-
-  (disable ===true)
-  ?$btn.disable = true
-  :$btn.disable = false;
- })*/
+const botonbloqueoeliminar = ref(true);
 </script>
 <style lang="scss">
 .marco {

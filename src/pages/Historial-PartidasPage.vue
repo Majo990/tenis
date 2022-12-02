@@ -34,7 +34,7 @@
                 option-label="nombre"
                 :options="jugadores"
                 label="Seleccione jugador"
-                
+
                 style="width: 47%"
               />
 
@@ -356,7 +356,7 @@ onMounted(async () => {
 });
 
 const historialpartida = reactive({
-  id: null,
+  
   id_jugadores: null,
   fecha_hora: null,
   id_rondas: null,

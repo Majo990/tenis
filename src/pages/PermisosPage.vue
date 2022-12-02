@@ -6,22 +6,27 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
+              <div>
+                  <label
+                    >Ingrese nombre Permisos
+                    <span class="text-red">*</span></label
+                  >
               <q-input
               filled
                   dense
                   type="text"
                   v-model="permiso.descripcion"
-                  label="Ingrese su Nombre arbitro "
+
                   lazy-rules
                   :rules="[
                     (val) =>
                       (val && val.length > 0) ||
                       'Por favor ingrese su NombreDescripcion',
                   ]"
-                  style="width: 47%"
+
                   :onkeydown="onkeyDown"
               />
-             
+              </div>
             </div>
           </div>
         </div>
@@ -77,7 +82,7 @@ const rows = ref([]);
 const usuario=ref([]);
 
 const permiso = reactive({
-  id: null,
+
   id_usuarios: null,
   descripcion: null,
 });

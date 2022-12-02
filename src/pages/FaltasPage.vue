@@ -153,7 +153,6 @@ import { ref, onMounted, reactive } from "vue";
 import {
   getArbitros,
   getFaltas,
-  getHistorialPartidas,
   getJugadores,
   getPartidas,
   crearFaltas,
@@ -214,9 +213,10 @@ const historialpartidas = ref([]);
 const arbitros = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
+const options =ref([]);
 
 const falta = reactive({
-  id: null,
+  
   nro: null,
   fecha_hora: null,
   id_jugadores: null,

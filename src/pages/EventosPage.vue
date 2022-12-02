@@ -6,20 +6,26 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
+              <div>
+                  <label
+                    >Ingrese nombre evento
+                    <span class="text-red">*</span></label
+                  >
               <q-input
                 filled
                 dense
                 v-model="evento.nombre"
-                label="Ingrese su Nombre Evento "
+
                 lazy-rules
                 :rules="[
                   (val) =>
                     (val && val.length > 0) ||
                     'Por favor ingrese su NombreEvento',
                 ]"
-                style="width: 47%"
+
                 :onkeydown="onkeyDown"
               />
+              </div>
             </div>
           </div>
         </div>
@@ -65,7 +71,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getEventos,
   crearEventos,
@@ -88,7 +94,7 @@ const nombre = ref([]);
 const selected = ref([]);
 
 const evento = reactive({
-  id: null,
+
   nombre: null,
 });
 

@@ -120,14 +120,7 @@
                 style="width: 348px"
                 label="Seleccione equipos "
                 dense
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') ||
-                    'Por favor seleccione su equipos',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor selecione su equipos',
-                ]"
+
               />
               <q-select
                 filled
@@ -412,7 +405,7 @@ const selected=ref([]);
 const sexos = ["Femenino", "Masculino"];
 
 const jugador = reactive({
-  id:null,
+
   nombre: null,
   nacionalidad: null,
   id_entrenadores: null,

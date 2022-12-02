@@ -9,27 +9,50 @@
             <div class="row">
               <div class="col-6">
                 <div class="row justify-between q-gutter-md">
-                  <q-input
-                    filled
-                    dense
-                    v-model="rol.descripcion"
-                    label="Pequeña descipcion "
-                    lazy-rules
-                    style="width: 47%"
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor ingrese su Apellido',
-                    ]"
-                  />
+                  <div>
+                    <label
+                      >Ingrese su descripcion Rol
+                      <span class="text-red">*</span></label
+                    >
+                    <q-input
+                      filled
+                      dense
+                      v-model="rol.descripcion"
+                      lazy-rules
+                      :rules="[
+                        (val) =>
+                          (val && val.length > 0) ||
+                          'Por favor ingrese su Apellido',
+                      ]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn dense color="primary" label="Crear" type="submit" />
-            <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-            <q-btn dense color="red" label="Borrar" @click="Delete" />
+            <q-btn
+              dense
+              color="primary"
+              label="Crear"
+              type="submit"
+              :disable="botonbloqueocrear"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Actualizar"
+              @click="Actualizar"
+              :disable="botonbloqueoactualizar"
+            />
+
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              :disable="botonbloqueoeliminar"
+            />
           </div>
         </q-form>
 
@@ -66,9 +89,7 @@
 </template>
 
 <script setup>
-
-
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive,computed } from "vue";
 import {
   getRoles,
   crearRoles,
@@ -78,7 +99,6 @@ import {
   updatePermisos,
   deletePermisos,
   crearPermisosRoles,
-
 } from "../services";
 
 const columns = [
@@ -98,18 +118,11 @@ const selected = ref([]);
 const permisos = ref([]);
 
 const rol = reactive({
-  id: null,
   descripcion: null,
 });
 
-//const permisos=reactive({
-//id:null,
-//descripcionpermiso:null,
-//})
-
 async function onSubmit() {
   const r = await crearRoles(rol);
-
 
   const permisos_roles = permisosSelected.value.map((p) => {
     return {
@@ -121,7 +134,6 @@ async function onSubmit() {
   for (let i = 0; i < permisos_roles.length; i++) {
     await crearPermisosRoles(permisos_roles[i]);
   }
-
 }
 
 async function Actualizar() {
@@ -148,12 +160,29 @@ function handleSelection(details) {
     descripcionrol: null,
     descripcion: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(rol, rowSelected);
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(rol).every((key) => rol[key] && rol[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 
 <style></style>

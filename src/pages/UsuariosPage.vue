@@ -75,7 +75,7 @@ import {
   getUsuarios,
   getRoles,
   updateUsuarios,
-  deleteUsuarios
+  deleteUsuarios,
 } from "../services";
 const columns = [
   {
@@ -100,7 +100,6 @@ const rows = ref([]);
 const roles = ref([]);
 
 const usuario = reactive({
-  id: null,
   usuarios: null,
   contraseña: null,
   id_roles: null,
@@ -133,7 +132,7 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(usuario,rowSelected);
+  Object.assign(usuario, rowSelected);
 }
 
 function onkeyDown(evt) {
@@ -144,7 +143,6 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
-
 </script>
 
 <style>
@@ -152,7 +150,7 @@ h3 {
   color: rgb(28, 234, 241);
   -webkit-text-stroke: 1.5px rgb(198, 11, 245);
 }
-.q-gutter-md  items-start {
+.q-gutter-md items-start {
   color: beige;
 }
 </style>

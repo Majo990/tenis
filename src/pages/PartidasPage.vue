@@ -36,8 +36,7 @@
                     (val && val.length > 0) ||
                     'Por favor ingrese su Descripcion',
                 ]"
-                     :onkeydown="onkeyDown"
-
+                :onkeydown="onkeyDown"
               />
             </div>
 
@@ -219,7 +218,7 @@
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"/>
+          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
           <q-btn dense color="red" label="Borrar" @click="Delete" />
         </div>
         <br />
@@ -247,7 +246,7 @@ import {
   getJugadores,
   getTorneos,
   updatePartidas,
-  deletePartidas
+  deletePartidas,
 } from "../services";
 
 const fecha = ref("2020-02-01");
@@ -328,9 +327,21 @@ const columns = [
 ];
 
 const rows = ref([]);
-const deportes=ref([])
 const torneos = ref([]);
 const rondas = ref([]);
+
+const deportes = [
+  "Tenis",
+  "Fútbol",
+  "Voleibol",
+  "Baloncesto",
+  "Natación",
+  "Golf",
+  "Béisbol",
+  "Hockey",
+];
+
+
 
 const partida = reactive({
   nombre: null,
@@ -356,7 +367,6 @@ async function Delete() {
   await deletePartidas(partida);
 }
 
-
 onMounted(async () => {
   rows.value = await getPartidas();
   jugadores.value = await getJugadores();
@@ -377,14 +387,12 @@ function handleSelection(details) {
     id_rondas: null,
   };
 
-
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(partida, rowSelected);
 }
-
 
 function onkeyDown(evt) {
   if (
