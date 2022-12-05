@@ -58,49 +58,58 @@
               </div>
             </div>
             <div class="row justify-between q-gutter-md">
-              <q-select
-                filled
-                v-model="equipo.id_jugadores"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="jugadores"
-                style="width: 47%"
-                dense
-                lazy-rules
-                label="Seleccione Nombre Jugadores "
-              />
-              <q-select
-                filled
-                v-model="equipo.id_entrenadores"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="entrenadores"
-                style="width: 47%"
-                dense
-                lazy-rules
-                label="Seleccione Nombre Entrenadores "
-              />
+              <div>
+                <label
+                  >Seleccione nombre Jugadores <span class="text-red"></span
+                ></label>
+                <q-select
+                  filled
+                  v-model="equipo.id_jugadores"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="jugadores"
+                  dense
+                  lazy-rules
+                />
+              </div>
+              <div>
+                <label
+                  >Seleccione entrenadores <span class="text-red"></span
+                ></label>
+                <q-select
+                  filled
+                  v-model="equipo.id_entrenadores"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="entrenadores"
+                  dense
+                  lazy-rules
+                />
+              </div>
             </div>
             <br />
             <div class="row justify-between q-gutter-md">
-              <q-input
-                v-model="equipo.descripcion"
-                filled
-                autogrow
-                dense
-                label="Ingrese descripcion equipo "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese descripcion arbitro',
-                ]"
-                style="width: 47%"
-              />
+              <div>
+                <label
+                  >Ingrese su descripcion <span class="text-red"></span
+                ></label>
+                <q-input
+                  v-model="equipo.descripcion"
+                  filled
+                  autogrow
+                  dense
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese descripcion arbitro',
+                  ]"
+                />
+              </div>
 
               <div>
                 <label
@@ -118,21 +127,24 @@
             </div>
 
             <div class="row justify-between q-gutter-md">
-              <q-input
-                filled
-                dense
-                v-model="equipo.indumentaria_uniforme"
-                label="Ingrese su Indumentaria_Uniforme"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su IndumentariaUniforme',
-                ]"
-                style="width: 47%"
-                :onkeydown="onkeyDown"
-              />
-
+              <div>
+                <label
+                  >Ingrese su uniforme equipo
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="equipo.indumentaria_uniforme"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su IndumentariaUniforme',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
+              </div>
 
               <div>
                 <label
@@ -140,78 +152,85 @@
                   <span class="text-red">*</span></label
                 >
 
-              <q-input
-                filled
-                dense
-                v-model="equipo.presidente"
-             
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Presidente',
-                ]"
-
-                :onkeydown="onkeyDown"
-              />
+                <q-input
+                  filled
+                  dense
+                  v-model="equipo.presidente"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su Presidente',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
               </div>
             </div>
             <div class="row justify-between q-gutter-md">
-              <q-input
-                dense
-                filled
-                v-model="equipo.apodos"
-                label="Ingrese su Apodo "
-                style="width: 47%"
-                :onkeydown="onkeyDown"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Apodos',
-                ]"
-              />
+              <div>
+                <label>Ingrese su apodo <span class="text-red">*</span></label>
+                <q-input
+                  dense
+                  filled
+                  v-model="equipo.apodos"
+                  :onkeydown="onkeyDown"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor ingrese su Apodos',
+                  ]"
+                />
+              </div>
 
-              <q-select
-                filled
-                v-model="equipo.id_estadios"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="estadios"
-                style="width: 47%"
-                dense
-                lazy-rules
-                label="Seleccione Nombre Estadio "
-              />
+              <div>
+                <label
+                  >Seleccione nombre estadios
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="equipo.id_estadios"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="estadios"
+                  dense
+                  lazy-rules
+                />
+              </div>
             </div>
           </div>
 
-          <q-select
-            filled
-            v-model="equipo.nombre_paises"
-            dense
-            :options="paises"
-            map-options
-            emit-value
-            option-value="country"
-            option-label="country"
-            label="Seleccione su Pais"
-            style="width: 20%"
-          />
+          <div>
+            <label>Seleccione su pais <span class="text-red">*</span></label>
 
-          <q-select
-            filled
-            dense
-            v-model="equipo.nombre_ciudades"
-            :options="ciudades"
-            label="Seleccione su  Ciudad"
-            style="width: 37%"
-            lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-            ]"
-          />
+            <q-select
+              filled
+              v-model="equipo.nombre_paises"
+              dense
+              :options="paises"
+              map-options
+              emit-value
+              option-value="country"
+              option-label="country"
+            />
+          </div>
+
+          <div>
+            <label>Seleccione ciudad <span class="text-red">*</span></label>
+            <q-select
+              filled
+              dense
+              v-model="equipo.nombre_ciudades"
+              :options="ciudades"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+              ]"
+            />
+          </div>
 
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn

@@ -8,7 +8,7 @@
             <div class="row justify-between q-gutter-md">
               <div>
                 <label
-                  >Ingrese descripcion Arbitro
+                  >Ingrese descrip comportamiento
                   <span class="text-red">*</span></label
                 >
                 <q-input
@@ -25,52 +25,65 @@
                 />
               </div>
 
-              <q-select
-                filled
-                v-model="comportamiento.id_jugadores"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="jugadores"
-                style="width: 47%"
-                dense
-                lazy-rules
-                label="Seleccione Nombre Jugadores "
-              />
+              <div>
+                <label
+                  >Seleccione Nombre Jugadores <span class="text-red"></span
+                ></label>
+                <q-select
+                  filled
+                  v-model="comportamiento.id_jugadores"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="jugadores"
+                  dense
+                  lazy-rules
+                />
+              </div>
             </div>
 
             <div class="row justify-between q-gutter-md">
-              <q-select
-                filled
-                v-model="comportamiento.id_arbitros"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="arbitro"
-                dense
-                style="width: 47%"
-                lazy-rules
-                label="Seleccione Nombre Arbitro"
-              />
-              <q-select
-                filled
-                v-model="comportamiento.id_sanciones"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="sancion"
-                dense
-                style="width: 47%"
-                lazy-rules
-                label="Seleccione Nombre Sancion"
-              />
-              <br />
+
+
+              <div>
+                <label
+                  >Seleccione  Arbitro
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="comportamiento.id_arbitros"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="arbitro"
+                  dense
+                  lazy-rules
+                />
+              </div>
+
+              <div>
+                <label
+                  >Seleccione sancion  <span class="text-red"></span
+                ></label>
+                <q-select
+                  filled
+                  v-model="comportamiento.id_sanciones"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="sancion"
+                  dense
+                  lazy-rules
+                />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+
         <br />
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
@@ -199,11 +212,11 @@ function handleSelection(details) {
     id_sanciones: null,
   };
 
-  botonbloqueoactualizar.value=true;
-  botonbloqueoeliminar.value=true;
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
-    botonbloqueoactualizar.value=false;
-    botonbloqueoeliminar.value=false;
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -212,7 +225,9 @@ function handleSelection(details) {
 
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(comportamiento).every((key) => comportamiento[key] && comportamiento[key] !== "") &&
+    Object.keys(comportamiento).every(
+      (key) => comportamiento[key] && comportamiento[key] !== ""
+    ) &&
     botonbloqueoactualizar.value
   )
     return false;

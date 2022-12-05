@@ -7,57 +7,75 @@
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <div>
-                  <label
-                    >Ingrese nombre Permisos
-                    <span class="text-red">*</span></label
-                  >
-              <q-input
-              filled
+                <label
+                  >Ingrese nombre Permisos
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
                   dense
                   type="text"
                   v-model="permiso.descripcion"
-
                   lazy-rules
                   :rules="[
                     (val) =>
                       (val && val.length > 0) ||
                       'Por favor ingrese su NombreDescripcion',
                   ]"
-
                   :onkeydown="onkeyDown"
-              />
+                />
               </div>
             </div>
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-          <q-btn dense color="red" label="Borrar" @click="Delete" />
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            :disable="botonbloqueocrear"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Actualizar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
         </div>
       </q-form>
 
       <br />
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          separator="cell"
-          dense
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        >
-        </q-table>
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
     </div>
 
-      <br />
-
+    <br />
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getPermisos,
   crearPermisos,
@@ -76,17 +94,14 @@ const columns = [
   },
 ];
 
-
 const selected = ref([]);
 const rows = ref([]);
-const usuario=ref([]);
+const usuario = ref([]);
 
 const permiso = reactive({
-
   id_usuarios: null,
   descripcion: null,
 });
-
 
 async function onSubmit() {
   await crearPermisos(permiso);
@@ -102,7 +117,7 @@ async function Delete() {
 
 onMounted(async () => {
   rows.value = await getPermisos();
-  usuario.value=await getUsuarios();
+  usuario.value = await getUsuarios();
 });
 
 function handleSelection(details) {
@@ -111,11 +126,15 @@ function handleSelection(details) {
     descripcion: null,
   };
 
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(permiso,rowSelected);
+  Object.assign(permiso, rowSelected);
 }
 
 function onkeyDown(evt) {
@@ -127,5 +146,17 @@ function onkeyDown(evt) {
   }
 }
 
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(permiso).every((key) => permiso[key] && permiso[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 <style></style>

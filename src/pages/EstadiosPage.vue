@@ -71,176 +71,153 @@
                       'Por favor seleccione su cesped',
                   ]"
                 />
+
               </div>
-
-
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese su administrador
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  v-model="estadio.administrador"
-                  lazy-rules
-                  dense
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su NombreAdminsitra',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
 
               <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese nombre propietario estadio
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    dense
+                    v-model="estadio.propietario"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su NombrePropietario',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
+                <div>
+                  <label
+                    >Ingrese su administrador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="estadio.administrador"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su NombreAdminsitra',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
 
                 <div>
-                <label
-                  >Ingrese su ciudad estadio
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  dense
-                  v-model="estadio.nombre_ciudades"
-                  :options="ciudades"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                  ]"
-                />
-
+                  <label
+                    >Ingrese su pais estadio
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="estadio.nombre_paises"
+                    dense
+                    :options="paises"
+                    map-options
+                    emit-value
+                    option-value="country"
+                    option-label="country"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione su pais',
+                    ]"
+                  />
+                </div>
               </div>
-            </div>
-              </div>
-
-              </div>
-              <div>
-                <label
-                  >Ingrese nombre propietario estadio
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  dense
-                  v-model="estadio.propietario"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su NombrePropietario',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
-
-
-              </div>
-            </div>
-
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese el ubigeo del estadio
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  v-model="estadio.ubigeo"
-                  dense
-                  mask="######"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su ubigeo',
-                  ]"
-                />
-              </div>
-
-              <div>
-                <label
-                  >Ingrese su direccion <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  dense
-                  v-model="estadio.direccion"
-                  icon="mdi-map-marker-outline"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su Direccion',
-                  ]"
-                />
-              </div>
-
-              <div>
-                <label
-                  >Ingrese su pais estadio
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  v-model="estadio.nombre_paises"
-                  dense
-                  :options="paises"
-                  map-options
-                  emit-value
-                  option-value="country"
-                  option-label="country"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Pais',
-                  ]"
-                />
-              </div>
-              <div>
-                <label
-                  >Ingrese su ciudad estadio
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  dense
-                  v-model="estadio.nombre_ciudades"
-                  :options="ciudades"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                  ]"
-                />
-              </div>
-            </div>
-
-            <div class="col-6 q-gutter-md text-center items-center">
-              <q-btn
-                dense
-                color="primary"
-                label="Crear"
-                type="submit"
-                icon="fa-solid fa-folder-plus"
-              />
-              <q-btn
-                dense
-                color="amber"
-                label="Editar"
-                @click="Actualizar"
-                icon="fa-solid fa-pen-to-square"
-              />
-              <q-btn
-                dense
-                color="red"
-                label="Borrar"
-                @click="Delete"
-                icon="fa-solid fa-trash-can"
-              />
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="row justify-between q-gutter-md">
+        <div>
+          <label
+            >Ingrese el ubigeo del estadio
+            <span class="text-red">*</span></label
+          >
+          <q-input
+            filled
+            v-model="estadio.ubigeo"
+            dense
+            mask="######"
+            lazy-rules
+            :rules="[
+              (val) => (val && val.length > 0) || 'Por favor ingrese su ubigeo',
+            ]"
+          />
+        </div>
+        <div>
+          <label>Ingrese su direccion <span class="text-red">*</span></label>
+          <q-input
+            filled
+            dense
+            v-model="estadio.direccion"
+            icon="mdi-map-marker-outline"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) || 'Por favor ingrese su Direccion',
+            ]"
+          />
+        </div>
+
+        <div>
+          <div>
+            <label
+              >Ingrese su ciudad estadio <span class="text-red">*</span></label
+            >
+            <q-select
+              filled
+              dense
+              v-model="estadio.nombre_ciudades"
+              :options="ciudades"
+              label="Seleccione  su  Ciudad"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+              ]"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 q-gutter-md text-center items-center">
+        <q-btn
+          dense
+          color="primary"
+          label="Crear"
+          type="submit"
+          icon="fa-solid fa-folder-plus"
+          :disable="botonbloqueocrear"
+        />
+        <q-btn
+          dense
+          color="amber"
+          label="Editar"
+          @click="Actualizar"
+          icon="fa-solid fa-pen-to-square"
+          :disable="botonbloqueoactualizar"
+        />
+        <q-btn
+          dense
+          color="red"
+          label="Borrar"
+          @click="Delete"
+          icon="fa-solid fa-trash-can"
+          :disable="botonbloqueoeliminar"
+        />
       </div>
 
       <q-table
@@ -357,12 +334,12 @@ let canchas = [
   "cancha6",
 ];
 const cancha = ref(null);
-
+const nombre_ciudades = ref([]);
 let cespeds = ["sintetico", "natural", "piso"];
 const cesped = ref(null);
+const selected = ref([]);
 
 const estadio = reactive({
- 
   nombre: null,
   id_jugadores: null,
   cancha: null,
@@ -412,7 +389,11 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -427,6 +408,19 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(estadio).every((key) => estadio[key] && estadio[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 <style>
 .q-table {

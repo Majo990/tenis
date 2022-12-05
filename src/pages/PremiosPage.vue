@@ -82,26 +82,29 @@
       </div>
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
-          dense
-          color="primary"
-          label="Crear"
-          type="submit"
-          icon="fa-solid fa-folder-plus"
-        />
-        <q-btn
-          dense
-          color="amber"
-          label="Editar"
-          @click="Actualizar"
-          icon="fa-solid fa-pen-to-square"
-        />
-        <q-btn
-          dense
-          color="red"
-          label="Borrar"
-          @click="Delete"
-          icon="fa-solid fa-trash-can"
-        />
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
       </div>
     </q-form>
     <br />
@@ -121,7 +124,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive ,computed} from "vue";
 import {
   getEquipos,
   getJugadores,
@@ -208,8 +211,13 @@ function handleSelection(details) {
     id_equipos: null,
     id_jugadores: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
 
   if (details.added) {
+
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -224,4 +232,19 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(premio).every((key) => premio[key] && premio[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
+
+
 </script>

@@ -3,51 +3,80 @@
     <strong>Formulario </strong>
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-gutter-md row items-start">
-        <q-input
-          dense
-          v-model="usuario.usuarios"
-          style="width: 20%"
-          filled
-          type="usuario"
-          hint="Usuario"
-          :onkeydown="onkeyDown"
-        />
+        <div>
+          <label>Ingrese su Usuario <span class="text-red">*</span></label>
+          <q-input
+            dense
+            v-model="usuario.usuarios"
+            filled
+            type="usuario"
+            hint="Usuario"
+            :onkeydown="onkeyDown"
+          />
+        </div>
 
-        <q-input
-          dense
-          v-model="usuario.contraseña"
-          filled
-          style="width: 20%"
-          type="password"
-          hint="Password"
-        />
+        <div>
+          <label>Ingrese su contraseña <span class="text-red">*</span></label>
+          <q-input
+            dense
+            v-model="usuario.contraseña"
+            filled
+            type="password"
+            hint="Password"
+          />
+        </div>
 
-        <q-input
-          dense
-          style="width: 20%"
-          v-model="usuario.contraseña"
-          filled
-          :type="isPwd ? 'password' : 'text'"
-          hint="Password with toggle"
-        >
-          <template v-slot:append> </template>
-        </q-input>
-        <q-select
-          filled
-          v-model="usuario.id_roles"
-          emit-value
-          option-value="id"
-          option-label="descripcionrol"
-          :options="roles"
-          style="width: 47%"
-          dense
-          lazy-rules
-          label="Seleccione el Rol"
-        />
+        <div>
+          <label>Verifique su contraseña <span class="text-red">*</span></label>
+          <q-input
+            dense
+            v-model="usuario.contraseña"
+            filled
+            :type="isPwd ? 'password' : 'text'"
+            hint="Password with toggle"
+          >
+            <template v-slot:append> </template>
+          </q-input>
+        </div>
+
+        <div>
+          <label>Seleccion su rol <span class="text-red"></span></label>
+          <q-select
+            filled
+            v-model="usuario.id_roles"
+            emit-value
+            option-value="id"
+            option-label="descripcionrol"
+            :options="roles"
+            dense
+            lazy-rules
+          />
+        </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-          <q-btn dense color="red" label="Borrar" @click="Delete" />
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
         </div>
       </div>
       <br />
@@ -69,7 +98,7 @@
 
 <script setup>
 // import { isAsyncFunction } from "util/types";
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   crearUsuarios,
   getUsuarios,
@@ -98,6 +127,7 @@ const columns = [
 const selected = ref([]);
 const rows = ref([]);
 const roles = ref([]);
+const isPwd = ref([]);
 
 const usuario = reactive({
   usuarios: null,
@@ -128,7 +158,13 @@ function handleSelection(details) {
     contraseña: null,
     id_roles: null,
   };
+
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
+
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -143,6 +179,19 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(usuario).every((key) => usuario[key] && usuario[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 
 <style>

@@ -356,7 +356,6 @@ onMounted(async () => {
 });
 
 const historialpartida = reactive({
-  
   id_jugadores: null,
   fecha_hora: null,
   id_rondas: null,

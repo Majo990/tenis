@@ -44,13 +44,12 @@
                 v-model="juez.edad"
                 label="Selecione Edad"
                 style="width: 47%"
-                lazy-rules
                 :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Please type your age',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor selecione su edad',
-                ]"
+                        (val) =>
+                          (val && val.length >  0 && val>=18) ||
+                          'Edad incorrecta',
+                          'Edad correcta',
+                      ]"
               />
               <q-select
                 filled
@@ -66,13 +65,11 @@
                 ]"
               />
               <!-- <div  class="q-pa-md" style="max-width: 300px">-->
-
-
             </div>
             <div class="row justify-between q-gutter-md">
               <q-input
                 filled
-                v-model="date"
+                v-model="juez.fecha_nacimiento"
                 mask="date"
                 dense
                 :rules="['date']"
@@ -139,6 +136,7 @@
             label="Crear"
             type="submit"
             icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
           />
           <q-btn
             dense
@@ -146,6 +144,7 @@
             label="Editar"
             @click="Actualizar"
             icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
           />
           <q-btn
             dense
@@ -153,6 +152,7 @@
             label="Borrar"
             @click="Delete"
             icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
           />
         </div>
         <br />
@@ -193,7 +193,7 @@ const columns = [
     name: "nombre",
     required: true,
     label: "Nombre",
-    align: "left",
+    align: "center",
     field: "nombre",
     sortable: true,
   },
@@ -201,7 +201,7 @@ const columns = [
     name: "apellido",
     required: true,
     label: "Apellido",
-    align: "left",
+    align: "center",
     field: "apellido",
     sortable: true,
   },
@@ -209,7 +209,7 @@ const columns = [
     name: "fecha_nacimiento",
     required: true,
     label: "Fecha-Nacimiento",
-    align: "left",
+    align: "center",
     field: "fecha_nacimiento",
     sortable: true,
   },
@@ -217,7 +217,7 @@ const columns = [
     name: "edad",
     required: true,
     label: "Edad",
-    align: "left",
+    align: "center",
     field: "edad",
     sortable: true,
   },
@@ -225,7 +225,7 @@ const columns = [
     name: "sexo",
     required: true,
     label: "Sexo",
-    align: "left",
+    align: "center",
     field: "sexo",
     sortable: true,
   },
@@ -246,14 +246,11 @@ const columns = [
 ];
 
 const juez = reactive({
-  id: null,
   nombre: null,
   apellido: null,
   fecha_nacimiento: null,
   edad: null,
   sexo: null,
-  altura: null,
-  peso: null,
   nombre_paises: null,
   nombre_ciudades: null,
 });
@@ -286,18 +283,32 @@ function handleSelection(details) {
     fecha_nacimiento: null,
     edad: null,
     sexo: null,
-    altura: null,
-    peso: null,
     nombre_paises: null,
     nombre_ciudades: null,
   };
-
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(juez, rowSelected);
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(juez).every((key) => juez[key] && juez[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 
 function onkeyDown(evt) {
   if (

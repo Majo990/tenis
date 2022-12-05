@@ -41,6 +41,12 @@
               v-model="perfil.edad"
               label="Selecione Edad"
               style="width: 47%"
+              :rules="[
+                        (val) =>
+                          (val && val.length >  0 && val>=18) ||
+                          'Edad incorrecta',
+                          'Edad correcta',
+                      ]"
 
             />
 
@@ -179,16 +185,31 @@
       <br />
 
       <div class="col-6 q-gutter-md text-center items-center">
+
         <q-btn
-          label="Restablecer"
-          type="reset"
-          color="negative"
-          flat
-          class="q-ml-sm"
-        />
-        <q-btn dense color="primary" label="Crear" type="submit"  />
-        <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"  />
-        <q-btn dense color="red" label="Borrar"   @click="Delete"/>
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
       </div>
     </q-form>
     <br />
@@ -320,6 +341,7 @@ const usuarios=ref([]);
 const email=ref([]);
 
 
+
 const sexos = ["Femenino", "Masculino"];
 const perfil = reactive({
   nombre: null,
@@ -395,26 +417,21 @@ function onkeyDown(evt) {
   }
 }
 
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(perfil).every(
+      (key) => perfil[key] && perfil[key] !== ""
+    ) &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
 
+const botonbloqueoactualizar = ref(true);
 
-/*
-const email = {
-  email:{required, email}
-}
+const botonbloqueoeliminar = ref(true);
 
-  function mensajeError(campo) {
-  if(campo=== 'email'){
-    if(!this.$v.email.email) return 'Debe ser un email'
-    if (!this.$v.email.required) return 'campo requerido '
-  }
-}
-
-
- :error-message="mensajeError('email')"
-              :error="$v.email.$invalid"
-              counter
-              maxlength="30"
-*/
 
 </script>
 

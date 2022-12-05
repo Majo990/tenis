@@ -124,8 +124,8 @@
                 filled
                 dense
                 style="width: 47%"
-                v-model="tiempoinicio"
-                mask="finalizacion"
+                v-model="tiempoinicios"
+                mask="fulltime"
                 label="Ingrese tiempo inicia partida"
                 :rules="['tiempoduracion']"
               >
@@ -145,7 +145,7 @@
                 filled
                 dense
                 style="width: 47%"
-                v-model="tiempo"
+                v-model="tiempoduraciones"
                 mask="fulltime"
                 label="Ingrese la duracion partida"
                 :rules="['fulltime']"
@@ -167,7 +167,7 @@
                 dense
                 style="width: 47%"
                 label="Ingrese la finalizo partida"
-                v-model="timeWithSeconds"
+                v-model="finalizaciones"
                 mask="fulltime"
                 :rules="['fulltime']"
               >
@@ -217,9 +217,31 @@
           </div>
         </div>
         <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn dense color="primary" label="Crear" type="submit" />
-          <q-btn dense color="amber" label="Actualizar" @click="Actualizar" />
-          <q-btn dense color="red" label="Borrar" @click="Delete" />
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
+          
         </div>
         <br />
         <q-table

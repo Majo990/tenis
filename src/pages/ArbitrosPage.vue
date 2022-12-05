@@ -56,6 +56,13 @@
                       dense
                       type="number"
                       v-model="arbitro.edad"
+                      min="18"
+                      :rules="[
+                        (val) =>
+                          (val && val.length >  0 && val>=18) ||
+                          'Edad incorrecta',
+                          'Edad correcta',
+                      ]"
                     />
                   </div>
                 </div>
@@ -145,7 +152,7 @@
                       mask="date"
                       dense
                       :rules="['date']"
-                   
+
                     >
                       <template v-slot:append>
                         <q-icon name="event" class="cursor-pointer">

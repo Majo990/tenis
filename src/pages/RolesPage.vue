@@ -30,30 +30,34 @@
               </div>
             </div>
           </div>
+
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn
               dense
               color="primary"
               label="Crear"
               type="submit"
+              icon="fa-solid fa-folder-plus"
               :disable="botonbloqueocrear"
             />
             <q-btn
               dense
               color="amber"
-              label="Actualizar"
+              label="Editar"
               @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
               :disable="botonbloqueoactualizar"
             />
-
             <q-btn
               dense
               color="red"
               label="Borrar"
               @click="Delete"
+              icon="fa-solid fa-trash-can"
               :disable="botonbloqueoeliminar"
             />
           </div>
+         <br/>
         </q-form>
 
         <q-table
@@ -89,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive,computed } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getRoles,
   crearRoles,

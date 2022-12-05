@@ -24,205 +24,213 @@
                     ]"
                     :onkeydown="onkeyDown"
                   />
+                </div>
+                <div>
+                  <label
+                    >Ingrese Apellido Entrenador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="entrenador.apellido"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese el Apellido entrenador',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
 
-                  <div>
-                    <label
-                      >Seleccione nombre jugadores
-                      <span class="text-red">*</span></label
-                    >
-                    <q-select
-                      filled
-                      v-model="entrenador.id_jugadores"
-                      map-options
-                      emit-value
-                      option-value="id"
-                      option-label="nombre"
-                      :options="jugadores"
-                      dense
-                      lazy-rules
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      >Ingrese Apellido Entrenador
-                      <span class="text-red">*</span></label
-                    >
-                    <q-input
-                      filled
-                      v-model="entrenador.apellido"
-                      lazy-rules
-                      dense
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su Nombre',
-                      ]"
-                      :onkeydown="onkeyDown"
-                    />
-                  </div>
-
-                  <div class="row justify-between q-gutter-md">
-                    <div>
-                      <label
-                        >Ingrese Edad Entrenador
-                        <span class="text-red">*</span></label
-                      >
-                      <q-input
-                        filled
-                        type="number"
-                        v-model="entrenador.edad"
-                        dense
-                        lazy-rules
-                        :rules="[
-                          (val) =>
-                            (val !== null && val !== '') ||
-                            'Please type your age',
-                          (val) =>
-                            (val > 1 && val < 80) ||
-                            'Por favor selecione su edad',
-                        ]"
-                      />
-                    </div>
-
-                    <div>
-                      <label
-                        >Seleccione su sexo Entrenador
-                        <span class="text-red">*</span></label
-                      >
-                      <q-select
-                        filled
-                        v-model="entrenador.sexo"
-                        dense
-                        :options="sexos"
-                        lazy-rules
-                        :rules="[
-                          (val) =>
-                            (val && val.length > 0) ||
-                            'Por favor seleccione su pais',
-                        ]"
-                      />
-                    </div>
-
-                    <div class="row justify-between q-gutter-md">
-                      <div>
-                        <label
-                          >Ingrese Fecha-Nacimiento Entrenador
-                          <span class="text-red">*</span></label
-                        >
-                        <q-input
-                          filled
-                          v-model="entrenador.fecha_nacimiento"
-                          mask="date"
-                          dense
-                          :rules="['date']"
-                          lazy-rules
-                        >
-                          <template v-slot:append>
-                            <q-icon name="event" class="cursor-pointer">
-                              <q-popup-proxy
-                                cover
-                                transition-show="scale"
-                                transition-hide="scale"
-                              >
-                                <q-date v-model="date">
-                                  <div class="row items-center justify-end">
-                                    <q-btn
-                                      v-close-popup
-                                      label="Close"
-                                      color="primary"
-                                      flat
-                                    />
-                                  </div>
-                                </q-date>
-                              </q-popup-proxy>
-                            </q-icon>
-                          </template>
-                        </q-input>
-
-                        <div>
-                          <label
-                            >Ingrese pais entrenador
-                            <span class="text-red">*</span></label
-                          >
-                          <q-select
-                            filled
-                            v-model="entrenador.nombre_paises"
-                            dense
-                            :options="paises"
-                            emit-value
-                            option-value="country"
-                            option-label="country"
-                          />
-                          <div>
-                            <label
-                              >Ingrese ciudad entrenador
-                              <span class="text-red"></span
-                            ></label>
-                            <q-select
-                              filled
-                              dense
-                              v-model="entrenador.nombre_ciudades"
-                              :options="ciudades"
-                              lazy-rules
-                              :rules="[
-                                (val) =>
-                                  (val && val.length > 0) ||
-                                  'Por favor ingrese su Ciudad',
-                              ]"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  <label
+                    >Seleccione nombre jugador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="entrenador.id_jugadores"
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="jugadores"
+                    dense
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione nombre jugadores',
+                    ]"
+                  />
                 </div>
               </div>
 
-              <div class="col-6 q-gutter-md text-center items-center">
-                <q-btn
-                  dense
-                  color="primary"
-                  label="Crear"
-                  type="submit"
-                  icon="fa-solid fa-folder-plus"
-                  :disable="botonbloqueocrear"
-                />
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese Edad Entrenador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    type="number"
+                    v-model="entrenador.edad"
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0 && val >= 18) ||
+                        'Edad incorrecta',
+                      'Edad correcta',
+                    ]"
+                  />
+                </div>
 
-                <q-btn
-                  dense
-                  color="amber"
-                  label="Editar"
-                  @click="Actualizar"
-                  icon="fa-solid fa-pen-to-square"
-                  :disable="botonbloqueoactualizar"
-                />
-                <q-btn
-                  dense
-                  color="red"
-                  label="Borrar"
-                  @click="Delete"
-                  icon="fa-solid fa-trash-can"
-                  :disable="botonbloqueoeliminar"
-                />
+                <div>
+                  <label
+                    >Seleccione su sexo Entrenador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="entrenador.sexo"
+                    dense
+                    :options="sexos"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione el sexo ',
+                    ]"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Ingrese Fecha-Nacimiento Entrenador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="entrenador.fecha_nacimiento"
+                    mask="date"
+                    dense
+                    :rules="['date']"
+                    lazy-rules
+                  >
+                    <template v-slot:append>
+                      <q-icon name="event" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-date v-model="date">
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+
+                <div class="row justify-between q-gutter-md">
+                  <div>
+                    <label
+                      >Ingrese su Pais <span class="text-red">*</span></label
+                    >
+                    <q-select
+                      filled
+                      v-model="entrenador.nombre_paises"
+                      dense
+                      :options="paises"
+                      map-options
+                      emit-value
+                      option-value="country"
+                      option-label="country"
+                      lazy-rules
+                      :rules="[
+                        (val) =>
+                          (val && val.length > 0) ||
+                          'Por favor seleccione su pais',
+                      ]"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      >Ingrese su Ciudad <span class="text-red"></span
+                    ></label>
+                    <q-select
+                      filled
+                      dense
+                      v-model="entrenador.nombre_ciudades"
+                      :options="ciudades"
+                      label="Seleccione  su  Ciudad"
+                      lazy-rules
+                      :rules="[
+                        (val) =>
+                          (val && val.length > 0) ||
+                          'Por favor ingrese su Ciudad',
+                      ]"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <br />
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          separator="cell"
-          dense
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        >
-        </q-table>
       </q-form>
+
+      <div class="col-6 q-gutter-md text-center items-center">
+        <q-btn
+          dense
+          color="primary"
+          label="Crear"
+          type="submit"
+          icon="fa-solid fa-folder-plus"
+          :disable="botonbloqueocrear"
+        />
+
+        <q-btn
+          dense
+          color="amber"
+          label="Editar"
+          @click="Actualizar"
+          icon="fa-solid fa-pen-to-square"
+          :disable="botonbloqueoactualizar"
+        />
+        <q-btn
+          dense
+          color="red"
+          label="Borrar"
+          @click="Delete"
+          icon="fa-solid fa-trash-can"
+          :disable="botonbloqueoeliminar"
+        />
+      </div>
     </div>
+
+    <br />
+    <q-table
+      :rows="rows"
+      :columns="columns"
+      separator="cell"
+      dense
+      row-key="id"
+      selection="single"
+      v-model:selected="selected"
+      @selection="handleSelection"
+    >
+    </q-table>
   </q-page>
 </template>
 
@@ -354,8 +362,8 @@ function handleSelection(details) {
   botonbloqueoactualizar.value = true;
   botonbloqueoeliminar.value = true;
   if (details.added) {
-    botonbloqueoactualizar.value=false;
-    botonbloqueoeliminar.value=false;
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 

@@ -65,13 +65,12 @@
                 dense
                 label="Selecione Edad"
                 style="width: 47%"
-                lazy-rules
                 :rules="[
-                  (val) =>
-                    (val !== null && val !== '') || 'Please type your age',
-                  (val) =>
-                    (val > 1 && val < 80) || 'Por favor selecione su edad',
-                ]"
+                        (val) =>
+                          (val && val.length >  0 && val>=18) ||
+                          'Edad incorrecta',
+                          'Edad correcta',
+                      ]"
               />
             </div>
 
@@ -252,9 +251,30 @@
             <br />
 
             <div class="col-6 q-gutter-md text-center items-center">
-              <q-btn dense color="primary" label="Crear"  type="submit"/>
-              <q-btn dense color="amber" label="Actualizar"  @click="Actualizar"   />
-              <q-btn dense color="red" label="Borrar"  @click="Delete"  />
+              <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
 
               <br />
             </div>
