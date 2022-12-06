@@ -2,6 +2,7 @@
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
+        <q-card flat class="marco">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
@@ -14,7 +15,6 @@
                 <q-input
                   filled
                   v-model="comportamiento.descripcion"
-                  label="Ingrese su Descripcion "
                   lazy-rules
                   dense
                   :rules="[
@@ -25,9 +25,10 @@
                 />
               </div>
 
+
               <div>
                 <label
-                  >Seleccione Nombre Jugadores <span class="text-red"></span
+                  >Seleccione Nombre Jugadores <span class="text-red">*</span
                 ></label>
                 <q-select
                   filled
@@ -41,7 +42,7 @@
                   lazy-rules
                 />
               </div>
-            </div>
+         </div>
 
             <div class="row justify-between q-gutter-md">
 
@@ -66,7 +67,7 @@
 
               <div>
                 <label
-                  >Seleccione sancion  <span class="text-red"></span
+                  >Seleccione sancion  <span class="text-red">*</span
                 ></label>
                 <q-select
                   filled
@@ -83,7 +84,9 @@
               </div>
             </div>
           </div>
-
+        </q-card>
+      </div>
+        </q-form>
         <br />
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
@@ -123,8 +126,7 @@
           >
           </q-table>
         </div>
-      </div>
-    </q-form>
+
   </q-page>
 </template>
 
@@ -243,5 +245,15 @@ const botonbloqueoeliminar = ref(true);
 .q-table {
   color: rgb(26, 25, 24);
   background-color: #f3eb77;
+}
+
+.marco {
+  border-style: solid;
+  border-radius: 5%;
+  border-width: 1px;
+  padding: 30px;
+  padding-right: 150px;
+  height: 50%;
+  max-width:48%;
 }
 </style>

@@ -164,29 +164,17 @@ function handleSelection(details) {
     descripcionrol: null,
     descripcion: null,
   };
-  botonbloqueoactualizar.value = true;
-  botonbloqueoeliminar.value = true;
+ 
   if (details.added) {
-    botonbloqueoactualizar.value = false;
-    botonbloqueoeliminar.value = false;
+
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(rol, rowSelected);
 }
 
-const botonbloqueocrear = computed(() => {
-  if (
-    Object.keys(rol).every((key) => rol[key] && rol[key] !== "") &&
-    botonbloqueoactualizar.value
-  )
-    return false;
-  return true;
-});
 
-const botonbloqueoactualizar = ref(true);
 
-const botonbloqueoeliminar = ref(true);
 </script>
 
 <style></style>

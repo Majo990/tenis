@@ -21,19 +21,9 @@
         <q-toolbar-title> {{ $route.path.replace("/", "") }} </q-toolbar-title>
 
         <div class="row q-gutter-md justify-center text-center">
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/img/avatar.png" />
-          </q-avatar>
-
           <span> usuario1 </span>
 
-          <q-btn
-            flat
-            round
-            dense
-            icon="logout"
-            to="/login"
-          />
+          <q-btn flat round dense icon="logout" to="/login" />
         </div>
       </q-toolbar>
     </q-header>
@@ -176,7 +166,6 @@ const linksList = [
     icon: "mdi-page-layout-body",
     link: "/Permisos",
   },
-
 
   {
     title: "Perfiles",

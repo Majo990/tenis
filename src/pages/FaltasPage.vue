@@ -34,29 +34,19 @@
                   >Ingrese fecha_hora falta
                   <span class="text-red">*</span></label
                 >
-                <q-input
-                  filled
-                  dense
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  v-model="falta.fecha_hora"
-                  mask="date"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su fecha',
-                  ]"
-                >
-                  <template v-slot:append>
+
+                <q-input filled v-model="falta.fecha_hora" dense >
+                  <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer">
                       <q-popup-proxy
                         cover
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-date v-model="fecha">
+                        <q-date
+                          v-model="falta.fecha_hora"
+                          mask="YYYY-MM-DD HH:mm"
+                        >
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -69,35 +59,75 @@
                       </q-popup-proxy>
                     </q-icon>
                   </template>
+
+                  <template v-slot:append>
+                    <q-icon name="access_time" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-time
+                          v-model="falta.fecha_hora"
+                          mask="YYYY-MM-DD HH:mm"
+                          format24h
+                        >
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            />
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
                 </q-input>
               </div>
             </div>
           </div>
         </div>
 
-
         <div>
-            <label
-              >Seleccione Nombre Jugadores
-              <span class="text-red">*</span></label
+          <label
+            >Seleccione Nombre Jugadores <span class="text-red">*</span></label
+          >
+          <q-select
+            filled
+            dense
+            v-model="falta.id_jugadores"
+            map-options
+            emit-value
+            option-value="id"
+            option-label="nombre"
+            style="width: 12%"
+            :options="jugadores"
+          />
+
+
+          <label
+              >Seleccione Nombre Arbitros <span class="text-red">*</span></label
             >
             <q-select
               filled
-              dense
-              v-model="falta.id_jugadores"
+              v-model="falta.id_arbitros"
               map-options
               emit-value
               option-value="id"
               option-label="nombre"
-              style="width: 12%"
-              :options="jugadores"
+              dense
+              :options="arbitros"
             />
 
+            </div>
+            </div>
 
-                </div>
 
-                <div class="row justify-between q-gutter-md">
-                 <div>
+
+        <div class="row justify-between q-gutter-md">
+          <div>
             <label
               >Seleccione Nombre Arbitros <span class="text-red">*</span></label
             >
@@ -112,24 +142,24 @@
               :options="arbitros"
             />
 
-                 <div>
-            <label
-              >Seleccione Nombre Partidas <span class="text-red">*</span></label
-            >
-            <q-select
-              filled
-              v-model="falta.id_partidas"
-              dense
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              :options="partidas"
-            />
+            <div>
+              <label
+                >Seleccione Nombre Partidas
+                <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="falta.id_partidas"
+                dense
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="partidas"
+              />
+            </div>
           </div>
         </div>
-        </div>
-
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
@@ -170,8 +200,8 @@
         >
         </q-table>
       </q-form>
-    </q-page>
-  </div>
+</q-page>
+
 </template>
 
 <script setup>
@@ -216,14 +246,7 @@ const columns = [
     field: "nombre_arbitros",
     sortable: true,
   },
-  /*
-  {
-    name: "id_historial_partidas",
-    align: "center",
-    label: "Nombre-Historial-Partidas",
-    field: "nombre_historial_partidas",
-    sortable: true,
-  },*/
+
   {
     name: "id_partidas",
     align: "center",
@@ -233,7 +256,7 @@ const columns = [
   },
 ];
 const rows = ref([]);
-const fecha = ref(null);
+const fecha_hora= ref('2019-02-01 12:44');
 const jugadores = ref([]);
 const arbitros = ref([]);
 const partidas = ref([]);

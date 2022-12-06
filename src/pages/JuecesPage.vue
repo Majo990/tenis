@@ -7,166 +7,225 @@
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
-              <q-input
-                filled
-                dense
-                v-model="juez.nombre"
-                label="Ingrese el Nombre Juez "
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Nombre Juez',
-                ]"
-                style="width: 47%"
-                :onkeydown="onkeyDown"
-              />
+              <div>
+                <label
+                  >Ingrese nombre Juez <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="juez.nombre"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su Nombre Juez',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
 
-              <q-input
-                filled
-                v-model="juez.apellido"
-                label="Ingrese su Apellido "
-                lazy-rules
-                dense
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Apellido',
-                ]"
-                style="width: 47%"
-                :onkeydown="onkeyDown"
-              />
-            </div>
-            <div class="row justify-between q-gutter-md">
-              <q-input
-                dense
-                filled
-                type="number"
-                v-model="juez.edad"
-                label="Selecione Edad"
-                style="width: 47%"
-                :rules="[
-                        (val) =>
-                          (val && val.length >  0 && val>=18) ||
-                          'Edad incorrecta',
-                          'Edad correcta',
-                      ]"
-              />
-              <q-select
-                filled
-                v-model="juez.sexo"
-                dense
-                label="Seleccione su sexo"
-                :options="sexos"
-                style="width: 47%"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor seleccione su pais',
-                ]"
-              />
-              <!-- <div  class="q-pa-md" style="max-width: 300px">-->
-            </div>
-            <div class="row justify-between q-gutter-md">
-              <q-input
-                filled
-                v-model="juez.fecha_nacimiento"
-                mask="date"
-                dense
-                :rules="['date']"
-                style="width: 47%"
-                lazy-rules
-              >
-                <template v-slot:append>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy
-                      cover
-                      transition-show="scale"
-                      transition-hide="scale"
-                    >
-                      <q-date v-model="date">
-                        <div class="row items-center justify-end">
-                          <q-btn
-                            v-close-popup
-                            label="Close"
-                            color="primary"
-                            flat
-                          />
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
+                <div>
+                  <label
+                    >Ingrese apellido Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="juez.apellido"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Apellido',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
 
-              <q-select
-                filled
-                v-model="juez.nombre_paises"
-                dense
-                :options="paises"
-                map-options
-                emit-value
-                option-value="country"
-                option-label="country"
-                label="Seleccione su Pais"
-                style="width: 47%"
-              />
-            </div>
 
-            <div class="row justify-between q-gutter-md">
-              <q-select
-                filled
-                dense
-                v-model="juez.nombre_ciudades"
-                :options="ciudades"
-                label="Ingrese su  Ciudad"
-                style="width: 47%"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                ]"
-              />
+                
+              </div>
+
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese apellido Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="juez.apellido"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Apellido',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Seleccione la edad del Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    dense
+                    filled
+                    type="number"
+                    v-model="juez.edad"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0 && val >= 18) ||
+                        'Edad incorrecta',
+                      'Edad correcta',
+                    ]"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Seleccione su sexo del Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="juez.sexo"
+                    dense
+                    :options="sexos"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione su sexo',
+                    ]"
+                  />
+                </div>
+                <!-- <div  class="q-pa-md" style="max-width: 300px">-->
+              </div>
+
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Seleccione su Fecha-Nacimiento Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="juez.fecha_nacimiento"
+                    mask="date"
+                    dense
+                    :rules="['date']"
+                    lazy-rules
+                  >
+                    <template v-slot:append>
+                      <q-icon name="event" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-date
+                            v-model="juez.fecha_nacimiento"
+                            mask="YYYY-MM-DD"
+                          >
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+
+                <div>
+                  <label
+                    >Seleccione su Pais del Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="juez.nombre_paises"
+                    dense
+                    :options="paises"
+                    map-options
+                    emit-value
+                    option-value="country"
+                    option-label="country"
+                  />
+                </div>
+              </div>
+
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Seleccione su ciudad del Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    dense
+                    v-model="juez.nombre_ciudades"
+                    :options="ciudades"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Ciudad',
+                    ]"
+                  />
+                </div>
+              </div>
             </div>
           </div>
+          <div class="col-6 q-gutter-md text-center items-center">
+            <q-btn
+              dense
+              color="primary"
+              label="Crear"
+              type="submit"
+              icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Editar"
+              @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
+            />
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
+            />
+          </div>
+          <br />
+          <q-table
+            :rows="rows"
+            :columns="columns"
+            separator="cell"
+            dense
+            row-key="id"
+            selection="single"
+            v-model:selected="selected"
+            @selection="handleSelection"
+          >
+          </q-table>
         </div>
-        <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn
-            dense
-            color="primary"
-            label="Crear"
-            type="submit"
-            icon="fa-solid fa-folder-plus"
-            :disable="botonbloqueocrear"
-          />
-          <q-btn
-            dense
-            color="amber"
-            label="Editar"
-            @click="Actualizar"
-            icon="fa-solid fa-pen-to-square"
-            :disable="botonbloqueoactualizar"
-          />
-          <q-btn
-            dense
-            color="red"
-            label="Borrar"
-            @click="Delete"
-            icon="fa-solid fa-trash-can"
-            :disable="botonbloqueoeliminar"
-          />
-        </div>
-        <br />
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          separator="cell"
-          dense
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        >
-        </q-table>
       </div>
     </q-form>
   </q-page>

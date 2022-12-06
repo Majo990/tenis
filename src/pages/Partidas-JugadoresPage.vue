@@ -15,7 +15,7 @@
             </template>
           </q-input>
 
-          <!---<q-badge color="teal">Model: "{{ search }}"</q-badge>--->
+
         </div>
       </div>
     </div>
@@ -24,33 +24,41 @@
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
-            <q-select
-            filled
-              v-model="partidajugador.id_partidas"
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              :options="partidas"
-              style="width: 47%"
-              dense
-              lazy-rules
-              label="Seleccione Nombre Partidas "
-            />
+            <div>
+              <label
+                >Seleccione su el Nombre Partidas
+                <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="partidajugador.id_partidas"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="partidas"
+                dense
+                lazy-rules
+              />
+            </div>
 
-            <q-select
-              filled
-              v-model="partidajugador.id_jugadores"
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              :options="jugadores"
-              style="width: 47%"
-              dense
-              lazy-rules
-              label="Seleccione Nombre Jugadores "
-            />
+            <div>
+              <label
+                >Seleccione el Nombre Jugador
+                <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="partidajugador.id_jugadores"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="jugadores"
+                dense
+                lazy-rules
+              />
+            </div>
           </div>
           <br />
           <div class="col-6 q-gutter-md text-center items-center">
@@ -89,6 +97,7 @@
       selection="single"
       v-model:selected="selected"
       @selection="handleSelection"
+      :filter="filter"
     >
     </q-table>
   </q-page>
@@ -122,13 +131,12 @@ const columns = [
 ];
 
 const rows = ref([]);
-const filter = ref([]);
+const filter = ref('');
 const jugadores = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
 
 const partidajugador = reactive({
-
   id_partidas: null,
   id_jugadores: null,
 });
@@ -158,10 +166,10 @@ function handleSelection(details) {
   };
 
   if (details.added) {
-    Object.assign(rowSelected,details.rows[0]);
+    Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(partidajugador,rowSelected);
+  Object.assign(partidajugador, rowSelected);
 }
 </script>
 <style>

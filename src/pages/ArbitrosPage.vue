@@ -2,11 +2,11 @@
   <div class="q-pa-md">
     <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <div class="q-pa-md">
-          <q-card flat class="marco col-6">
+        <div class="q-pa-md ">
+          <q-card flat class="marco">
             <strong>Formulario </strong>
             <div class="row">
-              <div class="col-6">
+              <div class="">
                 <div class="row justify-between q-gutter-md">
                   <div>
                     <label
@@ -148,7 +148,7 @@
                     >
                     <q-input
                       filled
-                      v-model="date"
+                      v-model="arbitro.fecha_nacimiento"
                       mask="date"
                       dense
                       :rules="['date']"
@@ -161,7 +161,7 @@
                             transition-show="scale"
                             transition-hide="scale"
                           >
-                            <q-date v-model="date">
+                            <q-date v-model="arbitro.fecha_nacimiento" mask="YYYY-MM-DD">
                               <div class="row items-center justify-end">
                                 <q-btn
                                   v-close-popup
@@ -439,5 +439,6 @@ const botonbloqueoeliminar = ref(true);
   padding: 30px;
   padding-right: 150px;
   height: 50%;
+  max-width: 54%;
 }
 </style>

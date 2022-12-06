@@ -1,11 +1,11 @@
 <template>
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
-      <div class="q-pa-md">
+      <div class="q-pa-md  ">
         <strong>Formulario </strong>
         <div class="row">
-          <div class="col-6">
-            <div class="row justify-between q-gutter-md">
+         <!--<q-card flat class="marco">-->
+            <div class="row justify-between q-gutter-md ">
               <div>
                 <label
                   >Ingrese nombre equipo <span class="text-red">*</span></label
@@ -41,7 +41,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-date v-model="date">
+                        <q-date v-model="equipo.fecha_fundo" mask="YYYY-MM-DD">
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -56,12 +56,12 @@
                   </template>
                 </q-input>
               </div>
-            </div>
-            <div class="row justify-between q-gutter-md">
+
               <div>
                 <label
-                  >Seleccione nombre Jugadores <span class="text-red"></span
-                ></label>
+                  >Seleccione nombre Jugadores
+                  <span class="text-red">*</span></label
+                >
                 <q-select
                   filled
                   v-model="equipo.id_jugadores"
@@ -74,10 +74,14 @@
                   lazy-rules
                 />
               </div>
+            </div>
+
+            <div class="row justify-between q-gutter-md">
               <div>
                 <label
-                  >Seleccione entrenadores <span class="text-red"></span
-                ></label>
+                  >Seleccione entrenadores
+                  <span class="text-red">*</span></label
+                >
                 <q-select
                   filled
                   v-model="equipo.id_entrenadores"
@@ -90,13 +94,11 @@
                   lazy-rules
                 />
               </div>
-            </div>
-            <br />
-            <div class="row justify-between q-gutter-md">
+
               <div>
                 <label
-                  >Ingrese su descripcion <span class="text-red"></span
-                ></label>
+                  >Ingrese su descripcion <span class="text-red">*</span></label
+                >
                 <q-input
                   v-model="equipo.descripcion"
                   filled
@@ -125,6 +127,8 @@
                 />
               </div>
             </div>
+            <br />
+            <div class="row justify-between q-gutter-md"></div>
 
             <div class="row justify-between q-gutter-md">
               <div>
@@ -143,6 +147,21 @@
                       'Por favor ingrese su IndumentariaUniforme',
                   ]"
                   :onkeydown="onkeyDown"
+                />
+              </div>
+
+              <div>
+                <label>Ingrese su apodo <span class="text-red">*</span></label>
+                <q-input
+                  dense
+                  filled
+                  v-model="equipo.apodos"
+                  :onkeydown="onkeyDown"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor ingrese su Apodos',
+                  ]"
                 />
               </div>
 
@@ -168,21 +187,6 @@
             </div>
             <div class="row justify-between q-gutter-md">
               <div>
-                <label>Ingrese su apodo <span class="text-red">*</span></label>
-                <q-input
-                  dense
-                  filled
-                  v-model="equipo.apodos"
-                  :onkeydown="onkeyDown"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Apodos',
-                  ]"
-                />
-              </div>
-
-              <div>
                 <label
                   >Seleccione nombre estadios
                   <span class="text-red">*</span></label
@@ -199,37 +203,39 @@
                   lazy-rules
                 />
               </div>
+
+              <div>
+                <label
+                  >Seleccione su pais <span class="text-red">*</span></label
+                >
+
+                <q-select
+                  filled
+                  v-model="equipo.nombre_paises"
+                  dense
+                  :options="paises"
+                  map-options
+                  emit-value
+                  option-value="country"
+                  option-label="country"
+                />
+              </div>
+
+              <div>
+                <label>Seleccione ciudad <span class="text-red">*</span></label>
+                <q-select
+                  filled
+                  dense
+                  v-model="equipo.nombre_ciudades"
+                  :options="ciudades"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                  ]"
+                />
+              </div>
             </div>
-          </div>
-
-          <div>
-            <label>Seleccione su pais <span class="text-red">*</span></label>
-
-            <q-select
-              filled
-              v-model="equipo.nombre_paises"
-              dense
-              :options="paises"
-              map-options
-              emit-value
-              option-value="country"
-              option-label="country"
-            />
-          </div>
-
-          <div>
-            <label>Seleccione ciudad <span class="text-red">*</span></label>
-            <q-select
-              filled
-              dense
-              v-model="equipo.nombre_ciudades"
-              :options="ciudades"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-              ]"
-            />
           </div>
 
           <div class="col-6 q-gutter-md text-center items-center">
@@ -268,8 +274,11 @@
           >
           </q-table>
         </div>
-      </div>
+
+
     </q-form>
+
+
   </q-page>
 </template>
 

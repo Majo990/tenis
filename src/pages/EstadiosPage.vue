@@ -134,11 +134,6 @@
                     ]"
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="row justify-between q-gutter-md">
         <div>
@@ -182,7 +177,6 @@
               dense
               v-model="estadio.nombre_ciudades"
               :options="ciudades"
-              label="Seleccione  su  Ciudad"
               lazy-rules
               :rules="[
                 (val) =>
@@ -192,6 +186,14 @@
           </div>
         </div>
       </div>
+
+
+    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn

@@ -29,13 +29,19 @@
         <div>
           <label>Verifique su contraseña <span class="text-red">*</span></label>
           <q-input
-            dense
             v-model="usuario.contraseña"
             filled
+            dense
             :type="isPwd ? 'password' : 'text'"
             hint="Password with toggle"
           >
-            <template v-slot:append> </template>
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
           </q-input>
         </div>
 

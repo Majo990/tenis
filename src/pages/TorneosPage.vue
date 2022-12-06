@@ -4,94 +4,118 @@
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
         <div class="row justify-between q-gutter-md">
-          <q-input
-            dense
-            filled
-            v-model="torneo.fecha"
-            mask="date"
-            :rules="['date']"
-            style="width: 47%"
-          >
-            <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy
-                  cover
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
-                  <q-date v-model="date">
-                    <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="primary" flat />
-                    </div>
-                  </q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-          <q-select
-            filled
-            v-model="torneo.id_estadios"
-            dense
-            map-options
-            emit-value
-            option-value="id"
-            option-label="nombre"
-            :options="estadio"
-            style="width: 348px"
-            label="Seleccione el Estadio "
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val !== null && val !== '') ||
-                'Por favor seleccione su estadio',
-              (val) =>
-                (val > 1 && val < 80) || 'Por favor selecione su estadio',
-            ]"
-          />
+          <div>
+            <label
+              >Seleccione su fecha Torneo <span class="text-red">*</span></label
+            >
+            <q-input
+              dense
+              filled
+              v-model="torneo.fecha"
+              mask="date"
+              :rules="['date']"
+            >
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date v-model="torneo.fecha" mask="YYYY-MM-DD">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+
+          <div>
+            <label>Seleccione el Estadio <span class="text-red">*</span></label>
+            <q-select
+              filled
+              v-model="torneo.id_estadios"
+              dense
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              :options="estadio"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Descripcion',
+              ]"
+            />
+          </div>
         </div>
 
         <div class="row justify-between q-gutter-md">
-          <q-input
-            filled
-            dense
-            v-model="torneo.nombre"
-            label="Ingrese su Nombre  Torneo "
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'Por favor ingrese el Nombre Torneo',
-            ]"
-            style="width: 47%"
-            :onkeydown="onkeyDown"
-          />
+          <div>
+            <label>
+             Ingrese  el Nombre Torneo <span class="text-red">*</span></label
+            >
 
-          <q-select
-            filled
-            v-model="torneo.nombre_paises"
-            dense
-            :options="paises"
-            map-options
-            emit-value
-            option-value="country"
-            option-label="country"
-            label="Seleccione su Pais"
-            style="width: 47%"
-          />
+            <q-input
+              filled
+              dense
+              v-model="torneo.nombre"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) ||
+                  'Por favor ingrese el Nombre Torneo',
+              ]"
+              :onkeydown="onkeyDown"
+            />
+          </div>
+          <div>
+            <label>
+              Seleccione  el Nombre Pais Torneo
+              <span class="text-red">*</span></label
+            >
+
+            <q-select
+              filled
+              v-model="torneo.nombre_paises"
+              dense
+              :options="paises"
+              map-options
+              emit-value
+              option-value="country"
+              option-label="country"
+
+            />
+          </div>
         </div>
 
         <div class="row justify-between q-gutter-md">
-          <q-select
-            filled
-            dense
-            v-model="torneo.nombre_ciudades"
-            :options="ciudades"
-            label="Seleccione  su  Ciudad"
-            style="width: 47%"
-            lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-            ]"
-          />
+          <div>
+            <label>
+              Seleccione el Ciudad Torneo <span class="text-red">*</span></label
+            >
+
+            <q-select
+              filled
+              dense
+              v-model="torneo.nombre_ciudades"
+              :options="ciudades"
+
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+              ]"
+            />
+          </div>
         </div>
       </div>
 
@@ -195,7 +219,6 @@ const date = ref("2020/02/01");
 const selected = ref([]);
 
 const torneo = reactive({
-  
   fecha: null,
   id_estadios: null,
   nombre: null,
