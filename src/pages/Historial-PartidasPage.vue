@@ -80,7 +80,6 @@
                         <q-time
                           v-model="historialpartida.fecha_hora"
                           mask="YYYY-MM-DD HH:mm"
-                          format24h
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -119,15 +118,17 @@
                 <label
                   >Seleccione Puntaje <span class="text-red">*</span></label
                 >
-                <q-select
-                  dense
+                <q-input
                   filled
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
+                  dense
+                  type="number"
                   v-model="historialpartida.puntaje"
-                  :options="puntajes"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor seleccione su puntaje ',
+                  ]"
                 />
               </div>
 
@@ -206,7 +207,6 @@
                   >Seleccione su Nombre-Partidas
                   <span class="text-red">*</span></label
                 >
-
                 <q-select
                   filled
                   map-options
@@ -313,8 +313,9 @@ const columns = [
     align: "center",
     label: "Fecha-Hora",
     field: "fecha_hora",
+    format: (val, row) => date.formatDate(timeStamp, "YYYY-MM-DDTHH:mm:ss.A"),
     sortable: true,
-  }, //ya esta
+  }, //ya esta    format: (val, row) => date.formatDate(timeStamp, "YYYY-MM-DDTHH:mm:ss.A"),
   {
     name: "id_rondas",
     align: "center",
@@ -377,7 +378,6 @@ const rows = ref([]);
 const jugadores = ref([]);
 const rondas = ref([]);
 const filter = ref("");
-const date = ref("2019-02-01 12:44");
 
 const eventos = ref(null);
 const jueces = ref(null);
@@ -385,9 +385,8 @@ const premios = ref([]);
 const faltas = ref([]);
 const partidas = ref([]);
 const arbitros = ref([]);
-
 const selected = ref([]);
-const puntajes = ref([]);
+
 
 onMounted(async () => {
   rows.value = await getHistorialPartidas();

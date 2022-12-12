@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-
         <q-form @submit="onSubmit" class="q-gutter-md">
           <q-card flat >
           <div class="col-6 q-gutter-md text-center items-center">

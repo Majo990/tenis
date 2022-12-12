@@ -36,6 +36,8 @@
                 </q-icon>
               </template>
             </q-input>
+
+
           </div>
 
           <div>
@@ -52,7 +54,7 @@
               lazy-rules
               :rules="[
                 (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Descripcion',
+                  (val && val.length > 0) || 'Por favor seleccione estadio ',
               ]"
             />
           </div>
@@ -63,7 +65,6 @@
             <label>
              Ingrese  el Nombre Torneo <span class="text-red">*</span></label
             >
-
             <q-input
               filled
               dense
@@ -79,7 +80,7 @@
           </div>
           <div>
             <label>
-              Seleccione  el Nombre Pais Torneo
+              Seleccione el Nombre Pais Torneo
               <span class="text-red">*</span></label
             >
 
@@ -208,7 +209,7 @@ const columns = [
     sortable: true,
   },
   {
-    name: "nombre_ciudades",
+    name: "id_ciudades",
     align: "center",
     label: "Nombre-Ciudades",
     field: "nombre_ciudades",
@@ -220,8 +221,6 @@ const estadio = ref([]);
 const rows = ref([]);
 const paises = ref([]);
 const selected = ref([]);
-
-
 
 
 const torneo = reactive({
@@ -256,11 +255,11 @@ onMounted(async () => {
 
 function handleSelection(details) {
   let rowSelected = {
-    fecha: null,
-    id_estadios: null,
-    nombre: null,
-    nombre_paises: null,
-    nombre_ciudades: null,
+    fecha:null,
+    id_estadios:null,
+    nombre:null,
+    nombre_paises:null,
+    nombre_ciudades:null,
   };
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);

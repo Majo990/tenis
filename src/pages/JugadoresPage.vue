@@ -87,7 +87,6 @@
                   ]"
                 />
               </div>
-
               <div>
                 <label
                   >Selecione su sexo Jugador
@@ -121,12 +120,6 @@
                       (val > 1 && val < 80) || 'Por favor selecione arbitro',
                   ]"
                 />
-
-
-              </div>
-
-              <div class="row justify-between q-gutter-md">
-
               </div>
 
               <div class="row justify-between q-gutter-md">
@@ -173,28 +166,34 @@
               </div>
 
               <div class="row justify-between q-gutter-md">
-                <q-select
-                  filled
-                  v-model="jugador.id_sanciones"
-                  dense
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="sanciones"
-                  style="width: 348px"
-                  label="Seleccione NombreSancion "
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor seleccione su nombresancion',
-                    (val) =>
-                      (val > 1 && val < 80) ||
-                      'Por favor selecione su nombre-sancion',
-                  ]"
-                />
+                <div>
+                  <label
+                    >Selecione Nombre-Sancion
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="jugador.id_sanciones"
+                    dense
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="sanciones"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val !== null && val !== '') ||
+                        'Por favor seleccione su nombresancion',
+                      (val) =>
+                        (val > 1 && val < 80) ||
+                        'Por favor selecione su nombre-sancion',
+                    ]"
+                  />
+                </div>
+              </div>
 
+              <div class="row justify-between q-gutter-md">
                 <div>
                   <label
                     >Selecione su Altura <span class="text-red">*</span></label
@@ -217,9 +216,7 @@
                     ]"
                   ></q-input>
                 </div>
-              </div>
 
-              <div class="row justify-between q-gutter-md">
                 <div>
                   <label
                     >Ingrese su Peso Jugador
@@ -255,7 +252,6 @@
                     :options="paises"
                     map-options
                     emit-value
-                    style="width: 348px"
                     option-value="country"
                     option-label="country"
                     lazy-rules
@@ -265,73 +261,73 @@
                         'Por favor seleccione su pais',
                     ]"
                   />
+                </div>
 
-                  <div class="row justify-between q-gutter-md">
-                    <div>
-                      <label
-                        >Ingrese su Ciudad
-                        <span class="text-red">*</span></label
-                      >
-                      <q-select
-                        filled
-                        dense
-                        v-model="jugador.nombre_ciudades"
-                        :options="ciudades"
-                        lazy-rules
-                        :rules="[
-                          (val) =>
-                            (val && val.length > 0) ||
-                            'Por favor ingrese su Ciudad',
-                        ]"
-                      />
-                    </div>
+                <div>
+                  <label
+                    >Ingrese su Ciudad <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    dense
+                    v-model="jugador.nombre_ciudades"
+                    :options="ciudades"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Ciudad',
+                    ]"
+                  />
+                </div>
 
-                    <div class="col-6 q-gutter-md text-center items-center">
-                      <q-btn
-                        dense
-                        color="primary"
-                        label="Crear"
-                        type="submit"
-                        icon="fa-solid fa-folder-plus"
-                        :disable="botonbloqueocrear"
-                      />
-                      <q-btn
-                        dense
-                        color="amber"
-                        label="Editar"
-                        @click="Actualizar"
-                        icon="fa-solid fa-pen-to-square"
-                        :disable="botonbloqueoactualizar"
-                      />
-                      <q-btn
-                        dense
-                        color="red"
-                        label="Borrar"
-                        @click="Delete"
-                        icon="fa-solid fa-trash-can"
-                        :disable="botonbloqueoeliminar"
-                      />
+                <div class="row justify-between q-gutter-md">
+                  <div class="col-6 q-gutter-md text-center items-center">
+                    <q-btn
+                      dense
+                      color="primary"
+                      label="Crear"
+                      type="submit"
+                      icon="fa-solid fa-folder-plus"
+                      :disable="botonbloqueocrear"
+                    />
+                    <q-btn
+                      dense
+                      color="amber"
+                      label="Editar"
+                      @click="Actualizar"
+                      icon="fa-solid fa-pen-to-square"
+                      :disable="botonbloqueoactualizar"
+                    />
+                    <q-btn
+                      dense
+                      color="red"
+                      label="Borrar"
+                      @click="Delete"
+                      icon="fa-solid fa-trash-can"
+                      :disable="botonbloqueoeliminar"
+                    />
 
-                      <q-table
-                        :rows="rows"
-                        :columns="columns"
-                        separator="cell"
-                        dense
-                        row-key="id"
-                        selection="single"
-                        v-model:selected="selected"
-                        @selection="handleSelection"
-                      >
-                      </q-table>
-                    </div>
                   </div>
+
+                  <q-table
+                      :rows="rows"
+                      :columns="columns"
+                      separator="cell"
+                      dense
+                      row-key="id"
+                      selection="single"
+                      v-model:selected="selected"
+                      @selection="handleSelection"
+                    >
+                    </q-table>
                 </div>
               </div>
-</div>
-</div>
-</div>
-</q-form>
-</div>
+            </div>
+          </div>
+        </div>
+      </q-form>
+    </div>
   </q-page>
 </template>
 

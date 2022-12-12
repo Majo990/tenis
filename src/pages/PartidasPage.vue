@@ -75,7 +75,7 @@
 
             <div class="row justify-between q-gutter-md">
               <div>
-                <label>Seleccione Nombre <span class="text-red">*</span></label>
+                <label>Seleccione Nombre Torneo  <span class="text-red">*</span></label>
                 <q-select
                   filled
                   map-options
@@ -149,7 +149,6 @@
                         <q-time
                           v-model="partida.tiempo_inicio"
                           with-seconds
-                          format24h
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -191,7 +190,7 @@
                         <q-time
                           v-model="partida.tiempo_duracion"
                           with-seconds
-                          format24h
+
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -230,7 +229,7 @@
                         <q-time
                           v-model="partida.tiempo_fin"
                           with-seconds
-                          format24h
+
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -309,7 +308,7 @@
   </q-page>
 </template>
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive,computed } from "vue";
 import {
   getPartidas,
   getRondas,
@@ -321,15 +320,9 @@ import {
 } from "../services";
 
 import { date } from "quasar";
-
-const fecha = ref("2020-02-01");
-
 const selected = ref([]);
 const rondas = ref([]);
-
-const tiempo_inicio = ref("04:00:00");
-const tiempo_duracion = ref("00:30:00");
-const tiempo_fin = ref("4:30:00");
+const jugadores =ref([]);
 
 const columns = [
   {
@@ -376,6 +369,8 @@ const columns = [
     align: "center",
     label: "Tiempo_Inicio",
     field: "tiempo_inicio",
+ format24h : (val, row )=> date .format24h(val ,"HH:mm:ss"),
+
     sortable: true,
   },
   {

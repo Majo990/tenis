@@ -75,10 +75,14 @@
                 />
               </div>
             </div>
+<div class="col-6">
 
-            <div class="row justify-between q-gutter-md">
-           <br/>
-              <div >
+</div>
+
+            <div class="
+            row justify-between q-gutter-md">
+
+              <div>
                 <label
                   >Seleccione entrenadores
                   <span class="text-red">*</span></label
@@ -131,6 +135,11 @@
             <br />
             <div class="row justify-between q-gutter-md"></div>
 
+
+
+            <div class="col-6">
+
+</div>
             <div class="row justify-between q-gutter-md">
               <div>
                 <label
@@ -186,6 +195,11 @@
                 />
               </div>
             </div>
+
+
+            <div class="col-6">
+
+</div>
             <div class="row justify-between q-gutter-md">
               <div>
                 <label
@@ -246,6 +260,7 @@
               label="Crear"
               type="submit"
               icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
             />
             <q-btn
               dense
@@ -253,6 +268,7 @@
               label="Editar"
               @click="Actualizar"
               icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
             />
             <q-btn
               dense
@@ -260,6 +276,8 @@
               label="Borrar"
               @click="Delete"
               icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
+
             />
           </div>
           <br />
@@ -448,7 +466,11 @@ function handleSelection(details) {
     nombre_ciudades: null,
   };
 
+  botonbloqueoactualizar.value= true ;
+  botonbloqueoeliminar.value= true ;
   if (details.added) {
+    botonbloqueoactualizar.value=false ;
+  botonbloqueoeliminar.value= false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -467,6 +489,23 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(equipo).every((key) => equipo[key] && equipo[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
+
+
+
+
 </script>
 <style>
 .q-table {

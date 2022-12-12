@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <div class="q-pa-md ">
+        <div class="q-pa-md">
           <q-card flat class="marco">
             <strong>Formulario </strong>
             <div class="row">
@@ -59,9 +59,9 @@
                       min="18"
                       :rules="[
                         (val) =>
-                          (val && val.length >  0 && val>=18) ||
+                          (val && val.length > 0 && val >= 18) ||
                           'Edad incorrecta',
-                          'Edad correcta',
+                        'Edad correcta',
                       ]"
                     />
                   </div>
@@ -104,10 +104,8 @@
                       lazy-rules
                       :rules="[
                         (val) =>
-                          (val !== null && val !== '') ||
-                          'Por favor ingrese altura',
-                        (val) =>
-                          (val > 1 && val < 80) || 'Por favor ingrese altura',
+                          (val && val.length > 0) ||
+                          'Por favor ingrese su altura',
                       ]"
                     ></q-input>
                   </div>
@@ -161,7 +159,10 @@
                             transition-show="scale"
                             transition-hide="scale"
                           >
-                            <q-date v-model="arbitro.fecha_nacimiento" mask="YYYY-MM-DD">
+                            <q-date
+                              v-model="arbitro.fecha_nacimiento"
+                              mask="YYYY-MM-DD"
+                            >
                               <div class="row items-center justify-end">
                                 <q-btn
                                   v-close-popup
@@ -207,7 +208,7 @@
                       dense
                       v-model="arbitro.nombre_ciudades"
                       :options="ciudades"
-                      label="Seleccione  su  Ciudad"
+
                       lazy-rules
                       :rules="[
                         (val) =>
@@ -277,7 +278,7 @@ import {
   deleteArbitros,
 } from "../services";
 
-import { date } from 'quasar'
+import { date } from "quasar";
 
 const columns = [
   {
@@ -328,7 +329,8 @@ const columns = [
     align: "center",
     label: "Fecha_Nacimiento",
     field: "fecha_nacimiento",
-    format: (val, row) => date.formatDate(val, 'DD/MM/YYYY'),
+    format: (val,row) => date.formatDate(val, "DD/MM/YYYY"),
+
     sortable: true,
   },
   {
@@ -351,10 +353,6 @@ const selected = ref([]);
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
-
-
-
-
 
 // can supply only what needed (the rest will be taken from current locale):
 
@@ -435,6 +433,27 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
+
+/*var fecha_nacimiento = date("1930-01-01");
+var fecha_maxima_edad = date("2004-11-31");
+
+
+methods : {
+  edad (fecha_nacimiento)
+  let Nacimiento= moment(fecha_nacimiento);
+  let hoy = moment();
+  let edad= 0 ;
+  if (Nacimiento <hoy ){
+    edad = hoy.diff(Nacimiento, 'years ');
+  }else {
+    console.error("la fecha de nacimiento no puede ser superior ala actual")
+  }
+  return edad ;
+
+}
+
+*/
+
 </script>
 <style lang="scss">
 .marco {

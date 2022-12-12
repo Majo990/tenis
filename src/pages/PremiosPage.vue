@@ -24,6 +24,12 @@
                   :onkeydown="onkeyDown"
                 />
               </div>
+
+              <div class="row justify-between q-gutter-md">
+
+                
+              </div>
+
               <div>
                 <label
                   >Seleccione el Tipo de Premio <span class="text-red"></span

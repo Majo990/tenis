@@ -23,28 +23,6 @@
                   ]"
                   :onkeydown="onkeyDown"
                 />
-
-                <div>
-                  <label
-                    >Ingrese apellido Juez
-                    <span class="text-red">*</span></label
-                  >
-                  <q-input
-                    filled
-                    v-model="juez.apellido"
-                    lazy-rules
-                    dense
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor ingrese su Apellido',
-                    ]"
-                    :onkeydown="onkeyDown"
-                  />
-                </div>
-
-
-
               </div>
 
               <div class="row justify-between q-gutter-md">
@@ -104,6 +82,7 @@
                     ]"
                   />
                 </div>
+
                 <!-- <div  class="q-pa-md" style="max-width: 300px">-->
               </div>
 
@@ -163,9 +142,7 @@
                     option-label="country"
                   />
                 </div>
-              </div>
 
-              <div class="row justify-between q-gutter-md">
                 <div>
                   <label
                     >Seleccione su ciudad del Juez
@@ -185,46 +162,49 @@
                   />
                 </div>
               </div>
+
+              <div class="row justify-between q-gutter-md">
+                <div class="col-6 q-gutter-md text-center items-center">
+                  <q-btn
+                    dense
+                    color="primary"
+                    label="Crear"
+                    type="submit"
+                    icon="fa-solid fa-folder-plus"
+                    :disable="botonbloqueocrear"
+                  />
+                  <q-btn
+                    dense
+                    color="amber"
+                    label="Editar"
+                    @click="Actualizar"
+                    icon="fa-solid fa-pen-to-square"
+                    :disable="botonbloqueoactualizar"
+                  />
+                  <q-btn
+                    dense
+                    color="red"
+                    label="Borrar"
+                    @click="Delete"
+                    icon="fa-solid fa-trash-can"
+                    :disable="botonbloqueoeliminar"
+                  />
+                </div>
+                <br />
+                <q-table
+                  :rows="rows"
+                  :columns="columns"
+                  separator="cell"
+                  dense
+                  row-key="id"
+                  selection="single"
+                  v-model:selected="selected"
+                  @selection="handleSelection"
+                >
+                </q-table>
+              </div>
             </div>
           </div>
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn
-              dense
-              color="primary"
-              label="Crear"
-              type="submit"
-              icon="fa-solid fa-folder-plus"
-              :disable="botonbloqueocrear"
-            />
-            <q-btn
-              dense
-              color="amber"
-              label="Editar"
-              @click="Actualizar"
-              icon="fa-solid fa-pen-to-square"
-              :disable="botonbloqueoactualizar"
-            />
-            <q-btn
-              dense
-              color="red"
-              label="Borrar"
-              @click="Delete"
-              icon="fa-solid fa-trash-can"
-              :disable="botonbloqueoeliminar"
-            />
-          </div>
-          <br />
-          <q-table
-            :rows="rows"
-            :columns="columns"
-            separator="cell"
-            dense
-            row-key="id"
-            selection="single"
-            v-model:selected="selected"
-            @selection="handleSelection"
-          >
-          </q-table>
         </div>
       </div>
     </q-form>
@@ -241,7 +221,7 @@ import {
   deleteJueces,
 } from "../services";
 
-import {date} from 'quasar'
+import { date } from "quasar";
 
 const rows = ref([]);
 const paises = ref([]);
@@ -271,7 +251,7 @@ const columns = [
     label: "Fecha-Nacimiento",
     align: "center",
     field: "fecha_nacimiento",
-    format:(val,row) => date.formatDate(val, 'DD/MM/YYYY'),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
     sortable: true,
   },
   {

@@ -200,8 +200,10 @@
           @selection="handleSelection"
         >
         </q-table>
-   
 </template>
+
+
+
 
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";

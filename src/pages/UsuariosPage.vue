@@ -1,8 +1,10 @@
 <template>
   <div class="q-pa-md">
     <strong>Formulario </strong>
-    <q-form @submit="onSubmit" class="q-gutter-md">
-      <div class="q-gutter-md row items-start">
+
+    <div class="marco">
+    <q-form @submit="onSubmit" class="q-gutter-md" >
+      <div class="q-gutter-md row items-start ">
         <div>
           <label>Ingrese su Usuario <span class="text-red">*</span></label>
           <q-input
@@ -37,7 +39,7 @@
           >
             <template v-slot:append>
               <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
+                :name="isPwd ? 'visibility_off':'visibility'"
                 class="cursor-pointer"
                 @click="isPwd = !isPwd"
               />
@@ -58,6 +60,9 @@
             lazy-rules
           />
         </div>
+      </div>
+      </q-form>
+    </div>
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
             dense
@@ -65,7 +70,7 @@
             label="Crear"
             type="submit"
             icon="fa-solid fa-folder-plus"
-            :disable="botonbloqueocrear"
+
           />
           <q-btn
             dense
@@ -73,7 +78,7 @@
             label="Editar"
             @click="Actualizar"
             icon="fa-solid fa-pen-to-square"
-            :disable="botonbloqueoactualizar"
+
           />
           <q-btn
             dense
@@ -81,7 +86,6 @@
             label="Borrar"
             @click="Delete"
             icon="fa-solid fa-trash-can"
-            :disable="botonbloqueoeliminar"
           />
         </div>
       </div>
@@ -98,12 +102,12 @@
         @selection="handleSelection"
       >
       </q-table>
-    </q-form>
-  </div>
+
+
 </template>
 
 <script setup>
-// import { isAsyncFunction } from "util/types";
+
 import { ref, onMounted, reactive,computed } from "vue";
 import {
   crearUsuarios,
@@ -117,7 +121,7 @@ const columns = [
     name: "usuarios",
     required: true,
     label: "Usuarios",
-    align: "left",
+    align: "center",
     field: "usuarios",
     sortable: true,
   },
@@ -207,5 +211,15 @@ h3 {
 }
 .q-gutter-md items-start {
   color: beige;
+}
+
+.marco {
+  border-style: solid;
+  border-radius: 5%;
+  border-width: 1px;
+  padding: 30px;
+  padding-right: 150px;
+  height: 50%;
+  max-width: 54%;
 }
 </style>

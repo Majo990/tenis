@@ -1,7 +1,9 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
+
       <q-form @submit="onSubmit" class="q-gutter-md">
+        <div class="marco">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
@@ -54,6 +56,8 @@
             :disable="botonbloqueoeliminar"
           />
         </div>
+        </div>
+        
       </q-form>
 
       <br />
@@ -70,7 +74,8 @@
       </q-table>
     </div>
 
-    <br />
+
+
   </q-page>
 </template>
 
@@ -159,4 +164,19 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 </script>
-<style></style>
+<style>
+
+.marco {
+  border-style: solid;
+  border-radius: 5%;
+  border-width: 1px;
+  padding: 30px;
+  padding-right: 150px;
+  height: 50%;
+  max-width: 54%;
+}
+
+
+
+
+</style>

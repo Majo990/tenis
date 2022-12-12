@@ -82,6 +82,7 @@
             <q-separator spaced />
             <q-item-label header>Lista Permisos </q-item-label>
             <q-checkbox v-model="selectedAll" dense  label="Seleccionar todos" class="text-bold" @update:model-value="updateAll"/>
+
             <q-option-group
               v-model="permisosSelected"
               :options="permisos"
@@ -197,16 +198,23 @@ function handleSelection(details) {
     .map((p) => p.id_permisos);
 }
 
-/*
 function updateAll(val){
- if ( val<false ){
-    selected  = permisosSelected
+ if (val ==this.selectedall.length ){
+
+  this.selectedAll=true ;
+ }
+ else if (val==0  ) this.selectedAll=false ;{
+  this.selectedAll=toggle-indeterminate;
  }
 
-else if(val<true ){
-selected = permisosSelected
 }
-}*/
+
+
+
+
+
+
+
 
 
 </script>
