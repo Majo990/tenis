@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-page padding>
+   <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="row">
           <div class="col-6">
@@ -161,6 +161,7 @@
           </div>
         </div>
 
+
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
             dense
@@ -199,9 +200,7 @@
           @selection="handleSelection"
         >
         </q-table>
-      </q-form>
-</q-page>
-
+   
 </template>
 
 <script setup>

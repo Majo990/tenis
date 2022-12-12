@@ -77,7 +77,8 @@
             </div>
 
             <div class="row justify-between q-gutter-md">
-              <div>
+           <br/>
+              <div >
                 <label
                   >Seleccione entrenadores
                   <span class="text-red">*</span></label

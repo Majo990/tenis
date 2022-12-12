@@ -143,7 +143,7 @@
                 <div class="row justify-between q-gutter-md">
                   <div>
                     <label
-                      >Ingrese su Fecha Arbitro
+                      >Ingrese su Fecha-Nacimiento Arbitro
                       <span class="text-red">*</span></label
                     >
                     <q-input
@@ -277,6 +277,8 @@ import {
   deleteArbitros,
 } from "../services";
 
+import { date } from 'quasar'
+
 const columns = [
   {
     name: "name",
@@ -326,6 +328,7 @@ const columns = [
     align: "center",
     label: "Fecha_Nacimiento",
     field: "fecha_nacimiento",
+    format: (val, row) => date.formatDate(val, 'DD/MM/YYYY'),
     sortable: true,
   },
   {
@@ -349,7 +352,9 @@ const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
 
-const date = ref("2022/10/15");
+
+
+
 
 // can supply only what needed (the rest will be taken from current locale):
 

@@ -252,6 +252,9 @@ import {
   deleteEntrenadores,
 } from "../services";
 
+
+import {date}from 'quasar'
+
 const columns = [
   {
     name: "nombre",
@@ -295,6 +298,7 @@ const columns = [
     align: "center",
     label: "Fecha-Nacimiento",
     field: "fecha_nacimiento",
+    format:(val,row) => date.formatDate(val,'DD/MM/YYYY'),
     sortable: true,
   },
   {
@@ -313,7 +317,7 @@ const columns = [
   },
 ];
 const selected = ref([]);
-const date = ref("2019-02-01");
+
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const jugadores = ref([]);

@@ -52,7 +52,7 @@
             v-model="usuario.id_roles"
             emit-value
             option-value="id"
-            option-label="descripcionrol"
+            option-label="descripcion"
             :options="roles"
             dense
             lazy-rules
@@ -104,7 +104,7 @@
 
 <script setup>
 // import { isAsyncFunction } from "util/types";
-import { ref, onMounted, reactive, computed } from "vue";
+import { ref, onMounted, reactive,computed } from "vue";
 import {
   crearUsuarios,
   getUsuarios,
@@ -125,7 +125,7 @@ const columns = [
     name: "id_roles",
     align: "center",
     label: "Descripcion-Roles",
-    field: "descripcion_rol",
+    field: "descripcion",
     sortable: true,
   },
 ];
@@ -174,7 +174,7 @@ function handleSelection(details) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(usuario, rowSelected);
+  Object.assign(usuario,rowSelected);
 }
 
 function onkeyDown(evt) {

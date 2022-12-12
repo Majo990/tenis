@@ -38,7 +38,6 @@
               label="Crear"
               type="submit"
               icon="fa-solid fa-folder-plus"
-              :disable="botonbloqueocrear"
             />
             <q-btn
               dense
@@ -46,7 +45,6 @@
               label="Editar"
               @click="Actualizar"
               icon="fa-solid fa-pen-to-square"
-              :disable="botonbloqueoactualizar"
             />
             <q-btn
               dense
@@ -54,10 +52,9 @@
               label="Borrar"
               @click="Delete"
               icon="fa-solid fa-trash-can"
-              :disable="botonbloqueoeliminar"
             />
           </div>
-         <br/>
+          <br />
         </q-form>
 
         <q-table
@@ -75,15 +72,22 @@
 
       <div class="col-6">
         <q-scroll-area style="height: 500px; width: 400px">
-          <q-list bordered padding dense style="background-color: aqua">
+          <q-list
+            bordered
+            padding
+            dense
+            style="background-color: aqua"
+            class="q-pa-md"
+          >
             <q-separator spaced />
             <q-item-label header>Lista Permisos </q-item-label>
-
+            <q-checkbox v-model="selectedAll" dense  label="Seleccionar todos" class="text-bold" @update:model-value="updateAll"/>
             <q-option-group
               v-model="permisosSelected"
               :options="permisos"
               color="primary"
               type="checkbox"
+              dense
             />
           </q-list>
         </q-scroll-area>
@@ -93,7 +97,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from "vue";
+import { ref, onMounted, reactive } from "vue";
+import _ from "lodash";
 import {
   getRoles,
   crearRoles,
@@ -103,6 +108,7 @@ import {
   updatePermisos,
   deletePermisos,
   crearPermisosRoles,
+  updatePermisosRoles,
 } from "../services";
 
 const columns = [
@@ -115,12 +121,12 @@ const columns = [
     sortable: true,
   },
 ];
-
+const selectedAll = ref(false);
 const rows = ref([]);
 const permisosSelected = ref([]);
 const selected = ref([]);
 const permisos = ref([]);
-
+const rolesDB = ref([]);
 const rol = reactive({
   descripcion: null,
 });
@@ -142,16 +148,32 @@ async function onSubmit() {
 
 async function Actualizar() {
   await updateRoles(rol);
-  await updatePermisos(permisos);
+  const permisos_roles = rolesDB.value
+    .filter((r) => r.id === rol.id)
+    .map((p) => {
+      return {
+        id: p.id_permisos_roles,
+        id_roles: rol.id,
+        id_permisos: permisosSelected.value.some((ps) => ps === p.id_permisos)
+          ? p.id_permisos
+          : null,
+      };
+    });
+
+  for (let i = 0; i < permisos_roles.length; i++) {
+    await updatePermisosRoles(permisos_roles[i]);
+  }
 }
 
 async function Delete() {
   await deleteRoles(rol);
-  await deletePermisos(permisos);
+  await deletePermisos(permisos.value);
 }
 
 onMounted(async () => {
-  rows.value = await getRoles();
+  rolesDB.value = await getRoles();
+  const rolesMap = _.uniqBy(rolesDB.value, "id");
+  rows.value = rolesMap;
   const per = await getPermisos();
   permisos.value = per.map((p) => ({
     label: p.descripcion,
@@ -161,18 +183,30 @@ onMounted(async () => {
 
 function handleSelection(details) {
   let rowSelected = {
-    descripcionrol: null,
+    id: null,
+    descripcion: null,
     descripcion: null,
   };
- 
-  if (details.added) {
 
+  if (details.added) {
     Object.assign(rowSelected, details.rows[0]);
   }
-
   Object.assign(rol, rowSelected);
+  permisosSelected.value = rolesDB.value
+    .filter((p) => p.id === rol.id)
+    .map((p) => p.id_permisos);
 }
 
+/*
+function updateAll(val){
+ if ( val<false ){
+    selected  = permisosSelected
+ }
+
+else if(val<true ){
+selected = permisosSelected
+}
+}*/
 
 
 </script>

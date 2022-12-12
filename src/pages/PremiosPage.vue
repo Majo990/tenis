@@ -14,7 +14,6 @@
                 <q-input
                   filled
                   v-model="premio.nombre"
-                  label="Ingrese el NombrePremio "
                   lazy-rules
                   dense
                   :rules="[
@@ -24,10 +23,28 @@
                   ]"
                   :onkeydown="onkeyDown"
                 />
+              </div>
+              <div>
+                <label
+                  >Seleccione el Tipo de Premio <span class="text-red"></span
+                ></label>
 
+                <q-select
+                  filled
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  v-model="premio.tipo"
+                  dense
+                  :options="tipo"
+                />
+              </div>
+
+              <div class="row justify-between q-gutter-md">
                 <div>
                   <label
-                    >Seleccione el Tipo de Premio <span class="text-red"></span
+                    >Seleccione el Nombre Equipos <span class="text-red"></span
                   ></label>
 
                   <q-select
@@ -36,39 +53,19 @@
                     emit-value
                     option-value="id"
                     option-label="nombre"
-                    v-model="premio.tipo"
+                    v-model="premio.id_equipos"
                     dense
-                    :options="tipo"
+                    :options="equipos"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val !== null && val !== '') ||
+                        'Por favor seleccione su pais',
+                      (val) =>
+                        (val > 1 && val < 80) ||
+                        'Por favor seleccione su Equipo',
+                    ]"
                   />
-                </div>
-
-                <div class="row justify-between q-gutter-md">
-                  <div>
-                    <label
-                      >Seleccione el Nombre Equipos
-                      <span class="text-red"></span
-                    ></label>
-
-                    <q-select
-                      filled
-                      map-options
-                      emit-value
-                      option-value="id"
-                      option-label="nombre"
-                      v-model="premio.id_equipos"
-                      dense
-                      :options="equipos"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val !== null && val !== '') ||
-                          'Por favor seleccione su pais',
-                        (val) =>
-                          (val > 1 && val < 80) ||
-                          'Por favor seleccione su Equipo',
-                      ]"
-                    />
-                  </div>
                 </div>
 
                 <div>

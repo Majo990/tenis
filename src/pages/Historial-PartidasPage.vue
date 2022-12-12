@@ -217,79 +217,69 @@
                   :options="partidas"
                   dense
                 />
-
-
-
-
-
               </div>
 
               <div>
-          <label
-            >Seleccione su Nombre-Arbitros
-            <span class="text-red">*</span></label
-          >
+                <label
+                  >Seleccione su Nombre-Arbitros
+                  <span class="text-red">*</span></label
+                >
 
-          <q-select
-            filled
-            map-options
-            emit-value
-            option-value="id"
-            option-label="nombre"
-            v-model="historialpartida.id_arbitros"
-            :options="arbitros"
-            dense
-          />
-        </div>
-
+                <q-select
+                  filled
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  v-model="historialpartida.id_arbitros"
+                  :options="arbitros"
+                  dense
+                />
+              </div>
             </div>
           </div>
         </div>
 
-      <br />
+        <br />
 
-     
+        <br />
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+          />
+        </div>
+        <br />
 
-      <br />
-      <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn
+        <q-table
+          :columns="columns"
+          separator="cell"
           dense
-          color="primary"
-          label="Crear"
-          type="submit"
-          icon="fa-solid fa-folder-plus"
-        />
-        <q-btn
-          dense
-          color="amber"
-          label="Editar"
-          @click="Actualizar"
-          icon="fa-solid fa-pen-to-square"
-        />
-        <q-btn
-          dense
-          color="red"
-          label="Borrar"
-          @click="Delete"
-          icon="fa-solid fa-trash-can"
-        />
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
+          :filter="filter"
+        >
+        </q-table>
       </div>
-      <br />
-
-      <q-table
-
-        :columns="columns"
-        separator="cell"
-        dense
-        row-key="id"
-        selection="single"
-        v-model:selected="selected"
-        @selection="handleSelection"
-        :filter="filter"
-      >
-      </q-table>
-    </div>
-
     </q-form>
   </q-page>
 </template>

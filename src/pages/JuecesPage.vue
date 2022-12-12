@@ -44,7 +44,7 @@
                 </div>
 
 
-                
+
               </div>
 
               <div class="row justify-between q-gutter-md">
@@ -241,7 +241,8 @@ import {
   deleteJueces,
 } from "../services";
 
-const date = ref("2019/02/01");
+import {date} from 'quasar'
+
 const rows = ref([]);
 const paises = ref([]);
 const sexos = ["Femenino", "Masculino"];
@@ -270,6 +271,7 @@ const columns = [
     label: "Fecha-Nacimiento",
     align: "center",
     field: "fecha_nacimiento",
+    format:(val,row) => date.formatDate(val, 'DD/MM/YYYY'),
     sortable: true,
   },
   {

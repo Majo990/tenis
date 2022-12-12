@@ -255,6 +255,7 @@
                     :options="paises"
                     map-options
                     emit-value
+                    style="width: 348px"
                     option-value="country"
                     option-label="country"
                     lazy-rules

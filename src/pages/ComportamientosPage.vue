@@ -2,14 +2,14 @@
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
-        <q-card flat class="marco">
+        <q-card flat >
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <div>
                 <label
-                  >Ingrese descrip comportamiento
+                  >Ingrese descri comportamiento
                   <span class="text-red">*</span></label
                 >
                 <q-input
@@ -23,10 +23,9 @@
                       'Por favor ingrese su Descripcion',
                   ]"
                 />
-              </div>
+</div>
 
-
-              <div>
+              <div >
                 <label
                   >Seleccione Nombre Jugadores <span class="text-red">*</span
                 ></label>
@@ -41,7 +40,7 @@
                   dense
                   lazy-rules
                 />
-              </div>
+                  </div>
          </div>
 
             <div class="row justify-between q-gutter-md">
@@ -247,13 +246,5 @@ const botonbloqueoeliminar = ref(true);
   background-color: #f3eb77;
 }
 
-.marco {
-  border-style: solid;
-  border-radius: 5%;
-  border-width: 1px;
-  padding: 30px;
-  padding-right: 150px;
-  height: 50%;
-  max-width:48%;
-}
+
 </style>

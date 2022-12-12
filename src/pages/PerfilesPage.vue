@@ -33,9 +33,7 @@
                 :onkeydown="onkeyDown"
               />
             </div>
-          </div>
 
-          <div class="row justify-between q-gutter-md">
             <div>
               <label>Selecione Edad <span class="text-red">*</span></label>
               <q-input
@@ -43,7 +41,6 @@
                 dense
                 type="number"
                 v-model="perfil.edad"
-                label="Selecione Edad"
                 :rules="[
                   (val) =>
                     (val && val.length > 0 && val >= 18) || 'Edad incorrecta',
@@ -51,53 +48,48 @@
                 ]"
               />
             </div>
+          </div>
 
+          <div class="row justify-between q-gutter-md">
             <div>
               <label>Selecione sexo <span class="text-red">*</span></label>
 
               <q-select filled dense v-model="perfil.sexo" :options="sexos" />
             </div>
-          </div>
-          <br />
-          <div class="row justify-between q-gutter-md">
 
             <div>
               <label>Selecione su pais <span class="text-red">*</span></label>
-            <q-select
-              filled
-              v-model="perfil.nombre_paises"
-              dense
-              :options="paises"
-              map-options
-              emit-value
-              option-value="country"
-              option-label="country"
-
-            />
+              <q-select
+                filled
+                v-model="perfil.nombre_paises"
+                dense
+                :options="paises"
+                map-options
+                emit-value
+                option-value="country"
+                option-label="country"
+              />
             </div>
 
             <div>
-              <label>Selecione su ciudad  <span class="text-red">*</span></label>
-            <q-select
-              filled
-              dense
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              v-model="perfil.nombre_ciudades"
-              :options="ciudades"
+              <label>Selecione su ciudad <span class="text-red">*</span></label>
+              <q-select
+                filled
+                dense
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                v-model="perfil.nombre_ciudades"
+                :options="ciudades"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                ]"
+              />
+            </div>
 
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-              ]"
-            />
-          </div>
-          </div>
-
-          <div class="row justify-between q-gutter-md">
             <div>
               <label>Ingrese su DNI <span class="text-red">*</span></label>
               <q-input
@@ -109,7 +101,11 @@
                 mask="########"
               />
             </div>
+          </div>
+          <br />
+          <div class="row justify-between q-gutter-md"></div>
 
+          <div class="row justify-between q-gutter-md">
             <div>
               <label
                 >Ingrese su Nacionalidad <span class="text-red">*</span></label
@@ -128,19 +124,10 @@
                 :onkeydown="onkeyDown"
               />
             </div>
-          </div>
 
-          <div class="row justify-between q-gutter-md">
             <div>
               <label>Ingrese su email <span class="text-red">*</span></label>
-              <q-input
-                dense
-                standout
-                v-model="email"
-                type="email"
-                prefix="Email:"
-                suffix="@gmail.com"
-              >
+              <q-input dense standout v-model="email" type="email">
                 <template v-slot:prepend>
                   <q-icon name="mail" />
                 </template>
@@ -164,7 +151,9 @@
                 ]"
               />
             </div>
+          </div>
 
+          <div class="row justify-between q-gutter-md">
             <div>
               <label
                 >Ingrese su N° Celular <span class="text-red">*</span></label

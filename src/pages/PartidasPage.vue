@@ -46,15 +46,6 @@
                 />
               </div>
 
-
-
-
-
-
-
-
-
-
               <div>
                 <label
                   >Seleccione Deporte de la Partida
@@ -80,19 +71,11 @@
                   ]"
                 />
               </div>
-
-
-
             </div>
 
             <div class="row justify-between q-gutter-md">
-
-
               <div>
-                <label
-                  >Seleccione Nombre Torneo Partida
-                  <span class="text-red">*</span></label
-                >
+                <label>Seleccione Nombre <span class="text-red">*</span></label>
                 <q-select
                   filled
                   map-options
@@ -102,21 +85,8 @@
                   v-model="partida.id_torneos"
                   dense
                   :options="torneos"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor seleccione su pais',
-                    (val) =>
-                      (val > 1 && val < 80) || 'Por favor seleccione su torneo',
-                  ]"
                 />
               </div>
-
-
-
-
-
 
               <div>
                 <label
@@ -141,8 +111,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                            <q-date v-model="partida.fecha" mask="YYYY-MM-DD">
-
+                        <q-date v-model="partida.fecha" mask="YYYY-MM-DD">
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -157,10 +126,6 @@
                   </template>
                 </q-input>
               </div>
-
-
-
-
 
               <div>
                 <label
@@ -181,7 +146,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                      <q-time
+                        <q-time
                           v-model="partida.tiempo_inicio"
                           with-seconds
                           format24h
@@ -200,40 +165,9 @@
                   </template>
                 </q-input>
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
             <br />
             <div class="row justify-between q-gutter-md">
-              
-
               <div>
                 <label
                   >Ingrese tiempo_duracion Partida
@@ -254,8 +188,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-
-                      <q-time
+                        <q-time
                           v-model="partida.tiempo_duracion"
                           with-seconds
                           format24h
@@ -328,14 +261,6 @@
                   v-model="partida.id_rondas"
                   dense
                   :options="rondas"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor seleccione su ronda',
-                    (val) =>
-                      (val > 1 && val < 80) || 'Por favor seleccione su ronda',
-                  ]"
                 />
               </div>
             </div>
@@ -395,10 +320,12 @@ import {
   deletePartidas,
 } from "../services";
 
-const fecha  = ref("2020-02-01");
+import { date } from "quasar";
+
+const fecha = ref("2020-02-01");
 
 const selected = ref([]);
-const rondas= ref([]);
+const rondas = ref([]);
 
 const tiempo_inicio = ref("04:00:00");
 const tiempo_duracion = ref("00:30:00");
@@ -420,13 +347,15 @@ const columns = [
     field: "descripcion",
     sortable: true,
   },
+
   {
-    name: "id_jugadores",
+    name: "id_deportes",
     align: "center",
-    label: "Nombre_Jugadores",
-    field: "nombre_jugadores",
+    label: "Nombre-Deportes",
+    field: "nombre_deportes",
     sortable: true,
   },
+
   {
     name: "id_torneos",
     align: "center",
@@ -439,6 +368,7 @@ const columns = [
     align: "center",
     label: "Fecha",
     field: "fecha",
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
     sortable: true,
   },
   {
@@ -473,7 +403,6 @@ const columns = [
 
 const rows = ref([]);
 const torneos = ref([]);
-
 
 const deportes = [
   "Tenis",

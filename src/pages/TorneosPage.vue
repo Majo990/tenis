@@ -172,12 +172,16 @@ import {
   deleteTorneos,
 } from "../services";
 
+
+import {date} from 'quasar'
+
 const columns = [
   {
     name: "fecha",
     align: "center",
     label: "Fecha",
     field: "fecha",
+    format: (val, row) => date.formatDate(val, 'DD/MM/YYYY'),
     sortable: true,
   },
   {
@@ -215,8 +219,10 @@ const columns = [
 const estadio = ref([]);
 const rows = ref([]);
 const paises = ref([]);
-const date = ref("2020/02/01");
 const selected = ref([]);
+
+
+
 
 const torneo = reactive({
   fecha: null,
