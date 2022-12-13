@@ -165,8 +165,8 @@
                 />
               </div>
             </div>
-            <br />
-            <div class="row justify-between q-gutter-md"></div>
+
+            <!--<div class="row justify-between q-gutter-md"></div>--->
             <br />
             <div class="row justify-between q-gutter-md">
               <div>
@@ -250,6 +250,8 @@
             label="Crear"
             type="submit"
             icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+
           />
           <q-btn
             dense
@@ -257,6 +259,8 @@
             label="Editar"
             @click="Actualizar"
             icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+
           />
           <q-btn
             dense
@@ -264,11 +268,14 @@
             label="Borrar"
             @click="Delete"
             icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+
           />
         </div>
         <br />
 
         <q-table
+          :rows="rows"
           :columns="columns"
           separator="cell"
           dense
@@ -285,7 +292,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive ,computed} from "vue";
 import {
   getArbitros,
   getEventos,
@@ -300,6 +307,9 @@ import {
   updateHistorialPartidas,
   deleteHistorialPartidas,
 } from "../services";
+
+import { date } from "quasar";
+
 const columns = [
   {
     name: "id_jugadores",
@@ -313,7 +323,6 @@ const columns = [
     align: "center",
     label: "Fecha-Hora",
     field: "fecha_hora",
-    format: (val, row) => date.formatDate(timeStamp, "YYYY-MM-DDTHH:mm:ss.A"),
     sortable: true,
   }, //ya esta    format: (val, row) => date.formatDate(timeStamp, "YYYY-MM-DDTHH:mm:ss.A"),
   {
@@ -387,7 +396,6 @@ const partidas = ref([]);
 const arbitros = ref([]);
 const selected = ref([]);
 
-
 onMounted(async () => {
   rows.value = await getHistorialPartidas();
 });
@@ -442,13 +450,55 @@ function handleSelection(details) {
     id_partidas: null,
     id_arbitros: null,
   };
+
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
+    
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(historialpartida, rowSelected);
 }
+
+
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(historialpartida).every((key) => historialpartida[key] && historialpartida[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
+
 <style>
 .q-table {
   color: grey;

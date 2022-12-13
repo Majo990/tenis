@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-        <q-form @submit="onSubmit" class="q-gutter-md">
-          <q-card flat >
+      <q-form @submit="onSubmit" class="q-gutter-md">
+        <q-card flat>
           <div class="col-6 q-gutter-md text-center items-center">
             <strong>Formulario </strong>
             <div class="row">
@@ -113,13 +113,14 @@
                       >Ingrese Fecha-Nacimiento Entrenador
                       <span class="text-red">*</span></label
                     >
+
                     <q-input
                       filled
+                      dense
                       v-model="entrenador.fecha_nacimiento"
                       mask="date"
-                      dense
-                      :rules="['date']"
-                      lazy-rules
+                      :rules="['date',val=> edad(val) >=18 ||
+                  'Edad incorrecta', ]"
                     >
                       <template v-slot:append>
                         <q-icon name="event" class="cursor-pointer">
@@ -128,10 +129,7 @@
                             transition-show="scale"
                             transition-hide="scale"
                           >
-                            <q-date
-                              v-model="entrenador.fecha_nacimiento"
-                              mask="YYYY-MM-DD"
-                            >
+                            <q-date v-model="entrenador.fecha_nacimiento">
                               <div class="row items-center justify-end">
                                 <q-btn
                                   v-close-popup
@@ -193,8 +191,7 @@
             </div>
           </div>
         </q-card>
-        </q-form>
-
+      </q-form>
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
@@ -251,8 +248,7 @@ import {
   deleteEntrenadores,
 } from "../services";
 
-
-import {date}from 'quasar'
+import { date } from "quasar";
 
 const columns = [
   {
@@ -297,7 +293,7 @@ const columns = [
     align: "center",
     label: "Fecha-Nacimiento",
     field: "fecha_nacimiento",
-    format:(val,row) => date.formatDate(val,'DD/MM/YYYY'),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
     sortable: true,
   },
   {
@@ -403,11 +399,27 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
-</script>
-<style>
-.q-table {
-  color: rgb(128, 128, 128);
-  background-color: #20b393;
+
+
+
+
+//fecha nacimeitno meor a18 años  no te aceptara
+function edad(fecha_nacimiento){
+  let Nacimiento = new Date(fecha_nacimiento);
+  let hoy = new Date();
+  let edad = 0;
+  if( Nacimiento<hoy){
+    edad = date.getDateDiff( hoy,Nacimiento,"years");
+  }else {
+    console.error("la fecha de nacimiento no puede ser superior ala actual");
+  }
+  return edad ;
 }
 
+</script>
+<style>
+/*.q-table {
+  color: rgb(128, 128, 128);
+  background-color: #20b393;
+}*/
 </style>

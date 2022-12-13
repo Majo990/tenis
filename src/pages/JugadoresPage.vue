@@ -466,7 +466,6 @@ const jugador = reactive({
   peso: null,
   nombre_paises: null,
   nombre_ciudades: null,
-  posicion: null,
 });
 
 async function onSubmit() {
@@ -511,7 +510,6 @@ function handleSelection(details) {
     peso: null,
     nombre_paises: null,
     nombre_ciudades: null,
-    posicion: null,
   };
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);

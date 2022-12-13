@@ -9,7 +9,7 @@
             <div class="row justify-between q-gutter-md">
               <div>
                 <label
-                  >Ingrese descri comportamiento
+                  >Ingrese descrip comportamiento
                   <span class="text-red">*</span></label
                 >
                 <q-input

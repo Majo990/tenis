@@ -96,7 +96,7 @@ const selected = ref([]);
 const rows = ref([]);
 
 const sancion = reactive({
-  nombe: null,
+  nombre: null,
 });
 
 async function onSubmit() {
@@ -138,6 +138,8 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(sancion).every((key) => sancion[key] && sancion[key] !== "") &&
@@ -155,4 +157,4 @@ const botonbloqueoeliminar = ref(true);
 
 </script>
 
-<!--mal -->
+

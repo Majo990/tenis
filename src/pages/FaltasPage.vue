@@ -189,6 +189,10 @@
           />
         </div>
 
+
+
+
+
         <q-table
           :rows="rows"
           :columns="columns"
@@ -200,8 +204,9 @@
           @selection="handleSelection"
         >
         </q-table>
-</template>
 
+
+</template>
 
 
 

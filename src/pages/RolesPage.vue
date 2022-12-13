@@ -38,6 +38,7 @@
               label="Crear"
               type="submit"
               icon="fa-solid fa-folder-plus"
+
             />
             <q-btn
               dense
@@ -45,6 +46,7 @@
               label="Editar"
               @click="Actualizar"
               icon="fa-solid fa-pen-to-square"
+
             />
             <q-btn
               dense
@@ -52,6 +54,8 @@
               label="Borrar"
               @click="Delete"
               icon="fa-solid fa-trash-can"
+
+
             />
           </div>
           <br />
@@ -208,13 +212,6 @@ function updateAll(val){
  }
 
 }
-
-
-
-
-
-
-
 
 
 </script>

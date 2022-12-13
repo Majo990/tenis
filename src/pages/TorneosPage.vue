@@ -8,9 +8,10 @@
             <label
               >Seleccione su fecha Torneo <span class="text-red">*</span></label
             >
+
             <q-input
-              dense
               filled
+              dense
               v-model="torneo.fecha"
               mask="date"
               :rules="['date']"
@@ -22,7 +23,7 @@
                     transition-show="scale"
                     transition-hide="scale"
                   >
-                    <q-date v-model="torneo.fecha" mask="YYYY-MM-DD">
+                    <q-date v-model="torneo.fecha">
                       <div class="row items-center justify-end">
                         <q-btn
                           v-close-popup
@@ -36,8 +37,6 @@
                 </q-icon>
               </template>
             </q-input>
-
-
           </div>
 
           <div>
@@ -51,11 +50,7 @@
               option-value="id"
               option-label="nombre"
               :options="estadio"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor seleccione estadio ',
-              ]"
+             
             />
           </div>
         </div>
@@ -63,7 +58,7 @@
         <div class="row justify-between q-gutter-md">
           <div>
             <label>
-             Ingrese  el Nombre Torneo <span class="text-red">*</span></label
+              Ingrese el Nombre Torneo <span class="text-red">*</span></label
             >
             <q-input
               filled
@@ -93,7 +88,6 @@
               emit-value
               option-value="country"
               option-label="country"
-
             />
           </div>
         </div>
@@ -109,7 +103,6 @@
               dense
               v-model="torneo.nombre_ciudades"
               :options="ciudades"
-
               lazy-rules
               :rules="[
                 (val) =>
@@ -173,8 +166,7 @@ import {
   deleteTorneos,
 } from "../services";
 
-
-import {date} from 'quasar'
+import { date } from "quasar";
 
 const columns = [
   {
@@ -182,7 +174,7 @@ const columns = [
     align: "center",
     label: "Fecha",
     field: "fecha",
-    format: (val, row) => date.formatDate(val, 'DD/MM/YYYY'),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
     sortable: true,
   },
   {
@@ -222,7 +214,6 @@ const rows = ref([]);
 const paises = ref([]);
 const selected = ref([]);
 
-
 const torneo = reactive({
   fecha: null,
   id_estadios: null,
@@ -255,11 +246,11 @@ onMounted(async () => {
 
 function handleSelection(details) {
   let rowSelected = {
-    fecha:null,
-    id_estadios:null,
-    nombre:null,
-    nombre_paises:null,
-    nombre_ciudades:null,
+    fecha: null,
+    id_estadios: null,
+    nombre: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   };
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);

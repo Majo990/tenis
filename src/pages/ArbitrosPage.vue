@@ -1,7 +1,11 @@
 <template>
   <div class="q-pa-md">
     <q-page padding>
-      <q-form @submit="onSubmit" class="q-gutter-md">
+      <q-form
+        @submit="onSubmit"
+        @reset.prevent.stop="onReset"
+        class="q-gutter-md"
+      >
         <div class="q-pa-md">
           <q-card flat class="marco">
             <strong>Formulario </strong>
@@ -53,6 +57,7 @@
                     >
                     <q-input
                       filled
+                      v-bind:value="false"
                       dense
                       type="number"
                       v-model="arbitro.edad"
@@ -144,13 +149,14 @@
                       >Ingrese su Fecha-Nacimiento Arbitro
                       <span class="text-red">*</span></label
                     >
+
                     <q-input
                       filled
+                      dense
                       v-model="arbitro.fecha_nacimiento"
                       mask="date"
-                      dense
-                      :rules="['date']"
-
+                      :rules="['date',val=> edad(val) >= 18 ||
+                          'Edad incorrecta',]"
                     >
                       <template v-slot:append>
                         <q-icon name="event" class="cursor-pointer">
@@ -159,10 +165,7 @@
                             transition-show="scale"
                             transition-hide="scale"
                           >
-                            <q-date
-                              v-model="arbitro.fecha_nacimiento"
-                              mask="YYYY-MM-DD"
-                            >
+                            <q-date v-model="arbitro.fecha_nacimiento">
                               <div class="row items-center justify-end">
                                 <q-btn
                                   v-close-popup
@@ -208,7 +211,6 @@
                       dense
                       v-model="arbitro.nombre_ciudades"
                       :options="ciudades"
-
                       lazy-rules
                       :rules="[
                         (val) =>
@@ -249,6 +251,8 @@
             :disable="botonbloqueoeliminar"
           />
         </div>
+
+        <q-btn label="Reset" type="reset" color="red" flat class="q-ml-sm" />
 
         <br />
 
@@ -329,7 +333,7 @@ const columns = [
     align: "center",
     label: "Fecha_Nacimiento",
     field: "fecha_nacimiento",
-    format: (val,row) => date.formatDate(val, "DD/MM/YYYY"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
 
     sortable: true,
   },
@@ -367,6 +371,10 @@ const arbitro = reactive({
   nombre_paises: null,
   nombre_ciudades: null,
 });
+
+async function resetForm() {
+  await resetear(arbitro);
+}
 
 async function onSubmit() {
   await crearArbitros(arbitro);
@@ -410,6 +418,7 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
+
   botonbloqueoactualizar.value = true;
   botonbloqueoeliminar.value = true;
   if (details.added) {
@@ -434,26 +443,26 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
-/*var fecha_nacimiento = date("1930-01-01");
-var fecha_maxima_edad = date("2004-11-31");
 
 
-methods : {
-  edad (fecha_nacimiento)
-  let Nacimiento= moment(fecha_nacimiento);
-  let hoy = moment();
-  let edad= 0 ;
-  if (Nacimiento <hoy ){
-    edad = hoy.diff(Nacimiento, 'years ');
-  }else {
-    console.error("la fecha de nacimiento no puede ser superior ala actual")
+/*const botonbloqueopaises = computed (() =>{
+    if(
+      Object.keys(arbitro).every() =>  [campo9]& arbitro [campo9]!
+    )
+});*/
+
+
+function edad(fecha_nacimiento) {
+  let Nacimiento = new Date(fecha_nacimiento);
+  let hoy = new Date();
+  let edad = 0;
+  if (Nacimiento < hoy) {
+    edad = date.getDateDiff(hoy, Nacimiento, "years");
+  } else {
+    console.error("la fecha de nacimiento no puede ser superior ala actual");
   }
-  return edad ;
-
+  return edad;
 }
-
-*/
-
 </script>
 <style lang="scss">
 .marco {
@@ -465,4 +474,9 @@ methods : {
   height: 50%;
   max-width: 54%;
 }
+
+
+
+
+
 </style>

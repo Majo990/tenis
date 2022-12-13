@@ -92,13 +92,14 @@
                     >Seleccione su Fecha-Nacimiento Juez
                     <span class="text-red">*</span></label
                   >
+
                   <q-input
                     filled
+                    dense
                     v-model="juez.fecha_nacimiento"
                     mask="date"
-                    dense
-                    :rules="['date']"
-                    lazy-rules
+                    :rules="['date',val=> edad(val) >=18 ||
+                  'Edad incorrecta',]"
                   >
                     <template v-slot:append>
                       <q-icon name="event" class="cursor-pointer">
@@ -107,10 +108,7 @@
                           transition-show="scale"
                           transition-hide="scale"
                         >
-                          <q-date
-                            v-model="juez.fecha_nacimiento"
-                            mask="YYYY-MM-DD"
-                          >
+                          <q-date v-model="juez.fecha_nacimiento">
                             <div class="row items-center justify-end">
                               <q-btn
                                 v-close-popup
@@ -359,4 +357,18 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+
+function edad(fecha_nacimiento){
+  let Nacimiento = new Date(fecha_nacimiento);
+  let hoy = new Date();
+  let edad = 0;
+  if( Nacimiento<hoy){
+    edad = date.getDateDiff( hoy,Nacimiento,"years");
+  }else {
+    console.error("la fecha de nacimiento no puede ser superior ala actual");
+  }
+  return edad ;
+}
+
 </script>

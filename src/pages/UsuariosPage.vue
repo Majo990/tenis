@@ -108,7 +108,7 @@
 
 <script setup>
 
-import { ref, onMounted, reactive,computed } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import {
   crearUsuarios,
   getUsuarios,
@@ -169,12 +169,10 @@ function handleSelection(details) {
     id_roles: null,
   };
 
-  botonbloqueoactualizar.value = true;
-  botonbloqueoeliminar.value = true;
+
 
   if (details.added) {
-    botonbloqueoactualizar.value = false;
-    botonbloqueoeliminar.value = false;
+
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -190,18 +188,7 @@ function onkeyDown(evt) {
   }
 }
 
-const botonbloqueocrear = computed(() => {
-  if (
-    Object.keys(usuario).every((key) => usuario[key] && usuario[key] !== "") &&
-    botonbloqueoactualizar.value
-  )
-    return false;
-  return true;
-});
 
-const botonbloqueoactualizar = ref(true);
-
-const botonbloqueoeliminar = ref(true);
 </script>
 
 <style>

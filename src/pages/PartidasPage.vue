@@ -75,7 +75,10 @@
 
             <div class="row justify-between q-gutter-md">
               <div>
-                <label>Seleccione Nombre Torneo  <span class="text-red">*</span></label>
+                <label
+                  >Seleccione Nombre Torneo
+                  <span class="text-red">*</span></label
+                >
                 <q-select
                   filled
                   map-options
@@ -93,16 +96,13 @@
                   >Ingrese la fecha partida
                   <span class="text-red">*</span></label
                 >
+
                 <q-input
                   filled
                   dense
                   v-model="partida.fecha"
                   mask="date"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su fecha',
-                  ]"
+                  :rules="['date']"
                 >
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
@@ -111,7 +111,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-date v-model="partida.fecha" mask="YYYY-MM-DD">
+                        <q-date v-model="partida.fecha">
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -146,10 +146,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-time
-                          v-model="partida.tiempo_inicio"
-                          with-seconds
-                        >
+                        <q-time v-model="partida.tiempo_inicio" with-seconds>
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -187,11 +184,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-time
-                          v-model="partida.tiempo_duracion"
-                          with-seconds
-
-                        >
+                        <q-time v-model="partida.tiempo_duracion" with-seconds>
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -226,11 +219,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-time
-                          v-model="partida.tiempo_fin"
-                          with-seconds
-
-                        >
+                        <q-time v-model="partida.tiempo_fin" with-seconds>
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -308,7 +297,7 @@
   </q-page>
 </template>
 <script setup>
-import { ref, onMounted, reactive,computed } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getPartidas,
   getRondas,
@@ -322,7 +311,7 @@ import {
 import { date } from "quasar";
 const selected = ref([]);
 const rondas = ref([]);
-const jugadores =ref([]);
+const jugadores = ref([]);
 
 const columns = [
   {
@@ -369,7 +358,7 @@ const columns = [
     align: "center",
     label: "Tiempo_Inicio",
     field: "tiempo_inicio",
- format24h : (val, row )=> date .format24h(val ,"HH:mm:ss"),
+    format24h: (val, row) => date.format24h(val, "HH:mm:ss"),
 
     sortable: true,
   },
