@@ -1,56 +1,34 @@
 <template>
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
-      <div class="q-pa-md">
-        <strong>Formulario </strong>
-        <div class="row">
-          <div class="col-6">
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese el NombrePremio
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  v-model="premio.nombre"
-                  lazy-rules
-                  dense
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su NombrePremio',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
-              </div>
-
-              <div class="row justify-between q-gutter-md">
-
-                
-              </div>
-
-              <div>
-                <label
-                  >Seleccione el Tipo de Premio <span class="text-red"></span
-                ></label>
-
-                <q-select
-                  filled
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  v-model="premio.tipo"
-                  dense
-                  :options="tipo"
-                />
-              </div>
-
+      <q-card flat class="marco">
+        <div class="q-pa-md">
+          <strong>Formulario </strong>
+          <div class="row">
+            <div class="col-6">
               <div class="row justify-between q-gutter-md">
                 <div>
                   <label
-                    >Seleccione el Nombre Equipos <span class="text-red"></span
+                    >Ingrese el NombrePremio
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="premio.nombre"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su NombrePremio',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Seleccione el Tipo de Premio <span class="text-red"></span
                   ></label>
 
                   <q-select
@@ -59,80 +37,100 @@
                     emit-value
                     option-value="id"
                     option-label="nombre"
-                    v-model="premio.id_equipos"
+                    v-model="premio.tipo"
                     dense
-                    :options="equipos"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val !== null && val !== '') ||
-                        'Por favor seleccione su pais',
-                      (val) =>
-                        (val > 1 && val < 80) ||
-                        'Por favor seleccione su Equipo',
-                    ]"
+                    :options="tipo"
                   />
                 </div>
 
-                <div>
-                  <label
-                    >Seleccione el Nombre Jugadores<span class="text-red"
-                      >*</span
-                    ></label
-                  >
+                <div class="row justify-between q-gutter-md">
+                  <div>
+                    <label
+                      >Seleccione el Nombre Equipos
+                      <span class="text-red"></span
+                    ></label>
 
-                  <q-select
-                    filled
-                    map-options
-                    emit-value
-                    option-value="id"
-                    option-label="nombre"
-                    v-model="premio.id_jugadores"
-                    dense
-                    :options="jugadores"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val !== null && val !== '') ||
-                        'Por favor seleccione su jugador ',
-                      (val) =>
-                        (val > 1 && val < 80) ||
-                        'Por favor seleccione su jugador',
-                    ]"
-                  />
+                    <q-select
+                      filled
+                      map-options
+                      emit-value
+                      option-value="id"
+                      option-label="nombre"
+                      v-model="premio.id_equipos"
+                      dense
+                      :options="equipos"
+                      lazy-rules
+                      :rules="[
+                        (val) =>
+                          (val !== null && val !== '') ||
+                          'Por favor seleccione su pais',
+                        (val) =>
+                          (val > 1 && val < 80) ||
+                          'Por favor seleccione su Equipo',
+                      ]"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      >Seleccione el Nombre Jugadores<span class="text-red"
+                        >*</span
+                      ></label
+                    >
+
+                    <q-select
+                      filled
+                      map-options
+                      emit-value
+                      option-value="id"
+                      option-label="nombre"
+                      v-model="premio.id_jugadores"
+                      dense
+                      :options="jugadores"
+                      lazy-rules
+                      :rules="[
+                        (val) =>
+                          (val !== null && val !== '') ||
+                          'Por favor seleccione su jugador ',
+                        (val) =>
+                          (val > 1 && val < 80) ||
+                          'Por favor seleccione su jugador',
+                      ]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn
-          dense
-          color="primary"
-          label="Crear"
-          type="submit"
-          icon="fa-solid fa-folder-plus"
-          :disable="botonbloqueocrear"
-        />
-        <q-btn
-          dense
-          color="amber"
-          label="Editar"
-          @click="Actualizar"
-          icon="fa-solid fa-pen-to-square"
-          :disable="botonbloqueoactualizar"
-        />
-        <q-btn
-          dense
-          color="red"
-          label="Borrar"
-          @click="Delete"
-          icon="fa-solid fa-trash-can"
-          :disable="botonbloqueoeliminar"
-        />
-      </div>
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
+        </div>
+      </q-card>
     </q-form>
     <br />
 
@@ -219,10 +217,22 @@ async function onSubmit() {
 
 async function Actualizar() {
   await updatePremios(premio);
+  Object.assign(premio, {
+    nombre: null,
+    tipo: null,
+    id_equipos: null,
+    id_jugadores: null,
+  });
 }
 
 async function Delete() {
   await deletePremios(premio);
+  Object.assign(premio, {
+    nombre: null,
+    tipo: null,
+    id_equipos: null,
+    id_jugadores: null,
+  });
 }
 
 onMounted(async () => {
@@ -272,3 +282,13 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 </script>
+
+<style lang="scss">
+.marco {
+  border-style: solid;
+  border-radius: 5%;
+  border-width: 1px;
+  padding: 5px;
+  max-width: 60%;
+}
+</style>

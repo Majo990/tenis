@@ -61,14 +61,7 @@
                   dense
                   :options="deportes"
                   lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor seleccione su deportes',
-                    (val) =>
-                      (val > 1 && val < 80) ||
-                      'Por favor seleccione su deportes ',
-                  ]"
+
                 />
               </div>
             </div>
@@ -138,6 +131,8 @@
                   v-model="partida.tiempo_inicio"
                   mask="fulltime"
                   :rules="['fulltime']"
+    format24h
+
                 >
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
@@ -297,12 +292,12 @@
   </q-page>
 </template>
 <script setup>
-import { ref, onMounted, reactive, computed } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import {
   getPartidas,
   getRondas,
   crearPartidas,
-  getJugadores,
+  getDeportes,
   getTorneos,
   updatePartidas,
   deletePartidas,
@@ -311,7 +306,7 @@ import {
 import { date } from "quasar";
 const selected = ref([]);
 const rondas = ref([]);
-const jugadores = ref([]);
+
 
 const columns = [
   {
@@ -402,7 +397,7 @@ const deportes = [
 const partida = reactive({
   nombre: null,
   descripcion: null,
-  id_jugadores: null,
+  id_deportes: null,
   id_torneos: null,
   fecha: null,
   tiempo_inicio: null,
@@ -425,7 +420,7 @@ async function Delete() {
 
 onMounted(async () => {
   rows.value = await getPartidas();
-  jugadores.value = await getJugadores();
+  deportes.value = await getDeportes();
   rondas.value = await getRondas();
   torneos.value = await getTorneos();
 });
@@ -434,7 +429,7 @@ function handleSelection(details) {
   let rowSelected = {
     nombre: null,
     descripcion: null,
-    id_jugadores: null,
+    id_deportes: null,
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,

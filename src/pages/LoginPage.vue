@@ -7,8 +7,6 @@
         @reset="onReset"
         class="q-pa-md q-gutter-md login img"
       >
-
-
         <q-avatar>
           <img
             src="https://th.bing.com/th/id/R.63884fb3108305aa0824560946fe81c6?rik=ut82%2fXweWRqbZA&pid=ImgRaw&r=0"
@@ -75,6 +73,7 @@ import { ref } from "vue";
 import { login } from "src/services";
 import { Notify } from "quasar";
 import { useRouter } from "vue-router";
+import { Cookies } from "quasar";
 
 const usuario = ref(null);
 const password = ref(null);
@@ -90,6 +89,9 @@ async function onSubmit() {
   });
 
   if (r === "Login correcto") {
+    if (r.token) {
+      Cookies.set("token", r.token);
+    }
     replace("/home");
   }
 }
@@ -103,9 +105,10 @@ function onReset() {
   border-width: 1px; //1
   border-style: solid; //solid
   border-radius: 10%; //10%
+  padding: 2rem;
 }
 .img {
-  background-image: url("https://th.bing.com/th/id/OIF.crbBO07hjsfeNXLSspdxjA?pid=ImgDet&rs=1");
+  background-color: $yellow-6;
 }
 
 h5 {
@@ -114,5 +117,54 @@ h5 {
 
 .q-page {
   background-image: url("../assets/img/tenis.jpg");
+}
+
+.q-form {
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 20%;
+  min-width: 350px;
+  max-width: 100%;
+  background: rgba(86, 230, 4, 0.9);
+  border-radius: 5px;
+  padding: 40px;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+}
+.form-label {
+  margin-top: 2rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  &:first-of-type {
+    margin-top: 0rem;
+  }
+}
+.form-input {
+  padding: 10px 15px;
+  background: none;
+  background-image: none;
+  border: 1px solid white;
+  color: white;
+  &:focus {
+    outline: 0;
+    border-color: #1ab188;
+  }
+}
+.form-submit {
+  background: #1ab188;
+  border: none;
+  color: white;
+  margin-top: 3rem;
+  padding: 1rem 0;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: #0b9185;
+  }
+}
+
+.q-avatar {
+  text-align: center;
 }
 </style>

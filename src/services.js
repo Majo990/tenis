@@ -471,6 +471,31 @@ export async function deleteRoles(params) {
   return r.data;
 }
 
+// deportes
+
+
+export async function getDeportes() {
+  const r = await api.get("/deportes");
+  return r.data;
+}
+
+export async function crearDeportes(params) {
+  const r = await api.post("/deportes", params);
+  return r.data;
+}
+
+export async function updateDeportes(deportes) {
+  const r = await api.put("/deportes/" + deportes.id, deportes);
+  return r.data;
+}
+
+export async function deleteDeportes(params) {
+  const r = await api.delete("/deportes/" + params.id, params);
+  return r.data;
+}
+
+
+
 //
 export async function getPaises() {
   const r = await api.get("/paises");

@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive,computed } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getPermisos,
   crearPermisos,
@@ -104,14 +104,23 @@ const permiso = reactive({
 
 async function onSubmit() {
   await crearPermisos(permiso);
+  Object.assign(permiso, {
+    descripcion: null,
+  });
 }
 
 async function Actualizar() {
   await updatePermisos(permiso);
+  Object.assign(permiso, {
+    descripcion: null,
+  });
 }
 
 async function Delete() {
   await deletePermisos(permiso);
+  Object.assign(permiso, {
+    descripcion: null,
+  });
 }
 
 onMounted(async () => {

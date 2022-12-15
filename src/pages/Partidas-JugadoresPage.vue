@@ -19,8 +19,10 @@
         </div>
       </div>
     </div>
-    <strong>Formulario </strong>
+
     <q-form @submit="onSubmit" class="q-gutter-md">
+      <q-card flat class="marco">
+    <strong>Formulario </strong>
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
@@ -86,8 +88,10 @@
           </div>
         </div>
       </div>
+    </q-card>
     </q-form>
-    <br />
+
+
     <q-table
       :rows="rows"
       :columns="columns"
@@ -143,14 +147,26 @@ const partidajugador = reactive({
 
 async function onSubmit() {
   await crearPartidasJugadores(partidajugador);
+  Object.assign(partidajugador , {
+    id_partidas: null,
+  id_jugadores: null,
+  });
 }
 
 async function Actualizar() {
   await updatePartidasJugadores(partidajugador);
+  Object.assign(partidajugador , {
+    id_partidas: null,
+  id_jugadores: null,
+  });
 }
 
 async function Delete() {
   await deletePartidasJugadores(partidajugador);
+  Object.assign(partidajugador , {
+    id_partidas: null,
+  id_jugadores: null,
+  });
 }
 
 onMounted(async () => {
@@ -172,8 +188,24 @@ function handleSelection(details) {
   Object.assign(partidajugador, rowSelected);
 }
 </script>
-<style>
+<style lang="scss">
 .buscador {
   width: 600px;
 }
+
+
+.marco {
+  border-style: solid;
+  border-radius:5%;
+  border-width: 1px;
+  padding: 30px;
+  padding-right: 100px;
+  height: 50%;
+  max-width:70%;
+}
+
+
+
+
+
 </style>

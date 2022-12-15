@@ -1,11 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-page padding>
-      <q-form
-        @submit="onSubmit"
-        @reset.prevent.stop="onReset"
-        class="q-gutter-md"
-      >
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="q-pa-md">
           <q-card flat class="marco">
             <strong>Formulario </strong>
@@ -57,7 +53,7 @@
                     >
                     <q-input
                       filled
-                      v-bind:value="false"
+                      v-if="true"
                       dense
                       type="number"
                       v-model="arbitro.edad"
@@ -155,8 +151,10 @@
                       dense
                       v-model="arbitro.fecha_nacimiento"
                       mask="date"
-                      :rules="['date',val=> edad(val) >= 18 ||
-                          'Edad incorrecta',]"
+                      :rules="[
+                        'date',
+                        (val) => edad(val) >= 18 || 'Edad incorrecta',
+                      ]"
                     >
                       <template v-slot:append>
                         <q-icon name="event" class="cursor-pointer">
@@ -217,6 +215,7 @@
                           (val && val.length > 0) ||
                           'Por favor ingrese su Ciudad',
                       ]"
+                      :disable="!ciudades || !ciudades.length"
                     />
                   </div>
                 </div>
@@ -251,23 +250,21 @@
             :disable="botonbloqueoeliminar"
           />
         </div>
-
-        <q-btn label="Reset" type="reset" color="red" flat class="q-ml-sm" />
-
-        <br />
-
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          separator="cell"
-          dense
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        >
-        </q-table>
       </q-form>
+
+      <br />
+
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
     </q-page>
   </div>
 </template>
@@ -358,8 +355,6 @@ const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
 
-// can supply only what needed (the rest will be taken from current locale):
-
 const arbitro = reactive({
   nombre: null,
   apellido: null,
@@ -372,20 +367,49 @@ const arbitro = reactive({
   nombre_ciudades: null,
 });
 
-async function resetForm() {
-  await resetear(arbitro);
-}
-
 async function onSubmit() {
   await crearArbitros(arbitro);
+  Object.assign(arbitro, {
+    nombre: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    altura: null,
+    peso: null,
+    fecha_nacimiento: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 async function Actualizar() {
   await updateArbitros(arbitro);
+  Object.assign(arbitro, {
+    nombre: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    altura: null,
+    peso: null,
+    fecha_nacimiento: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 async function Delete() {
   await deleteArbitros(arbitro);
+  Object.assign(arbitro, {
+    nombre: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    altura: null,
+    peso: null,
+    fecha_nacimiento: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 const ciudades = computed(
@@ -443,14 +467,11 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
-
-
 /*const botonbloqueopaises = computed (() =>{
     if(
       Object.keys(arbitro).every() =>  [campo9]& arbitro [campo9]!
     )
 });*/
-
 
 function edad(fecha_nacimiento) {
   let Nacimiento = new Date(fecha_nacimiento);
@@ -464,6 +485,7 @@ function edad(fecha_nacimiento) {
   return edad;
 }
 </script>
+
 <style lang="scss">
 .marco {
   border-style: solid;
@@ -474,9 +496,4 @@ function edad(fecha_nacimiento) {
   height: 50%;
   max-width: 54%;
 }
-
-
-
-
-
 </style>

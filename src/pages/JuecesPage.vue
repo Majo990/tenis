@@ -296,14 +296,41 @@ const juez = reactive({
 
 async function onSubmit() {
   await crearJueces(juez);
+  Object.assign(juez, {
+    nombre: null,
+  apellido: null,
+  fecha_nacimiento: null,
+  edad: null,
+  sexo: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 async function Actualizar() {
   await updateJueces(juez);
+  Object.assign(juez, {
+    nombre: null,
+  apellido: null,
+  fecha_nacimiento: null,
+  edad: null,
+  sexo: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 async function Delete() {
   await deleteJueces(juez);
+  Object.assign(juez, {
+    nombre: null,
+  apellido: null,
+  fecha_nacimiento: null,
+  edad: null,
+  sexo: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 const ciudades = computed(

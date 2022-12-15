@@ -1,8 +1,9 @@
 <template>
   <q-page padding>
-    <strong>Formulario </strong>
     <q-form @submit="onSubmit" class="q-gutter-md">
+      <q-card flat class="marco">
       <div class="q-pa-md">
+        <strong>Formulario </strong>
         <div class="row justify-between q-gutter-md">
           <div>
             <label
@@ -50,7 +51,7 @@
               option-value="id"
               option-label="nombre"
               :options="estadio"
-             
+
             />
           </div>
         </div>
@@ -113,8 +114,6 @@
         </div>
       </div>
 
-      <br />
-
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
           dense
@@ -122,6 +121,7 @@
           label="Crear"
           type="submit"
           icon="fa-solid fa-folder-plus"
+
         />
         <q-btn
           dense
@@ -129,6 +129,7 @@
           label="Editar"
           @click="Actualizar"
           icon="fa-solid fa-pen-to-square"
+
         />
         <q-btn
           dense
@@ -136,10 +137,13 @@
           label="Borrar"
           @click="Delete"
           icon="fa-solid fa-trash-can"
+
         />
       </div>
+    </q-card>
+    </q-form>
 
-      <br />
+<br/>
       <q-table
         :rows="rows"
         :columns="columns"
@@ -151,7 +155,7 @@
         @selection="handleSelection"
       >
       </q-table>
-    </q-form>
+
   </q-page>
 </template>
 
@@ -267,3 +271,17 @@ function onkeyDown(evt) {
   }
 }
 </script>
+
+<style lang="scss">
+.marco {
+  border-style: solid;
+  border-radius: 5%;
+  border-width: 1px;
+  padding: 10px;
+  padding-right: 150px;
+  height: 50%;
+  max-width: 54%;
+}
+
+
+</style>

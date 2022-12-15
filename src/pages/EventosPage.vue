@@ -7,24 +7,21 @@
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <div>
-                  <label
-                    >Ingrese nombre evento
-                    <span class="text-red">*</span></label
-                  >
-              <q-input
-                filled
-                dense
-                v-model="evento.nombre"
-
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su NombreEvento',
-                ]"
-
-                :onkeydown="onkeyDown"
-              />
+                <label
+                  >Ingrese nombre evento <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="evento.nombre"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su NombreEvento',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
               </div>
             </div>
           </div>
@@ -97,7 +94,6 @@ const nombre = ref([]);
 const selected = ref([]);
 
 const evento = reactive({
-
   nombre: null,
 });
 
@@ -109,14 +105,24 @@ const evento = reactive({
 */
 async function onSubmit() {
   await crearEventos(evento);
+  Object.assign(evento, {
+    nombre: null,
+  });
 }
 
 async function Actualizar() {
   await updateEventos(evento);
+
+  Object.assign(evento, {
+    nombre: null,
+  });
 }
 
 async function Delete() {
   await deleteEventos(evento);
+  Object.assign(evento, {
+    nombre: null,
+  });
 }
 
 onMounted(async () => {
@@ -128,11 +134,11 @@ function handleSelection(details) {
     nombre: null,
   };
 
-  botonbloqueoactualizar.value=true;
-  botonbloqueoeliminar.value=true;
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
-    botonbloqueoactualizar.value=false;
-    botonbloqueoeliminar.value=false;
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 

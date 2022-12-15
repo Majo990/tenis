@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-form @submit="onSubmit" class="q-gutter-md">
+    <q-form  @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
         <strong>Formulario </strong>
         <div class="row">
@@ -203,6 +203,7 @@
           type="submit"
           icon="fa-solid fa-folder-plus"
           :disable="botonbloqueocrear"
+
         />
         <q-btn
           dense
@@ -361,10 +362,40 @@ async function onSubmit() {
 
 async function Actualizar() {
   await updateEstadios(estadio);
+
+  Object.assign(estadio, {
+  nombre: null,
+  id_jugadores: null,
+  cancha: null,
+  departamento: null,
+  cesped: null,
+  administrador: null,
+  propietario: null,
+  ubigeo: null,
+  direccion: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
+
 }
 
 async function Delete() {
   await deleteEstadios(estadio);
+
+  Object.assign(estadio, {
+  nombre: null,
+  id_jugadores: null,
+  cancha: null,
+  departamento: null,
+  cesped: null,
+  administrador: null,
+  propietario: null,
+  ubigeo: null,
+  direccion: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+});
+
 }
 
 const ciudades = computed(

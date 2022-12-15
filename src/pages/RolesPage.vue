@@ -4,6 +4,7 @@
       <div class="col-6">
         <q-form q-form @submit="onSubmit" class="q-gutter-md">
           <div class="q-pa-md">
+
             <strong>Formulario </strong>
 
             <div class="row">
@@ -57,9 +58,10 @@
 
 
             />
+
           </div>
-          <br />
         </q-form>
+
 
         <q-table
           :rows="rows"
@@ -132,6 +134,8 @@ const permisosSelected = ref([]);
 const selected = ref([]);
 const permisos = ref([]);
 const rolesDB = ref([]);
+
+
 const rol = reactive({
   descripcion: null,
 });
@@ -149,6 +153,11 @@ async function onSubmit() {
   for (let i = 0; i < permisos_roles.length; i++) {
     await crearPermisosRoles(permisos_roles[i]);
   }
+
+  Object.assign(rol, {
+    descripcion: null,
+  });
+
 }
 
 async function Actualizar() {
@@ -168,11 +177,21 @@ async function Actualizar() {
   for (let i = 0; i < permisos_roles.length; i++) {
     await updatePermisosRoles(permisos_roles[i]);
   }
+
+  Object.assign(rol, {
+    descripcion: null,
+  });
+
 }
 
 async function Delete() {
   await deleteRoles(rol);
   await deletePermisos(permisos.value);
+
+
+  Object.assign(rol, {
+    descripcion: null,
+  });
 }
 
 onMounted(async () => {
@@ -202,7 +221,7 @@ function handleSelection(details) {
     .map((p) => p.id_permisos);
 }
 
-function updateAll(val){
+/*function updateAll(val){
  if (val ==this.selectedall.length ){
 
   this.selectedAll=true ;
@@ -212,7 +231,7 @@ function updateAll(val){
  }
 
 }
-
+*/
 
 </script>
 

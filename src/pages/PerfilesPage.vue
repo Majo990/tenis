@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
+      <strong>Formulario </strong>
       <div class="row">
         <div class="col-6">
           <div class="row justify-between q-gutter-md">
@@ -181,7 +182,7 @@
               />
             </div>
 
-            <div>
+            <!----<div>
               <label
                 >Seleccione Nombre usuarios
                 <span class="text-red">*</span></label
@@ -198,7 +199,7 @@
                 dense
                 lazy-rules
               />
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -363,8 +364,6 @@ const perfil = reactive({
   apellido: null,
   edad: null,
   sexo: null,
-  pais: null,
-  ciudad: null,
   dni: null,
   nacionalidad: null,
   email: null,
@@ -404,8 +403,6 @@ function handleSelection(details) {
     apellido: null,
     edad: null,
     sexo: null,
-    pais: null,
-    ciudad: null,
     dni: null,
     nacionalidad: null,
     email: null,
@@ -432,14 +429,14 @@ function onkeyDown(evt) {
   }
 }
 
-const botonbloqueocrear = computed(() => {
+/*const botonbloqueocrear = computed(() => {
   if (
     Object.keys(perfil).every((key) => perfil[key] && perfil[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
-});
+});*/
 
 const botonbloqueoactualizar = ref(true);
 

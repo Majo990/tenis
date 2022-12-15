@@ -419,10 +419,34 @@ async function onSubmit() {
 
 async function Actualizar() {
   await updateHistorialPartidas(historialpartida);
+Object.assign(historialpartida,{
+  id_jugadores: null,
+  fecha_hora: null,
+  id_rondas: null,
+  puntaje: null,
+  id_eventos: null,
+  id_jueces: null,
+  id_premios: null,
+  id_faltas: null,
+  id_partidas: null,
+  id_arbitros: null,
+});
 }
 
 async function Delete() {
   await deleteHistorialPartidas(historialpartida);
+  Object.assign(historialpartida,{
+  id_jugadores: null,
+  fecha_hora: null,
+  id_rondas: null,
+  puntaje: null,
+  id_eventos: null,
+  id_jueces: null,
+  id_premios: null,
+  id_faltas: null,
+  id_partidas: null,
+  id_arbitros: null,
+});
 }
 
 onMounted(async () => {
@@ -457,7 +481,7 @@ function handleSelection(details) {
 
     botonbloqueoactualizar.value = false;
     botonbloqueoeliminar.value = false;
-    
+
     Object.assign(rowSelected, details.rows[0]);
   }
 

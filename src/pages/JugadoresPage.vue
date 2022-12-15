@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
-    <strong>Formulario </strong>
     <div class="q-pa-md">
       <q-form @submit="onSubmit" class="q-gutter-md">
+        <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
@@ -470,14 +470,63 @@ const jugador = reactive({
 
 async function onSubmit() {
   await crearJugadores(jugador);
+
+  Object.assign(jugador, {
+    nombre: null,
+  nacionalidad: null,
+  id_entrenadores: null,
+  sejuego: null,
+  edad: null,
+  sexo: null,
+  id_arbitros: null,
+  id_equipos: null,
+  id_torneos: null,
+  id_sanciones: null,
+  altura: null,
+  peso: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 async function Actualizar() {
   await updateJugadores(jugador);
+  Object.assign(jugador, {
+    nombre: null,
+  nacionalidad: null,
+  id_entrenadores: null,
+  sejuego: null,
+  edad: null,
+  sexo: null,
+  id_arbitros: null,
+  id_equipos: null,
+  id_torneos: null,
+  id_sanciones: null,
+  altura: null,
+  peso: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 async function Delete() {
   await deleteJugadores(jugador);
+  Object.assign(jugador, {
+    nombre: null,
+  nacionalidad: null,
+  id_entrenadores: null,
+  sejuego: null,
+  edad: null,
+  sexo: null,
+  id_arbitros: null,
+  id_equipos: null,
+  id_torneos: null,
+  id_sanciones: null,
+  altura: null,
+  peso: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 const ciudades = computed(

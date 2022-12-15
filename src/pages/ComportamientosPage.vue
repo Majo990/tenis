@@ -1,131 +1,129 @@
 <template>
   <q-page padding>
-    <q-form @submit="onSubmit" class="q-gutter-md">
+    <q-form class="q-gutter-md">
       <div class="q-pa-md">
-        <q-card flat >
-        <strong>Formulario </strong>
-        <div class="row">
-          <div class="col-6">
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese descrip comportamiento
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  v-model="comportamiento.descripcion"
-                  lazy-rules
-                  dense
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su Descripcion',
-                  ]"
-                />
-</div>
+        <q-card flat class="marco">
+          <strong>Formulario </strong>
+          <div class="row">
+            <div class="col-6">
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese descrip comportamiento
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="comportamiento.descripcion"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Descripcion',
+                    ]"
+                  />
+                </div>
 
-              <div >
-                <label
-                  >Seleccione Nombre Jugadores <span class="text-red">*</span
-                ></label>
-                <q-select
-                  filled
-                  v-model="comportamiento.id_jugadores"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="jugadores"
-                  dense
-                  lazy-rules
-                />
-                  </div>
-         </div>
-
-            <div class="row justify-between q-gutter-md">
-
-
-              <div>
-                <label
-                  >Seleccione  Arbitro
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  v-model="comportamiento.id_arbitros"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="arbitro"
-                  dense
-                  lazy-rules
-                />
+                <div>
+                  <label
+                    >Seleccione Nombre Jugadores
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="comportamiento.id_jugadores"
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="jugadores"
+                    dense
+                    lazy-rules
+                  />
+                </div>
               </div>
 
-              <div>
-                <label
-                  >Seleccione sancion  <span class="text-red">*</span
-                ></label>
-                <q-select
-                  filled
-                  v-model="comportamiento.id_sanciones"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="sancion"
-                  dense
-                  lazy-rules
-                />
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Seleccione Arbitro <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="comportamiento.id_arbitros"
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="arbitro"
+                    dense
+                    lazy-rules
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Seleccione sancion <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="comportamiento.id_sanciones"
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="sancion"
+                    dense
+                    lazy-rules
+                  />
                 </div>
               </div>
             </div>
           </div>
         </q-card>
       </div>
-        </q-form>
-        <br />
-        <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn
-            dense
-            color="primary"
-            label="Crear"
-            type="submit"
-            icon="fa-solid fa-folder-plus"
-            :disable="botonbloqueocrear"
-          />
-          <q-btn
-            dense
-            color="amber"
-            label="Editar"
-            @click="Actualizar"
-            icon="fa-solid fa-pen-to-square"
-            :disable="botonbloqueoactualizar"
-          />
-          <q-btn
-            dense
-            color="red"
-            label="Borrar"
-            @click="Delete"
-            icon="fa-solid fa-trash-can"
-            :disable="botonbloqueoeliminar"
-          />
-          <br />
-          <q-table
-            :rows="rows"
-            :columns="columns"
-            separator="cell"
-            dense
-            row-key="id"
-            selection="single"
-            v-model:selected="selected"
-            @selection="handleSelection"
-          >
-          </q-table>
-        </div>
-
+    </q-form>
+    <br />
+    <div class="col-6 q-gutter-md text-center items-center">
+      <q-btn
+        dense
+        color="primary"
+        label="Crear"
+        type="submit"
+        icon="fa-solid fa-folder-plus"
+        :disable="botonbloqueocrear"
+        @click="onSubmit"
+      />
+      <q-btn
+        dense
+        color="amber"
+        label="Editar"
+        @click="Actualizar"
+        icon="fa-solid fa-pen-to-square"
+        :disable="botonbloqueoactualizar"
+      />
+      <q-btn
+        dense
+        color="red"
+        label="Borrar"
+        @click="Delete"
+        icon="fa-solid fa-trash-can"
+        :disable="botonbloqueoeliminar"
+      />
+      <br />
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+    </div>
   </q-page>
 </template>
 
@@ -188,14 +186,32 @@ const comportamiento = reactive({
 
 async function onSubmit() {
   await crearComportamientos(comportamiento);
+  Object.assign(comportamiento, {
+    descripcion: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_sanciones: null,
+  });
 }
 
 async function Actualizar() {
   await updateComportamientos(comportamiento);
+  Object.assign(comportamiento, {
+    descripcion: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_sanciones: null,
+  });
 }
 
 async function Delete() {
   await deleteComportamientos(comportamiento);
+  Object.assign(comportamiento, {
+    descripcion: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_sanciones: null,
+  });
 }
 
 onMounted(async () => {
@@ -240,11 +256,19 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 
-<style>
+<style lang="scss">
 .q-table {
   color: rgb(26, 25, 24);
   background-color: #f3eb77;
 }
 
-
+.marco {
+  border-style: solid;
+  border-radius: 5%;
+  border-width: 1px;
+  padding: 30px;
+  padding-right: 150px;
+  height: 50%;
+  max-width: 54%;
+}
 </style>
