@@ -5,60 +5,176 @@ const routes = [
     children: [
       {
         path: "",
-        redirect: "/login",
-        component: () => import("pages/IndexPage.vue"),
+        redirect: "/home",
       },
       { path: "/login", component: () => import("pages/LoginPage.vue") },
-      { path: "/home", component: () => import("pages/HomePage.vue") },
       {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/home",
+        component: () => import("pages/HomePage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/formulario",
         component: () => import("pages/FormularioPage.vue"),
       },
-      { path: "/arbitros", component: () => import("pages/ArbitrosPage.vue") },
-      { path: "/usuarios", component: () => import("pages/UsuariosPage.vue") },
-      { path: "/perfiles", component: () => import("pages/PerfilesPage.vue") },
       {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/arbitros",
+        component: () => import("pages/ArbitrosPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/usuarios",
+        component: () => import("pages/UsuariosPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/perfiles",
+        component: () => import("pages/PerfilesPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/comportamientos",
         component: () => import("pages/ComportamientosPage.vue"),
       },
       {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/entrenadores",
         component: () => import("pages/EntrenadoresPage.vue"),
       },
-      { path: "/equipos", component: () => import("pages/EquiposPage.vue") },
-      { path: "/estadios", component: () => import("pages/EstadiosPage.vue") },
-      { path: "/eventos", component: () => import("pages/EventosPage.vue") },
-      { path: "/faltas", component: () => import("pages/FaltasPage.vue") },
       {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/equipos",
+        component: () => import("pages/EquiposPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/estadios",
+        component: () => import("pages/EstadiosPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/eventos",
+        component: () => import("pages/EventosPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/faltas",
+        component: () => import("pages/FaltasPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/historial-partidas",
         component: () => import("pages/Historial-PartidasPage.vue"),
       },
-      { path: "/jueces", component: () => import("pages/JuecesPage.vue") },
       {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/jueces",
+        component: () => import("pages/JuecesPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/jugadores",
         component: () => import("pages/JugadoresPage.vue"),
       },
-      { path: "/partidas", component: () => import("pages/PartidasPage.vue") },
       {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/partidas",
+        component: () => import("pages/PartidasPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/partidas-jugadores",
         component: () => import("pages/Partidas-JugadoresPage.vue"),
       },
-      { path: "/premios", component: () => import("pages/PremiosPage.vue") },
-      { path: "/rondas", component: () => import("pages/RondasPage.vue") },
       {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/premios",
+        component: () => import("pages/PremiosPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/rondas",
+        component: () => import("pages/RondasPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/sanciones",
         component: () => import("pages/SancionesPage.vue"),
       },
-      { path: "/torneos", component: () => import("pages/TorneosPage.vue") },
-      { path: "/roles", component: () => import("pages/RolesPage.vue") },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/torneos",
+        component: () => import("pages/TorneosPage.vue"),
+      },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/roles",
+        component: () => import("pages/RolesPage.vue"),
+      },
 
       {
+        meta: {
+          requiresAuth: true,
+        },
         path: "/usuario",
         component: () => import("pages/UsuarioTablePage.vue"),
       },
-      { path: "/permisos", component: () => import("pages/PermisosPage.vue") },
+      {
+        meta: {
+          requiresAuth: true,
+        },
+        path: "/permisos",
+        component: () => import("pages/PermisosPage.vue"),
+      },
       {
         path: "/permisos_roles",
+        meta: {
+          requiresAuth: true,
+        },
         component: () => import("pages/Permisos-RolesPage.vue"),
       },
     ],

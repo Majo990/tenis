@@ -73,26 +73,20 @@ import { ref } from "vue";
 import { login } from "src/services";
 import { Notify } from "quasar";
 import { useRouter } from "vue-router";
-import { Cookies } from "quasar";
-
 const usuario = ref(null);
 const password = ref(null);
 const { replace } = useRouter();
 
 async function onSubmit() {
-  console.log("submit");
   const r = await login(usuario.value, password.value);
-
-  Notify.create({
-    message: r,
-    type: "positive",
-  });
-
-  if (r === "Login correcto") {
-    if (r.token) {
-      Cookies.set("token", r.token);
-    }
-    replace("/home");
+  console.log({ r });
+  if (r) {
+    replace({path:"/home"});
+  } else {
+    Notify.create({
+      message: "Credenciales incorrectas",
+      type: "negative",
+    });
   }
 }
 

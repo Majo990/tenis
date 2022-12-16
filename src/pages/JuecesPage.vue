@@ -157,6 +157,8 @@
                         (val && val.length > 0) ||
                         'Por favor ingrese su Ciudad',
                     ]"
+                                          :disable="!ciudades || !ciudades.length"
+
                   />
                 </div>
               </div>

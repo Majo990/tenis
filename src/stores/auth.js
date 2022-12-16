@@ -6,9 +6,16 @@ export const useUserStore = defineStore("user", {
     user: null,
   }),
   getters: {
-    isAutenticated: (state) => state.user,
+    isAutenticated: (state) => Boolean(state.user),
   },
   actions: {
-    
+    async getUser() {
+      try {
+        const res = await api.get("/api/user");
+        this.user = res.data;
+      } catch (error) {
+        this.user = null;
+      }
+    },
   },
 });
