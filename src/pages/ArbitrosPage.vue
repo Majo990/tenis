@@ -46,14 +46,15 @@
                       :onkeydown="onkeyDown"
                     />
                   </div>
-                  <div>
+                  <div >
                     <label
                       >Ingrese su edad Arbitro
                       <span class="text-red">*</span></label
                     >
+                    <!---v-show="false"-->
                     <q-input
+
                       filled
-                      v-if="true"
                       dense
                       type="number"
                       v-model="arbitro.edad"

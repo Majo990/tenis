@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-form @submit="onSubmit" class="q-gutter-md">
+      <q-form  class="q-gutter-md">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
@@ -278,15 +278,16 @@
                         (val && val.length > 0) ||
                         'Por favor ingrese su Ciudad',
                     ]"
-                                          :disable="!ciudades || !ciudades.length"
-
+                    :disable="!ciudades || !ciudades.length"
                   />
+
                 </div>
 
-                <div class="row justify-between q-gutter-md">
+
                   <div class="col-6 q-gutter-md text-center items-center">
                     <q-btn
                       dense
+                      @click="onSubmit"
                       color="primary"
                       label="Crear"
                       type="submit"
@@ -309,25 +310,23 @@
                       icon="fa-solid fa-trash-can"
                       :disable="botonbloqueoeliminar"
                     />
-
                   </div>
 
                   <q-table
-                      :rows="rows"
-                      :columns="columns"
-                      separator="cell"
-                      dense
-                      row-key="id"
-                      selection="single"
-                      v-model:selected="selected"
-                      @selection="handleSelection"
-                    >
-                    </q-table>
+                    :rows="rows"
+                    :columns="columns"
+                    separator="cell"
+                    dense
+                    row-key="id"
+                    selection="single"
+                    v-model:selected="selected"
+                    @selection="handleSelection"
+                  >
+                  </q-table>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       </q-form>
     </div>
   </q-page>
@@ -472,22 +471,21 @@ const jugador = reactive({
 
 async function onSubmit() {
   await crearJugadores(jugador);
-
   Object.assign(jugador, {
     nombre: null,
-  nacionalidad: null,
-  id_entrenadores: null,
-  sejuego: null,
-  edad: null,
-  sexo: null,
-  id_arbitros: null,
-  id_equipos: null,
-  id_torneos: null,
-  id_sanciones: null,
-  altura: null,
-  peso: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
+    nacionalidad: null,
+    id_entrenadores: null,
+    sejuego: null,
+    edad: null,
+    sexo: null,
+    id_arbitros: null,
+    id_equipos: null,
+    id_torneos: null,
+    id_sanciones: null,
+    altura: null,
+    peso: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   });
 }
 
@@ -495,19 +493,19 @@ async function Actualizar() {
   await updateJugadores(jugador);
   Object.assign(jugador, {
     nombre: null,
-  nacionalidad: null,
-  id_entrenadores: null,
-  sejuego: null,
-  edad: null,
-  sexo: null,
-  id_arbitros: null,
-  id_equipos: null,
-  id_torneos: null,
-  id_sanciones: null,
-  altura: null,
-  peso: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
+    nacionalidad: null,
+    id_entrenadores: null,
+    sejuego: null,
+    edad: null,
+    sexo: null,
+    id_arbitros: null,
+    id_equipos: null,
+    id_torneos: null,
+    id_sanciones: null,
+    altura: null,
+    peso: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   });
 }
 
@@ -515,19 +513,19 @@ async function Delete() {
   await deleteJugadores(jugador);
   Object.assign(jugador, {
     nombre: null,
-  nacionalidad: null,
-  id_entrenadores: null,
-  sejuego: null,
-  edad: null,
-  sexo: null,
-  id_arbitros: null,
-  id_equipos: null,
-  id_torneos: null,
-  id_sanciones: null,
-  altura: null,
-  peso: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
+    nacionalidad: null,
+    id_entrenadores: null,
+    sejuego: null,
+    edad: null,
+    sexo: null,
+    id_arbitros: null,
+    id_equipos: null,
+    id_torneos: null,
+    id_sanciones: null,
+    altura: null,
+    peso: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   });
 }
 
@@ -562,13 +560,18 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(jugador, rowSelected);
 }
 
+// no insertar numeros en la caja de txto de letras ,
 function onkeyDown(evt) {
   if (
     (evt.keyCode >= 48 && evt.keyCode <= 57) ||
@@ -577,4 +580,17 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(jugador).every((key) => jugador[key] && jugador[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>

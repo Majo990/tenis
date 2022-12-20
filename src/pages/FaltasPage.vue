@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-   <q-page padding>
+    <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="row">
           <div class="col-6">
@@ -35,7 +35,7 @@
                   <span class="text-red">*</span></label
                 >
 
-                <q-input filled v-model="falta.fecha_hora" dense >
+                <q-input filled v-model="falta.fecha_hora" dense>
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer">
                       <q-popup-proxy
@@ -105,26 +105,7 @@
             style="width: 12%"
             :options="jugadores"
           />
-
-
-          <label
-              >Seleccione Nombre Arbitros <span class="text-red">*</span></label
-            >
-            <q-select
-              filled
-              v-model="falta.id_arbitros"
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              dense
-              :options="arbitros"
-            />
-
-            </div>
-            </div>
-
-
+        </div>
 
         <div class="row justify-between q-gutter-md">
           <div>
@@ -161,7 +142,6 @@
           </div>
         </div>
 
-
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
             dense
@@ -188,27 +168,22 @@
             :disable="botonbloqueoeliminar"
           />
         </div>
+      </q-form>
+    </q-page>
+  </div>
 
-
-
-
-
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          separator="cell"
-          dense
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        >
-        </q-table>
-
-
+  <q-table
+    :rows="rows"
+    :columns="columns"
+    separator="cell"
+    dense
+    row-key="id"
+    selection="single"
+    v-model:selected="selected"
+    @selection="handleSelection"
+  >
+  </q-table>
 </template>
-
-
 
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
@@ -262,7 +237,6 @@ const columns = [
   },
 ];
 const rows = ref([]);
-const fecha_hora= ref('2019-02-01 12:44');
 const jugadores = ref([]);
 const arbitros = ref([]);
 const partidas = ref([]);

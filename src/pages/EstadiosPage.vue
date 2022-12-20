@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-form  @submit="onSubmit" class="q-gutter-md">
+    <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
         <strong>Formulario </strong>
         <div class="row">
@@ -71,7 +71,6 @@
                       'Por favor seleccione su cesped',
                   ]"
                 />
-
               </div>
 
               <div class="row justify-between q-gutter-md">
@@ -135,67 +134,71 @@
                   />
                 </div>
 
-      <div class="row justify-between q-gutter-md">
-        <div>
-          <label
-            >Ingrese el ubigeo del estadio
-            <span class="text-red">*</span></label
-          >
-          <q-input
-            filled
-            v-model="estadio.ubigeo"
-            dense
-            mask="######"
-            lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Por favor ingrese su ubigeo',
-            ]"
-          />
-        </div>
-        <div>
-          <label>Ingrese su direccion <span class="text-red">*</span></label>
-          <q-input
-            filled
-            dense
-            v-model="estadio.direccion"
-            icon="mdi-map-marker-outline"
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'Por favor ingrese su Direccion',
-            ]"
-          />
-        </div>
+                <div class="row justify-between q-gutter-md">
+                  <div>
+                    <label
+                      >Ingrese el ubigeo del estadio
+                      <span class="text-red">*</span></label
+                    >
+                    <q-input
+                      filled
+                      v-model="estadio.ubigeo"
+                      dense
+                      mask="######"
+                      lazy-rules
+                      :rules="[
+                        (val) =>
+                          (val && val.length > 0) ||
+                          'Por favor ingrese su ubigeo',
+                      ]"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      >Ingrese su direccion
+                      <span class="text-red">*</span></label
+                    >
+                    <q-input
+                      filled
+                      dense
+                      v-model="estadio.direccion"
+                      icon="mdi-map-marker-outline"
+                      lazy-rules
+                      :rules="[
+                        (val) =>
+                          (val && val.length > 0) ||
+                          'Por favor ingrese su Direccion',
+                      ]"
+                    />
+                  </div>
 
-        <div>
-          <div>
-            <label
-              >Ingrese su ciudad estadio <span class="text-red">*</span></label
-            >
-            <q-select
-              filled
-              dense
-              v-model="estadio.nombre_ciudades"
-              :options="ciudades"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-              ]"
-                                    :disable="!ciudades || !ciudades.length"
-
-            />
-          </div>
-        </div>
-      </div>
-
-
-    </div>
+                  <div>
+                    <div>
+                      <label
+                        >Ingrese su ciudad estadio
+                        <span class="text-red">*</span></label
+                      >
+                      <q-select
+                        filled
+                        dense
+                        v-model="estadio.nombre_ciudades"
+                        :options="ciudades"
+                        lazy-rules
+                        :rules="[
+                          (val) =>
+                            (val && val.length > 0) ||
+                            'Por favor ingrese su Ciudad',
+                        ]"
+                        :disable="!ciudades || !ciudades.length"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
@@ -205,8 +208,8 @@
           type="submit"
           icon="fa-solid fa-folder-plus"
           :disable="botonbloqueocrear"
-
         />
+
         <q-btn
           dense
           color="amber"
@@ -360,44 +363,55 @@ const estadio = reactive({
 
 async function onSubmit() {
   await crearEstadios(estadio);
+  Object.assign(estadio, {
+    nombre: null,
+    id_jugadores: null,
+    cancha: null,
+    departamento: null,
+    cesped: null,
+    administrador: null,
+    propietario: null,
+    ubigeo: null,
+    direccion: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 async function Actualizar() {
   await updateEstadios(estadio);
 
   Object.assign(estadio, {
-  nombre: null,
-  id_jugadores: null,
-  cancha: null,
-  departamento: null,
-  cesped: null,
-  administrador: null,
-  propietario: null,
-  ubigeo: null,
-  direccion: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
+    nombre: null,
+    id_jugadores: null,
+    cancha: null,
+    departamento: null,
+    cesped: null,
+    administrador: null,
+    propietario: null,
+    ubigeo: null,
+    direccion: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   });
-
 }
 
 async function Delete() {
   await deleteEstadios(estadio);
 
   Object.assign(estadio, {
-  nombre: null,
-  id_jugadores: null,
-  cancha: null,
-  departamento: null,
-  cesped: null,
-  administrador: null,
-  propietario: null,
-  ubigeo: null,
-  direccion: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
-});
-
+    nombre: null,
+    id_jugadores: null,
+    cancha: null,
+    departamento: null,
+    cesped: null,
+    administrador: null,
+    propietario: null,
+    ubigeo: null,
+    direccion: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 const ciudades = computed(

@@ -1,4 +1,4 @@
-import { boot } from "quasar/wrappers";
+/*import { boot } from "quasar/wrappers";
 import { useUserStore } from "src/stores/auth";
 
 const whiteList = ["/login", "auth-redirect"];
@@ -18,3 +18,5 @@ export default boot(async ({ router }) => {
     return next();
   });
 });
+*/
+

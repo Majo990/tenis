@@ -35,7 +35,7 @@
               />
             </div>
 
-            <div>
+            <div >
               <label>Selecione Edad <span class="text-red">*</span></label>
               <q-input
                 filled
@@ -213,7 +213,7 @@
           label="Crear"
           type="submit"
           icon="fa-solid fa-folder-plus"
-          :disable="botonbloqueocrear"
+
         />
         <q-btn
           dense
@@ -232,7 +232,7 @@
           :disable="botonbloqueoeliminar"
         />
       </div>
-    </q-form>
+
     <br />
     <q-table
       :rows="rows"
@@ -245,6 +245,7 @@
       @selection="handleSelection"
     >
     </q-table>
+  </q-form>
   </q-page>
 </template>
 
@@ -345,13 +346,7 @@ const columns = [
     field: "codigo_postal",
     sortable: true,
   },
-  {
-    name: "id_usuarios",
-    align: "center",
-    label: "Nombre-Usuarios",
-    field: "nombre_usuarios",
-    sortable: true,
-  },
+
 ];
 const selected = ref([]);
 const rows = ref([]);
@@ -371,21 +366,62 @@ const perfil = reactive({
   direccion: null,
   celular: null,
   codigo_postal: null,
-  id_usuarios: null,
   nombre_paises: null,
   nombre_ciudades: null,
 });
 
 async function onSubmit() {
   await crearPerfiles(perfil);
+ /* Object.assign(perfil, {
+    nombre: null,
+  apellido: null,
+  edad: null,
+  sexo: null,
+  dni: null,
+  nacionalidad: null,
+  email: null,
+  direccion: null,
+  celular: null,
+  codigo_postal: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });*/
 }
 
 async function Actualizar() {
   await updatePerfiles(perfil);
+  Object.assign(perfil, {
+    nombre: null,
+  apellido: null,
+  edad: null,
+  sexo: null,
+  dni: null,
+  nacionalidad: null,
+  email: null,
+  direccion: null,
+  celular: null,
+  codigo_postal: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 async function Delete() {
   await deletePerfiles(perfil);
+  Object.assign(perfil, {
+    nombre: null,
+  apellido: null,
+  edad: null,
+  sexo: null,
+  dni: null,
+  nacionalidad: null,
+  email: null,
+  direccion: null,
+  celular: null,
+  codigo_postal: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  });
 }
 
 const ciudades = computed(
@@ -397,6 +433,7 @@ onMounted(async () => {
   paises.value = await getPaises();
   usuarios.value = await getUsuarios();
 });
+
 
 function handleSelection(details) {
   let rowSelected = {
@@ -410,11 +447,15 @@ function handleSelection(details) {
     direccion: null,
     celular: null,
     codigo_postal: null,
-    id_usuarios: null,
     nombre_paises: null,
     nombre_ciudades: null,
   };
+
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -430,14 +471,14 @@ function onkeyDown(evt) {
   }
 }
 
-/*const botonbloqueocrear = computed(() => {
+const botonbloqueocrear = computed(() => {
   if (
     Object.keys(perfil).every((key) => perfil[key] && perfil[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
-});*/
+});
 
 const botonbloqueoactualizar = ref(true);
 

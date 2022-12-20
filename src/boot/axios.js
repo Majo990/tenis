@@ -1,3 +1,4 @@
+
 import { boot } from "quasar/wrappers";
 import axios from "axios";
 import { Cookies } from "quasar";
@@ -18,3 +19,5 @@ export default boot(({ app }) => {
 });
 
 export { api };
+
+

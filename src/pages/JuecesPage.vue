@@ -45,7 +45,7 @@
                   />
                 </div>
 
-                <div>
+                <div >
                   <label
                     >Seleccione la edad del Juez
                     <span class="text-red">*</span></label

@@ -2,162 +2,163 @@
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
       <q-card flat class="marco">
-      <div class="q-pa-md">
-        <strong>Formulario </strong>
-        <div class="row justify-between q-gutter-md">
-          <div>
-            <label
-              >Seleccione su fecha Torneo <span class="text-red">*</span></label
-            >
+        <div class="q-pa-md">
+          <strong>Formulario </strong>
+          <div class="row justify-between q-gutter-md">
+            <div>
+              <label
+                >Seleccione su fecha Torneo
+                <span class="text-red">*</span></label
+              >
 
-            <q-input
-              filled
-              dense
-              v-model="torneo.fecha"
-              mask="date"
-              :rules="['date']"
-            >
-              <template v-slot:append>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy
-                    cover
-                    transition-show="scale"
-                    transition-hide="scale"
-                  >
-                    <q-date v-model="torneo.fecha">
-                      <div class="row items-center justify-end">
-                        <q-btn
-                          v-close-popup
-                          label="Close"
-                          color="primary"
-                          flat
-                        />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
+              <q-input
+                filled
+                dense
+                v-model="torneo.fecha"
+                mask="date"
+                :rules="['date']"
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date v-model="torneo.fecha">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+
+            <div>
+              <label
+                >Seleccione el Estadio <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="torneo.id_estadios"
+                dense
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="estadio"
+              />
+            </div>
           </div>
 
-          <div>
-            <label>Seleccione el Estadio <span class="text-red">*</span></label>
-            <q-select
-              filled
-              v-model="torneo.id_estadios"
-              dense
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              :options="estadio"
+          <div class="row justify-between q-gutter-md">
+            <div>
+              <label>
+                Ingrese el Nombre Torneo <span class="text-red">*</span></label
+              >
+              <q-input
+                filled
+                dense
+                v-model="torneo.nombre"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese el Nombre Torneo',
+                ]"
+                :onkeydown="onkeyDown"
+              />
+            </div>
+            <div>
+              <label>
+                Seleccione el Nombre Pais Torneo
+                <span class="text-red">*</span></label
+              >
 
-            />
+              <q-select
+                filled
+                v-model="torneo.nombre_paises"
+                dense
+                :options="paises"
+                map-options
+                emit-value
+                option-value="country"
+                option-label="country"
+              />
+            </div>
+          </div>
+
+          <div class="row justify-between q-gutter-md">
+            <div>
+              <label>
+                Seleccione el Ciudad Torneo
+                <span class="text-red">*</span></label
+              >
+
+              <q-select
+                filled
+                dense
+                v-model="torneo.nombre_ciudades"
+                :options="ciudades"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                ]"
+                :disable="!ciudades || !ciudades.length"
+              />
+            </div>
           </div>
         </div>
 
-        <div class="row justify-between q-gutter-md">
-          <div>
-            <label>
-              Ingrese el Nombre Torneo <span class="text-red">*</span></label
-            >
-            <q-input
-              filled
-              dense
-              v-model="torneo.nombre"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) ||
-                  'Por favor ingrese el Nombre Torneo',
-              ]"
-              :onkeydown="onkeyDown"
-            />
-          </div>
-          <div>
-            <label>
-              Seleccione el Nombre Pais Torneo
-              <span class="text-red">*</span></label
-            >
-
-            <q-select
-              filled
-              v-model="torneo.nombre_paises"
-              dense
-              :options="paises"
-              map-options
-              emit-value
-              option-value="country"
-              option-label="country"
-            />
-          </div>
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
         </div>
-
-        <div class="row justify-between q-gutter-md">
-          <div>
-            <label>
-              Seleccione el Ciudad Torneo <span class="text-red">*</span></label
-            >
-
-            <q-select
-              filled
-              dense
-              v-model="torneo.nombre_ciudades"
-              :options="ciudades"
-              lazy-rules
-              :rules="[
-                (val) =>
-                  (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-              ]"
-                                    :disable="!ciudades || !ciudades.length"
-
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn
-          dense
-          color="primary"
-          label="Crear"
-          type="submit"
-          icon="fa-solid fa-folder-plus"
-
-        />
-        <q-btn
-          dense
-          color="amber"
-          label="Editar"
-          @click="Actualizar"
-          icon="fa-solid fa-pen-to-square"
-
-        />
-        <q-btn
-          dense
-          color="red"
-          label="Borrar"
-          @click="Delete"
-          icon="fa-solid fa-trash-can"
-
-        />
-      </div>
-    </q-card>
+      </q-card>
     </q-form>
 
-<br/>
-      <q-table
-        :rows="rows"
-        :columns="columns"
-        separator="cell"
-        dense
-        row-key="id"
-        selection="single"
-        v-model:selected="selected"
-        @selection="handleSelection"
-      >
-      </q-table>
-
+    <br />
+    <q-table
+      :rows="rows"
+      :columns="columns"
+      separator="cell"
+      dense
+      row-key="id"
+      selection="single"
+      v-model:selected="selected"
+      @selection="handleSelection"
+    >
+    </q-table>
   </q-page>
 </template>
 
@@ -200,14 +201,14 @@ const columns = [
   },
 
   {
-    name: "id_paises",
+    name: "nombre_paises",
     align: "center",
     label: "Nombre-Paises",
     field: "nombre_paises",
     sortable: true,
   },
   {
-    name: "id_ciudades",
+    name: "nombre_ciudades",
     align: "center",
     label: "Nombre-Ciudades",
     field: "nombre_ciudades",
@@ -230,14 +231,35 @@ const torneo = reactive({
 
 async function onSubmit() {
   await crearTorneos(torneo);
+  Object.assign(torneo, {
+    fecha: null,
+    id_estadios: null,
+    nombre: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 async function Actualizar() {
   await updateTorneos(torneo);
+  Object.assign(torneo, {
+    fecha: null,
+    id_estadios: null,
+    nombre: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 async function Delete() {
   await deleteTorneos(torneo);
+  Object.assign(torneo, {
+    fecha: null,
+    id_estadios: null,
+    nombre: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+  });
 }
 
 const ciudades = computed(
@@ -258,7 +280,11 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
   Object.assign(torneo, rowSelected);
@@ -272,6 +298,19 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(torneo).every((key) => torneo[key] && torneo[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 
 <style lang="scss">
@@ -284,6 +323,4 @@ function onkeyDown(evt) {
   height: 50%;
   max-width: 54%;
 }
-
-
 </style>

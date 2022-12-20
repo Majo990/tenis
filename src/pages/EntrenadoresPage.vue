@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-form @submit="onSubmit" class="q-gutter-md">
+      <q-form  class="q-gutter-md">
         <div class="col-6 q-gutter-md text-center items-center">
           <strong>Formulario </strong>
           <div class="row">
@@ -185,6 +185,9 @@
               </div>
             </div>
           </div>
+
+
+
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
@@ -192,9 +195,10 @@
             dense
             color="primary"
             label="Crear"
-            type="submit"
+
             icon="fa-solid fa-folder-plus"
             :disable="botonbloqueocrear"
+            @click="onSubmit"
           />
 
           <q-btn

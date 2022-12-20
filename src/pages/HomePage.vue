@@ -187,31 +187,31 @@ const columns = [
   },
 
   {
-    name: "id_jugadores",
+    name: "cancha",
     align: "center",
     label: "Cancha",
-    field: "",
+    field: "cancha",
     sortable: true,
   },
   {
-    name: "id_arbitros",
+    name: "id_jugadores",
     align: "center",
     label: "Jugador1",
-    field: "jugador1",
+    field: "nombre",
     sortable: true,
   },
   {
-    name: "id_arbitros",
+    name: "vs",
     align: "center",
-    label: "VS",
-    field: "nombre_arbitros",
+    label: "vs",
+    field: "vs",
     sortable: true,
   },
   {
-    name: "id_arbitros",
+    name: "id_jugadores",
     align: "center",
     label: "Jugador2",
-    field: "jugador2",
+    field: "nombre",
     sortable: true,
   },
 ];
@@ -226,10 +226,10 @@ const columns2 = [
   },
 
   {
-    name: "id_jugador",
+    name: "id_jugadores",
     align: "center",
     label: "Jugador1",
-    field: "jugador1",
+    field: "nombre",
     sortable: true,
   },
 
@@ -241,10 +241,10 @@ const columns2 = [
     sortable: true,
   },
   {
-    name: "id_jugador",
+    name: "id_jugadores",
     align: "center",
     label: "Jugador2",
-    field: "jugador2",
+    field: "nombre",
     sortable: true,
   },
 ];

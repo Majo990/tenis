@@ -61,7 +61,6 @@
                   dense
                   :options="deportes"
                   lazy-rules
-
                 />
               </div>
             </div>
@@ -131,8 +130,7 @@
                   v-model="partida.tiempo_inicio"
                   mask="fulltime"
                   :rules="['fulltime']"
-    format24h
-
+                  format24h
                 >
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
@@ -292,7 +290,7 @@
   </q-page>
 </template>
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive,computed } from "vue";
 import {
   getPartidas,
   getRondas,
@@ -306,7 +304,6 @@ import {
 import { date } from "quasar";
 const selected = ref([]);
 const rondas = ref([]);
-
 
 const columns = [
   {
@@ -408,14 +405,48 @@ const partida = reactive({
 
 async function onSubmit() {
   await crearPartidas(partida);
+  Object.assign(partida, {
+    nombre: null,
+    descripcion: null,
+    id_deportes: null,
+    id_torneos: null,
+    fecha: null,
+    tiempo_inicio: null,
+    tiempo_duracion: null,
+    tiempo_fin: null,
+    id_rondas: null,
+  }); 
 }
 
 async function Actualizar() {
   await updatePartidas(partida);
+  Object.assign(partida, {
+    nombre: null,
+    descripcion: null,
+    id_deportes: null,
+    id_torneos: null,
+    fecha: null,
+    tiempo_inicio: null,
+    tiempo_duracion: null,
+    tiempo_fin: null,
+    id_rondas: null,
+  });
 }
 
 async function Delete() {
   await deletePartidas(partida);
+
+  Object.assign(partida, {
+    nombre: null,
+    descripcion: null,
+    id_deportes: null,
+    id_torneos: null,
+    fecha: null,
+    tiempo_inicio: null,
+    tiempo_duracion: null,
+    tiempo_fin: null,
+    id_rondas: null,
+  });
 }
 
 onMounted(async () => {
@@ -438,7 +469,11 @@ function handleSelection(details) {
     id_rondas: null,
   };
 
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -453,4 +488,17 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(partida).every((key) => partida[key] && partida[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>

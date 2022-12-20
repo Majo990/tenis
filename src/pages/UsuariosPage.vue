@@ -11,7 +11,6 @@
               v-model="usuario.usuarios"
               filled
               type="usuario"
-              hint="Usuario"
               :onkeydown="onkeyDown"
             />
           </div>
@@ -20,10 +19,10 @@
             <label>Ingrese su contraseña <span class="text-red">*</span></label>
             <q-input
               dense
-              v-model="usuario.contraseña"
+              v-model="usuario.contrasenia"
               filled
               type="password"
-              hint="Password"
+
             />
           </div>
 
@@ -32,11 +31,11 @@
               >Verifique su contraseña <span class="text-red">*</span></label
             >
             <q-input
-              v-model="usuario.contraseña"
+              v-model="usuario.contrasenia"
               filled
               dense
               :type="isPwd ? 'password' : 'text'"
-              hint="Password with toggle"
+
             >
               <template v-slot:append>
                 <q-icon
@@ -48,79 +47,49 @@
             </q-input>
           </div>
 
-          <div>
-            <label>Seleccion su rol <span class="text-red"></span></label>
-            <q-select
-              filled
-              v-model="usuario.id_roles"
-              emit-value
-              option-value="id"
-              option-label="descripcion"
-              :options="rol"
+          <div class="col-6 q-gutter-md text-center items-center">
+            <q-btn
               dense
-              lazy-rules
+              color="primary"
+              label="Crear"
+              type="submit"
+              icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Editar"
+              @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
+            />
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
             />
           </div>
-
-
-          <div class="col-6 q-gutter-md text-center items-center">
-      <q-btn
-        dense
-        color="primary"
-        label="Crear"
-        type="submit"
-        icon="fa-solid fa-folder-plus"
-      />
-      <q-btn
-        dense
-        color="amber"
-        label="Editar"
-        @click="Actualizar"
-        icon="fa-solid fa-pen-to-square"
-      />
-      <q-btn
-        dense
-        color="red"
-        label="Borrar"
-        @click="Delete"
-        icon="fa-solid fa-trash-can"
-      />
-    </div>
-
-
-
-
         </div>
       </q-form>
     </div>
   </div>
-
-
-
-  <q-table
-    :rows="rows"
-    :columns="columns"
-    separator="cell"
-    dense
-    row-key="id"
-    selection="single"
-    v-model:selected="selected"
-    @selection="handleSelection"
-  >
-  </q-table>
-
+  
 
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   crearUsuarios,
   getUsuarios,
-  getRoles,
   updateUsuarios,
   deleteUsuarios,
 } from "../services";
+
 const columns = [
   {
     name: "usuarios",
@@ -130,51 +99,54 @@ const columns = [
     field: "usuarios",
     sortable: true,
   },
-  {
-    name: "id_roles",
-    align: "center",
-    label: "Descripcion-Roles",
-    field: "descripcion",
-    sortable: true,
-  },
 ];
 
 const selected = ref([]);
 const rows = ref([]);
-const rol = ref([]);
 const isPwd = ref([]);
 
 const usuario = reactive({
   usuarios: null,
-  contraseña: null,
-  id_roles: null,
+  contrasenia: null,
 });
 
 async function onSubmit() {
   await crearUsuarios(usuario);
+  Object.assign(usuario, {
+    usuario: null,
+  });
 }
 
 async function Actualizar() {
   await updateUsuarios(usuario);
+  Object.assign(usuario, {
+    usuario: null,
+  });
 }
 
 async function Delete() {
   await deleteUsuarios(usuario);
+
+  Object.assign(usuario, {
+    usuario: null,
+  });
 }
 
 onMounted(async () => {
   rows.value = await getUsuarios();
-  roles.value = await getRoles();
 });
 
 function handleSelection(details) {
   let rowSelected = {
     usuarios: null,
-    contraseña: null,
-    id_roles: null,
+    contrasenia: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
 
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
@@ -189,9 +161,22 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(usuario).every((key) => usuario[key] && usuario[key] !== "") &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 
-<style  lang="scss">
+<style lang="scss">
 h3 {
   color: rgb(28, 234, 241);
   -webkit-text-stroke: 1.5px rgb(198, 11, 245);

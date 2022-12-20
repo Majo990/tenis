@@ -40,7 +40,9 @@
                     :options="jugadores"
                     dense
                     lazy-rules
-                  />
+   
+
+                    />
                 </div>
               </div>
 
@@ -176,6 +178,7 @@ const rows = ref([]);
 const jugadores = ref([]);
 const arbitro = ref([]);
 const sancion = ref([]);
+
 
 const comportamiento = reactive({
   descripcion: null,

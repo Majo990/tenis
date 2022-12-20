@@ -12,9 +12,8 @@ export async function login(usuario, password) {
     });
 
     if (r.data.token) {
-      Cookies.set("token", r.data);
-      api.defaults.headers.common["Authorization"] =
-        `Bearer ${r.data.token}` || null;
+      Cookies.set("token", r.data.token);
+      api.defaults.headers.common["Authorization"] = `Bearer ${r.data.token}`;
       userStore.user = r.data.user;
       return true;
     }
@@ -25,6 +24,7 @@ export async function login(usuario, password) {
   }
 }
 
+// api
 export async function getJugadores() {
   const r = await api.get("/api/jugadores");
   return r.data;
