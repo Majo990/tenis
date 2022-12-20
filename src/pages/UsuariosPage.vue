@@ -73,11 +73,23 @@
               :disable="botonbloqueoeliminar"
             />
           </div>
+
         </div>
       </q-form>
+
     </div>
   </div>
-  
+   <q-table
+      :rows="rows"
+      :columns="columns"
+      separator="cell"
+      dense
+      row-key="id"
+      selection="single"
+      v-model:selected="selected"
+      @selection="handleSelection"
+    >
+    </q-table>
 
 </template>
 
