@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-form  class="q-gutter-md">
+      <q-form  @submit="onSubmit"  class="q-gutter-md">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
@@ -191,9 +191,7 @@
                     ]"
                   />
                 </div>
-              </div>
 
-              <div class="row justify-between q-gutter-md">
                 <div>
                   <label
                     >Selecione su Altura <span class="text-red">*</span></label
@@ -216,7 +214,9 @@
                     ]"
                   ></q-input>
                 </div>
+              </div>
 
+              <div class="row justify-between q-gutter-md">
                 <div>
                   <label
                     >Ingrese su Peso Jugador
@@ -280,55 +280,58 @@
                     ]"
                     :disable="!ciudades || !ciudades.length"
                   />
-
                 </div>
 
-
-                  <div class="col-6 q-gutter-md text-center items-center">
-                    <q-btn
-                      dense
-                      @click="onSubmit"
-                      color="primary"
-                      label="Crear"
-                      type="submit"
-                      icon="fa-solid fa-folder-plus"
-                      :disable="botonbloqueocrear"
-                    />
-                    <q-btn
-                      dense
-                      color="amber"
-                      label="Editar"
-                      @click="Actualizar"
-                      icon="fa-solid fa-pen-to-square"
-                      :disable="botonbloqueoactualizar"
-                    />
-                    <q-btn
-                      dense
-                      color="red"
-                      label="Borrar"
-                      @click="Delete"
-                      icon="fa-solid fa-trash-can"
-                      :disable="botonbloqueoeliminar"
-                    />
-                  </div>
-
-                  <q-table
-                    :rows="rows"
-                    :columns="columns"
-                    separator="cell"
+                <div class="col-6 q-gutter-md text-center items-center">
+                  <q-btn
                     dense
-                    row-key="id"
-                    selection="single"
-                    v-model:selected="selected"
-                    @selection="handleSelection"
-                  >
-                  </q-table>
+                    color="primary"
+                    label="Crear"
+                    type="submit"
+                    icon="fa-solid fa-folder-plus"
+                    :disable="botonbloqueocrear"
+                  />
+                  <q-btn
+                    dense
+                    color="amber"
+                    label="Editar"
+                    @click="Actualizar"
+                    icon="fa-solid fa-pen-to-square"
+                    :disable="botonbloqueoactualizar"
+                  />
+                  <q-btn
+                    dense
+                    color="red"
+                    label="Borrar"
+                    @click="Delete"
+                    icon="fa-solid fa-trash-can"
+                    :disable="botonbloqueoeliminar"
+                  />
                 </div>
               </div>
+
             </div>
+
           </div>
-      </q-form>
-    </div>
+
+
+        </div>
+
+              </q-form>
+                <q-table
+                  :rows="rows"
+                  :columns="columns"
+                  separator="cell"
+                  dense
+                  row-key="id"
+                  selection="single"
+                  v-model:selected="selected"
+                  @selection="handleSelection"
+                >
+                </q-table>
+              </div>
+
+
   </q-page>
 </template>
 

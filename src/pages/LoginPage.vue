@@ -7,7 +7,7 @@
         @reset="onReset"
         class="q-pa-md q-gutter-md login img"
       >
-        <q-avatar >
+        <q-avatar>
           <img
             src="https://th.bing.com/th/id/R.63884fb3108305aa0824560946fe81c6?rik=ut82%2fXweWRqbZA&pid=ImgRaw&r=0"
           />

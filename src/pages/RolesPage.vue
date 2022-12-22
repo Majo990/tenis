@@ -4,7 +4,6 @@
       <div class="col-6">
         <q-form q-form @submit="onSubmit" class="q-gutter-md">
           <div class="q-pa-md">
-
             <strong>Formulario </strong>
 
             <div class="row">
@@ -39,7 +38,6 @@
               label="Crear"
               type="submit"
               icon="fa-solid fa-folder-plus"
-
             />
             <q-btn
               dense
@@ -47,7 +45,6 @@
               label="Editar"
               @click="Actualizar"
               icon="fa-solid fa-pen-to-square"
-
             />
             <q-btn
               dense
@@ -55,13 +52,11 @@
               label="Borrar"
               @click="Delete"
               icon="fa-solid fa-trash-can"
-
-
             />
-
           </div>
         </q-form>
 
+        <br />
 
         <q-table
           :rows="rows"
@@ -87,7 +82,13 @@
           >
             <q-separator spaced />
             <q-item-label header>Lista Permisos </q-item-label>
-            <q-checkbox v-model="selectedAll" dense  label="Seleccionar todos" class="text-bold" @update:model-value="updateAll"/>
+            <q-checkbox
+              v-model="selectedAll"
+              dense
+              label="Seleccionar todos"
+              class="text-bold"
+              @update:model-value="updateAll"
+            />
 
             <q-option-group
               v-model="permisosSelected"
@@ -135,7 +136,6 @@ const selected = ref([]);
 const permisos = ref([]);
 const rolesDB = ref([]);
 
-
 const rol = reactive({
   descripcion: null,
 });
@@ -157,7 +157,6 @@ async function onSubmit() {
   Object.assign(rol, {
     descripcion: null,
   });
-
 }
 
 async function Actualizar() {
@@ -181,13 +180,11 @@ async function Actualizar() {
   Object.assign(rol, {
     descripcion: null,
   });
-
 }
 
 async function Delete() {
   await deleteRoles(rol);
   await deletePermisos(permisos.value);
-
 
   Object.assign(rol, {
     descripcion: null,
@@ -232,7 +229,6 @@ function handleSelection(details) {
 
 }
 */
-
 </script>
 
 <style></style>

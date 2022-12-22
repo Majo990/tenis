@@ -25,17 +25,17 @@
           <div class="row justify-between q-gutter-md">
             <div>
               <label
-                >Seleccione su el Nombre Partidas
+                >Seleccione su Estadio
                 <span class="text-red">*</span></label
               >
               <q-select
                 filled
-                v-model="partidajugador.id_partidas"
+                v-model="estadiopartida.id_estadios"
                 map-options
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="partidas"
+                :options="estadio"
                 dense
                 lazy-rules
               />
@@ -43,17 +43,17 @@
 
             <div>
               <label
-                >Seleccione el Nombre Jugador
+                >Seleccione el nombre Partida
                 <span class="text-red">*</span></label
               >
               <q-select
                 filled
-                v-model="partidajugador.id_jugadores"
+                v-model="estadiopartida.id_partidas"
                 map-options
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="jugadores"
+                :options="partida"
                 dense
                 lazy-rules
               />
@@ -107,12 +107,12 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
 import {
-  getJugadores,
+  getEstadios,
   getPartidas,
-  getPartidasJugadores,
-  crearPartidasJugadores,
-  deletePartidasJugadores,
-  updatePartidasJugadores,
+  getEstadioPartida,
+  crearEstadioPartida,
+  deleteEstadioPartida,
+  updateEstadioPartida,
 } from "../services";
 const columns = [
   {
@@ -123,80 +123,65 @@ const columns = [
     sortable: true,
   },
   {
-    name: "id_jugadores",
+    name: "id_estadios",
     align: "center",
-    label: "Nombre_Jugadores",
-    field: "nombre_jugadores",
+    label: "Nombre_Estadios",
+    field: "nombre_estadios",
     sortable: true,
   },
 ];
 
 const rows = ref([]);
 const filter = ref("");
-const jugadores = ref([]);
-const partidas = ref([]);
+const estadio = ref([]);
+const partida = ref([]);
 const selected = ref([]);
 
-const partidajugador = reactive({
+const estadiopartida = reactive({
   id_partidas: null,
-  id_jugadores: null,
+  id_estadios: null,
 });
 
 async function onSubmit() {
-  await crearPartidasJugadores(partidajugador);
-  Object.assign(partidajugador, {
+  await crearEstadioPartida(estadiopartida);
+  Object.assign(estadiopartida, {
     id_partidas: null,
-    id_jugadores: null,
+    id_estadios: null,
   });
 }
 
 async function Actualizar() {
-  await updatePartidasJugadores(partidajugador);
-  Object.assign(partidajugador, {
+  await updateEstadioPartida(estadiopartida);
+  Object.assign(estadiopartida, {
     id_partidas: null,
-    id_jugadores: null,
+    id_estadios: null,
   });
 }
 
 async function Delete() {
-  await deletePartidasJugadores(partidajugador);
-  Object.assign(partidajugador, {
+  await deletePartidasJugadores(estadiopartida);
+  Object.assign(estadiopartida, {
     id_partidas: null,
-    id_jugadores: null,
+    id_estadios: null,
   });
 }
 
 onMounted(async () => {
-  rows.value = await getPartidasJugadores();
-  partidas.value = await getPartidas();
-  jugadores.value = await getJugadores();
+  rows.value = await getEstadioPartida();
+  partida.value = await getPartidas();
+  estadio.value = await getEstadios();
 });
 
 function handleSelection(details) {
   let rowSelected = {
     id_partidas: null,
-    id_jugadores: null,
+    id_estadios: null,
   };
 
   if (details.added) {
     Object.assign(rowSelected, details.rows[0]);
   }
 
-  Object.assign(partidajugador, rowSelected);
+  Object.assign(estadiopartida, rowSelected);
 }
 </script>
-<style lang="scss">
-.buscador {
-  width: 600px;
-}
-
-.marco {
-  border-style: solid;
-  border-radius: 5%;
-  border-width: 1px;
-  padding: 30px;
-  padding-right: 100px;
-  height: 50%;
-  max-width: 70%;
-}
-</style>

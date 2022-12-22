@@ -290,7 +290,7 @@
   </q-page>
 </template>
 <script setup>
-import { ref, onMounted, reactive,computed } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getPartidas,
   getRondas,
@@ -359,6 +359,7 @@ const columns = [
     align: "center",
     label: "Tiempo_Duracion",
     field: "tiempo_duracion",
+    format24h: (val, row) => date.format24h(val, "HH:mm:ss"),
     sortable: true,
   },
   {
@@ -366,6 +367,7 @@ const columns = [
     align: "center",
     label: "Tiempo_Fin",
     field: "tiempo_fin",
+    format24h: (val, row) => date.format24h(val, "HH:mm:ss"),
     sortable: true,
   },
   {
@@ -415,7 +417,7 @@ async function onSubmit() {
     tiempo_duracion: null,
     tiempo_fin: null,
     id_rondas: null,
-  }); 
+  });
 }
 
 async function Actualizar() {

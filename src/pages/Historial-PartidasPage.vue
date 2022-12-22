@@ -55,7 +55,7 @@
                       >
                         <q-date
                           v-model="historialpartida.fecha_hora"
-                          mask="YYYY-MM-DD HH:mm"
+                          mask="YYYY-MM-DD HH:mm:s"
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -251,7 +251,6 @@
             type="submit"
             icon="fa-solid fa-folder-plus"
             :disable="botonbloqueocrear"
-
           />
           <q-btn
             dense
@@ -260,7 +259,6 @@
             @click="Actualizar"
             icon="fa-solid fa-pen-to-square"
             :disable="botonbloqueoactualizar"
-
           />
           <q-btn
             dense
@@ -269,7 +267,6 @@
             @click="Delete"
             icon="fa-solid fa-trash-can"
             :disable="botonbloqueoeliminar"
-
           />
         </div>
         <br />
@@ -292,7 +289,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive ,computed} from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getArbitros,
   getEventos,
@@ -324,6 +321,8 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
+    format: (val, row) =>
+    date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
   }, //ya esta    format: (val, row) => date.formatDate(timeStamp, "YYYY-MM-DDTHH:mm:ss.A"),
   {
     name: "id_rondas",
@@ -419,34 +418,34 @@ async function onSubmit() {
 
 async function Actualizar() {
   await updateHistorialPartidas(historialpartida);
-Object.assign(historialpartida,{
-  id_jugadores: null,
-  fecha_hora: null,
-  id_rondas: null,
-  puntaje: null,
-  id_eventos: null,
-  id_jueces: null,
-  id_premios: null,
-  id_faltas: null,
-  id_partidas: null,
-  id_arbitros: null,
-});
+  Object.assign(historialpartida, {
+    id_jugadores: null,
+    fecha_hora: null,
+    id_rondas: null,
+    puntaje: null,
+    id_eventos: null,
+    id_jueces: null,
+    id_premios: null,
+    id_faltas: null,
+    id_partidas: null,
+    id_arbitros: null,
+  });
 }
 
 async function Delete() {
   await deleteHistorialPartidas(historialpartida);
-  Object.assign(historialpartida,{
-  id_jugadores: null,
-  fecha_hora: null,
-  id_rondas: null,
-  puntaje: null,
-  id_eventos: null,
-  id_jueces: null,
-  id_premios: null,
-  id_faltas: null,
-  id_partidas: null,
-  id_arbitros: null,
-});
+  Object.assign(historialpartida, {
+    id_jugadores: null,
+    fecha_hora: null,
+    id_rondas: null,
+    puntaje: null,
+    id_eventos: null,
+    id_jueces: null,
+    id_premios: null,
+    id_faltas: null,
+    id_partidas: null,
+    id_arbitros: null,
+  });
 }
 
 onMounted(async () => {
@@ -478,7 +477,6 @@ function handleSelection(details) {
   botonbloqueoactualizar.value = true;
   botonbloqueoeliminar.value = true;
   if (details.added) {
-
     botonbloqueoactualizar.value = false;
     botonbloqueoeliminar.value = false;
 
@@ -488,11 +486,11 @@ function handleSelection(details) {
   Object.assign(historialpartida, rowSelected);
 }
 
-
-
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(historialpartida).every((key) => historialpartida[key] && historialpartida[key] !== "") &&
+    Object.keys(historialpartida).every(
+      (key) => historialpartida[key] && historialpartida[key] !== ""
+    ) &&
     botonbloqueoactualizar.value
   )
     return false;
@@ -502,25 +500,6 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
 <style>

@@ -3,60 +3,58 @@
     <div class="q-pa-md">
       <div class="q-pa-md">
         <q-form @submit="onSubmit" class="q-gutter-md">
-          <q-card flat class="marco">
-            <strong>Formulario </strong>
-            <div class="row">
-              <div class="col-6">
-                <div class="row justify-between q-gutter-md">
-                  <div>
-                    <label
-                      >Ingrese nombre sancion
-                      <span class="text-red">*</span></label
-                    >
+          <strong>Formulario </strong>
+          <div class="row">
+            <div class="col-6">
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese nombre sancion
+                    <span class="text-red">*</span></label
+                  >
 
-                    <q-input
-                      filled
-                      v-model="sancion.nombre"
-                      lazy-rules
-                      dense
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su NombreJugador',
-                      ]"
-                      :onkeydown="onkeyDown"
-                    />
-                  </div>
+                  <q-input
+                    filled
+                    v-model="sancion.nombre"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su NombreJugador',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
                 </div>
               </div>
             </div>
-            <div class="col-6 q-gutter-md text-center items-center">
-              <q-btn
-                dense
-                color="primary"
-                label="Crear"
-                type="submit"
-                icon="fa-solid fa-folder-plus"
-                :disable="botonbloqueocrear"
-              />
-              <q-btn
-                dense
-                color="amber"
-                label="Editar"
-                @click="Actualizar"
-                icon="fa-solid fa-pen-to-square"
-                :disable="botonbloqueoactualizar"
-              />
-              <q-btn
-                dense
-                color="red"
-                label="Borrar"
-                @click="Delete"
-                icon="fa-solid fa-trash-can"
-                :disable="botonbloqueoeliminar"
-              />
-            </div>
-          </q-card>
+          </div>
+          <div class="col-6 q-gutter-md text-center items-center">
+            <q-btn
+              dense
+              color="primary"
+              label="Crear"
+              type="submit"
+              icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Editar"
+              @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
+            />
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
+            />
+          </div>
         </q-form>
       </div>
       <q-table

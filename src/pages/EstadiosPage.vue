@@ -39,7 +39,7 @@
                 />
               </div>
 
-              <div>
+             <!----- <div>
                 <label>Seleccion cancha <span class="text-red">*</span></label>
                 <q-select
                   filled
@@ -53,7 +53,7 @@
                       'Por favor seleccione su cancha',
                   ]"
                 />
-              </div>
+              </div>--->
 
               <div>
                 <label
@@ -73,7 +73,7 @@
                 />
               </div>
 
-              <div class="row justify-between q-gutter-md">
+
                 <div>
                   <label
                     >Ingrese nombre propietario estadio
@@ -134,7 +134,8 @@
                   />
                 </div>
 
-                <div class="row justify-between q-gutter-md">
+
+
                   <div>
                     <label
                       >Ingrese el ubigeo del estadio
@@ -197,8 +198,8 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+
+
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
@@ -271,13 +272,13 @@ const columns = [
     sortable: true,
   },
 
-  {
+  /*{
     name: "cancha",
     align: "center",
     label: "Cancha",
     field: "cancha",
     sortable: true,
-  },
+  },*/
 
   {
     name: "cesped",
@@ -333,14 +334,7 @@ const columns = [
 const rows = ref([]);
 const paises = ref([]);
 const jugadores = ref([]);
-let canchas = [
-  "cancha1",
-  "cancha2",
-  "cancha3",
-  "cancha4",
-  "cancha5",
-  "cancha6",
-];
+
 const cancha = ref(null);
 const nombre_ciudades = ref([]);
 let cespeds = ["sintetico", "natural", "piso"];

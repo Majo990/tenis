@@ -3,7 +3,7 @@
     <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="q-pa-md">
-          <q-card flat class="marco">
+
             <strong>Formulario </strong>
             <div class="row">
               <div class="">
@@ -222,7 +222,7 @@
                 </div>
               </div>
             </div>
-          </q-card>
+
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
@@ -323,7 +323,7 @@ const columns = [
     name: "peso",
     align: "center",
     label: "peso",
-    field: "Peso",
+    field: "peso",
     sortable: true,
   },
   {

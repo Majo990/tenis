@@ -1,9 +1,9 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-form  class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
+        <strong>Formulario </strong>
         <div class="col-6 q-gutter-md text-center items-center">
-          <strong>Formulario </strong>
           <div class="row">
             <div class="col-6">
               <div class="row justify-between q-gutter-md">
@@ -185,9 +185,6 @@
               </div>
             </div>
           </div>
-
-
-
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
@@ -195,10 +192,9 @@
             dense
             color="primary"
             label="Crear"
-
             icon="fa-solid fa-folder-plus"
             :disable="botonbloqueocrear"
-            @click="onSubmit"
+
           />
 
           <q-btn
@@ -218,7 +214,9 @@
             :disable="botonbloqueoeliminar"
           />
         </div>
+
       </q-form>
+      
     </div>
 
     <q-table
@@ -231,7 +229,10 @@
       v-model:selected="selected"
       @selection="handleSelection"
     >
+
     </q-table>
+
+
   </q-page>
 </template>
 

@@ -35,7 +35,7 @@
               />
             </div>
 
-            <div >
+            <div>
               <label>Selecione Edad <span class="text-red">*</span></label>
               <q-input
                 filled
@@ -213,7 +213,6 @@
           label="Crear"
           type="submit"
           icon="fa-solid fa-folder-plus"
-
         />
         <q-btn
           dense
@@ -233,19 +232,19 @@
         />
       </div>
 
-    <br />
-    <q-table
-      :rows="rows"
-      :columns="columns"
-      separator="cell"
-      dense
-      row-key="id"
-      selection="single"
-      v-model:selected="selected"
-      @selection="handleSelection"
-    >
-    </q-table>
-  </q-form>
+      <br />
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+    </q-form>
   </q-page>
 </template>
 
@@ -346,7 +345,6 @@ const columns = [
     field: "codigo_postal",
     sortable: true,
   },
-
 ];
 const selected = ref([]);
 const rows = ref([]);
@@ -372,7 +370,7 @@ const perfil = reactive({
 
 async function onSubmit() {
   await crearPerfiles(perfil);
- /* Object.assign(perfil, {
+  /* Object.assign(perfil, {
     nombre: null,
   apellido: null,
   edad: null,
@@ -392,17 +390,17 @@ async function Actualizar() {
   await updatePerfiles(perfil);
   Object.assign(perfil, {
     nombre: null,
-  apellido: null,
-  edad: null,
-  sexo: null,
-  dni: null,
-  nacionalidad: null,
-  email: null,
-  direccion: null,
-  celular: null,
-  codigo_postal: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    dni: null,
+    nacionalidad: null,
+    email: null,
+    direccion: null,
+    celular: null,
+    codigo_postal: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   });
 }
 
@@ -410,17 +408,17 @@ async function Delete() {
   await deletePerfiles(perfil);
   Object.assign(perfil, {
     nombre: null,
-  apellido: null,
-  edad: null,
-  sexo: null,
-  dni: null,
-  nacionalidad: null,
-  email: null,
-  direccion: null,
-  celular: null,
-  codigo_postal: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
+    apellido: null,
+    edad: null,
+    sexo: null,
+    dni: null,
+    nacionalidad: null,
+    email: null,
+    direccion: null,
+    celular: null,
+    codigo_postal: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   });
 }
 
@@ -433,7 +431,6 @@ onMounted(async () => {
   paises.value = await getPaises();
   usuarios.value = await getUsuarios();
 });
-
 
 function handleSelection(details) {
   let rowSelected = {

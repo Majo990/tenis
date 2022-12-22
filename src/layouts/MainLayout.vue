@@ -133,6 +133,12 @@ const linksList = [
   },
 
   {
+    title: "Estadios-Partidas",
+    icon: "mdi-square-rounded-outline",
+    link: "/Estadios-Partidas",
+  },
+
+  {
     title: "Premios",
     icon: "fa-solid fa-trophy",
     link: "/Premios",

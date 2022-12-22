@@ -177,6 +177,16 @@ const routes = [
         },
         component: () => import("pages/Permisos-RolesPage.vue"),
       },
+//
+      {
+        path: "/canchas_estadios_partidas",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/Estadios-PartidasPage.vue"),
+      },
+
+
     ],
   },
 

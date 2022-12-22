@@ -1,96 +1,83 @@
 <template>
   <div class="q-pa-md">
-    <div class="marco">
-      <q-form @submit="onSubmit" class="q-gutter-md">
-        <strong>Formulario </strong>
-        <div class="q-gutter-md row items-start">
-          <div>
-            <label>Ingrese su Usuario <span class="text-red">*</span></label>
-            <q-input
-              dense
-              v-model="usuario.usuarios"
-              filled
-              type="usuario"
-              :onkeydown="onkeyDown"
-            />
-          </div>
-
-          <div>
-            <label>Ingrese su contraseña <span class="text-red">*</span></label>
-            <q-input
-              dense
-              v-model="usuario.contrasenia"
-              filled
-              type="password"
-
-            />
-          </div>
-
-          <div>
-            <label
-              >Verifique su contraseña <span class="text-red">*</span></label
-            >
-            <q-input
-              v-model="usuario.contrasenia"
-              filled
-              dense
-              :type="isPwd ? 'password' : 'text'"
-
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
-          </div>
-
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn
-              dense
-              color="primary"
-              label="Crear"
-              type="submit"
-              icon="fa-solid fa-folder-plus"
-              :disable="botonbloqueocrear"
-            />
-            <q-btn
-              dense
-              color="amber"
-              label="Editar"
-              @click="Actualizar"
-              icon="fa-solid fa-pen-to-square"
-              :disable="botonbloqueoactualizar"
-            />
-            <q-btn
-              dense
-              color="red"
-              label="Borrar"
-              @click="Delete"
-              icon="fa-solid fa-trash-can"
-              :disable="botonbloqueoeliminar"
-            />
-          </div>
-
+    <q-form @submit="onSubmit" class="q-gutter-md">
+      <strong>Formulario </strong>
+      <div class="q-gutter-md row items-start">
+        <div>
+          <label>Ingrese su Usuario <span class="text-red">*</span></label>
+          <q-input
+            dense
+            v-model="usuario.usuarios"
+            filled
+            type="usuario"
+            :onkeydown="onkeyDown"
+          />
         </div>
-      </q-form>
 
-    </div>
+        <div>
+          <label>Ingrese su contraseña <span class="text-red">*</span></label>
+          <q-input dense v-model="usuario.contrasenia" filled type="password" />
+        </div>
+
+        <div>
+          <label>Verifique su contraseña <span class="text-red">*</span></label>
+          <q-input
+            v-model="usuario.contrasenia"
+            filled
+            dense
+            :type="isPwd ? 'password' : 'text'"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+        </div>
+
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
+        </div>
+      </div>
+    </q-form>
   </div>
-   <q-table
-      :rows="rows"
-      :columns="columns"
-      separator="cell"
-      dense
-      row-key="id"
-      selection="single"
-      v-model:selected="selected"
-      @selection="handleSelection"
-    >
-    </q-table>
 
+  <q-table
+    :rows="rows"
+    :columns="columns"
+    separator="cell"
+    dense
+    row-key="id"
+    selection="single"
+    v-model:selected="selected"
+    @selection="handleSelection"
+  >
+  </q-table>
 </template>
 
 <script setup>
@@ -109,6 +96,14 @@ const columns = [
     label: "Usuarios",
     align: "center",
     field: "usuarios",
+    sortable: true,
+  },
+  {
+    name: "id_roles",
+    required: true,
+    label: "Roles",
+    align: "center",
+    field: "descripcion",
     sortable: true,
   },
 ];

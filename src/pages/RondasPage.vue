@@ -2,54 +2,52 @@
   <q-page padding>
     <q-page class="q-pa-md">
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <q-card flat class="marco">
-          <strong>Formulario </strong>
-          <div class="row">
-            <div class="col-6">
-              <div class="row justify-between q-gutter-md">
-                <div>
-                  <label
-                    >Ingrese nombre entrenador
-                    <span class="text-red">*</span></label
-                  >
-                  <q-input
-                    dense
-                    v-model.number="ronda.nro"
-                    type="number"
-                    filled
-                    hint="NroRonda"
-                  />
-                </div>
+        <strong>Formulario </strong>
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <div>
+                <label
+                  >Ingrese nombre entrenador
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  dense
+                  v-model.number="ronda.nro"
+                  type="number"
+                  filled
+                  hint="NroRonda"
+                />
               </div>
             </div>
           </div>
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn
-              dense
-              color="primary"
-              label="Crear"
-              type="submit"
-              icon="fa-solid fa-folder-plus"
-              :disable="botonbloqueocrear"
-            />
-            <q-btn
-              dense
-              color="amber"
-              label="Editar"
-              @click="Actualizar"
-              icon="fa-solid fa-pen-to-square"
-              :disable="botonbloqueoactualizar"
-            />
-            <q-btn
-              dense
-              color="red"
-              label="Borrar"
-              @click="Delete"
-              icon="fa-solid fa-trash-can"
-              :disable="botonbloqueoeliminar"
-            />
-          </div>
-        </q-card>
+        </div>
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
+        </div>
       </q-form>
       <br />
       <q-table
@@ -143,7 +141,7 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 
-<style  lang="scss">
+<style lang="scss">
 .marco {
   border-style: solid;
   border-radius: 5%;

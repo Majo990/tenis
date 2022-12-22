@@ -2,7 +2,6 @@
   <q-page padding>
     <q-form class="q-gutter-md">
       <div class="q-pa-md">
-        <q-card flat class="marco">
           <strong>Formulario </strong>
           <div class="row">
             <div class="col-6">
@@ -40,7 +39,7 @@
                     :options="jugadores"
                     dense
                     lazy-rules
-   
+
 
                     />
                 </div>
@@ -83,7 +82,7 @@
               </div>
             </div>
           </div>
-        </q-card>
+
       </div>
     </q-form>
     <br />
@@ -260,18 +259,15 @@ const botonbloqueoeliminar = ref(true);
 </script>
 
 <style lang="scss">
-.q-table {
-  color: rgb(26, 25, 24);
-  background-color: #f3eb77;
-}
 
-.marco {
-  border-style: solid;
-  border-radius: 5%;
-  border-width: 1px;
-  padding: 30px;
-  padding-right: 150px;
-  height: 50%;
-  max-width: 54%;
-}
+
+
+
+//.q-table {
+ // color: rgb(26, 25, 24);
+ /// background-color: #f3eb77;
+//}
+
+
+
 </style>

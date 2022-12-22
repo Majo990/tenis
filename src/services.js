@@ -227,8 +227,18 @@ export async function deleteJueces(params) {
   return r.data;
 }
 ///
-export async function getHome() {
-  const r = await api.get("/api/jugadores");
+export async function getProximosencuentros() {
+  const r = await api.get("/api/proximosencuentros");
+  return r.data;
+}
+
+export async function getResultados() {
+  const r = await api.get("/api/resultados");
+  return r.data;
+}
+
+export async function getJuego() {
+  const r = await api.get("/api/juego");
   return r.data;
 }
 
@@ -290,6 +300,58 @@ export async function deletePartidasJugadores(params) {
   const r = await api.delete("/api/partidas_jugadores/" + params.id, params);
   return r.data;
 }
+
+//
+export async function getEstadioPartida() {
+  const r = await api.get("/api/estadios_partidas");
+  return r.data;
+}
+
+export async function crearEstadioPartida(params) {
+  const r = await api.post("/api/estadios_partidas", params);
+  return r.data;
+}
+
+export async function updateEstadioPartida(estadiopartida) {
+  const r = await api.put(
+    "/api/estadios_partidas/" + estadiopartida.id,
+    estadiopartida
+  );
+  return r.data;
+}
+
+export async function deleteEstadioPartida(params) {
+  const r = await api.delete("/api/estadios_partidas/" + params.id, params);
+  return r.data;
+}
+
+/*
+export async function getProximosencuentros() {
+  const r = await api.get("/api/partidas");
+  return r.data;
+}
+
+export async function crearProximosencuentro(params) {
+  const r = await api.post("/api/partidas", params);
+  return r.data;
+}
+
+export async function updateProximosencuentros(partidaencuentro) {
+  const r = await api.put(
+    "/api/partidas/" + partida.id,
+    partidajugador
+  );
+  return r.data;
+}
+
+export async function deleteProximosencuentros(params) {
+  const r = await api.delete("/api/partidas/" + params.id, params);
+  return r.data;
+}
+
+
+*/
+
 ///
 export async function getPremios() {
   const r = await api.get("/api/premios");

@@ -45,7 +45,9 @@
                       >
                         <q-date
                           v-model="falta.fecha_hora"
-                          mask="YYYY-MM-DD HH:mm"
+                          mask="fulltime"
+                          :rules="['fulltime']"
+                          format24h
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -86,29 +88,25 @@
                   </template>
                 </q-input>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <div>
-          <label
-            >Seleccione Nombre Jugadores <span class="text-red">*</span></label
-          >
-          <q-select
-            filled
-            dense
-            v-model="falta.id_jugadores"
-            map-options
-            emit-value
-            option-value="id"
-            option-label="nombre"
-            style="width: 12%"
-            :options="jugadores"
-          />
-        </div>
+              <div>
+                <label
+                  >Seleccione Nombre Jugadores
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  dense
+                  v-model="falta.id_jugadores"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="jugadores"
+                />
+              </div>
 
-        <div class="row justify-between q-gutter-md">
-          <div>
+              <div>
             <label
               >Seleccione Nombre Arbitros <span class="text-red">*</span></label
             >
@@ -122,25 +120,42 @@
               dense
               :options="arbitros"
             />
+          </div>
 
-            <div>
-              <label
-                >Seleccione Nombre Partidas
-                <span class="text-red">*</span></label
-              >
-              <q-select
-                filled
-                v-model="falta.id_partidas"
-                dense
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="partidas"
-              />
+
+
+
+          <div>
+            <label
+              >Seleccione Nombre Partidas <span class="text-red">*</span></label
+            >
+            <q-select
+              filled
+              v-model="falta.id_partidas"
+              dense
+              map-options
+              emit-value
+              option-value="id"
+              option-label="nombre"
+              :options="partidas"
+            />
+          </div>
+
+
+
+
+
+
+
+
+
             </div>
           </div>
         </div>
+
+        <div class="row justify-between q-gutter-md">
+
+          </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
@@ -169,20 +184,20 @@
           />
         </div>
       </q-form>
+      <br />
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
     </q-page>
   </div>
-
-  <q-table
-    :rows="rows"
-    :columns="columns"
-    separator="cell"
-    dense
-    row-key="id"
-    selection="single"
-    v-model:selected="selected"
-    @selection="handleSelection"
-  >
-  </q-table>
 </template>
 
 <script setup>
@@ -196,6 +211,8 @@ import {
   updateFaltas,
   deleteFaltas,
 } from "../services";
+
+import { date } from "quasar";
 
 const columns = [
   {
@@ -212,6 +229,8 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
+    format: (val, row) =>
+    date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
   },
   {
     name: "id_jugadores",

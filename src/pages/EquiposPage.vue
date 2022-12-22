@@ -2,276 +2,271 @@
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
-        <q-card flat class="marco">
-          <strong>Formulario </strong>
-          <div class="row">
-            <!--<q-card flat class="marco">-->
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese nombre equipo <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  dense
-                  v-model="equipo.nombre"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Nombre',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
-              </div>
-
-              <div>
-                <label
-                  >Ingrese fecha equipos <span class="text-red">*</span></label
-                >
-
-                <q-input
-                  filled
-                  dense
-                  v-model="equipo.fecha_fundo"
-                  mask="date"
-                  :rules="['date']"
-                >
-                  <template v-slot:append>
-                    <q-icon name="event" class="cursor-pointer">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-date v-model="equipo.fecha_fundo">
-                          <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="primary"
-                              flat
-                            />
-                          </div>
-                        </q-date>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-
-              <div>
-                <label
-                  >Seleccione nombre Jugadores
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  v-model="equipo.id_jugadores"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="jugadores"
-                  dense
-                  lazy-rules
-                />
-              </div>
-            </div>
-            <div class="col-6"></div>
-
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Seleccione entrenadores
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  v-model="equipo.id_entrenadores"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="entrenadores"
-                  dense
-                  lazy-rules
-                />
-              </div>
-
-              <div>
-                <label
-                  >Ingrese su descripcion <span class="text-red">*</span></label
-                >
-                <q-input
-                  v-model="equipo.descripcion"
-                  filled
-                  autogrow
-                  dense
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese descripcion arbitro',
-                  ]"
-                />
-              </div>
-
-              <div>
-                <label
-                  >Seleccione su img del equipo
-                  <span class="text-red">*</span></label
-                >
-                <q-file
-                  dense
-                  @update:model-value="updateSimbolo"
-                  v-model="simbolo"
-                  filled
-                  accept=".png, .jpg, .gif, .tiff,  .jpeg image/*"
-                />
-              </div>
-            </div>
-            <br />
-            <div class="row justify-between q-gutter-md"></div>
-
-            <div class="col-6"></div>
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese su uniforme equipo
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  dense
-                  v-model="equipo.indumentaria_uniforme"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su IndumentariaUniforme',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
-              </div>
-
-              <div>
-                <label>Ingrese su apodo <span class="text-red">*</span></label>
-                <q-input
-                  dense
-                  filled
-                  v-model="equipo.apodos"
-                  :onkeydown="onkeyDown"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Apodos',
-                  ]"
-                />
-              </div>
-
-              <div>
-                <label
-                  >Ingrese su presidente del equipo
-                  <span class="text-red">*</span></label
-                >
-
-                <q-input
-                  filled
-                  dense
-                  v-model="equipo.presidente"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su Presidente',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
-              </div>
+        <strong>Formulario </strong>
+        <div class="row">
+          <!--<q-card flat class="marco">-->
+          <div class="row justify-between q-gutter-md">
+            <div>
+              <label
+                >Ingrese nombre equipo <span class="text-red">*</span></label
+              >
+              <q-input
+                filled
+                dense
+                v-model="equipo.nombre"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Nombre',
+                ]"
+                :onkeydown="onkeyDown"
+              />
             </div>
 
-            <div class="col-6"></div>
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Seleccione nombre estadios
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  v-model="equipo.id_estadios"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="estadios"
-                  dense
-                  lazy-rules
-                />
-              </div>
+            <div>
+              <label
+                >Ingrese fecha equipos <span class="text-red">*</span></label
+              >
 
-              <div>
-                <label
-                  >Seleccione su pais <span class="text-red">*</span></label
-                >
+              <q-input
+                filled
+                dense
+                v-model="equipo.fecha_fundo"
+                mask="date"
+                :rules="['date']"
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date v-model="equipo.fecha_fundo">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
 
-                <q-select
-                  filled
-                  v-model="equipo.nombre_paises"
-                  dense
-                  :options="paises"
-                  map-options
-                  emit-value
-                  option-value="country"
-                  option-label="country"
-                />
-              </div>
+            <div>
+              <label
+                >Seleccione nombre Jugadores
+                <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="equipo.id_jugadores"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="jugadores"
+                dense
+                lazy-rules
+              />
+            </div>
+          </div>
+          <div class="col-6"></div>
 
-              <div>
-                <label>Seleccione ciudad <span class="text-red">*</span></label>
-                <q-select
-                  filled
-                  dense
-                  v-model="equipo.nombre_ciudades"
-                  :options="ciudades"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                  ]"
-                  :disable="!ciudades || !ciudades.length"
-                />
-              </div>
+          <div class="row justify-between q-gutter-md">
+            <div>
+              <label
+                >Seleccione entrenadores <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="equipo.id_entrenadores"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="entrenadores"
+                dense
+                lazy-rules
+              />
+            </div>
+
+            <div>
+              <label
+                >Ingrese su descripcion <span class="text-red">*</span></label
+              >
+              <q-input
+                v-model="equipo.descripcion"
+                filled
+                autogrow
+                dense
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese descripcion arbitro',
+                ]"
+              />
+            </div>
+
+            <div>
+              <label
+                >Seleccione su img del equipo
+                <span class="text-red">*</span></label
+              >
+              <q-file
+                dense
+                @update:model-value="updateSimbolo"
+                v-model="simbolo"
+                filled
+                accept=".png, .jpg, .gif, .tiff,  .jpeg image/*"
+              />
+            </div>
+          </div>
+          <br />
+          <div class="row justify-between q-gutter-md"></div>
+
+          <div class="col-6"></div>
+          <div class="row justify-between q-gutter-md">
+            <div>
+              <label
+                >Ingrese su uniforme equipo
+                <span class="text-red">*</span></label
+              >
+              <q-input
+                filled
+                dense
+                v-model="equipo.indumentaria_uniforme"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su IndumentariaUniforme',
+                ]"
+                :onkeydown="onkeyDown"
+              />
+            </div>
+
+            <div>
+              <label>Ingrese su apodo <span class="text-red">*</span></label>
+              <q-input
+                dense
+                filled
+                v-model="equipo.apodos"
+                :onkeydown="onkeyDown"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Apodos',
+                ]"
+              />
+            </div>
+
+            <div>
+              <label
+                >Ingrese su presidente del equipo
+                <span class="text-red">*</span></label
+              >
+
+              <q-input
+                filled
+                dense
+                v-model="equipo.presidente"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su Presidente',
+                ]"
+                :onkeydown="onkeyDown"
+              />
             </div>
           </div>
 
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn
-              dense
-              color="primary"
-              label="Crear"
-              type="submit"
-              icon="fa-solid fa-folder-plus"
-              :disable="botonbloqueocrear"
-            />
-            <q-btn
-              dense
-              color="amber"
-              label="Editar"
-              @click="Actualizar"
-              icon="fa-solid fa-pen-to-square"
-              :disable="botonbloqueoactualizar"
-            />
-            <q-btn
-              dense
-              color="red"
-              label="Borrar"
-              @click="Delete"
-              icon="fa-solid fa-trash-can"
-              :disable="botonbloqueoeliminar"
-            />
+          <div class="col-6"></div>
+          <div class="row justify-between q-gutter-md">
+            <div>
+              <label
+                >Seleccione nombre estadios
+                <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="equipo.id_estadios"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="estadios"
+                dense
+                lazy-rules
+              />
+            </div>
+
+            <div>
+              <label>Seleccione su pais <span class="text-red">*</span></label>
+
+              <q-select
+                filled
+                v-model="equipo.nombre_paises"
+                dense
+                :options="paises"
+                map-options
+                emit-value
+                option-value="country"
+                option-label="country"
+              />
+            </div>
+
+            <div>
+              <label>Seleccione ciudad <span class="text-red">*</span></label>
+              <q-select
+                filled
+                dense
+                v-model="equipo.nombre_ciudades"
+                :options="ciudades"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
+                ]"
+                :disable="!ciudades || !ciudades.length"
+              />
+            </div>
           </div>
-        </q-card>
+        </div>
+
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+          />
+          <q-btn
+            dense
+            color="red"
+            label="Borrar"
+            @click="Delete"
+            icon="fa-solid fa-trash-can"
+            :disable="botonbloqueoeliminar"
+          />
+        </div>
       </div>
     </q-form>
     <q-table
@@ -377,14 +372,14 @@ const columns = [
     sortable: true,
   },
   {
-    name: "id_paises",
+    name: "nombre_paises",
     align: "center",
     label: "Nombre-Paises",
     field: "nombre_paises",
     sortable: true,
   },
   {
-    name: "id_ciudades",
+    name: "nombre_ciudades",
     align: "center",
     label: "Nombre-Ciudades",
     field: "nombre_ciudades",
@@ -472,9 +467,14 @@ async function Delete() {
 const ciudades = computed(
   () => paises.value.find((p) => p.country === equipo.nombre_paises)?.cities
 );
+let i=null
 
 onMounted(async () => {
   rows.value = await getEquipos();
+  i = setInterval( async function  (){
+    rows.value = await getEquipos();
+  },30000)
+  clearInterval(i)
   paises.value = await getPaises();
   entrenadores.value = await getEntrenadores();
   jugadores.value = await getJugadores();

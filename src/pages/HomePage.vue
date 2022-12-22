@@ -132,7 +132,7 @@
         <h6>Proximos Encuentros:</h6>
         <q-table
           dense
-          :rows="rows"
+          :rows=" proximosencuentros"
           class="bg-fondo table1"
           :columns="columns"
           row-key="name"
@@ -158,8 +158,11 @@
           </q-avatar>
         </div>
 
+
+<div class="cl">
+        <h6>Resultados:</h6>
         <q-table
-          :rows="rows2"
+          :rows="resultados"
           :columns="columns2"
           class="bg-fondo"
           dense
@@ -168,13 +171,14 @@
         />
       </div>
     </div>
+    </div>
   </q-page>
   <!---$indigo-13-->
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getHome } from "../services";
+import { ref, onMounted,onUnmounted} from "vue";
+import { getEquipos,getProximosencuentros,getPartidas,getJugadores,getResultados,getJuego} from "../services";
 const columns = [
   {
     name: "descripcion",
@@ -197,7 +201,7 @@ const columns = [
     name: "id_jugadores",
     align: "center",
     label: "Jugador1",
-    field: "nombre",
+    field: "nombre_jugadores",
     sortable: true,
   },
   {
@@ -211,7 +215,7 @@ const columns = [
     name: "id_jugadores",
     align: "center",
     label: "Jugador2",
-    field: "nombre",
+    field: "nombre_jugadores",
     sortable: true,
   },
 ];
@@ -229,28 +233,26 @@ const columns2 = [
     name: "id_jugadores",
     align: "center",
     label: "Jugador1",
-    field: "nombre",
+    field: "nombre_jugadores",
     sortable: true,
   },
 
   {
-    name: "id_arbitros",
+    name: "vs",
     align: "center",
     label: "VS",
-    field: "nombre_arbitros",
+    field: "Vs",
     sortable: true,
   },
   {
     name: "id_jugadores",
     align: "center",
     label: "Jugador2",
-    field: "nombre",
+    field: "nombre_jugadores",
     sortable: true,
   },
 ];
 
-const rows = ref([]);
-const rows2 = ref([]);
 
 const jugador1 = ref("JUGADOR 1");
 const jugador2 = ref("JUGADOR 2");
@@ -264,9 +266,39 @@ const jugador6 = ref("JUGADOR 6");
 const jugador7 = ref("JUGADOR 7");
 const jugador8 = ref("JUGADOR 8");
 
+const equipos= ref([]);
+const partidas= ref([]);
+const jugadores= ref([]);
+const  proximosencuentros= ref([]);
+const resultados=ref([]);
+const juego= ref([]);
+
+
+let i = null;
+
 onMounted(async () => {
-  rows.value = await getHome();
+  proximosencuentros.value = await getProximosencuentros();
+  equipos.value = await getEquipos()
+    partidas.value = await getPartidas();
+    jugadores.value = await getJugadores();
+    resultados.value= await getResultados();
+    juego.value= await getJuego();
+
+  i = setInterval(async function () {
+    proximosencuentros.value = await getProximosencuentros();
+    equipos.value = await getEquipos();
+    partidas.value = await getPartidas();
+    jugadores.value = await getJugadores();
+    resultados.value= await getResultados();
+    juego.value= await getJuego();
+  }, 30000);
+
 });
+
+onUnmounted (()=>{
+  clearInterval(i);
+})
+
 </script>
 
 <style>
@@ -294,5 +326,11 @@ h2 {
 .table1 tr:first-child th {
   border-style: solid;
   border-width: 1px;
+}
+
+
+
+.cl{
+  text-align: center;
 }
 </style>
