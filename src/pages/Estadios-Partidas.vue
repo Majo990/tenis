@@ -25,8 +25,26 @@
           <div class="row justify-between q-gutter-md">
             <div>
               <label
-                >Seleccione su Estadio
-                <span class="text-red">*</span></label
+                >Ingrese nombre Cancha <span class="text-red">*</span></label
+              >
+              <q-input
+                filled
+                dense
+                type="text"
+                v-model="estadiopartida.nombre"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Por favor ingrese su NombreArbitr',
+                ]"
+                :onkeydown="onkeyDown"
+              />
+            </div>
+
+            <div>
+              <label
+                >Seleccione su Estadio <span class="text-red">*</span></label
               >
               <q-select
                 filled
@@ -111,10 +129,18 @@ import {
   getPartidas,
   getEstadioPartida,
   crearEstadioPartida,
-  deleteEstadioPartida,
   updateEstadioPartida,
+  deleteEstadioPartida,
 } from "../services";
 const columns = [
+  {
+    name: "nombre",
+    align: "center",
+    label: "Nombre_Cancha",
+    field: "nombre",
+    sortable: true,
+  },
+
   {
     name: "id_partidas",
     align: "center",
@@ -138,6 +164,7 @@ const partida = ref([]);
 const selected = ref([]);
 
 const estadiopartida = reactive({
+  nombre: null,
   id_partidas: null,
   id_estadios: null,
 });
@@ -145,6 +172,7 @@ const estadiopartida = reactive({
 async function onSubmit() {
   await crearEstadioPartida(estadiopartida);
   Object.assign(estadiopartida, {
+    nombre: null,
     id_partidas: null,
     id_estadios: null,
   });
@@ -153,6 +181,7 @@ async function onSubmit() {
 async function Actualizar() {
   await updateEstadioPartida(estadiopartida);
   Object.assign(estadiopartida, {
+    nombre: null,
     id_partidas: null,
     id_estadios: null,
   });
@@ -161,6 +190,7 @@ async function Actualizar() {
 async function Delete() {
   await deletePartidasJugadores(estadiopartida);
   Object.assign(estadiopartida, {
+    nombre: null,
     id_partidas: null,
     id_estadios: null,
   });
@@ -174,6 +204,7 @@ onMounted(async () => {
 
 function handleSelection(details) {
   let rowSelected = {
+    nombre: null,
     id_partidas: null,
     id_estadios: null,
   };
@@ -185,3 +216,5 @@ function handleSelection(details) {
   Object.assign(estadiopartida, rowSelected);
 }
 </script>
+
+<style></style>

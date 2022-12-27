@@ -483,7 +483,7 @@ const botonbloqueoeliminar = ref(true);
 </script>
 
 <style>
-.modelo {
+/*.modelo {
   background-color: #11f8ff;
-}
+}/*
 </style>

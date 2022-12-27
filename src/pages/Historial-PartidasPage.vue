@@ -321,8 +321,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-    format: (val, row) =>
-    date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
   }, //ya esta    format: (val, row) => date.formatDate(timeStamp, "YYYY-MM-DDTHH:mm:ss.A"),
   {
     name: "id_rondas",
@@ -503,11 +502,11 @@ const botonbloqueoeliminar = ref(true);
 </script>
 
 <style>
-.q-table {
+/*.q-table {
   color: grey;
   background-color: hsl(189, 84%, 71%);
 }
 .buscador {
   width: 600px;
-}
+}*/
 </style>

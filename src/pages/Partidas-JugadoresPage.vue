@@ -190,7 +190,7 @@ function handleSelection(details) {
   width: 600px;
 }
 
-.marco {
+/*.marco {
   border-style: solid;
   border-radius: 5%;
   border-width: 1px;
@@ -198,5 +198,5 @@ function handleSelection(details) {
   padding-right: 100px;
   height: 50%;
   max-width: 70%;
-}
+}/*
 </style>

@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-form  @submit="onSubmit"  class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
@@ -309,29 +309,22 @@
                   />
                 </div>
               </div>
-
             </div>
-
           </div>
-
-
         </div>
-
-              </q-form>
-                <q-table
-                  :rows="rows"
-                  :columns="columns"
-                  separator="cell"
-                  dense
-                  row-key="id"
-                  selection="single"
-                  v-model:selected="selected"
-                  @selection="handleSelection"
-                >
-                </q-table>
-              </div>
-
-
+      </q-form>
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+    </div>
   </q-page>
 </template>
 
@@ -597,3 +590,5 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 </script>
+
+<style></style>

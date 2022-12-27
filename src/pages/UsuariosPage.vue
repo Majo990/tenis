@@ -192,7 +192,7 @@ h3 {
   color: beige;
 }
 
-.marco {
+/*.marco {
   border-style: solid;
   border-radius: 5%;
   border-width: 1px;
@@ -200,5 +200,5 @@ h3 {
   padding-right: 150px;
   height: 50%;
   max-width: 54%;
-}
+}/*
 </style>

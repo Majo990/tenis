@@ -1,5 +1,6 @@
 <template>
   <q-page padding>
+    <!----  <q-responsive>-->
     <div class="absolute-center text-center">
       <h5>Login Usuario</h5>
       <q-form
@@ -65,6 +66,7 @@
         />
       </q-form>
     </div>
+    <!-----</q-responsive>-->
   </q-page>
 </template>
 
@@ -162,5 +164,10 @@ h5 {
 .q-avatar {
   text-align: center;
   max-width: 300px;
+}
+
+@media (max-width) {
+  @media (max-width) {
+  }
 }
 </style>

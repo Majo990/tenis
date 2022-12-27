@@ -310,7 +310,7 @@ const botonbloqueoeliminar = ref(true);
 </script>
 
 <style lang="scss">
-.marco {
+/*.marco {
   border-style: solid;
   border-radius: 5%;
   border-width: 1px;
@@ -318,5 +318,5 @@ const botonbloqueoeliminar = ref(true);
   padding-right: 150px;
   height: 50%;
   max-width: 54%;
-}
+}*/
 </style>

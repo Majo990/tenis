@@ -504,3 +504,5 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 </script>
+
+<style></style>

@@ -107,55 +107,43 @@
               </div>
 
               <div>
-            <label
-              >Seleccione Nombre Arbitros <span class="text-red">*</span></label
-            >
-            <q-select
-              filled
-              v-model="falta.id_arbitros"
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              dense
-              :options="arbitros"
-            />
-          </div>
+                <label
+                  >Seleccione Nombre Arbitros
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="falta.id_arbitros"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  dense
+                  :options="arbitros"
+                />
+              </div>
 
-
-
-
-          <div>
-            <label
-              >Seleccione Nombre Partidas <span class="text-red">*</span></label
-            >
-            <q-select
-              filled
-              v-model="falta.id_partidas"
-              dense
-              map-options
-              emit-value
-              option-value="id"
-              option-label="nombre"
-              :options="partidas"
-            />
-          </div>
-
-
-
-
-
-
-
-
-
+              <div>
+                <label
+                  >Seleccione Nombre Partidas
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="falta.id_partidas"
+                  dense
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="partidas"
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="row justify-between q-gutter-md">
-
-          </div>
+        <div class="row justify-between q-gutter-md"></div>
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
@@ -229,8 +217,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-    format: (val, row) =>
-    date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
   },
   {
     name: "id_jugadores",
@@ -322,10 +309,10 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 <style>
-.q-table {
+/*.q-table {
   color: rgba(128, 128, 128, 0.993);
   background-color: #f3abe7;
-}
+}*/
 
 v-model {
   text-align: center;

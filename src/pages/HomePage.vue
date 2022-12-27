@@ -132,7 +132,7 @@
         <h6>Proximos Encuentros:</h6>
         <q-table
           dense
-          :rows=" proximosencuentros"
+          :rows="proximosencuentros"
           class="bg-fondo table1"
           :columns="columns"
           row-key="name"
@@ -158,27 +158,33 @@
           </q-avatar>
         </div>
 
-
-<div class="cl">
-        <h6>Resultados:</h6>
-        <q-table
-          :rows="resultados"
-          :columns="columns2"
-          class="bg-fondo"
-          dense
-          separator="none"
-          row-key="name1"
-        />
+        <div class="cl">
+          <h6>Resultados:</h6>
+          <q-table
+            :rows="resultados"
+            :columns="columns2"
+            class="bg-fondo"
+            dense
+            separator="none"
+            row-key="name1"
+          />
+        </div>
       </div>
-    </div>
     </div>
   </q-page>
   <!---$indigo-13-->
 </template>
 
 <script setup>
-import { ref, onMounted,onUnmounted} from "vue";
-import { getEquipos,getProximosencuentros,getPartidas,getJugadores,getResultados,getJuego} from "../services";
+import { ref, onMounted, onUnmounted } from "vue";
+import {
+  getEquipos,
+  getProximosencuentros,
+  getPartidas,
+  getJugadores,
+  getResultados,
+  getJuego,
+} from "../services";
 const columns = [
   {
     name: "descripcion",
@@ -253,7 +259,6 @@ const columns2 = [
   },
 ];
 
-
 const jugador1 = ref("JUGADOR 1");
 const jugador2 = ref("JUGADOR 2");
 
@@ -266,39 +271,36 @@ const jugador6 = ref("JUGADOR 6");
 const jugador7 = ref("JUGADOR 7");
 const jugador8 = ref("JUGADOR 8");
 
-const equipos= ref([]);
-const partidas= ref([]);
-const jugadores= ref([]);
-const  proximosencuentros= ref([]);
-const resultados=ref([]);
-const juego= ref([]);
-
+const equipos = ref([]);
+const partidas = ref([]);
+const jugadores = ref([]);
+const proximosencuentros = ref([]);
+const resultados = ref([]);
+const juego = ref([]);
 
 let i = null;
 
 onMounted(async () => {
   proximosencuentros.value = await getProximosencuentros();
-  equipos.value = await getEquipos()
-    partidas.value = await getPartidas();
-    jugadores.value = await getJugadores();
-    resultados.value= await getResultados();
-    juego.value= await getJuego();
+  equipos.value = await getEquipos();
+  partidas.value = await getPartidas();
+  jugadores.value = await getJugadores();
+  resultados.value = await getResultados();
+  juego.value = await getJuego();
 
   i = setInterval(async function () {
     proximosencuentros.value = await getProximosencuentros();
     equipos.value = await getEquipos();
     partidas.value = await getPartidas();
     jugadores.value = await getJugadores();
-    resultados.value= await getResultados();
-    juego.value= await getJuego();
+    resultados.value = await getResultados();
+    juego.value = await getJuego();
   }, 30000);
-
 });
 
-onUnmounted (()=>{
+onUnmounted(() => {
   clearInterval(i);
-})
-
+});
 </script>
 
 <style>
@@ -328,9 +330,10 @@ h2 {
   border-width: 1px;
 }
 
-
-
-.cl{
+.cl {
   text-align: center;
+}
+
+@media (max-width) {
 }
 </style>

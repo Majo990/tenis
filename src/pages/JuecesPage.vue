@@ -393,3 +393,5 @@ function edad(fecha_nacimiento) {
   return edad;
 }
 </script>
+
+<style></style>
