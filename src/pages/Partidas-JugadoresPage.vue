@@ -67,6 +67,7 @@
               label="Crear"
               type="submit"
               icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
             />
             <q-btn
               dense
@@ -74,6 +75,7 @@
               label="Editar"
               @click="Actualizar"
               icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
             />
             <q-btn
               dense
@@ -81,6 +83,7 @@
               label="Borrar"
               @click="Delete"
               icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
             />
           </div>
         </div>
@@ -105,7 +108,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive,computed } from "vue";
 import {
   getJugadores,
   getPartidas,
@@ -177,13 +180,31 @@ function handleSelection(details) {
     id_partidas: null,
     id_jugadores: null,
   };
-
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(partidajugador, rowSelected);
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(partidajugador).every(
+      (key) => partidajugador[key] && partidajugador[key] !== ""
+    ) &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 <style lang="scss">
 .buscador {
@@ -198,5 +219,5 @@ function handleSelection(details) {
   padding-right: 100px;
   height: 50%;
   max-width: 70%;
-}/*
+}*/
 </style>

@@ -18,6 +18,3 @@ export default boot(async ({ router }) => {
     return next();
   });
 });
-
-
-

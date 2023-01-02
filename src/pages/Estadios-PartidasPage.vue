@@ -85,6 +85,7 @@
               label="Crear"
               type="submit"
               icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
             />
             <q-btn
               dense
@@ -92,6 +93,7 @@
               label="Editar"
               @click="Actualizar"
               icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
             />
             <q-btn
               dense
@@ -99,6 +101,7 @@
               label="Borrar"
               @click="Delete"
               icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
             />
           </div>
         </div>
@@ -208,13 +211,32 @@ function handleSelection(details) {
     id_partidas: null,
     id_estadios: null,
   };
+  botonbloqueoactualizar.value = true;
+  botonbloqueoeliminar.value = true;
 
   if (details.added) {
+    botonbloqueoactualizar.value = false;
+    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
 
   Object.assign(estadiopartida, rowSelected);
 }
+
+const botonbloqueocrear = computed(() => {
+  if (
+    Object.keys(estadiopartida).every(
+      (key) => estadiopartida[key] && estadiopartida[key] !== ""
+    ) &&
+    botonbloqueoactualizar.value
+  )
+    return false;
+  return true;
+});
+
+const botonbloqueoactualizar = ref(true);
+
+const botonbloqueoeliminar = ref(true);
 </script>
 
 <style></style>

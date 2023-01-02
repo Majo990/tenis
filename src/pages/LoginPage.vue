@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <!----  <q-responsive>-->
+
     <div class="absolute-center text-center">
       <h5>Login Usuario</h5>
       <q-form
@@ -67,6 +67,8 @@
       </q-form>
     </div>
     <!-----</q-responsive>-->
+
+
   </q-page>
 </template>
 
@@ -166,8 +168,56 @@ h5 {
   max-width: 300px;
 }
 
-@media (max-width) {
-  @media (max-width) {
-  }
+
+/*
+.container{
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
+
+
+
+@media(min-width: 576px){
+  .container{
+  max-width: 540px;
+}
+}
+
+@media(min-width: 768px){
+  .container{
+  max-width: 720px;
+}
+}
+
+@media(min-width: 992px){
+  .container{
+  max-width: 960px;
+}
+}
+@media(min-width: 1200px){
+.container{
+  max-width: 1140px;
+}
+}
+.row{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col{
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+  max-width: 100%;
+}
+
+*/
 </style>

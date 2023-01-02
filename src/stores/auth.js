@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { Cookies } from "quasar";
 import { api } from "src/boot/axios";
 
 export const useUserStore = defineStore("user", {
@@ -16,6 +17,12 @@ export const useUserStore = defineStore("user", {
       } catch (error) {
         this.user = null;
       }
+    },
+
+    logout() {
+      Cookies.remove("token");
+      this.user = null;
+      // this.router.replace("/home");
     },
   },
 });

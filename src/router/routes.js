@@ -179,7 +179,7 @@ const routes = [
       },
 //
       {
-        path: "/canchas_estadios_partidas",
+        path: "/estadios_partidas",
         meta: {
           requiresAuth: true,
         },

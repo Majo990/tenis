@@ -184,6 +184,7 @@ import {
   getJugadores,
   getResultados,
   getJuego,
+  getEstadioPartida,
 } from "../services";
 const columns = [
   {
@@ -197,10 +198,10 @@ const columns = [
   },
 
   {
-    name: "cancha",
+    name: "id_canchas_estadios_partidas",
     align: "center",
     label: "Cancha",
-    field: "cancha",
+    field: "nombre_cancha_estadios_partidas",
     sortable: true,
   },
   {
@@ -277,6 +278,7 @@ const jugadores = ref([]);
 const proximosencuentros = ref([]);
 const resultados = ref([]);
 const juego = ref([]);
+const cancha = ref([]);
 
 let i = null;
 
@@ -287,6 +289,7 @@ onMounted(async () => {
   jugadores.value = await getJugadores();
   resultados.value = await getResultados();
   juego.value = await getJuego();
+  cancha.value = await getEstadioPartida();
 
   i = setInterval(async function () {
     proximosencuentros.value = await getProximosencuentros();
@@ -295,6 +298,7 @@ onMounted(async () => {
     jugadores.value = await getJugadores();
     resultados.value = await getResultados();
     juego.value = await getJuego();
+    cancha.value = await getEstadioPartida();
   }, 30000);
 });
 

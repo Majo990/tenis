@@ -37,6 +37,21 @@
           </q-input>
         </div>
 
+        <div>
+          <label>Seleccione su Roles <span class="text-red">*</span></label>
+          <q-select
+            filled
+            v-model="usuario.id_roles"
+            map-options
+            emit-value
+            option-value="id"
+            option-label="descripcion"
+            :options="roles"
+            dense
+          
+          />
+        </div>
+
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
             dense
@@ -87,6 +102,7 @@ import {
   getUsuarios,
   updateUsuarios,
   deleteUsuarios,
+  getRoles,
 } from "../services";
 
 const columns = [
@@ -111,16 +127,19 @@ const columns = [
 const selected = ref([]);
 const rows = ref([]);
 const isPwd = ref([]);
+const roles = ref([]);
 
 const usuario = reactive({
   usuarios: null,
   contrasenia: null,
+  id_roles: null,
 });
 
 async function onSubmit() {
   await crearUsuarios(usuario);
   Object.assign(usuario, {
     usuario: null,
+    id_roles: null,
   });
 }
 
@@ -128,25 +147,28 @@ async function Actualizar() {
   await updateUsuarios(usuario);
   Object.assign(usuario, {
     usuario: null,
+    id_roles: null,
   });
 }
 
 async function Delete() {
   await deleteUsuarios(usuario);
-
   Object.assign(usuario, {
     usuario: null,
+    id_roles: null,
   });
 }
 
 onMounted(async () => {
   rows.value = await getUsuarios();
+  roles.value = await getRoles();
 });
 
 function handleSelection(details) {
   let rowSelected = {
     usuarios: null,
     contrasenia: null,
+    id_roles: null,
   };
   botonbloqueoactualizar.value = true;
   botonbloqueoeliminar.value = true;
@@ -200,5 +222,5 @@ h3 {
   padding-right: 150px;
   height: 50%;
   max-width: 54%;
-}/*
+}*/
 </style>

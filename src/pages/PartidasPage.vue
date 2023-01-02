@@ -57,7 +57,7 @@
                   emit-value
                   option-value="id"
                   option-label="nombre"
-                  v-model="partida.id_deportes"
+                  v-model="partida.nombre_deportes"
                   dense
                   :options="deportes"
                   lazy-rules
@@ -323,7 +323,7 @@ const columns = [
   },
 
   {
-    name: "id_deportes",
+    name: "nombre_deportes",
     align: "center",
     label: "Nombre-Deportes",
     field: "nombre_deportes",
@@ -374,7 +374,7 @@ const columns = [
     name: "id_rondas",
     align: "center",
     label: "Nro-Rondas",
-    field: "nro",
+    field: "nro_rondas",
     sortable: true,
   },
 ];
@@ -396,7 +396,7 @@ const deportes = [
 const partida = reactive({
   nombre: null,
   descripcion: null,
-  id_deportes: null,
+  nombre_deportes: null,
   id_torneos: null,
   fecha: null,
   tiempo_inicio: null,
@@ -410,7 +410,7 @@ async function onSubmit() {
   Object.assign(partida, {
     nombre: null,
     descripcion: null,
-    id_deportes: null,
+    nombre_deportes: null,
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,
@@ -425,7 +425,7 @@ async function Actualizar() {
   Object.assign(partida, {
     nombre: null,
     descripcion: null,
-    id_deportes: null,
+    nombre_deportes: null,
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,
@@ -441,7 +441,7 @@ async function Delete() {
   Object.assign(partida, {
     nombre: null,
     descripcion: null,
-    id_deportes: null,
+    nombre_deportes: null,
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,
@@ -462,7 +462,7 @@ function handleSelection(details) {
   let rowSelected = {
     nombre: null,
     descripcion: null,
-    id_deportes: null,
+    nombre_deportes: null,
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,

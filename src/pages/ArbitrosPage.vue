@@ -3,226 +3,222 @@
     <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
         <div class="q-pa-md">
-
-            <strong>Formulario </strong>
-            <div class="row">
-              <div class="">
-                <div class="row justify-between q-gutter-md">
-                  <div>
-                    <label
-                      >Ingrese nombre arbitro
-                      <span class="text-red">*</span></label
-                    >
-                    <q-input
-                      filled
-                      dense
-                      type="text"
-                      v-model="arbitro.nombre"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su NombreArbitr',
-                      ]"
-                      :onkeydown="onkeyDown"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      >Ingrese apellido arbitro
-                      <span class="text-red">*</span></label
-                    >
-                    <q-input
-                      dense
-                      filled
-                      v-model="arbitro.apellido"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su ApellidoArbitr',
-                      ]"
-                      :onkeydown="onkeyDown"
-                    />
-                  </div>
-                  <div >
-                    <label
-                      >Ingrese su edad Arbitro
-                      <span class="text-red">*</span></label
-                    >
-                    <!---v-show="false"-->
-                    <q-input
-
-                      filled
-                      dense
-                      type="number"
-                      v-model="arbitro.edad"
-                      min="18"
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0 && val >= 18) ||
-                          'Edad incorrecta',
-                        'Edad correcta',
-                      ]"
-                    />
-                  </div>
+          <strong>Formulario </strong>
+          <div class="row">
+            <div class="">
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese nombre arbitro
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    dense
+                    type="text"
+                    v-model="arbitro.nombre"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su NombreArbitr',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
                 </div>
 
-                <div class="row justify-between q-gutter-md">
-                  <div>
-                    <label
-                      >Ingrese su sexo Arbitro
-                      <span class="text-red">*</span></label
-                    >
-                    <q-select
-                      filled
-                      v-model="arbitro.sexo"
-                      dense
-                      :options="sexos"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor seleccione su sexo',
-                      ]"
-                    />
-                  </div>
+                <div>
+                  <label
+                    >Ingrese apellido arbitro
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    dense
+                    filled
+                    v-model="arbitro.apellido"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su ApellidoArbitr',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
+                <div>
+                  <label
+                    >Ingrese su edad Arbitro
+                    <span class="text-red">*</span></label
+                  >
+                  <!---v-show="false"-->
+                  <q-input
+                    filled
+                    dense
+                    type="number"
+                    v-model="arbitro.edad"
+                    min="18"
 
-                  <div>
-                    <label
-                      >Ingrese su Altura Arbitro
-                      <span class="text-red">*</span></label
-                    >
-                    <q-input
-                      filled
-                      v-model="arbitro.altura"
-                      mask="#.##"
-                      fill-mask="0"
-                      dense
-                      reverse-fill-mask
-                      input-class="text-right"
-                      suffix="m"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su altura',
-                      ]"
-                    ></q-input>
-                  </div>
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0 && val >= 18) ||
+                        'Edad incorrecta',
+                      'Edad correcta',
+                    ]"
+                  />
+                </div>
+              </div>
 
-                  <div>
-                    <label
-                      >Ingrese su Peso Arbitro
-                      <span class="text-red">*</span></label
-                    >
-
-                    <q-input
-                      filled
-                      v-model="arbitro.peso"
-                      mask="#.##"
-                      dense
-                      fill-mask="0"
-                      reverse-fill-mask
-                      input-class="text-right"
-                      suffix="kg"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val !== null && val !== '') ||
-                          'Por favor ingrese su peso',
-                        (val) =>
-                          (val > 1 && val < 80) || 'Por favor ingrese su peso',
-                      ]"
-                    >
-                    </q-input>
-                  </div>
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese su sexo Arbitro
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="arbitro.sexo"
+                    dense
+                    :options="sexos"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione su sexo',
+                    ]"
+                  />
                 </div>
 
-                <div class="row justify-between q-gutter-md">
-                  <div>
-                    <label
-                      >Ingrese su Fecha-Nacimiento Arbitro
-                      <span class="text-red">*</span></label
-                    >
+                <div>
+                  <label
+                    >Ingrese su Altura Arbitro
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="arbitro.altura"
+                    mask="#.##"
+                    fill-mask="0"
+                    dense
+                    reverse-fill-mask
+                    input-class="text-right"
+                    suffix="m"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su altura',
+                    ]"
+                  ></q-input>
+                </div>
 
-                    <q-input
-                      filled
-                      dense
-                      v-model="arbitro.fecha_nacimiento"
-                      mask="date"
-                      :rules="[
-                        'date',
-                        (val) => edad(val) >= 18 || 'Edad incorrecta',
-                      ]"
-                    >
-                      <template v-slot:append>
-                        <q-icon name="event" class="cursor-pointer">
-                          <q-popup-proxy
-                            cover
-                            transition-show="scale"
-                            transition-hide="scale"
-                          >
-                            <q-date v-model="arbitro.fecha_nacimiento">
-                              <div class="row items-center justify-end">
-                                <q-btn
-                                  v-close-popup
-                                  label="Close"
-                                  color="primary"
-                                  flat
-                                />
-                              </div>
-                            </q-date>
-                          </q-popup-proxy>
-                        </q-icon>
-                      </template>
-                    </q-input>
-                  </div>
+                <div>
+                  <label
+                    >Ingrese su Peso Arbitro
+                    <span class="text-red">*</span></label
+                  >
 
-                  <div>
-                    <label
-                      >Ingrese su Pais <span class="text-red">*</span></label
-                    >
-                    <q-select
-                      filled
-                      v-model="arbitro.nombre_paises"
-                      dense
-                      :options="paises"
-                      map-options
-                      emit-value
-                      option-value="country"
-                      option-label="country"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor seleccione su pais',
-                      ]"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      >Ingrese su Ciudad <span class="text-red"></span
-                    ></label>
-                    <q-select
-                      filled
-                      dense
-                      v-model="arbitro.nombre_ciudades"
-                      :options="ciudades"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su Ciudad',
-                      ]"
-                      :disable="!ciudades || !ciudades.length"
-                    />
-                  </div>
+                  <q-input
+                    filled
+                    v-model="arbitro.peso"
+                    mask="#.##"
+                    dense
+                    fill-mask="0"
+                    reverse-fill-mask
+                    input-class="text-right"
+                    suffix="kg"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val !== null && val !== '') ||
+                        'Por favor ingrese su peso',
+                      (val) =>
+                        (val > 1 && val < 80) || 'Por favor ingrese su peso',
+                    ]"
+                  >
+                  </q-input>
+                </div>
+              </div>
+
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese su Fecha-Nacimiento Arbitro
+                    <span class="text-red">*</span></label
+                  >
+
+                  <q-input
+                    filled
+                    dense
+                    v-model="arbitro.fecha_nacimiento"
+                    mask="date"
+                    :rules="[
+                      'date',
+                      (val) => edad(val) >= 18 || 'Edad incorrecta',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="event" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-date v-model="arbitro.fecha_nacimiento">
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+
+                <div>
+                  <label>Ingrese su Pais <span class="text-red">*</span></label>
+                  <q-select
+                    filled
+                    v-model="arbitro.nombre_paises"
+                    dense
+                    :options="paises"
+                    map-options
+                    emit-value
+                    option-value="country"
+                    option-label="country"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione su pais',
+                    ]"
+                  />
+                </div>
+                <div>
+                  <label
+                    >Ingrese su Ciudad <span class="text-red"></span
+                  ></label>
+                  <q-select
+                    filled
+                    dense
+                    v-model="arbitro.nombre_ciudades"
+                    :options="ciudades"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Ciudad',
+                    ]"
+                    :disable="!ciudades || !ciudades.length"
+                  />
                 </div>
               </div>
             </div>
-
+          </div>
         </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
@@ -356,6 +352,8 @@ const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
 
+
+
 const arbitro = reactive({
   nombre: null,
   apellido: null,
@@ -417,6 +415,12 @@ const ciudades = computed(
   () => paises.value.find((p) => p.country === arbitro.nombre_paises)?.cities
 );
 
+/*edad = computed(
+  () =>
+    fecha_nacimiento.value.find((f) => f.fecha_nacimiento === arbitro.edad)
+      ?.edad
+);
+*/
 onMounted(async () => {
   rows.value = await getArbitros();
   paises.value = await getPaises();

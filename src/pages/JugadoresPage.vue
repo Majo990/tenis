@@ -57,14 +57,7 @@
                   v-model="jugador.id_entrenadores"
                   dense
                   :options="entrenadores"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor seleccione su pais',
-                    (val) =>
-                      (val > 1 && val < 80) || 'Por favor seleccione su pais',
-                  ]"
+
                 />
               </div>
             </div>
@@ -152,15 +145,8 @@
                     option-value="id"
                     option-label="nombre"
                     dense
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val !== null && val !== '') ||
-                        'Por favor seleccione su torneos',
-                      (val) =>
-                        (val > 1 && val < 80) ||
-                        'Por favor selecione su torneos',
-                    ]"
+
+
                   />
                 </div>
               </div>
@@ -289,7 +275,7 @@
                     label="Crear"
                     type="submit"
                     icon="fa-solid fa-folder-plus"
-                    :disable="botonbloqueocrear"
+               
                   />
                   <q-btn
                     dense

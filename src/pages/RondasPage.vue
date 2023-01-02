@@ -149,5 +149,5 @@ const botonbloqueoeliminar = ref(true);
   padding: 30px;
   height: 50%;
   max-width: 40%;
-}/*
+}*/
 </style>

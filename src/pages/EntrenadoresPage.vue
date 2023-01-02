@@ -1,11 +1,11 @@
 <template>
-  <q-page padding>
-    <div class="q-pa-md">
+  <div class="q-pa-md">
+    <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <strong>Formulario </strong>
-        <div class="col-6 q-gutter-md text-center items-center">
+        <div class="q-pa-md">
+          <strong>Formulario </strong>
           <div class="row">
-            <div class="col-6">
+            <div class="">
               <div class="row justify-between q-gutter-md">
                 <div>
                   <label
@@ -14,66 +14,49 @@
                   >
                   <q-input
                     filled
+                    dense
+                    type="text"
                     v-model="entrenador.nombre"
                     lazy-rules
-                    dense
                     :rules="[
                       (val) =>
                         (val && val.length > 0) ||
-                        'Por favor ingrese su Nombre',
+                        'Por favor ingrese su NombreArbitr',
                     ]"
                     :onkeydown="onkeyDown"
                   />
                 </div>
+
                 <div>
                   <label
-                    >Ingrese Apellido Entrenador
+                    >Ingrese apellido entrenador
                     <span class="text-red">*</span></label
                   >
                   <q-input
+                    dense
                     filled
                     v-model="entrenador.apellido"
                     lazy-rules
-                    dense
                     :rules="[
                       (val) =>
                         (val && val.length > 0) ||
-                        'Por favor ingrese el Apellido entrenador',
+                        'Por favor ingrese su ApellidoArbitr',
                     ]"
                     :onkeydown="onkeyDown"
                   />
                 </div>
-
                 <div>
                   <label
-                    >Seleccione nombre jugador
+                    >Ingrese su edad entrenador
                     <span class="text-red">*</span></label
                   >
-                  <q-select
-                    filled
-                    v-model="entrenador.id_jugadores"
-                    map-options
-                    emit-value
-                    option-value="id"
-                    option-label="nombre"
-                    :options="jugadores"
-                    dense
-                    lazy-rules
-                  />
-                </div>
-              </div>
-
-              <div class="row justify-between q-gutter-md">
-                <div>
-                  <label
-                    >Ingrese Edad Entrenador
-                    <span class="text-red">*</span></label
-                  >
+                  <!---v-show="false"-->
                   <q-input
                     filled
+                    dense
                     type="number"
                     v-model="entrenador.edad"
-                    dense
+                    min="18"
                     :rules="[
                       (val) =>
                         (val && val.length > 0 && val >= 18) ||
@@ -83,9 +66,12 @@
                   />
                 </div>
 
+
+
+
                 <div>
                   <label
-                    >Seleccione su sexo Entrenador
+                    >Ingrese su sexo entrenador
                     <span class="text-red">*</span></label
                   >
                   <q-select
@@ -97,14 +83,19 @@
                     :rules="[
                       (val) =>
                         (val && val.length > 0) ||
-                        'Por favor seleccione el sexo ',
+                        'Por favor seleccione su sexo',
                     ]"
                   />
                 </div>
 
+
+              </div>
+
+
+              <div class="row justify-between q-gutter-md">
                 <div>
                   <label
-                    >Ingrese Fecha-Nacimiento Entrenador
+                    >Ingrese su Fecha-Nacimiento entrenador
                     <span class="text-red">*</span></label
                   >
 
@@ -141,46 +132,63 @@
                   </q-input>
                 </div>
 
-                <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Seleccione  su Pais entrenador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="entrenador.nombre_paises"
+                    dense
+                    :options="paises"
+                    map-options
+                    emit-value
+                    option-value="country"
+                    option-label="country"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione su pais',
+                    ]"
+                  />
+                </div>
+                <div>
+                  <label
+                    >Ingrese su Ciudad entrenador <span class="text-red"></span
+                  ></label>
+                  <q-select
+                    filled
+                    dense
+                    v-model="entrenador.nombre_ciudades"
+                    :options="ciudades"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Ciudad',
+                    ]"
+                    :disable="!ciudades || !ciudades.length"
+                  />
+                </div>
+
                   <div>
-                    <label
-                      >Ingrese su Pais <span class="text-red">*</span></label
-                    >
-                    <q-select
-                      filled
-                      v-model="entrenador.nombre_paises"
-                      dense
-                      :options="paises"
-                      map-options
-                      emit-value
-                      option-value="country"
-                      option-label="country"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor seleccione su pais',
-                      ]"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      >Ingrese su Ciudad <span class="text-red">*</span></label
-                    >
-                    <q-select
-                      filled
-                      dense
-                      v-model="entrenador.nombre_ciudades"
-                      :options="ciudades"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su Ciudad',
-                      ]"
-                      :disable="!ciudades || !ciudades.length"
-                    />
-                  </div>
+                  <label
+                    >Seleccione nombre jugador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="entrenador.id_jugadores"
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="jugadores"
+                    dense
+                    lazy-rules
+                  />
                 </div>
               </div>
             </div>
@@ -192,11 +200,10 @@
             dense
             color="primary"
             label="Crear"
+            type="submit"
             icon="fa-solid fa-folder-plus"
             :disable="botonbloqueocrear"
-
           />
-
           <q-btn
             dense
             color="amber"
@@ -214,26 +221,23 @@
             :disable="botonbloqueoeliminar"
           />
         </div>
-
       </q-form>
-      
-    </div>
 
-    <q-table
-      :rows="rows"
-      :columns="columns"
-      separator="cell"
-      dense
-      row-key="id"
-      selection="single"
-      v-model:selected="selected"
-      @selection="handleSelection"
-    >
+      <br />
 
-    </q-table>
-
-
-  </q-page>
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+    </q-page>
+  </div>
 </template>
 
 <script setup>
@@ -317,14 +321,13 @@ const rows = ref([]);
 const jugadores = ref([]);
 const paises = ref([]);
 
+
 const entrenador = reactive({
   nombre: null,
   id_jugadores: null,
   apellido: null,
   edad: null,
   sexo: null,
-  altura: null,
-  peso: null,
   fecha_nacimiento: null,
   nombre_paises: null,
   nombre_ciudades: null,
@@ -338,8 +341,6 @@ async function onSubmit() {
     apellido: null,
     edad: null,
     sexo: null,
-    altura: null,
-    peso: null,
     fecha_nacimiento: null,
     nombre_paises: null,
     nombre_ciudades: null,
@@ -354,8 +355,6 @@ async function Actualizar() {
     apellido: null,
     edad: null,
     sexo: null,
-    altura: null,
-    peso: null,
     fecha_nacimiento: null,
     nombre_paises: null,
     nombre_ciudades: null,
@@ -370,8 +369,6 @@ async function Delete() {
     apellido: null,
     edad: null,
     sexo: null,
-    altura: null,
-    peso: null,
     fecha_nacimiento: null,
     nombre_paises: null,
     nombre_ciudades: null,
@@ -395,8 +392,6 @@ function handleSelection(details) {
     apellido: null,
     edad: null,
     sexo: null,
-    altura: null,
-    peso: null,
     fecha_nacimiento: null,
     nombre_paises: null,
     nombre_ciudades: null,

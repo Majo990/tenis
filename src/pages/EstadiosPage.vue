@@ -39,21 +39,20 @@
                 />
               </div>
 
-             <!----- <div>
+              <div>
                 <label>Seleccion cancha <span class="text-red">*</span></label>
                 <q-select
-                  filled
-                  v-model="estadio.cancha"
+                filled
+                  v-model="estadio.id_canchas_estadios_partidas"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="cancha"
                   dense
-                  :options="canchas"
                   lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor seleccione su cancha',
-                  ]"
                 />
-              </div>--->
+              </div>
 
               <div>
                 <label
@@ -73,133 +72,125 @@
                 />
               </div>
 
+              <div>
+                <label
+                  >Ingrese nombre propietario estadio
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="estadio.propietario"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su NombrePropietario',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
+              </div>
+              <div>
+                <label
+                  >Ingrese su administrador
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  v-model="estadio.administrador"
+                  lazy-rules
+                  dense
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su NombreAdminsitra',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
+              </div>
 
-                <div>
-                  <label
-                    >Ingrese nombre propietario estadio
-                    <span class="text-red">*</span></label
-                  >
-                  <q-input
-                    filled
-                    dense
-                    v-model="estadio.propietario"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor ingrese su NombrePropietario',
-                    ]"
-                    :onkeydown="onkeyDown"
-                  />
-                </div>
-                <div>
-                  <label
-                    >Ingrese su administrador
-                    <span class="text-red">*</span></label
-                  >
-                  <q-input
-                    filled
-                    v-model="estadio.administrador"
-                    lazy-rules
-                    dense
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor ingrese su NombreAdminsitra',
-                    ]"
-                    :onkeydown="onkeyDown"
-                  />
-                </div>
+              <div>
+                <label
+                  >Ingrese su pais estadio
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="estadio.nombre_paises"
+                  dense
+                  :options="paises"
+                  map-options
+                  emit-value
+                  option-value="country"
+                  option-label="country"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor seleccione su pais',
+                  ]"
+                />
+              </div>
 
+              <div>
+                <label
+                  >Ingrese el ubigeo del estadio
+                  <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  v-model="estadio.ubigeo"
+                  dense
+                  mask="######"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor ingrese su ubigeo',
+                  ]"
+                />
+              </div>
+              <div>
+                <label
+                  >Ingrese su direccion <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="estadio.direccion"
+                  icon="mdi-map-marker-outline"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su Direccion',
+                  ]"
+                />
+              </div>
+
+              <div>
                 <div>
                   <label
-                    >Ingrese su pais estadio
+                    >Ingrese su ciudad estadio
                     <span class="text-red">*</span></label
                   >
                   <q-select
                     filled
-                    v-model="estadio.nombre_paises"
                     dense
-                    :options="paises"
-                    map-options
-                    emit-value
-                    option-value="country"
-                    option-label="country"
+                    v-model="estadio.nombre_ciudades"
+                    :options="ciudades"
                     lazy-rules
                     :rules="[
                       (val) =>
                         (val && val.length > 0) ||
-                        'Por favor seleccione su pais',
+                        'Por favor ingrese su Ciudad',
                     ]"
+                    :disable="!ciudades || !ciudades.length"
                   />
-                </div>
-
-
-
-                  <div>
-                    <label
-                      >Ingrese el ubigeo del estadio
-                      <span class="text-red">*</span></label
-                    >
-                    <q-input
-                      filled
-                      v-model="estadio.ubigeo"
-                      dense
-                      mask="######"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su ubigeo',
-                      ]"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      >Ingrese su direccion
-                      <span class="text-red">*</span></label
-                    >
-                    <q-input
-                      filled
-                      dense
-                      v-model="estadio.direccion"
-                      icon="mdi-map-marker-outline"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su Direccion',
-                      ]"
-                    />
-                  </div>
-
-                  <div>
-                    <div>
-                      <label
-                        >Ingrese su ciudad estadio
-                        <span class="text-red">*</span></label
-                      >
-                      <q-select
-                        filled
-                        dense
-                        v-model="estadio.nombre_ciudades"
-                        :options="ciudades"
-                        lazy-rules
-                        :rules="[
-                          (val) =>
-                            (val && val.length > 0) ||
-                            'Por favor ingrese su Ciudad',
-                        ]"
-                        :disable="!ciudades || !ciudades.length"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-
+        </div>
+      </div>
 
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
@@ -253,6 +244,7 @@ import {
   getPaises,
   updateEstadios,
   deleteEstadios,
+  getEstadioPartida,
 } from "../services";
 
 const columns = [
@@ -272,13 +264,13 @@ const columns = [
     sortable: true,
   },
 
-  /*{
-    name: "cancha",
+  {
+    name: "id_canchas_estadios_partidas",
     align: "center",
     label: "Cancha",
-    field: "cancha",
+    field: "nombre",
     sortable: true,
-  },*/
+  },
 
   {
     name: "cesped",
@@ -335,6 +327,7 @@ const rows = ref([]);
 const paises = ref([]);
 const jugadores = ref([]);
 
+
 const cancha = ref(null);
 const nombre_ciudades = ref([]);
 let cespeds = ["sintetico", "natural", "piso"];
@@ -344,8 +337,7 @@ const selected = ref([]);
 const estadio = reactive({
   nombre: null,
   id_jugadores: null,
-  cancha: null,
-  departamento: null,
+  id_canchas_estadios_partidas: null,
   cesped: null,
   administrador: null,
   propietario: null,
@@ -360,8 +352,7 @@ async function onSubmit() {
   Object.assign(estadio, {
     nombre: null,
     id_jugadores: null,
-    cancha: null,
-    departamento: null,
+    id_canchas_estadios_partidas: null,
     cesped: null,
     administrador: null,
     propietario: null,
@@ -374,12 +365,10 @@ async function onSubmit() {
 
 async function Actualizar() {
   await updateEstadios(estadio);
-
   Object.assign(estadio, {
     nombre: null,
     id_jugadores: null,
-    cancha: null,
-    departamento: null,
+    id_canchas_estadios_partidas: null,
     cesped: null,
     administrador: null,
     propietario: null,
@@ -392,12 +381,10 @@ async function Actualizar() {
 
 async function Delete() {
   await deleteEstadios(estadio);
-
   Object.assign(estadio, {
     nombre: null,
     id_jugadores: null,
-    cancha: null,
-    departamento: null,
+    id_canchas_estadios_partidas: null,
     cesped: null,
     administrador: null,
     propietario: null,
@@ -416,14 +403,14 @@ onMounted(async () => {
   rows.value = await getEstadios();
   paises.value = await getPaises();
   jugadores.value = await getJugadores();
+  cancha.value = await getEstadioPartida();
 });
 
 function handleSelection(details) {
   let rowSelected = {
     nombre: null,
     id_jugadores: null,
-    cancha: null,
-    departamento: null,
+    id_canchas_estadios_partidas: null,
     cesped: null,
     administrador: null,
     propietario: null,
@@ -466,8 +453,8 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 <style>
-.q-table {
+/*.q-table {
   color: grey;
   background-color: #77d6f3;
-}
+}*/
 </style>

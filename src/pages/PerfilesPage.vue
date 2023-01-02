@@ -213,6 +213,7 @@
           label="Crear"
           type="submit"
           icon="fa-solid fa-folder-plus"
+        
         />
         <q-btn
           dense
@@ -370,7 +371,7 @@ const perfil = reactive({
 
 async function onSubmit() {
   await crearPerfiles(perfil);
-  /* Object.assign(perfil, {
+   Object.assign(perfil, {
     nombre: null,
   apellido: null,
   edad: null,
@@ -383,7 +384,7 @@ async function onSubmit() {
   codigo_postal: null,
   nombre_paises: null,
   nombre_ciudades: null,
-  });*/
+  });
 }
 
 async function Actualizar() {
@@ -485,5 +486,5 @@ const botonbloqueoeliminar = ref(true);
 <style>
 /*.modelo {
   background-color: #11f8ff;
-}/*
+}*/
 </style>

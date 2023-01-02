@@ -23,7 +23,7 @@
         <div class="row q-gutter-md justify-center text-center">
           <span> usuario1 </span>
 
-          <q-btn flat round dense icon="logout" to="/login" />
+          <q-btn flat round dense icon="logout" @click="logout" />
         </div>
       </q-toolbar>
     </q-header>
@@ -54,6 +54,8 @@
 <script>
 import { defineComponent, ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
+import { useUserStore } from "src/stores/auth";
+import { useRouter } from "vue-router";
 
 const linksList = [
   {
@@ -87,7 +89,6 @@ const linksList = [
   {
     title: "Estadios",
     icon: "mdi-crop-landscape",
-
     link: "/Estadios",
   },
   {
@@ -194,7 +195,13 @@ export default defineComponent({
   },
 
   setup() {
+    const router = useRouter();
     const leftDrawerOpen = ref(false);
+    const userStore = useUserStore();
+    function logout() {
+      userStore.logout();
+      router.replace("/login");
+    }
 
     return {
       essentialLinks: linksList,
@@ -202,6 +209,7 @@ export default defineComponent({
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      logout,
     };
   },
 });

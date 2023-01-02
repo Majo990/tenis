@@ -248,8 +248,8 @@
             label="Crear"
             type="submit"
             icon="fa-solid fa-folder-plus"
-            :disable="botonbloqueocrear"
-          />
+
+          /><!--  :disable="botonbloqueocrear"-->
           <q-btn
             dense
             color="amber"
@@ -326,7 +326,7 @@ const columns = [
     name: "id_entrenadores",
     align: "center",
     label: "Nombre-Entrenadores",
-    field: "nombre_entrenadores",
+    field: "nombre_entrendores",
     sortable: true,
   },
   {
@@ -407,7 +407,7 @@ const equipo = reactive({
   apodos: null,
   id_estadios: null,
   nombre_paises: null,
-  nombre_ciudades: null,
+    nombre_ciudades: null,
 });
 
 async function onSubmit() {
@@ -493,7 +493,7 @@ function handleSelection(details) {
     presidente: null,
     apodos: null,
     id_estadios: null,
-    nombre_paises: null,
+  nombre_paises: null,
     nombre_ciudades: null,
   };
 
@@ -535,10 +535,10 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 <style lang="scss">
-.q-table {
+/*.q-table {
   color: grey;
   background-color: #1ddf8e;
-}
+}*/
 
 .q-input.label {
   font-size: large;

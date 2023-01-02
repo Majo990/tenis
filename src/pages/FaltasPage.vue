@@ -217,7 +217,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY T HH:mm:ss"),
   },
   {
     name: "id_jugadores",
@@ -258,14 +258,38 @@ const falta = reactive({
 
 async function onSubmit() {
   await crearFaltas(falta);
+
+  Object.assign(falta, {
+    nro: null,
+    fecha_hora: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_partidas: null,
+  });
 }
 
 async function Actualizar() {
   await updateFaltas(falta);
+
+  Object.assign(falta, {
+    nro: null,
+    fecha_hora: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_partidas: null,
+  });
 }
 
 async function Delete() {
   await deleteFaltas(falta);
+
+  Object.assign(falta, {
+    nro: null,
+    fecha_hora: null,
+    id_jugadores: null,
+    id_arbitros: null,
+    id_partidas: null,
+  });
 }
 
 onMounted(async () => {

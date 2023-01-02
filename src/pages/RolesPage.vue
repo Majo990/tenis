@@ -22,7 +22,7 @@
                       :rules="[
                         (val) =>
                           (val && val.length > 0) ||
-                          'Por favor ingrese su Apellido',
+                          'Por favor ingrese su descripcion',
                       ]"
                     />
                   </div>
@@ -228,7 +228,22 @@ function handleSelection(details) {
  }
 
 }
+
+
+
+
 */
-</script>
+
+
+   if (['rol']){
+
+   }
+
+   else([
+   'rol2'])
+  
+  </script>
 
 <style></style>
+
+
