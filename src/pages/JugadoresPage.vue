@@ -275,7 +275,7 @@
                     label="Crear"
                     type="submit"
                     icon="fa-solid fa-folder-plus"
-               
+                    :disable="botonbloqueocrear"
                   />
                   <q-btn
                     dense
@@ -299,6 +299,7 @@
           </div>
         </div>
       </q-form>
+      <br/>
       <q-table
         :rows="rows"
         :columns="columns"

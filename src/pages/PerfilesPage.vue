@@ -164,7 +164,7 @@
                 filled
                 dense
                 v-model="perfil.celular"
-                mask=" ### - ###- ###"
+                mask=" #########"
               />
             </div>
 
@@ -183,24 +183,23 @@
               />
             </div>
 
-            <!----<div>
+            <div>
               <label
                 >Seleccione Nombre usuarios
                 <span class="text-red">*</span></label
               >
-
               <q-select
                 filled
                 v-model="perfil.id_usuarios"
                 map-options
                 emit-value
                 option-value="id"
-                option-label="usuario"
+                option-label="usuarios"
                 :options="usuarios"
                 dense
                 lazy-rules
               />
-            </div>-->
+            </div>
           </div>
         </div>
       </div>
@@ -213,7 +212,7 @@
           label="Crear"
           type="submit"
           icon="fa-solid fa-folder-plus"
-        
+          :disable="botonbloqueocrear"
         />
         <q-btn
           dense
@@ -346,6 +345,15 @@ const columns = [
     field: "codigo_postal",
     sortable: true,
   },
+
+  {
+    name: "id_usuarios",
+    align: "center",
+    label: "Usuario",
+    field: "usuarios",
+    sortable: true,
+  },
+
 ];
 const selected = ref([]);
 const rows = ref([]);
@@ -358,6 +366,7 @@ const perfil = reactive({
   nombre: null,
   apellido: null,
   edad: null,
+  id_usuarios:null,
   sexo: null,
   dni: null,
   nacionalidad: null,
@@ -371,19 +380,20 @@ const perfil = reactive({
 
 async function onSubmit() {
   await crearPerfiles(perfil);
-   Object.assign(perfil, {
+  Object.assign(perfil, {
     nombre: null,
-  apellido: null,
-  edad: null,
-  sexo: null,
-  dni: null,
-  nacionalidad: null,
-  email: null,
-  direccion: null,
-  celular: null,
-  codigo_postal: null,
-  nombre_paises: null,
-  nombre_ciudades: null,
+    apellido: null,
+    edad: null,
+    id_usuarios:null,
+    sexo: null,
+    dni: null,
+    nacionalidad: null,
+    email: null,
+    direccion: null,
+    celular: null,
+    codigo_postal: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
   });
 }
 
@@ -393,6 +403,7 @@ async function Actualizar() {
     nombre: null,
     apellido: null,
     edad: null,
+    id_usuarios:null,
     sexo: null,
     dni: null,
     nacionalidad: null,
@@ -411,6 +422,7 @@ async function Delete() {
     nombre: null,
     apellido: null,
     edad: null,
+    id_usuarios:null,
     sexo: null,
     dni: null,
     nacionalidad: null,
@@ -438,6 +450,7 @@ function handleSelection(details) {
     nombre: null,
     apellido: null,
     edad: null,
+    id_usuarios:null,
     sexo: null,
     dni: null,
     nacionalidad: null,

@@ -413,6 +413,18 @@ const historialpartida = reactive({
 
 async function onSubmit() {
   await crearHistorialPartidas(historialpartida);
+  Object.assign(historialpartida, {
+    id_jugadores: null,
+    fecha_hora: null,
+    id_rondas: null,
+    puntaje: null,
+    id_eventos: null,
+    id_jueces: null,
+    id_premios: null,
+    id_faltas: null,
+    id_partidas: null,
+    id_arbitros: null,
+  });
 }
 
 async function Actualizar() {

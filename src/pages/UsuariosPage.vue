@@ -48,7 +48,7 @@
             option-label="descripcion"
             :options="roles"
             dense
-          
+
           />
         </div>
 
@@ -119,7 +119,7 @@ const columns = [
     required: true,
     label: "Roles",
     align: "center",
-    field: "descripcion",
+    field: "descripcion_roles",
     sortable: true,
   },
 ];

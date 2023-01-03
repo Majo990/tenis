@@ -188,11 +188,11 @@ import {
 } from "../services";
 const columns = [
   {
-    name: "descripcion",
+    name: "id_partidas",
     required: true,
     label: "Hora",
     align: "left",
-    field: "descripcion ",
+    field: "tiempo_inicio",
     format: (val) => `${val}`,
     sortable: true,
   },
@@ -232,7 +232,7 @@ const columns2 = [
     name: "Hora",
     align: "center",
     label: "Hora",
-    field: "hora",
+    field: "tiempo_fin",
     sortable: true,
   },
 
@@ -271,6 +271,8 @@ const jugador6 = ref("JUGADOR 6");
 
 const jugador7 = ref("JUGADOR 7");
 const jugador8 = ref("JUGADOR 8");
+
+//const puntaje = ref([]);
 
 const equipos = ref([]);
 const partidas = ref([]);

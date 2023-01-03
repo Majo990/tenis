@@ -246,7 +246,6 @@ import {
   deleteEstadios,
   getEstadioPartida,
 } from "../services";
-
 const columns = [
   {
     name: "nombre",
@@ -263,7 +262,6 @@ const columns = [
     field: "nombre_jugadores",
     sortable: true,
   },
-
   {
     name: "id_canchas_estadios_partidas",
     align: "center",
@@ -271,7 +269,6 @@ const columns = [
     field: "nombre",
     sortable: true,
   },
-
   {
     name: "cesped",
     align: "center",
@@ -322,18 +319,14 @@ const columns = [
     sortable: true,
   },
 ];
-
 const rows = ref([]);
 const paises = ref([]);
 const jugadores = ref([]);
-
-
 const cancha = ref(null);
 const nombre_ciudades = ref([]);
 let cespeds = ["sintetico", "natural", "piso"];
 const cesped = ref(null);
 const selected = ref([]);
-
 const estadio = reactive({
   nombre: null,
   id_jugadores: null,
@@ -346,7 +339,6 @@ const estadio = reactive({
   nombre_paises: null,
   nombre_ciudades: null,
 });
-
 async function onSubmit() {
   await crearEstadios(estadio);
   Object.assign(estadio, {
@@ -362,7 +354,6 @@ async function onSubmit() {
     nombre_ciudades: null,
   });
 }
-
 async function Actualizar() {
   await updateEstadios(estadio);
   Object.assign(estadio, {
@@ -378,7 +369,6 @@ async function Actualizar() {
     nombre_ciudades: null,
   });
 }
-
 async function Delete() {
   await deleteEstadios(estadio);
   Object.assign(estadio, {
@@ -394,18 +384,15 @@ async function Delete() {
     nombre_ciudades: null,
   });
 }
-
 const ciudades = computed(
   () => paises.value.find((p) => p.country === estadio.nombre_paises)?.cities
 );
-
 onMounted(async () => {
   rows.value = await getEstadios();
   paises.value = await getPaises();
   jugadores.value = await getJugadores();
   cancha.value = await getEstadioPartida();
 });
-
 function handleSelection(details) {
   let rowSelected = {
     nombre: null,
@@ -426,10 +413,8 @@ function handleSelection(details) {
     botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
-
   Object.assign(estadio, rowSelected);
 }
-
 function onkeyDown(evt) {
   if (
     (evt.keyCode >= 48 && evt.keyCode <= 57) ||
@@ -438,7 +423,6 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
-
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(estadio).every((key) => estadio[key] && estadio[key] !== "") &&
@@ -447,9 +431,7 @@ const botonbloqueocrear = computed(() => {
     return false;
   return true;
 });
-
 const botonbloqueoactualizar = ref(true);
-
 const botonbloqueoeliminar = ref(true);
 </script>
 <style>

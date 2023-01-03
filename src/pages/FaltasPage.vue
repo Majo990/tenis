@@ -31,10 +31,9 @@
 
               <div>
                 <label
-                  >Ingrese fecha_hora falta
+                  >Seleccione fecha_hora faltas
                   <span class="text-red">*</span></label
                 >
-
                 <q-input filled v-model="falta.fecha_hora" dense>
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer">
@@ -45,9 +44,7 @@
                       >
                         <q-date
                           v-model="falta.fecha_hora"
-                          mask="fulltime"
-                          :rules="['fulltime']"
-                          format24h
+                          mask="YYYY-MM-DD HH:mm:s"
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -72,7 +69,6 @@
                         <q-time
                           v-model="falta.fecha_hora"
                           mask="YYYY-MM-DD HH:mm"
-                          format24h
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -217,7 +213,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-    format: (val, row) => date.formatDate(val, "DD/MM/YYYY T HH:mm:ss"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYYHH:mm:ss"),
   },
   {
     name: "id_jugadores",

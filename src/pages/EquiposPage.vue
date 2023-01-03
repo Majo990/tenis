@@ -248,8 +248,8 @@
             label="Crear"
             type="submit"
             icon="fa-solid fa-folder-plus"
-
-          /><!--  :disable="botonbloqueocrear"-->
+            :disable="botonbloqueocrear"
+          />
           <q-btn
             dense
             color="amber"
