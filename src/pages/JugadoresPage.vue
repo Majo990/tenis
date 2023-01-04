@@ -57,7 +57,6 @@
                   v-model="jugador.id_entrenadores"
                   dense
                   :options="entrenadores"
-
                 />
               </div>
             </div>
@@ -145,8 +144,6 @@
                     option-value="id"
                     option-label="nombre"
                     dense
-
-
                   />
                 </div>
               </div>
@@ -294,12 +291,7 @@
                     :disable="botonbloqueoeliminar"
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </q-form>
-      <br/>
+
       <q-table
         :rows="rows"
         :columns="columns"
@@ -311,7 +303,14 @@
         @selection="handleSelection"
       >
       </q-table>
+
     </div>
+            </div>
+          </div>
+        </div>
+
+  </q-form>
+</div>
   </q-page>
 </template>
 

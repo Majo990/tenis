@@ -31,7 +31,7 @@
 
               <div>
                 <label
-                  >Seleccione fecha_hora faltas
+                  >Seleccione fecha_hora falta
                   <span class="text-red">*</span></label
                 >
                 <q-input filled v-model="falta.fecha_hora" dense>
@@ -84,6 +84,8 @@
                   </template>
                 </q-input>
               </div>
+
+
 
               <div>
                 <label
@@ -196,6 +198,7 @@ import {
   deleteFaltas,
 } from "../services";
 
+
 import { date } from "quasar";
 
 const columns = [
@@ -213,7 +216,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-    format: (val, row) => date.formatDate(val, "DD/MM/YYYYHH:mm:ss"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
   },
   {
     name: "id_jugadores",
@@ -327,6 +330,10 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
+
+
+
+// current_date= moment('Your date input').format("YYYY-MM-DD hh:mm:ss - your required date format");
 </script>
 <style>
 /*.q-table {

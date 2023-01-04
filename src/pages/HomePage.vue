@@ -160,14 +160,24 @@
 
         <div class="cl">
           <h6>Resultados:</h6>
+
+
           <q-table
+          dense
+          :rows="resultados"
+          class="bg-fondo table1"
+          :columns="columns2"
+          row-key="name1"
+          separator="none"
+        />
+         <!----- <q-table
             :rows="resultados"
             :columns="columns2"
             class="bg-fondo"
             dense
             separator="none"
             row-key="name1"
-          />
+          />-->
         </div>
       </div>
     </div>
@@ -231,7 +241,14 @@ const columns2 = [
   {
     name: "Hora",
     align: "center",
-    label: "Hora",
+    label: "Hora-Inicio",
+    field: "tiempo_inicio",
+    sortable: true,
+  },
+  {
+    name: "Hora ",
+    align: "center",
+    label: "Hora-Finalizo",
     field: "tiempo_fin",
     sortable: true,
   },
@@ -260,6 +277,10 @@ const columns2 = [
   },
 ];
 
+//const devolucion = function (jugador) {
+  //console.log("jugadorr");
+
+//}
 const jugador1 = ref("JUGADOR 1");
 const jugador2 = ref("JUGADOR 2");
 

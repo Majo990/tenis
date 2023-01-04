@@ -129,7 +129,7 @@
 
             <div>
               <label>Ingrese su email <span class="text-red">*</span></label>
-              <q-input dense standout v-model="email" type="email">
+              <q-input dense standout v-model="perfil.email" type="email">
                 <template v-slot:prepend>
                   <q-icon name="mail" />
                 </template>
