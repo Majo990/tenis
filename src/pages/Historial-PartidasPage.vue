@@ -326,7 +326,7 @@ const columns = [
   {
     name: "id_rondas",
     align: "center",
-    label: "Nro-Rondas",
+    label: "N°-Rondas",
     field: "nro",
     sortable: true,
   },
@@ -361,7 +361,7 @@ const columns = [
   {
     name: "id_faltas",
     align: "center",
-    label: "Nombre-Faltas",
+    label: "N°-Faltas",
     field: "nro",
     sortable: true,
   },

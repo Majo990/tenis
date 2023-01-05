@@ -2,6 +2,13 @@
   <q-page padding class="bg-fondo">
     <div class="row q-col-gutter-md justify-between">
       <div class="col-6 q-gutter-md">
+        <q-banner inline-actions class="text-white bg-light-blue-12">
+          Bienvenido a nuestro sitio web
+          <template v-slot:action>
+            <q-btn flat color="white" label="Ok" />
+          </template>
+        </q-banner>
+
         <h5>CAMPEONATO FRONTÓN</h5>
 
         <q-card flat class="bg-fondo marco">
@@ -161,16 +168,26 @@
         <div class="cl">
           <h6>Resultados:</h6>
 
+          <q-table
+            dense
+            :rows="resultados"
+            class="bg-fondo table1"
+            :columns="columns2"
+            row-key="name1"
+            separator="none"
+          />
+
+          <h6>Juegos:</h6>
 
           <q-table
-          dense
-          :rows="resultados"
-          class="bg-fondo table1"
-          :columns="columns2"
-          row-key="name1"
-          separator="none"
-        />
-         <!----- <q-table
+            dense
+            :rows="juego"
+            class="bg-fondo table1"
+            :columns="columns5"
+            row-key="name1"
+            separator="none"
+          />
+          <!----- <q-table
             :rows="resultados"
             :columns="columns2"
             class="bg-fondo"
@@ -195,6 +212,7 @@ import {
   getResultados,
   getJuego,
   getEstadioPartida,
+  getLogo,
 } from "../services";
 const columns = [
   {
@@ -211,7 +229,7 @@ const columns = [
     name: "id_canchas_estadios_partidas",
     align: "center",
     label: "Cancha",
-    field: "nombre_cancha_estadios_partidas",
+    field: "nombre",
     sortable: true,
   },
   {
@@ -277,8 +295,39 @@ const columns2 = [
   },
 ];
 
+const columns5 = [
+  {
+    name: "id_jugadores",
+    align: "center",
+    label: "Jugador1",
+    field: "nombre_jugadores",
+    sortable: true,
+  },
+  {
+    name: "vs",
+    align: "center",
+    label: "vs",
+    field: "vs",
+    sortable: true,
+  },
+  {
+    name: "id_jugadores",
+    align: "center",
+    label: "Jugador2",
+    field: "nombre_jugadores",
+    sortable: true,
+  },
+  {
+    name: "simbolo",
+    align: "center",
+    label: "simbolo",
+    field: "simbolo",
+    sortable: true,
+  },
+];
+
 //const devolucion = function (jugador) {
-  //console.log("jugadorr");
+//console.log("jugadorr");
 
 //}
 const jugador1 = ref("JUGADOR 1");
@@ -302,6 +351,7 @@ const proximosencuentros = ref([]);
 const resultados = ref([]);
 const juego = ref([]);
 const cancha = ref([]);
+const logo = ref([]);
 
 let i = null;
 
@@ -313,6 +363,7 @@ onMounted(async () => {
   resultados.value = await getResultados();
   juego.value = await getJuego();
   cancha.value = await getEstadioPartida();
+  logo.value = await getLogo();
 
   i = setInterval(async function () {
     proximosencuentros.value = await getProximosencuentros();
@@ -322,6 +373,7 @@ onMounted(async () => {
     resultados.value = await getResultados();
     juego.value = await getJuego();
     cancha.value = await getEstadioPartida();
+    logo.value = await getLogo();
   }, 30000);
 });
 
@@ -362,5 +414,9 @@ h2 {
 }
 
 @media (max-width) {
+}
+
+.q-banner {
+  height: 10px;
 }
 </style>

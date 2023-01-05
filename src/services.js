@@ -242,6 +242,12 @@ export async function getJuego() {
   return r.data;
 }
 
+export async function getLogo() {
+  const r = await api.get("/api/logo");
+  return r.data;
+}
+
+
 export async function crearJugadores(params) {
   const r = await api.post("/api/jugadores", params);
   return r.data;

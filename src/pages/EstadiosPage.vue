@@ -43,20 +43,22 @@
                   />
                 </div>
 
-                <!---- <div>
-                <label>Seleccion cancha <span class="text-red">*</span></label>
-                <q-select
-                filled
-                  v-model="estadio.id_canchas_estadios_partidas"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="cancha"
-                  dense
-                  lazy-rules
-                />
-                </div>--->
+                <div>
+                  <label
+                    >Seleccione su nombre cancha <span class="text-red"></span
+                  ></label>
+                  <q-select
+                    filled
+                    v-model="estadio.id_canchas_estadios_partidas"
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="canchas"
+                    dense
+                    lazy-rules
+                  />
+                </div>
               </div>
 
               <div class="row justify-between q-gutter-md">
@@ -297,7 +299,7 @@ const columns = [
     name: "id_canchas_estadios_partidas",
     align: "center",
     label: "Cancha",
-    field: "nombre_cancha_estadios_partidas",
+    field: "nombre_canchas_estadios_partidas",
     sortable: true,
   },
   {
@@ -360,9 +362,8 @@ const columns = [
 const rows = ref([]);
 const paises = ref([]);
 const jugadores = ref([]);
-const cancha = ref(null);
+const canchas = ref(null);
 const partida=ref([]);
-const nombre_ciudades = ref([]);
 let cespeds = ["sintetico", "natural", "piso"];
 const cesped = ref(null);
 const selected = ref([]);
@@ -434,7 +435,7 @@ onMounted(async () => {
   rows.value = await getEstadios();
   paises.value = await getPaises();
   jugadores.value = await getJugadores();
-  cancha.value = await getEstadioPartida();
+  canchas.value = await getEstadioPartida();
   partida.value= await getPartidas();
 });
 function handleSelection(details) {
