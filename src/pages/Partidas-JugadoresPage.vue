@@ -108,6 +108,7 @@
 </template>
 
 <script setup>
+
 import { ref, onMounted, reactive,computed } from "vue";
 import {
   getJugadores,
@@ -116,6 +117,7 @@ import {
   crearPartidasJugadores,
   deletePartidasJugadores,
   updatePartidasJugadores,
+crearJugadores,
 } from "../services";
 const columns = [
   {
