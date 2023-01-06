@@ -200,9 +200,14 @@
     </div>
   </q-page>
   <!---$indigo-13-->
+
+
 </template>
 
 <script setup>
+
+
+
 import { ref, onMounted, onUnmounted } from "vue";
 import {
   getEquipos,
