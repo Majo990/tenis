@@ -186,6 +186,13 @@ const routes = [
         component: () => import("pages/Estadios-PartidasPage.vue"),
       },
 
+      {
+        path: "/puntajes",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/PuntajesPage.vue"),
+      },
 
     ],
   },

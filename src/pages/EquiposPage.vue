@@ -279,6 +279,18 @@
       v-model:selected="selected"
       @selection="handleSelection"
     >
+      <template v-slot:body-cell-simbolo="props">
+        <q-td :props="props">
+          <q-img
+            src="https://placeimg.com/500/300/nature"
+            width="25px"
+            height="25px"
+          />
+          <div class="my-table-details">
+            {{ props.row.simbolo }}
+          </div>
+        </q-td>
+      </template>
     </q-table>
   </q-page>
 </template>
@@ -407,7 +419,7 @@ const equipo = reactive({
   apodos: null,
   id_estadios: null,
   nombre_paises: null,
-    nombre_ciudades: null,
+  nombre_ciudades: null,
 });
 
 async function onSubmit() {
@@ -467,14 +479,14 @@ async function Delete() {
 const ciudades = computed(
   () => paises.value.find((p) => p.country === equipo.nombre_paises)?.cities
 );
-let i=null
+let i = null;
 
 onMounted(async () => {
   rows.value = await getEquipos();
-  i = setInterval( async function  (){
+  i = setInterval(async function () {
     rows.value = await getEquipos();
-  },30000)
-  clearInterval(i)
+  }, 30000);
+  clearInterval(i);
   paises.value = await getPaises();
   entrenadores.value = await getEntrenadores();
   jugadores.value = await getJugadores();
@@ -493,7 +505,7 @@ function handleSelection(details) {
     presidente: null,
     apodos: null,
     id_estadios: null,
-  nombre_paises: null,
+    nombre_paises: null,
     nombre_ciudades: null,
   };
 

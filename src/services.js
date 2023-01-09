@@ -247,6 +247,10 @@ export async function getLogo() {
   return r.data;
 }
 
+export async function getPuntaje(){
+  const r= await api.get("/api/puntaje")
+}
+
 
 export async function crearJugadores(params) {
   const r = await api.post("/api/jugadores", params);
@@ -330,6 +334,42 @@ export async function deleteEstadioPartida(params) {
   const r = await api.delete("/api/estadios_partidas/" + params.id, params);
   return r.data;
 }
+
+
+
+//
+
+export async function getPuntajes() {
+  const r = await api.get("/api/puntaje");
+  return r.data;
+}
+
+export async function crearPuntajes(params) {
+  const r = await api.post("/api/puntaje", params);
+  return r.data;
+}
+
+export async function updatePuntajes(puntajes) {
+  const r = await api.put(
+    "/api/puntaje/" + puntajes.id,
+    puntajes
+  );
+  return r.data;
+}
+
+export async function deletePuntajes(params) {
+  const r = await api.delete("/api/puntaje/" + params.id, params);
+  return r.data;
+}
+
+
+
+
+
+
+
+
+
 
 /*
 export async function getProximosencuentros() {

@@ -241,7 +241,7 @@ function handleSelection(details) {
 
    else([
    'rol2'])
-  
+
   </script>
 
 <style></style>

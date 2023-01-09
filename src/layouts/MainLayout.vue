@@ -21,8 +21,8 @@
         <q-toolbar-title> {{ $route.path.replace("/", "") }} </q-toolbar-title>
 
         <div class="row q-gutter-md justify-center text-center">
-        <!---  <span>
-            {{this.$emit($usuario)}}
+      <!-----  <span>
+            {{ user }}
           </span>-->
 
           <q-btn flat round dense icon="logout" @click="logout" />
@@ -54,16 +54,10 @@
 </template>
 
 <script>
-
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import { useUserStore } from "src/stores/auth";
 import { useRouter } from "vue-router";
-//import { getUsuarios } from "src/services";
-
-// window.alert("Bienvenido a nuestro sitio web");
-
-
 
 const linksList = [
   {
@@ -148,6 +142,12 @@ const linksList = [
   },
 
   {
+    title: "Puntajes",
+    icon: "mdi-numeric-3-box",
+    link: "/Puntajes",
+  },
+
+  {
     title: "Premios",
     icon: "fa-solid fa-trophy",
     link: "/Premios",
@@ -206,6 +206,8 @@ export default defineComponent({
     const router = useRouter();
     const leftDrawerOpen = ref(false);
     const userStore = useUserStore();
+
+    const user = computed(() => userStore.user);
 
     function logout() {
       userStore.logout();

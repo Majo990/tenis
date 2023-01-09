@@ -2,12 +2,19 @@
   <q-page padding class="bg-fondo">
     <div class="row q-col-gutter-md justify-between">
       <div class="col-6 q-gutter-md">
-        <q-banner inline-actions class="text-white bg-light-blue-12">
+        <!----- <q-banner inline-actions class="text-white bg-light-blue-12">
           Bienvenido a nuestro sitio web
-          <template v-slot:action>
-            <q-btn flat color="white" label="Ok" />
+        <template v-slot:action>
+            <q-btn
+            dense
+            label="Ok"
+            @click="onSubmit"
+            :disable="botonbloqueo"
+          />
+
+
           </template>
-        </q-banner>
+        </q-banner>-->
 
         <h5>CAMPEONATO FRONTÓN</h5>
 
@@ -200,14 +207,10 @@
     </div>
   </q-page>
   <!---$indigo-13-->
-
-
 </template>
 
 <script setup>
-
-
-
+import _ from "lodash";
 import { ref, onMounted, onUnmounted } from "vue";
 import {
   getEquipos,
@@ -218,6 +221,7 @@ import {
   getJuego,
   getEstadioPartida,
   getLogo,
+  getPuntaje,
 } from "../services";
 const columns = [
   {
@@ -280,7 +284,7 @@ const columns2 = [
     name: "id_jugadores",
     align: "center",
     label: "Jugador1",
-    field: "nombre_jugadores",
+    field: "jugador1",
     sortable: true,
   },
 
@@ -295,7 +299,7 @@ const columns2 = [
     name: "id_jugadores",
     align: "center",
     label: "Jugador2",
-    field: "nombre_jugadores",
+    field: "jugador2",
     sortable: true,
   },
 ];
@@ -323,10 +327,17 @@ const columns5 = [
     sortable: true,
   },
   {
-    name: "simbolo",
+    name: "id_equipos",
     align: "center",
     label: "simbolo",
     field: "simbolo",
+    sortable: true,
+  },
+  {
+    name: "simbolo",
+    align: "center",
+    label: "Puntaje",
+    field: "puntaje",
     sortable: true,
   },
 ];
@@ -357,6 +368,7 @@ const resultados = ref([]);
 const juego = ref([]);
 const cancha = ref([]);
 const logo = ref([]);
+const puntaje = ref([]);
 
 let i = null;
 
@@ -365,26 +377,95 @@ onMounted(async () => {
   equipos.value = await getEquipos();
   partidas.value = await getPartidas();
   jugadores.value = await getJugadores();
-  resultados.value = await getResultados();
+  const r = await getResultados();
   juego.value = await getJuego();
   cancha.value = await getEstadioPartida();
   logo.value = await getLogo();
+  puntaje.value = await getPuntaje();
+
+  const rgroup = _.groupBy(r, "nombre");
+
+  resultados.value = Object.keys(rgroup)
+    .filter((key) => rgroup[key].length > 1)
+    .map((nombre) => {
+      return {
+        tiempo_inicio: rgroup[nombre][0].tiempo_inicio,
+        tiempo_fin: rgroup[nombre][0].tiempo_fin,
+        jugador1: rgroup[nombre][0].nombre_jugadores,
+        Vs: null,
+        jugador2: rgroup[nombre][1].nombre_jugadores,
+      };
+    });
 
   i = setInterval(async function () {
     proximosencuentros.value = await getProximosencuentros();
     equipos.value = await getEquipos();
     partidas.value = await getPartidas();
     jugadores.value = await getJugadores();
-    resultados.value = await getResultados();
+    const r = await getResultados();
+
+    const rgroup = _.groupBy(r, "nombre");
+
+resultados.value = Object.keys(rgroup)
+  .filter((key) => rgroup[key].length > 1)
+  .map((nombre) => {
+    return {
+      tiempo_inicio: rgroup[nombre][0].tiempo_inicio,
+      tiempo_fin: rgroup[nombre][0].tiempo_fin,
+      jugador1: rgroup[nombre][0].nombre_jugadores,
+      Vs: null,
+      jugador2: rgroup[nombre][1].nombre_jugadores,
+    };
+  });
+
+
     juego.value = await getJuego();
     cancha.value = await getEstadioPartida();
     logo.value = await getLogo();
+    puntaje.value = await getPuntaje();
   }, 30000);
+
+
 });
 
 onUnmounted(() => {
   clearInterval(i);
 });
+
+/*const botonbloqueo = computed(() => {
+  if (
+    Object.keys(home).every((key) => home[key] && home[key] !== "") &&
+
+ submit)
+
+    return false;
+  return true;
+});*/
+
+/*const ok= ref([]);
+const home=ref([]);
+
+async function onSubmit(){
+  await  ok (home);
+}*/
+
+/*data() {
+  return {
+    name: 'Vue.js'
+  }
+},
+methods: {
+  greet(event) {
+    // `this` inside methods points to the current active instance
+    alert(`Hello ${this.name}!`)
+    // `event` is the native DOM event
+    if (event) {
+      alert(event.target.tagName)
+    }
+  }
+}
+
+*/
 </script>
 
 <style>
