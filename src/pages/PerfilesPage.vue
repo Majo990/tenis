@@ -198,6 +198,7 @@
                 :options="usuarios"
                 dense
                 lazy-rules
+
               />
             </div>
           </div>
@@ -360,6 +361,7 @@ const rows = ref([]);
 const paises = ref([]);
 const usuarios = ref([]);
 const email = ref([]);
+
 
 const sexos = ["Femenino", "Masculino"];
 const perfil = reactive({

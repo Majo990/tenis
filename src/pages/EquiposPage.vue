@@ -282,7 +282,7 @@
       <template v-slot:body-cell-simbolo="props">
         <q-td :props="props">
           <q-img
-            src="https://placeimg.com/500/300/nature"
+            :src="`http://localhost:3000/img/${props.value}`"
             width="25px"
             height="25px"
           />
@@ -423,7 +423,21 @@ const equipo = reactive({
 });
 
 async function onSubmit() {
-  await crearEquipos(equipo);
+  const datos = new FormData();
+  datos.append("nombre", equipo.nombre);
+  datos.append("fecha_fundo", equipo.fecha_fundo);
+  datos.append("id_jugadores", equipo.id_jugadores);
+  datos.append("id_entrenadores", equipo.id_entrenadores);
+  datos.append("descripcion", equipo.descripcion);
+  datos.append("simbolo", equipo.simbolo);
+  datos.append("indumentaria_uniforme", equipo.indumentaria_uniforme);
+  datos.append("presidente", equipo.presidente);
+  datos.append("apodos", equipo.apodos);
+  datos.append("id_estadios", equipo.id_estadios);
+  datos.append("nombre_paises", equipo.nombre_paises);
+  datos.append("nombre_ciudades", equipo.nombre_ciudades);
+
+  await crearEquipos(datos);
   Object.assign(equipo, {
     nombre: null,
     fecha_fundo: null,
@@ -441,7 +455,21 @@ async function onSubmit() {
 }
 
 async function Actualizar() {
-  await updateEquipos(equipo);
+  const datos = new FormData();
+  datos.append("nombre", equipo.nombre);
+  datos.append("fecha_fundo", equipo.fecha_fundo);
+  datos.append("id_jugadores", equipo.id_jugadores);
+  datos.append("id_entrenadores", equipo.id_entrenadores);
+  datos.append("descripcion", equipo.descripcion);
+  datos.append("simbolo", equipo.simbolo);
+  datos.append("indumentaria_uniforme", equipo.indumentaria_uniforme);
+  datos.append("presidente", equipo.presidente);
+  datos.append("apodos", equipo.apodos);
+  datos.append("id_estadios", equipo.id_estadios);
+  datos.append("nombre_paises", equipo.nombre_paises);
+  datos.append("nombre_ciudades", equipo.nombre_ciudades);
+
+  await updateEquipos({ id: equipo.id, datos });
   Object.assign(equipo, {
     nombre: null,
     fecha_fundo: null,
@@ -459,7 +487,22 @@ async function Actualizar() {
 }
 
 async function Delete() {
-  await deleteEquipos(equipo);
+  await deleteEquipos(datos);
+
+  const datos = new FormData();
+  datos.append("nombre", equipo.nombre);
+  datos.append("fecha_fundo", equipo.fecha_fundo);
+  datos.append("id_jugadores", equipo.id_jugadores);
+  datos.append("id_entrenadores", equipo.id_entrenadores);
+  datos.append("descripcion", equipo.descripcion);
+  datos.append("simbolo", equipo.simbolo);
+  datos.append("indumentaria_uniforme", equipo.indumentaria_uniforme);
+  datos.append("presidente", equipo.presidente);
+  datos.append("apodos", equipo.apodos);
+  datos.append("id_estadios", equipo.id_estadios);
+  datos.append("nombre_paises", equipo.nombre_paises);
+  datos.append("nombre_ciudades", equipo.nombre_ciudades);
+
   Object.assign(equipo, {
     nombre: null,
     fecha_fundo: null,
@@ -521,7 +564,8 @@ function handleSelection(details) {
 }
 
 function updateSimbolo(simbolo) {
-  equipo.simbolo = simbolo.name;
+  console.log(simbolo);
+  equipo.simbolo = simbolo;
 }
 
 function onkeyDown(evt) {

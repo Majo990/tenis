@@ -156,20 +156,26 @@
 
       <div class="col-6 q-col-gutter-md">
         <div class="row justify-center q-gutter-md">
-          <q-avatar
+          <!-- <q-avatar
             size="100px"
             font-size="52px"
-            text-color="white"
-            icon="img:src/assets/img/cristal.png"
+            icon="`http://localhost:3000/img/download.jpg`"
           >
-          </q-avatar>
-          <q-avatar
-            size="100px"
-            font-size="52px"
-            text-color="white"
-            icon="img:src/assets/img/f.png"
-          >
-          </q-avatar>
+          </q-avatar> -->
+
+          <q-img
+            src="http://localhost:3000/img/tgi.png"
+            width="150px"
+            height="150px"
+            style="border-radius: 80px"
+          />
+
+          <q-img
+            src="http://localhost:3000/img/club.png"
+            width="150px"
+            height="150px"
+            style="border-radius: 80px"
+          />
         </div>
 
         <div class="cl">
@@ -211,6 +217,7 @@
 
 <script setup>
 import _ from "lodash";
+
 import { ref, onMounted, onUnmounted } from "vue";
 import {
   getEquipos,
@@ -238,14 +245,14 @@ const columns = [
     name: "id_canchas_estadios_partidas",
     align: "center",
     label: "Cancha",
-    field: "nombre",
+    field: "nombre_cancha",
     sortable: true,
   },
   {
     name: "id_jugadores",
     align: "center",
     label: "Jugador1",
-    field: "nombre_jugadores",
+    field: "jugador1",
     sortable: true,
   },
   {
@@ -259,7 +266,7 @@ const columns = [
     name: "id_jugadores",
     align: "center",
     label: "Jugador2",
-    field: "nombre_jugadores",
+    field: "jugador2",
     sortable: true,
   },
 ];
@@ -304,6 +311,8 @@ const columns2 = [
   },
 ];
 
+///tabla momentanea
+
 const columns5 = [
   {
     name: "id_jugadores",
@@ -320,6 +329,13 @@ const columns5 = [
     sortable: true,
   },
   {
+    name: "id_canchas_estadios_partidas",
+    align: "center",
+    label: "Cancha",
+    field: "nombre_cancha",
+    sortable: true,
+  },
+  {
     name: "id_jugadores",
     align: "center",
     label: "Jugador2",
@@ -327,23 +343,13 @@ const columns5 = [
     sortable: true,
   },
   {
-    name: "id_equipos",
-    align: "center",
-    label: "simbolo",
-    field: "simbolo",
-    sortable: true,
-  },
-  {
-    name: "simbolo",
+    name: "id_puntajes",
     align: "center",
     label: "Puntaje",
     field: "puntaje",
     sortable: true,
   },
 ];
-
-//const devolucion = function (jugador) {
-//console.log("jugadorr");
 
 //}
 const jugador1 = ref("JUGADOR 1");
@@ -373,15 +379,46 @@ const puntaje = ref([]);
 let i = null;
 
 onMounted(async () => {
-  proximosencuentros.value = await getProximosencuentros();
+  const pr = await getProximosencuentros();
+  const proxi = _.groupBy(pr, "nombre");
+
+  proximosencuentros.value = Object.keys(proxi)
+    .filter((key) => proxi[key].length > 1)
+    .map((nombre) => {
+      return {
+        tiempo_inicio: proxi[nombre][0].tiempo_inicio,
+        nombre_cancha: proxi[nombre][0].nombre_cancha,
+        jugador1: proxi[nombre][0].nombre_jugadores,
+        Vs: null,
+        jugador2: proxi[nombre][1].nombre_jugadores,
+      };
+    });
+
+  /*const ju = await getJuego();
+  const jue = _.groupBy(ju, "nombre");
+
+  juego.value = Object.keys(jue)
+    .filter((key) => proxi[key].length > 1)
+    .map((nombre) => {
+      return {
+        puntaje1: jue[nombre][0].puntaje,
+        jugador1: jue[nombre][0].nombre_jugadores,
+        vs: jue[nombre][0].puntaje,
+        nombre_cancha: jue[nombre][0].nombre_cancha,
+        jugador2: jue[nombre][0].nombre_jugadores,
+        puntaje2: jue[nombre][0].puntaje,
+      };
+    });*/
+
   equipos.value = await getEquipos();
   partidas.value = await getPartidas();
   jugadores.value = await getJugadores();
   const r = await getResultados();
-  juego.value = await getJuego();
+
   cancha.value = await getEstadioPartida();
   logo.value = await getLogo();
   puntaje.value = await getPuntaje();
+  juego.value = await getJuego();
 
   const rgroup = _.groupBy(r, "nombre");
 
@@ -398,74 +435,65 @@ onMounted(async () => {
     });
 
   i = setInterval(async function () {
-    proximosencuentros.value = await getProximosencuentros();
+    const pr = await getProximosencuentros();
+    const proxi = _.groupBy(pr, "nombre");
+
+    proximosencuentros.value = Object.keys(proxi)
+      .filter((key) => proxi[key].length > 1)
+      .map((nombre) => {
+        return {
+          tiempo_inicio: proxi[nombre][0].tiempo_inicio,
+          nombre_cancha: proxi[nombre][0].nombre_cancha,
+          jugador1: proxi[nombre][0].nombre_jugadores,
+          Vs: null,
+          jugador2: proxi[nombre][1].nombre_jugadores,
+        };
+      });
     equipos.value = await getEquipos();
     partidas.value = await getPartidas();
     jugadores.value = await getJugadores();
+    juego.value = await getJuego();
     const r = await getResultados();
 
     const rgroup = _.groupBy(r, "nombre");
 
-resultados.value = Object.keys(rgroup)
-  .filter((key) => rgroup[key].length > 1)
-  .map((nombre) => {
-    return {
-      tiempo_inicio: rgroup[nombre][0].tiempo_inicio,
-      tiempo_fin: rgroup[nombre][0].tiempo_fin,
-      jugador1: rgroup[nombre][0].nombre_jugadores,
-      Vs: null,
-      jugador2: rgroup[nombre][1].nombre_jugadores,
-    };
-  });
+    resultados.value = Object.keys(rgroup)
+      .filter((key) => rgroup[key].length > 1)
+      .map((nombre) => {
+        return {
+          tiempo_inicio: rgroup[nombre][0].tiempo_inicio,
+          tiempo_fin: rgroup[nombre][0].tiempo_fin,
+          jugador1: rgroup[nombre][0].nombre_jugadores,
+          Vs: null,
+          jugador2: rgroup[nombre][1].nombre_jugadores,
+        };
+      });
 
+   /* const ju = await getJuego();
+    const jue = _.groupBy(ju, "nombre");
 
-    juego.value = await getJuego();
+    juego.value = Object.keys(jue)
+      .filter((key) => proxi[key].length > 1)
+      .map((nombre) => {
+        return {
+          puntaje1: jue[nombre][0].puntaje,
+          jugador1: jue[nombre][0].nombre_jugadores,
+          vs: jue[nombre][0].puntaje,
+          nombre_cancha: jue[nombre][0].nombre_cancha,
+          jugador2: jue[nombre][0].nombre_jugadores,
+          puntaje2: jue[nombre][0].puntaje,
+        };
+      });
+*/
     cancha.value = await getEstadioPartida();
     logo.value = await getLogo();
     puntaje.value = await getPuntaje();
   }, 30000);
-
-
 });
 
 onUnmounted(() => {
   clearInterval(i);
 });
-
-/*const botonbloqueo = computed(() => {
-  if (
-    Object.keys(home).every((key) => home[key] && home[key] !== "") &&
-
- submit)
-
-    return false;
-  return true;
-});*/
-
-/*const ok= ref([]);
-const home=ref([]);
-
-async function onSubmit(){
-  await  ok (home);
-}*/
-
-/*data() {
-  return {
-    name: 'Vue.js'
-  }
-},
-methods: {
-  greet(event) {
-    // `this` inside methods points to the current active instance
-    alert(`Hello ${this.name}!`)
-    // `event` is the native DOM event
-    if (event) {
-      alert(event.target.tagName)
-    }
-  }
-}
-
-*/
 </script>
 
 <style>

@@ -30,6 +30,24 @@
 
             <div>
               <label
+                >Seleccione el Nombre Partida
+                <span class="text-red">*</span></label
+              >
+              <q-select
+                filled
+                v-model="puntajes.id_partidas"
+                map-options
+                emit-value
+                option-value="id"
+                option-label="nombre"
+                :options="partidas"
+                dense
+                lazy-rules
+              />
+            </div>
+
+            <div>
+              <label
                 >Seleccione el nombre equipos
                 <span class="text-red">*</span></label
               >
@@ -59,24 +77,6 @@
                 option-value="id"
                 option-label="nombre"
                 :options="jugadores"
-                dense
-                lazy-rules
-              />
-            </div>
-
-            <div>
-              <label
-                >Seleccione el Nombre Partida
-                <span class="text-red">*</span></label
-              >
-              <q-select
-                filled
-                v-model="puntajes.id_partidas"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="partidas"
                 dense
                 lazy-rules
               />
@@ -131,7 +131,6 @@
 </template>
 
 <script setup>
-
 import { ref, onMounted, reactive, computed } from "vue";
 import {
   getJugadores,
@@ -175,16 +174,16 @@ const columns = [
 
 const rows = ref([]);
 const filter = ref("");
-const jugadores = ref([]);
+
 const equipos = ref([]);
 const selected = ref([]);
-const partidas= ref([]);
+
 
 const puntajes = reactive({
   puntaje: null,
   id_equipos: null,
   id_jugadores: null,
-  id_partidas:null,
+  id_partidas: null,
 });
 
 async function onSubmit() {
@@ -193,7 +192,7 @@ async function onSubmit() {
     puntaje: null,
     id_equipos: null,
     id_jugadores: null,
-    id_partidas:null,
+    id_partidas: null,
   });
 }
 
@@ -203,7 +202,7 @@ async function Actualizar() {
     puntaje: null,
     id_equipos: null,
     id_jugadores: null,
-    id_partidas:null,
+    id_partidas: null,
   });
 }
 
@@ -213,7 +212,7 @@ async function Delete() {
     puntaje: null,
     id_equipos: null,
     id_jugadores: null,
-    id_partidas:null,
+    id_partidas: null,
   });
 }
 
@@ -221,7 +220,7 @@ onMounted(async () => {
   rows.value = await getPuntajes();
   equipos.value = await getEquipos();
   jugadores.value = await getJugadores();
-  partidas.value= await getPartidas();
+  partidas.value = await getPartidas();
 });
 
 function handleSelection(details) {
@@ -229,7 +228,7 @@ function handleSelection(details) {
     puntaje: null,
     id_equipos: null,
     id_jugadores: null,
-    id_partidas:null,
+    id_partidas: null,
   };
   botonbloqueoactualizar.value = true;
   botonbloqueoeliminar.value = true;
@@ -241,6 +240,15 @@ function handleSelection(details) {
 
   Object.assign(puntajes, rowSelected);
 }
+
+const jugadores  = computed(
+  () => equipos.value.find((p) => p.jugadores === puntajes.nombre_equipos)?.jugadores
+);
+
+const partidas = computed (
+  () => jugadores.value.fing((r) => r.partidas === puntajes.nombre_equipos)?.partidas
+); 
+
 
 const botonbloqueocrear = computed(() => {
   if (

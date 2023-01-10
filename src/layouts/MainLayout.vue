@@ -21,9 +21,9 @@
         <q-toolbar-title> {{ $route.path.replace("/", "") }} </q-toolbar-title>
 
         <div class="row q-gutter-md justify-center text-center">
-      <!-----  <span>
-            {{ user }}
-          </span>-->
+          <span>
+            {{usuario}}
+          </span>
 
           <q-btn flat round dense icon="logout" @click="logout" />
         </div>
@@ -138,7 +138,7 @@ const linksList = [
   {
     title: "Estadios-Partidas",
     icon: "mdi-square-rounded-outline",
-    link: "/Estadios-Partidas",
+    link: "/estadios_partidas",
   },
 
   {
