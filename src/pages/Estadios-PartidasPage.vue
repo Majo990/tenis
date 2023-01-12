@@ -38,7 +38,7 @@
                     (val && val.length > 0) ||
                     'Por favor ingrese su NombreArbitr',
                 ]"
-                :onkeydown="onkeyDown"
+              
               />
             </div>
 
@@ -237,6 +237,10 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
+
+
+
+
 </script>
 
 <style></style>

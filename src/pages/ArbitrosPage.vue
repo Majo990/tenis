@@ -347,11 +347,9 @@ const columns = [
   },
 ];
 const selected = ref([]);
-
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
-
 
 
 const arbitro = reactive({

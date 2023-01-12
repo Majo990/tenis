@@ -20,9 +20,11 @@
 
         <q-toolbar-title> {{ $route.path.replace("/", "") }} </q-toolbar-title>
 
-        <div class="row q-gutter-md justify-center text-center">
+        <div class="row q-gutter-md justify-center items-center text-center">
+
+       <!---muestra usuarios el nombre del usuario  que se a logueado -->
           <span>
-            {{usuario}}
+            {{ user.usuarios }}
           </span>
 
           <q-btn flat round dense icon="logout" @click="logout" />
@@ -192,7 +194,7 @@ const linksList = [
     title: "Roles",
     icon: "mdi-hail",
     link: "/Roles",
-  },
+  },  
 ];
 
 export default defineComponent({
@@ -221,6 +223,7 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
       logout,
+      user,
     };
   },
 });

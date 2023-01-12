@@ -19,8 +19,13 @@
         <h5>CAMPEONATO FRONTÓN</h5>
 
         <q-card flat class="bg-fondo marco">
-          <q-card flat class="bg-fondo">
-            En juego:
+          En juego:
+          <q-card
+            flat
+            class="bg-fondo"
+            v-for="partida in partidasActuales"
+            :key="partida.id"
+          >
             <q-card-section>
               <div
                 class="bg-majo row justify-between items-center q-pa-sm"
@@ -29,9 +34,11 @@
                 <div
                   class="bg-fondo rounded-borders"
                   style="width: 50px; height: 30px"
-                ></div>
+                >
+                  {{ partida.puntaje1 }}
+                </div>
 
-                {{ jugador1 }}
+                {{ partida.jugador1 }}
 
                 <div class="text-center">
                   VS
@@ -39,105 +46,16 @@
                     class="bg-blue-2 text-caption full-height"
                     style="width: 100px"
                   >
-                    Cancha 01
+                    {{ partida.nombre_cancha }}
                   </div>
                 </div>
-                {{ jugador2 }}
+                {{ partida.jugador2 }}
                 <div
                   class="bg-fondo rounded-borders"
                   style="width: 50px; height: 30px"
-                ></div>
-              </div>
-            </q-card-section>
-          </q-card>
-
-          <q-card flat class="bg-fondo">
-            <q-card-section>
-              <div
-                class="bg-majo row justify-between items-center q-pa-sm"
-                style="width: 100%; height: 45px"
-              >
-                <div
-                  class="bg-fondo rounded-borders"
-                  style="width: 50px; height: 30px"
-                ></div>
-
-                {{ jugador3 }}
-
-                <div class="text-center">
-                  VS
-                  <div
-                    class="bg-blue-2 text-caption full-height"
-                    style="width: 100px"
-                  >
-                    Cancha 02
-                  </div>
+                >
+                  {{ partida.puntaje2 }}
                 </div>
-                {{ jugador4 }}
-                <div
-                  class="bg-fondo rounded-borders"
-                  style="width: 50px; height: 30px"
-                ></div>
-              </div>
-            </q-card-section>
-          </q-card>
-          <q-card flat class="bg-fondo">
-            <q-card-section>
-              <div
-                class="bg-majo row justify-between items-center q-pa-sm"
-                style="width: 100%; height: 45px"
-              >
-                <div
-                  class="bg-fondo rounded-borders"
-                  style="width: 50px; height: 30px"
-                ></div>
-
-                {{ jugador5 }}
-
-                <div class="text-center">
-                  VS
-                  <div
-                    class="bg-blue-2 text-caption full-height"
-                    style="width: 100px"
-                  >
-                    Cancha 03
-                  </div>
-                </div>
-                {{ jugador6 }}
-                <div
-                  class="bg-fondo rounded-borders"
-                  style="width: 50px; height: 30px"
-                ></div>
-              </div>
-            </q-card-section>
-          </q-card>
-          <q-card flat class="bg-fondo">
-            <q-card-section>
-              <div
-                class="bg-majo row justify-between items-center q-pa-sm"
-                style="width: 100%; height: 45px"
-              >
-                <div
-                  class="bg-fondo rounded-borders"
-                  style="width: 50px; height: 30px"
-                ></div>
-
-                {{ jugador7 }}
-
-                <div class="text-center">
-                  VS
-                  <div
-                    class="bg-blue-2 text-caption full-height"
-                    style="width: 100px"
-                  >
-                    Cancha 04
-                  </div>
-                </div>
-                {{ jugador8 }}
-                <div
-                  class="bg-fondo rounded-borders"
-                  style="width: 50px; height: 30px"
-                ></div>
               </div>
             </q-card-section>
           </q-card>
@@ -194,7 +112,7 @@
 
           <q-table
             dense
-            :rows="juego"
+            :rows="partidasActuales"
             class="bg-fondo table1"
             :columns="columns5"
             row-key="name1"
@@ -315,10 +233,17 @@ const columns2 = [
 
 const columns5 = [
   {
+    name: "puntaje",
+    align: "center",
+    label: "Puntaje",
+    field: "puntaje1",
+    sortable: true,
+  },
+  {
     name: "id_jugadores",
     align: "center",
     label: "Jugador1",
-    field: "nombre_jugadores",
+    field: "jugador1",
     sortable: true,
   },
   {
@@ -339,14 +264,14 @@ const columns5 = [
     name: "id_jugadores",
     align: "center",
     label: "Jugador2",
-    field: "nombre_jugadores",
+    field: "jugador2",
     sortable: true,
   },
   {
-    name: "id_puntajes",
+    name: "puntaje",
     align: "center",
     label: "Puntaje",
-    field: "puntaje",
+    field: "puntaje2",
     sortable: true,
   },
 ];
@@ -371,10 +296,11 @@ const partidas = ref([]);
 const jugadores = ref([]);
 const proximosencuentros = ref([]);
 const resultados = ref([]);
-const juego = ref([]);
+const partidasActuales = ref([]);
 const cancha = ref([]);
 const logo = ref([]);
 const puntaje = ref([]);
+const juegosactuamente = ref([]);
 
 let i = null;
 
@@ -394,22 +320,10 @@ onMounted(async () => {
       };
     });
 
-  /*const ju = await getJuego();
-  const jue = _.groupBy(ju, "nombre");
+  ///
+  obtenerPartidasActuales();
 
-  juego.value = Object.keys(jue)
-    .filter((key) => proxi[key].length > 1)
-    .map((nombre) => {
-      return {
-        puntaje1: jue[nombre][0].puntaje,
-        jugador1: jue[nombre][0].nombre_jugadores,
-        vs: jue[nombre][0].puntaje,
-        nombre_cancha: jue[nombre][0].nombre_cancha,
-        jugador2: jue[nombre][0].nombre_jugadores,
-        puntaje2: jue[nombre][0].puntaje,
-      };
-    });*/
-
+  //
   equipos.value = await getEquipos();
   partidas.value = await getPartidas();
   jugadores.value = await getJugadores();
@@ -417,8 +331,8 @@ onMounted(async () => {
 
   cancha.value = await getEstadioPartida();
   logo.value = await getLogo();
-  puntaje.value = await getPuntaje();
-  juego.value = await getJuego();
+  /// puntaje.value = await getPuntaje();
+  // juego.value = await getJuego();
 
   const rgroup = _.groupBy(r, "nombre");
 
@@ -436,6 +350,7 @@ onMounted(async () => {
 
   i = setInterval(async function () {
     const pr = await getProximosencuentros();
+
     const proxi = _.groupBy(pr, "nombre");
 
     proximosencuentros.value = Object.keys(proxi)
@@ -452,7 +367,7 @@ onMounted(async () => {
     equipos.value = await getEquipos();
     partidas.value = await getPartidas();
     jugadores.value = await getJugadores();
-    juego.value = await getJuego();
+
     const r = await getResultados();
 
     const rgroup = _.groupBy(r, "nombre");
@@ -469,31 +384,43 @@ onMounted(async () => {
         };
       });
 
-   /* const ju = await getJuego();
-    const jue = _.groupBy(ju, "nombre");
-
-    juego.value = Object.keys(jue)
-      .filter((key) => proxi[key].length > 1)
-      .map((nombre) => {
-        return {
-          puntaje1: jue[nombre][0].puntaje,
-          jugador1: jue[nombre][0].nombre_jugadores,
-          vs: jue[nombre][0].puntaje,
-          nombre_cancha: jue[nombre][0].nombre_cancha,
-          jugador2: jue[nombre][0].nombre_jugadores,
-          puntaje2: jue[nombre][0].puntaje,
-        };
-      });
-*/
     cancha.value = await getEstadioPartida();
     logo.value = await getLogo();
     puntaje.value = await getPuntaje();
+
+    obtenerPartidasActuales();
   }, 30000);
 });
 
 onUnmounted(() => {
   clearInterval(i);
 });
+
+async function obtenerPartidasActuales() {
+  const listaPartidasActuales = await getJuego();
+  const listaAgrupadaPartidasActuales = _.groupBy(
+    listaPartidasActuales,
+    "id",
+    "id_jugador"
+  );
+
+  partidasActuales.value = Object.keys(listaAgrupadaPartidasActuales)
+    .filter((key) => listaAgrupadaPartidasActuales[key].length > 1)
+    .map((key) => {
+      const [jugador1, jugador2] = listaAgrupadaPartidasActuales[key];
+
+      return {
+        id_partida: jugador1.id,
+        puntaje1: jugador1.puntaje,
+        jugador1: jugador1.nombre_jugador,
+        nombre_cancha: jugador1.nombre_cancha,
+        jugador2: jugador2.nombre_jugador,
+        puntaje2: jugador2.puntaje,
+      };
+    });
+
+  console.log(partidasActuales.value);
+}
 </script>
 
 <style>

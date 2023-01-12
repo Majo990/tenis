@@ -43,10 +43,11 @@
                 :options="partidas"
                 dense
                 lazy-rules
+                @update:model-value="handleUpdatePartida"
               />
             </div>
 
-            <div>
+         <!----<div>
               <label
                 >Seleccione el nombre equipos
                 <span class="text-red">*</span></label
@@ -58,11 +59,12 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="equipos"
+                :options="equiposFilter"
                 dense
                 lazy-rules
+                @update:model-value="handleUpdateJugador"
               />
-            </div>
+            </div>--->
 
             <div>
               <label
@@ -76,9 +78,10 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="jugadores"
+                :options="equipojugadorFilter"
                 dense
                 lazy-rules
+                @update:model-value="handleUpdateJugador"
               />
             </div>
           </div>
@@ -150,13 +153,6 @@ const columns = [
     sortable: true,
   },
   {
-    name: "id_equipos",
-    align: "center",
-    label: "Nombre_Equipo",
-    field: "nombre_equipos",
-    sortable: true,
-  },
-  {
     name: "id_jugadores",
     align: "center",
     label: "Nombre_Jugadores",
@@ -174,10 +170,10 @@ const columns = [
 
 const rows = ref([]);
 const filter = ref("");
-
 const equipos = ref([]);
+const partidas = ref([]);
 const selected = ref([]);
-
+const jugadores = ref([]);
 
 const puntajes = reactive({
   puntaje: null,
@@ -241,14 +237,21 @@ function handleSelection(details) {
   Object.assign(puntajes, rowSelected);
 }
 
-const jugadores  = computed(
-  () => equipos.value.find((p) => p.jugadores === puntajes.nombre_equipos)?.jugadores
+/*const equiposFilter = computed(() =>
+  equipos.value.filter((p) => p.id_partidas === puntajes.id_partidas)
+);
+*/
+function handleUpdatePartida() {
+  puntajes.id_equipos = null;
+}
+
+const equipojugadorFilter = computed(() =>
+  jugadores.value.filter((r) => r.id_equipos === puntajes.id_equipos)
 );
 
-const partidas = computed (
-  () => jugadores.value.fing((r) => r.partidas === puntajes.nombre_equipos)?.partidas
-); 
-
+function handleUpdateJugador() {
+  puntajes.id_jugadores = null;
+}
 
 const botonbloqueocrear = computed(() => {
   if (

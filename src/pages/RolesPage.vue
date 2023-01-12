@@ -87,7 +87,7 @@
               dense
               label="Seleccionar todos"
               class="text-bold"
-              @update:model-value="updateAll"
+
             />
 
             <q-option-group
@@ -227,12 +227,12 @@ function handleSelection(details) {
   this.selectedAll=toggle-indeterminate;
  }
 
-}
+}*/
 
 
 
 
-*/
+
 
 
    if (['rol']){

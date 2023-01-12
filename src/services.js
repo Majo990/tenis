@@ -478,6 +478,13 @@ export async function getUsuarios() {
   const r = await api.get("/api/usuarios");
   return r.data;
 }
+
+export async function getUser() {
+  const r = await api.get("/api/user");
+  return r.data;
+}
+
+
 export async function crearUsuarios(params) {
   const r = await api.post("/api/usuarios", params);
   return r.data;

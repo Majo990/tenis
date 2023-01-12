@@ -250,6 +250,7 @@
 </template>
 
 <script setup>
+
 import { ref, onMounted, computed, reactive } from "vue";
 import {
   getPerfiles,
@@ -258,6 +259,7 @@ import {
   getUsuarios,
   updatePerfiles,
   deletePerfiles,
+  getUser,
 } from "../services";
 
 const columns = [
@@ -359,8 +361,8 @@ const columns = [
 const selected = ref([]);
 const rows = ref([]);
 const paises = ref([]);
-const usuarios = ref([]);
-const email = ref([]);
+const usuarios=ref([]);
+const user = ref([]);
 
 
 const sexos = ["Femenino", "Masculino"];
@@ -441,10 +443,12 @@ const ciudades = computed(
   () => paises.value.find((p) => p.country === perfil.nombre_paises)?.cities
 );
 
+
 onMounted(async () => {
   rows.value = await getPerfiles();
   paises.value = await getPaises();
   usuarios.value = await getUsuarios();
+  user.value= await getUser();
 });
 
 function handleSelection(details) {

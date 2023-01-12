@@ -95,6 +95,7 @@
                   v-model="partida.fecha"
                   mask="date"
                   :rules="['date']"
+                  format24h
                 >
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
@@ -168,7 +169,8 @@
                   dense
                   v-model="partida.tiempo_duracion"
                   mask="fulltime"
-                  :rules="['fulltime']"
+
+
                 >
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
@@ -203,7 +205,7 @@
                   dense
                   v-model="partida.tiempo_fin"
                   mask="fulltime"
-                  :rules="['fulltime']"
+                
                 >
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
@@ -400,10 +402,10 @@ const partida = reactive({
   id_torneos: null,
   fecha: null,
   tiempo_inicio: null,
-  tiempo_duracion: null,
-  tiempo_fin: null,
+
   id_rondas: null,
 });
+
 
 async function onSubmit() {
   await crearPartidas(partida);
@@ -414,8 +416,6 @@ async function onSubmit() {
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,
-    tiempo_duracion: null,
-    tiempo_fin: null,
     id_rondas: null,
   });
 }
