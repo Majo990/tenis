@@ -34,7 +34,14 @@
                   >Seleccione fecha_hora falta
                   <span class="text-red">*</span></label
                 >
-                <q-input filled v-model="falta.fecha_hora" dense>
+
+                <q-input
+                  filled
+                  v-model="falta.fecha_hora"
+                  dense
+                  mask="datetime"
+
+                >
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer">
                       <q-popup-proxy
@@ -44,7 +51,7 @@
                       >
                         <q-date
                           v-model="falta.fecha_hora"
-                          mask="YYYY-MM-DD HH:mm:s"
+                          mask="YYYY-MM-DD HH:mm"
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -69,6 +76,7 @@
                         <q-time
                           v-model="falta.fecha_hora"
                           mask="YYYY-MM-DD HH:mm"
+                          format24h
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -85,8 +93,6 @@
                 </q-input>
               </div>
 
-
-
               <div>
                 <label
                   >Seleccione Nombre Jugadores
@@ -100,7 +106,9 @@
                   emit-value
                   option-value="id"
                   option-label="nombre"
-                  :options="jugadores"
+
+                  :options="partidajugadorFilter"
+                @update:model-value="handleSelectionJugador"
                 />
               </div>
 
@@ -198,7 +206,6 @@ import {
   deleteFaltas,
 } from "../services";
 
-
 import { date } from "quasar";
 
 const columns = [
@@ -216,7 +223,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm"),
   },
   {
     name: "id_jugadores",
@@ -246,7 +253,7 @@ const jugadores = ref([]);
 const arbitros = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
-
+const datetime= ref([]);
 const falta = reactive({
   nro: null,
   fecha_hora: null,
@@ -312,7 +319,7 @@ function handleSelection(details) {
   if (details.added) {
     botonbloqueoactualizar.value = false;
     botonbloqueoeliminar.value = false;
-    Object.assign(rowSelected, details.rows[0]);
+    Object.assign(rowSelected, {...details.rows[0],fecha_hora: date.formatDate(details.rows[0].fecha_hora,"YYYY-MM-DD HH:mm")});
   }
 
   Object.assign(falta, rowSelected);
@@ -333,7 +340,16 @@ const botonbloqueoeliminar = ref(true);
 
 
 
-// current_date= moment('Your date input').format("YYYY-MM-DD hh:mm:ss - your required date format");
+
+const partidajugadorFilter= computed(() =>
+  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas));
+
+
+  function handleSelectionJugador(){
+    partidajugador.id_jugadores = null;
+  }
+
+
 </script>
 <style>
 /*.q-table {

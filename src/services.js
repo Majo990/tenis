@@ -500,7 +500,7 @@ export async function deleteUsuarios(params) {
   return r.data;
 }
 
-///
+/*
 export async function getPermisos() {
   const r = await api.get("/api/permisos");
   return r.data;
@@ -541,7 +541,7 @@ export async function deletePermisosRoles(params) {
   const r = await api.delete("/api/permisos_roles/" + params.id, params);
   return r.data;
 }
-
+*/
 ///
 
 export async function getPerfiles() {
@@ -564,7 +564,7 @@ export async function deletePerfiles(params) {
   return r.data;
 }
 
-///
+/*
 export async function getRoles() {
   const r = await api.get("/api/roles");
   return r.data;
@@ -584,6 +584,7 @@ export async function deleteRoles(params) {
   const r = await api.delete("/api/roles/" + params.id, params);
   return r.data;
 }
+*/
 
 // deportes
 

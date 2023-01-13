@@ -35,9 +35,9 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="partidas"
                 dense
                 lazy-rules
+               :options="partidas"
               />
             </div>
 
@@ -53,9 +53,10 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="jugadores"
                 dense
                 lazy-rules
+                :options="partidajugadorFilter"
+                @update:model-value="handleSelectionJugador"
               />
             </div>
           </div>
@@ -117,7 +118,7 @@ import {
   crearPartidasJugadores,
   deletePartidasJugadores,
   updatePartidasJugadores,
-crearJugadores,
+
 } from "../services";
 const columns = [
   {
@@ -138,7 +139,7 @@ const columns = [
 
 const rows = ref([]);
 const filter = ref("");
-const jugadores = ref([]);
+const jugadores=ref([]);
 const partidas = ref([]);
 const selected = ref([]);
 
@@ -207,10 +208,20 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
+
+
+const partidajugadorFilter= computed(() =>
+  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas));
+
+
+  function handleSelectionJugador(){
+    partidajugador.id_jugadores = null;
+  }
+
 </script>
 <style lang="scss">
 .buscador {
-  width: 600px;
+  width: 300px;
 }
 
 /*.marco {

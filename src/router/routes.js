@@ -148,13 +148,13 @@ const routes = [
         path: "/torneos",
         component: () => import("pages/TorneosPage.vue"),
       },
-      {
+     /* {
         meta: {
           requiresAuth: true,
         },
         path: "/roles",
         component: () => import("pages/RolesPage.vue"),
-      },
+      },*/
 
       {
         meta: {
@@ -163,7 +163,7 @@ const routes = [
         path: "/usuario",
         component: () => import("pages/UsuarioTablePage.vue"),
       },
-      {
+      /*{
         meta: {
           requiresAuth: true,
         },
@@ -176,7 +176,7 @@ const routes = [
           requiresAuth: true,
         },
         component: () => import("pages/Permisos-RolesPage.vue"),
-      },
+      },*/
 //
       {
         path: "/estadios_partidas",

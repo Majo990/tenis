@@ -59,15 +59,10 @@
                     min="18"
                     :rules="[
                       (val) =>
-                        (val && val.length > 0 && val >= 18) ||
-                        'Edad incorrecta',
-                      'Edad correcta',
+                        (val && val > 0 && val >= 18) || 'Edad incorrecta'
                     ]"
                   />
                 </div>
-
-
-
 
                 <div>
                   <label
@@ -87,10 +82,7 @@
                     ]"
                   />
                 </div>
-
-
               </div>
-
 
               <div class="row justify-between q-gutter-md">
                 <div>
@@ -134,8 +126,8 @@
 
                 <div>
                   <label
-                    >Seleccione  su Pais entrenador
-                    <span class="text-red">*</span></label
+                    >Seleccione su Pais entrenador
+                    <span class="text-red"></span></label
                   >
                   <q-select
                     filled
@@ -146,12 +138,7 @@
                     emit-value
                     option-value="country"
                     option-label="country"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor seleccione su pais',
-                    ]"
+
                   />
                 </div>
                 <div>
@@ -163,17 +150,12 @@
                     dense
                     v-model="entrenador.nombre_ciudades"
                     :options="ciudades"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor ingrese su Ciudad',
-                    ]"
+
                     :disable="!ciudades || !ciudades.length"
                   />
                 </div>
 
-                  <div>
+                <div>
                   <label
                     >Seleccione nombre jugador
                     <span class="text-red">*</span></label
@@ -321,7 +303,6 @@ const rows = ref([]);
 const jugadores = ref([]);
 const paises = ref([]);
 
-
 const entrenador = reactive({
   nombre: null,
   id_jugadores: null,
@@ -420,9 +401,9 @@ function onkeyDown(evt) {
 
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(entrenador).every(
-      (key) => entrenador[key] && entrenador[key] !== ""
-    ) &&
+    Object.keys(entrenador)
+      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .every((key) => entrenador[key] && entrenador[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;

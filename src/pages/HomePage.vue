@@ -107,8 +107,7 @@
             row-key="name1"
             separator="none"
           />
-
-          <h6>Juegos:</h6>
+          <!-- <h6>Juegos:</h6>
 
           <q-table
             dense
@@ -117,7 +116,7 @@
             :columns="columns5"
             row-key="name1"
             separator="none"
-          />
+          /> -->
           <!----- <q-table
             :rows="resultados"
             :columns="columns2"
@@ -419,7 +418,7 @@ async function obtenerPartidasActuales() {
       };
     });
 
-  console.log(partidasActuales.value);
+  // console.log(partidasActuales.value);
 }
 </script>
 

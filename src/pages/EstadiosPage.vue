@@ -123,7 +123,7 @@
                 <div>
                   <label
                     >Ingrese su pais estadio
-                    <span class="text-red">*</span></label
+                    <span class="text-red"></span></label
                   >
                   <q-select
                     filled
@@ -134,12 +134,7 @@
                     emit-value
                     option-value="country"
                     option-label="country"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor seleccione su pais',
-                    ]"
+
                   />
                 </div>
 
@@ -183,19 +178,13 @@
                   <div>
                     <label
                       >Ingrese su ciudad estadio
-                      <span class="text-red">*</span></label
+                      <span class="text-red"></span></label
                     >
                     <q-select
                       filled
                       dense
                       v-model="estadio.nombre_ciudades"
                       :options="ciudades"
-                      lazy-rules
-                      :rules="[
-                        (val) =>
-                          (val && val.length > 0) ||
-                          'Por favor ingrese su Ciudad',
-                      ]"
                       :disable="!ciudades || !ciudades.length"
                     />
                   </div>
@@ -469,14 +458,19 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
+
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(estadio).every((key) => estadio[key] && estadio[key] !== "") &&
+    Object.keys(estadio)
+      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .every((key) => estadio[key] && estadio[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
+
+
 const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>

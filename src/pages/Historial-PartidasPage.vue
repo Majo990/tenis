@@ -6,8 +6,8 @@
         <div class="q-gutter-md">
           <div class="buscador">
             <q-input
-              dense
               v-model="filter"
+              dense
               debounce="500"
               filled
               placeholder="Buscar"
@@ -20,7 +20,7 @@
         </div>
         <br />
 
-        <div class="row">
+     <!----   <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <div>
@@ -45,7 +45,12 @@
                   >Seleccione fecha_hora historialpartida
                   <span class="text-red">*</span></label
                 >
-                <q-input filled v-model="historialpartida.fecha_hora" dense>
+                <q-input
+                  filled
+                  v-model="historialpartida.fecha_hora"
+                  dense
+                  mask="datetime"
+                >
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer">
                       <q-popup-proxy
@@ -55,7 +60,8 @@
                       >
                         <q-date
                           v-model="historialpartida.fecha_hora"
-                          mask="YYYY-MM-DD HH:mm:s"
+                          mask="YYYY-MM-DD HH:mm"
+                          format24h
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -80,6 +86,7 @@
                         <q-time
                           v-model="historialpartida.fecha_hora"
                           mask="YYYY-MM-DD HH:mm"
+                          format24h
                         >
                           <div class="row items-center justify-end">
                             <q-btn
@@ -166,7 +173,7 @@
               </div>
             </div>
 
-            <!--<div class="row justify-between q-gutter-md"></div>--->
+            <div class="row justify-between q-gutter-md"></div>
             <br />
             <div class="row justify-between q-gutter-md">
               <div>
@@ -268,7 +275,7 @@
             icon="fa-solid fa-trash-can"
             :disable="botonbloqueoeliminar"
           />
-        </div>
+        </div>--->
         <br />
 
         <q-table
@@ -321,7 +328,7 @@ const columns = [
     label: "Fecha-Hora",
     field: "fecha_hora",
     sortable: true,
-    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm:ss"),
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY HH:mm"),
   }, //ya esta    format: (val, row) => date.formatDate(timeStamp, "YYYY-MM-DDTHH:mm:ss.A"),
   {
     name: "id_rondas",
@@ -490,8 +497,7 @@ function handleSelection(details) {
   if (details.added) {
     botonbloqueoactualizar.value = false;
     botonbloqueoeliminar.value = false;
-
-    Object.assign(rowSelected, details.rows[0]);
+    Object.assign(rowSelected,{...details.rows[0],fecha_hora: date.formatDate(details.rows[0].fecha_hora,"YYYY-MM-DD HH:mm")});
   }
 
   Object.assign(historialpartida, rowSelected);
@@ -517,8 +523,8 @@ const botonbloqueoeliminar = ref(true);
 /*.q-table {
   color: grey;
   background-color: hsl(189, 84%, 71%);
-}
-.buscador {
-  width: 600px;
 }*/
+.buscador {
+  width: 300px;
+}
 </style>

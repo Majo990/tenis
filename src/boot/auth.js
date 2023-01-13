@@ -8,7 +8,7 @@ export default boot(async ({ router }) => {
   await userStore.getUser();
   router.beforeEach((to, from, next) => {
     const isAutenticated = userStore.isAutenticated;
-    console.log({ isAutenticated });
+   /// console.log({ isAutenticated });
     if (to.meta.requiresAuth && !isAutenticated) {
       return next({ path: "/login" });
     }

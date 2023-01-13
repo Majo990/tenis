@@ -77,9 +77,7 @@
                     dense
                     :rules="[
                       (val) =>
-                        (val && val.length > 0 && val >= 18) ||
-                        'Edad incorrecta',
-                      'Edad correcta',
+                        (val && val > 0 && val >= 18) || 'Edad incorrecta',
                     ]"
                   />
                 </div>
@@ -158,7 +156,7 @@
                 <div>
                   <label
                     >Selecione Nombre-Sancion
-                    <span class="text-red">*</span></label
+                    <span class="text-red"></span></label
                   >
                   <q-select
                     filled
@@ -169,15 +167,7 @@
                     option-value="id"
                     option-label="nombre"
                     :options="sanciones"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val !== null && val !== '') ||
-                        'Por favor seleccione su nombresancion',
-                      (val) =>
-                        (val > 1 && val < 80) ||
-                        'Por favor selecione su nombre-sancion',
-                    ]"
+
                   />
                 </div>
 
@@ -203,13 +193,9 @@
                     ]"
                   ></q-input>
                 </div>
-
-
               </div>
 
-              <div class="row justify-between q-gutter-md">
-
-              </div>
+              <div class="row justify-between q-gutter-md"></div>
 
               <div class="row justify-between q-gutter-md">
                 <div>
@@ -239,7 +225,7 @@
                 </div>
 
                 <div>
-                  <label>Ingrese su Pais <span class="text-red">*</span></label>
+                  <label>Ingrese su Pais <span class="text-red"></span></label>
                   <q-select
                     filled
                     v-model="jugador.nombre_paises"
@@ -249,39 +235,26 @@
                     emit-value
                     option-value="country"
                     option-label="country"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor seleccione su pais',
-                    ]"
                   />
                 </div>
 
                 <div>
                   <label
-                    >Ingrese su Ciudad <span class="text-red">*</span></label
-                  >
+                    >Ingrese su Ciudad <span class="text-red"></span
+                  ></label>
                   <q-select
                     filled
                     dense
                     v-model="jugador.nombre_ciudades"
                     :options="ciudades"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor ingrese su Ciudad',
-                    ]"
                     :disable="!ciudades || !ciudades.length"
                   />
                 </div>
 
                 <div>
                   <label
-                    >Ingrese Posicion Jugador
-                    <span class="text-red"></span></label
-                  >
+                    >Ingrese Posicion Jugador <span class="text-red"></span
+                  ></label>
                   <q-input
                     filled
                     v-model="jugador.posicion"
@@ -304,7 +277,6 @@
             type="submit"
             icon="fa-solid fa-folder-plus"
             :disable="botonbloqueocrear"
-
           />
           <q-btn
             dense
@@ -457,7 +429,6 @@ const columns = [
     field: "posicion",
     sortable: true,
   },
-
 ];
 
 const rows = ref([]);
@@ -485,7 +456,7 @@ const jugador = reactive({
   peso: null,
   nombre_paises: null,
   nombre_ciudades: null,
-  posicion:null,
+  posicion: null,
 });
 
 async function onSubmit() {
@@ -505,7 +476,7 @@ async function onSubmit() {
     peso: null,
     nombre_paises: null,
     nombre_ciudades: null,
-    posicion:null,
+    posicion: null,
   });
 }
 
@@ -526,7 +497,7 @@ async function Actualizar() {
     peso: null,
     nombre_paises: null,
     nombre_ciudades: null,
-    posicion:null,
+    posicion: null,
   });
 }
 
@@ -547,7 +518,7 @@ async function Delete() {
     peso: null,
     nombre_paises: null,
     nombre_ciudades: null,
-    posicion:null,
+    posicion: null,
   });
 }
 
@@ -581,7 +552,7 @@ function handleSelection(details) {
     peso: null,
     nombre_paises: null,
     nombre_ciudades: null,
-    posicion:null,
+    posicion: null,
   };
   botonbloqueoactualizar.value = true;
   botonbloqueoeliminar.value = true;
@@ -606,7 +577,9 @@ function onkeyDown(evt) {
 
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(jugador).every((key) => jugador[key] && jugador[key] !== "") &&
+    Object.keys(jugador)
+      .filter((k) =>! ["nombre_paises","nombre_ciudades","posicion","id_sanciones"].includes(k))
+      .every((key) => jugador[key] && jugador[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;

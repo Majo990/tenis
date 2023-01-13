@@ -44,8 +44,7 @@
                 v-model="perfil.edad"
                 :rules="[
                   (val) =>
-                    (val && val.length > 0 && val >= 18) || 'Edad incorrecta',
-                  'Edad correcta',
+                    (val && val > 0 && val >= 18) || 'Edad incorrecta'
                 ]"
               />
             </div>
@@ -59,7 +58,7 @@
             </div>
 
             <div>
-              <label>Selecione su pais <span class="text-red">*</span></label>
+              <label>Selecione su pais <span class="text-red"></span></label>
               <q-select
                 filled
                 v-model="perfil.nombre_paises"
@@ -73,7 +72,7 @@
             </div>
 
             <div>
-              <label>Selecione su ciudad <span class="text-red">*</span></label>
+              <label>Selecione su ciudad <span class="text-red"></span></label>
               <q-select
                 filled
                 dense
@@ -83,12 +82,7 @@
                 option-label="nombre"
                 v-model="perfil.nombre_ciudades"
                 :options="ciudades"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                ]"
-                :disable="!ciudades || !ciudades.length"
+
               />
             </div>
 
@@ -198,7 +192,6 @@
                 :options="usuarios"
                 dense
                 lazy-rules
-
               />
             </div>
           </div>
@@ -222,19 +215,23 @@
           @click="Actualizar"
           icon="fa-solid fa-pen-to-square"
           :disable="botonbloqueoactualizar"
+          row-key="id"
+          selection="single"
+          v-model:selected="selected"
+          @selection="handleSelection"
         />
-        <q-btn
+        <!---<q-btn
           dense
           color="red"
           label="Borrar"
           @click="Delete"
           icon="fa-solid fa-trash-can"
           :disable="botonbloqueoeliminar"
-        />
+        />-->
       </div>
 
       <br />
-      <q-table
+      <!--<q-table
         :rows="rows"
         :columns="columns"
         separator="cell"
@@ -244,13 +241,12 @@
         v-model:selected="selected"
         @selection="handleSelection"
       >
-      </q-table>
+      </q-table>-->
     </q-form>
   </q-page>
 </template>
 
 <script setup>
-
 import { ref, onMounted, computed, reactive } from "vue";
 import {
   getPerfiles,
@@ -258,7 +254,7 @@ import {
   crearPerfiles,
   getUsuarios,
   updatePerfiles,
-  deletePerfiles,
+  // deletePerfiles,
   getUser,
 } from "../services";
 
@@ -356,21 +352,19 @@ const columns = [
     field: "usuarios",
     sortable: true,
   },
-
 ];
 const selected = ref([]);
 const rows = ref([]);
 const paises = ref([]);
-const usuarios=ref([]);
+const usuarios = ref([]);
 const user = ref([]);
-
 
 const sexos = ["Femenino", "Masculino"];
 const perfil = reactive({
   nombre: null,
   apellido: null,
   edad: null,
-  id_usuarios:null,
+  id_usuarios: null,
   sexo: null,
   dni: null,
   nacionalidad: null,
@@ -388,7 +382,7 @@ async function onSubmit() {
     nombre: null,
     apellido: null,
     edad: null,
-    id_usuarios:null,
+    id_usuarios: null,
     sexo: null,
     dni: null,
     nacionalidad: null,
@@ -407,7 +401,7 @@ async function Actualizar() {
     nombre: null,
     apellido: null,
     edad: null,
-    id_usuarios:null,
+    id_usuarios: null,
     sexo: null,
     dni: null,
     nacionalidad: null,
@@ -420,7 +414,7 @@ async function Actualizar() {
   });
 }
 
-async function Delete() {
+/*async function Delete() {
   await deletePerfiles(perfil);
   Object.assign(perfil, {
     nombre: null,
@@ -437,18 +431,18 @@ async function Delete() {
     nombre_paises: null,
     nombre_ciudades: null,
   });
-}
+}*/
 
 const ciudades = computed(
   () => paises.value.find((p) => p.country === perfil.nombre_paises)?.cities
 );
 
-
 onMounted(async () => {
   rows.value = await getPerfiles();
+  Object.assign(perfil, rows.value[0]);
   paises.value = await getPaises();
   usuarios.value = await getUsuarios();
-  user.value= await getUser();
+  user.value = await getUser();
 });
 
 function handleSelection(details) {
@@ -456,7 +450,7 @@ function handleSelection(details) {
     nombre: null,
     apellido: null,
     edad: null,
-    id_usuarios:null,
+    id_usuarios: null,
     sexo: null,
     dni: null,
     nacionalidad: null,
@@ -469,13 +463,10 @@ function handleSelection(details) {
   };
 
   botonbloqueoactualizar.value = true;
-  botonbloqueoeliminar.value = true;
   if (details.added) {
     botonbloqueoactualizar.value = false;
-    botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
-
   Object.assign(perfil, rowSelected);
 }
 
@@ -498,8 +489,6 @@ const botonbloqueocrear = computed(() => {
 });
 
 const botonbloqueoactualizar = ref(true);
-
-const botonbloqueoeliminar = ref(true);
 </script>
 
 <style>

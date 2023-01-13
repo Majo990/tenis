@@ -54,8 +54,8 @@
                   v-model="juez.edad"
                   :rules="[
                     (val) =>
-                      (val && val.length > 0 && val >= 18) || 'Edad incorrecta',
-                    'Edad correcta',
+                      (val && val > 0 && val >= 18) || 'Edad incorrecta'
+
                   ]"
                 />
               </div>
@@ -124,7 +124,7 @@
               <div>
                 <label
                   >Seleccione su Pais del Juez
-                  <span class="text-red">*</span></label
+                  <span class="text-red"></span></label
                 >
                 <q-select
                   filled
@@ -141,18 +141,13 @@
               <div>
                 <label
                   >Seleccione su ciudad del Juez
-                  <span class="text-red">*</span></label
+                  <span class="text-red"></span></label
                 >
                 <q-select
                   filled
                   dense
                   v-model="juez.nombre_ciudades"
                   :options="ciudades"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                  ]"
                   :disable="!ciudades || !ciudades.length"
                 />
               </div>
@@ -361,12 +356,15 @@ function handleSelection(details) {
 
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(juez).every((key) => juez[key] && juez[key] !== "") &&
+    Object.keys(juez)
+      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .every((key) => juez[key] && juez[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
+
 
 const botonbloqueoactualizar = ref(true);
 

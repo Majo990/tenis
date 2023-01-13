@@ -209,7 +209,7 @@
             </div>
 
             <div>
-              <label>Seleccione su pais <span class="text-red">*</span></label>
+              <label>Seleccione su pais <span class="text-red"></span></label>
 
               <q-select
                 filled
@@ -224,17 +224,13 @@
             </div>
 
             <div>
-              <label>Seleccione ciudad <span class="text-red">*</span></label>
+              <label>Seleccione ciudad <span class="text-red"></span></label>
               <q-select
                 filled
                 dense
                 v-model="equipo.nombre_ciudades"
                 :options="ciudades"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Ciudad',
-                ]"
+
                 :disable="!ciudades || !ciudades.length"
               />
             </div>
@@ -577,14 +573,19 @@ function onkeyDown(evt) {
   }
 }
 
+
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(equipo).every((key) => equipo[key] && equipo[key] !== "") &&
+    Object.keys(equipo)
+      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .every((key) => equipo[key] && equipo[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
+
+
 
 const botonbloqueoactualizar = ref(true);
 

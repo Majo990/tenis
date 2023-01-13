@@ -38,7 +38,7 @@
                     (val && val.length > 0) ||
                     'Por favor ingrese su NombreArbitr',
                 ]"
-              
+
               />
             </div>
 
@@ -71,9 +71,10 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="partida"
+                :options="estadiopartidaFilter"
                 dense
                 lazy-rules
+                @update:model-value="handleSelectionPartida"
               />
             </div>
           </div>
@@ -239,8 +240,19 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 
 
+const estadiopartidaFilter= computed(() =>
+ estadio.value.filter((e) => e.id_partidas === estadiopartida.id_partidas));
+
+
+function handleSelectionPartida(){
+  estadiopartida.id_estadios = null;
+}
 
 
 </script>
 
-<style></style>
+<style lang="scss">
+.buscador {
+  width: 300px;
+}
+</style>

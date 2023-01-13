@@ -37,7 +37,7 @@
           </q-input>
         </div>
 
-        <div>
+        <!---<div>
           <label>Seleccione su Roles <span class="text-red">*</span></label>
           <q-select
             filled
@@ -50,7 +50,7 @@
             dense
 
           />
-        </div>
+        </div>--->
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
@@ -102,7 +102,7 @@ import {
   getUsuarios,
   updateUsuarios,
   deleteUsuarios,
-  getRoles,
+
 } from "../services";
 
 const columns = [
@@ -114,14 +114,14 @@ const columns = [
     field: "usuarios",
     sortable: true,
   },
-  {
+  /*{
     name: "id_roles",
     required: true,
     label: "Roles",
     align: "center",
     field: "descripcion_roles",
     sortable: true,
-  },
+  },*/
 ];
 
 const selected = ref([]);
@@ -161,7 +161,7 @@ async function Delete() {
 
 onMounted(async () => {
   rows.value = await getUsuarios();
-  roles.value = await getRoles();
+ // roles.value = await getRoles();
 });
 
 function handleSelection(details) {

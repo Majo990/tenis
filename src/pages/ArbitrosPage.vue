@@ -180,7 +180,7 @@
                 </div>
 
                 <div>
-                  <label>Ingrese su Pais <span class="text-red">*</span></label>
+                  <label>Ingrese su Pais <span class="text-red"></span></label>
                   <q-select
                     filled
                     v-model="arbitro.nombre_paises"
@@ -275,9 +275,7 @@ import {
   updateArbitros,
   deleteArbitros,
 } from "../services";
-
 import { date } from "quasar";
-
 const columns = [
   {
     name: "name",
@@ -328,7 +326,6 @@ const columns = [
     label: "Fecha_Nacimiento",
     field: "fecha_nacimiento",
     format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
-
     sortable: true,
   },
   {
@@ -350,8 +347,6 @@ const selected = ref([]);
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
-
-
 const arbitro = reactive({
   nombre: null,
   apellido: null,
@@ -363,7 +358,6 @@ const arbitro = reactive({
   nombre_paises: null,
   nombre_ciudades: null,
 });
-
 async function onSubmit() {
   await crearArbitros(arbitro);
   Object.assign(arbitro, {
@@ -378,7 +372,6 @@ async function onSubmit() {
     nombre_ciudades: null,
   });
 }
-
 async function Actualizar() {
   await updateArbitros(arbitro);
   Object.assign(arbitro, {
@@ -393,7 +386,6 @@ async function Actualizar() {
     nombre_ciudades: null,
   });
 }
-
 async function Delete() {
   await deleteArbitros(arbitro);
   Object.assign(arbitro, {
@@ -408,11 +400,9 @@ async function Delete() {
     nombre_ciudades: null,
   });
 }
-
 const ciudades = computed(
   () => paises.value.find((p) => p.country === arbitro.nombre_paises)?.cities
 );
-
 /*edad = computed(
   () =>
     fecha_nacimiento.value.find((f) => f.fecha_nacimiento === arbitro.edad)
@@ -423,7 +413,6 @@ onMounted(async () => {
   rows.value = await getArbitros();
   paises.value = await getPaises();
 });
-
 function onkeyDown(evt) {
   if (
     (evt.keyCode >= 48 && evt.keyCode <= 57) ||
@@ -432,7 +421,6 @@ function onkeyDown(evt) {
     evt.preventDefault();
   }
 }
-
 function handleSelection(details) {
   let rowSelected = {
     nombre: null,
@@ -445,7 +433,6 @@ function handleSelection(details) {
     nombre_paises: null,
     nombre_ciudades: null,
   };
-
   botonbloqueoactualizar.value = true;
   botonbloqueoeliminar.value = true;
   if (details.added) {
@@ -453,29 +440,32 @@ function handleSelection(details) {
     botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
-
   Object.assign(arbitro, rowSelected);
 }
 
+
+
+
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(arbitro).every((key) => arbitro[key] && arbitro[key] !== "") &&
+    Object.keys(arbitro)
+      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .every((key) => arbitro[key] && arbitro[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
 
+
+
 const botonbloqueoactualizar = ref(true);
-
 const botonbloqueoeliminar = ref(true);
-
 /*const botonbloqueopaises = computed (() =>{
     if(
       Object.keys(arbitro).every() =>  [campo9]& arbitro [campo9]!
     )
 });*/
-
 function edad(fecha_nacimiento) {
   let Nacimiento = new Date(fecha_nacimiento);
   let hoy = new Date();
@@ -488,7 +478,6 @@ function edad(fecha_nacimiento) {
   return edad;
 }
 </script>
-
 <style lang="scss">
 .marco {
   border-style: solid;

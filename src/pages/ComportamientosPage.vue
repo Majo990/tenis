@@ -38,10 +38,7 @@
                     option-label="nombre"
                     :options="jugadores"
                     dense
-                    lazy-rules
-
-
-                    />
+                    lazy-rules/>
                 </div>
               </div>
 

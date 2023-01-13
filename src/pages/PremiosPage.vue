@@ -56,15 +56,9 @@
                   option-label="nombre"
                   v-model="premio.id_equipos"
                   dense
-                  :options="equipos"
                   lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor seleccione su pais',
-                    (val) =>
-                      (val > 1 && val < 80) || 'Por favor seleccione su Equipo',
-                  ]"
+                  :options="equiposFilter"
+                 @update:model-value="handleSelectionJugador"
                 />
               </div>
 
@@ -83,8 +77,9 @@
                   option-label="nombre"
                   v-model="premio.id_jugadores"
                   dense
-                  :options="jugadores"
                   lazy-rules
+                  :options="partidajugadorFilter"
+                  @update:model-value="handleSelectionJugador"
                   :rules="[
                     (val) =>
                       (val !== null && val !== '') ||
@@ -276,6 +271,18 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
+
+
+
+const equiposFilter = computed(() =>
+  equipos.value.filter((p) => p.id_jugadores === premio.id_jugadores)
+);
+
+
+function handleSelectionJugador(){
+  premio.id_equipos = null;
+}
+
 </script>
 
 <style lang="scss">

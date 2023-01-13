@@ -129,9 +129,9 @@
                   filled
                   dense
                   v-model="partida.tiempo_inicio"
+                  format24h
                   mask="fulltime"
                   :rules="['fulltime']"
-                  format24h
                 >
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
@@ -160,17 +160,15 @@
             <div class="row justify-between q-gutter-md">
               <div>
                 <label
-                  >Ingrese tiempo_duracion Partida
-                  <span class="text-red">*</span></label
-                >
+                  >Ingrese tiempo_duracion Partida <span class="text-red"></span
+                ></label>
 
                 <q-input
                   filled
                   dense
                   v-model="partida.tiempo_duracion"
+                  format24h
                   mask="fulltime"
-
-
                 >
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
@@ -197,15 +195,14 @@
 
               <div>
                 <label
-                  >Ingrese tiempo finalizo Partida
-                  <span class="text-red">*</span></label
-                >
+                  >Ingrese tiempo finalizo Partida <span class="text-red"></span
+                ></label>
                 <q-input
                   filled
                   dense
                   v-model="partida.tiempo_fin"
+                  format24h
                   mask="fulltime"
-                
                 >
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
@@ -273,6 +270,15 @@
             @click="Delete"
             icon="fa-solid fa-trash-can"
             :disable="botonbloqueoeliminar"
+          />
+
+          <q-btn
+            dense
+            color="accent"
+            label="Ver-Historial-Partida"
+            to="/historial-partidas"
+            icon="mdi-file-document-multiple"
+            :disable="botonbloqueoactualizar"
           />
         </div>
         <br />
@@ -402,10 +408,10 @@ const partida = reactive({
   id_torneos: null,
   fecha: null,
   tiempo_inicio: null,
-
+  tiempo_duracion: null,
+  tiempo_fin: null,
   id_rondas: null,
 });
-
 
 async function onSubmit() {
   await crearPartidas(partida);
@@ -416,6 +422,8 @@ async function onSubmit() {
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,
+    // tiempo_duracion: null,
+    //tiempo_fin: null,
     id_rondas: null,
   });
 }
@@ -493,7 +501,9 @@ function onkeyDown(evt) {
 
 const botonbloqueocrear = computed(() => {
   if (
-    Object.keys(partida).every((key) => partida[key] && partida[key] !== "") &&
+    Object.keys(partida)
+      .filter((k) => !["tiempo_duracion", "tiempo_fin"].includes(k))
+      .every((key) => partida[key] && partida[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;

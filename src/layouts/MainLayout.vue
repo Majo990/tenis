@@ -21,10 +21,9 @@
         <q-toolbar-title> {{ $route.path.replace("/", "") }} </q-toolbar-title>
 
         <div class="row q-gutter-md justify-center items-center text-center">
-
-       <!---muestra usuarios el nombre del usuario  que se a logueado -->
+          <!---muestra usuarios el nombre del usuario  que se a logueado -->
           <span>
-            {{ user.usuarios }}
+            {{ user?.usuarios }}
           </span>
 
           <q-btn flat round dense icon="logout" @click="logout" />
@@ -107,11 +106,16 @@ const linksList = [
     link: "/Faltas",
   },
 
-  {
-    title: "Historial-Partidas",
-    icon: "mdi-book-search-outline",
+ /* {
+
     link: "/Historial-Partidas",
   },
+*/
+  /*
+
+  title: "Historial-Partidas",
+    icon: "mdi-book-search-outline",
+  */
 
   {
     title: "Jueces",
@@ -178,11 +182,11 @@ const linksList = [
     link: "/Usuarios",
   },
 
-  {
+  /*{
     title: "Permisos",
     icon: "mdi-page-layout-body",
     link: "/Permisos",
-  },
+  },*/
 
   {
     title: "Perfiles",
@@ -190,11 +194,11 @@ const linksList = [
     link: "/Perfiles",
   },
 
-  {
+  /*{
     title: "Roles",
     icon: "mdi-hail",
     link: "/Roles",
-  },  
+  },*/
 ];
 
 export default defineComponent({
@@ -229,9 +233,9 @@ export default defineComponent({
 });
 </script>
 <style>
-.equipos-icon {
+/*.equipos-icon {
   text-align: right;
   margin: 100px, 10, 50, 20;
   text-align: left;
-}
+}*/
 </style>

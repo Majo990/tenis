@@ -1,6 +1,5 @@
 <template>
   <q-page padding>
-
     <div class="absolute-center text-center">
       <h5>Login Usuario</h5>
       <q-form
@@ -67,8 +66,6 @@
       </q-form>
     </div>
     <!-----</q-responsive>-->
-
-
   </q-page>
 </template>
 
@@ -98,7 +95,7 @@ function onReset() {
   console.log("reset");
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .login {
   border-width: 1px; //1
   border-style: solid; //solid
@@ -167,7 +164,6 @@ h5 {
   text-align: center;
   max-width: 300px;
 }
-
 
 /*
 .container{

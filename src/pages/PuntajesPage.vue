@@ -40,14 +40,13 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="partidas"
                 dense
                 lazy-rules
-                @update:model-value="handleUpdatePartida"
+                :options="partidas"
               />
             </div>
 
-         <!----<div>
+            <!--- <div>
               <label
                 >Seleccione el nombre equipos
                 <span class="text-red">*</span></label
@@ -72,16 +71,17 @@
                 <span class="text-red">*</span></label
               >
               <q-select
-                filled
+              filled
                 v-model="puntajes.id_jugadores"
                 map-options
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="equipojugadorFilter"
                 dense
                 lazy-rules
-                @update:model-value="handleUpdateJugador"
+                :options="partidajugadorFilter"
+                @update:model-value="handleSelectionJugador"
+
               />
             </div>
           </div>
@@ -137,7 +137,7 @@
 import { ref, onMounted, reactive, computed } from "vue";
 import {
   getJugadores,
-  getEquipos,
+  //getEquipos,
   getPuntajes,
   crearPuntajes,
   updatePuntajes,
@@ -152,6 +152,13 @@ const columns = [
     field: "puntaje",
     sortable: true,
   },
+  /* {
+    name: "id_equipos",
+    align: "center",
+    label: "Nomnre-Equipos",
+    field: "nombre_equipos",
+    sortable: true,
+  },*/
   {
     name: "id_jugadores",
     align: "center",
@@ -170,14 +177,14 @@ const columns = [
 
 const rows = ref([]);
 const filter = ref("");
-const equipos = ref([]);
+//const equipos = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
 const jugadores = ref([]);
 
 const puntajes = reactive({
   puntaje: null,
-  id_equipos: null,
+  //id_equipos: null,
   id_jugadores: null,
   id_partidas: null,
 });
@@ -186,7 +193,7 @@ async function onSubmit() {
   await crearPuntajes(puntajes);
   Object.assign(puntajes, {
     puntaje: null,
-    id_equipos: null,
+    // id_equipos: null,
     id_jugadores: null,
     id_partidas: null,
   });
@@ -196,7 +203,7 @@ async function Actualizar() {
   await updatePuntajes(puntajes);
   Object.assign(puntajes, {
     puntaje: null,
-    id_equipos: null,
+    //  id_equipos: null,
     id_jugadores: null,
     id_partidas: null,
   });
@@ -206,7 +213,7 @@ async function Delete() {
   await deletePuntajes(puntajes);
   Object.assign(puntajes, {
     puntaje: null,
-    id_equipos: null,
+    // id_equipos: null,
     id_jugadores: null,
     id_partidas: null,
   });
@@ -214,7 +221,7 @@ async function Delete() {
 
 onMounted(async () => {
   rows.value = await getPuntajes();
-  equipos.value = await getEquipos();
+  // equipos.value = await getEquipos();
   jugadores.value = await getJugadores();
   partidas.value = await getPartidas();
 });
@@ -222,7 +229,7 @@ onMounted(async () => {
 function handleSelection(details) {
   let rowSelected = {
     puntaje: null,
-    id_equipos: null,
+    ///  id_equipos: null,
     id_jugadores: null,
     id_partidas: null,
   };
@@ -240,18 +247,10 @@ function handleSelection(details) {
 /*const equiposFilter = computed(() =>
   equipos.value.filter((p) => p.id_partidas === puntajes.id_partidas)
 );
-*/
+
 function handleUpdatePartida() {
   puntajes.id_equipos = null;
-}
-
-const equipojugadorFilter = computed(() =>
-  jugadores.value.filter((r) => r.id_equipos === puntajes.id_equipos)
-);
-
-function handleUpdateJugador() {
-  puntajes.id_jugadores = null;
-}
+}*/
 
 const botonbloqueocrear = computed(() => {
   if (
@@ -267,6 +266,25 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
+
+const partidajugadorFilter= computed(() =>
+  jugadores.value.filter((p) => p.id_partidas === puntajes.id_partidas));
+
+
+  function handleSelectionJugador(){
+   puntajes.id_jugadores = null;
+  }
+
+/*const equipojugadorFilter = computed(() =>
+  jugadores.value.filter((r) => r.id_equipos === puntajes.id_equipos)
+);
+
+function handleUpdateJugador() {
+  puntajes.id_jugadores = null;
+}*/
+///
+
+
 </script>
 <style lang="scss">
 .buscador {
