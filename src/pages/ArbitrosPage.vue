@@ -57,12 +57,9 @@
                     type="number"
                     v-model="arbitro.edad"
                     min="18"
-
                     :rules="[
                       (val) =>
-                        (val && val.length > 0 && val >= 18) ||
-                        'Edad incorrecta',
-                      'Edad correcta',
+                        (val && val > 0 && val >= 18) || 'Edad incorrecta',
                     ]"
                   />
                 </div>
@@ -190,12 +187,6 @@
                     emit-value
                     option-value="country"
                     option-label="country"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor seleccione su pais',
-                    ]"
                   />
                 </div>
                 <div>
@@ -207,12 +198,6 @@
                     dense
                     v-model="arbitro.nombre_ciudades"
                     :options="ciudades"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor ingrese su Ciudad',
-                    ]"
                     :disable="!ciudades || !ciudades.length"
                   />
                 </div>
@@ -443,21 +428,16 @@ function handleSelection(details) {
   Object.assign(arbitro, rowSelected);
 }
 
-
-
-
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(arbitro)
-      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .filter((k) => !["nombre_paises", "nombre_ciudades"].includes(k))
       .every((key) => arbitro[key] && arbitro[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
-
-
 
 const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);

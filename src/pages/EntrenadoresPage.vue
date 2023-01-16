@@ -59,7 +59,7 @@
                     min="18"
                     :rules="[
                       (val) =>
-                        (val && val > 0 && val >= 18) || 'Edad incorrecta'
+                        (val && val > 0 && val >= 18) || 'Edad incorrecta',
                     ]"
                   />
                 </div>
@@ -126,9 +126,8 @@
 
                 <div>
                   <label
-                    >Seleccione su Pais entrenador
-                    <span class="text-red"></span></label
-                  >
+                    >Seleccione su Pais entrenador <span class="text-red"></span
+                  ></label>
                   <q-select
                     filled
                     v-model="entrenador.nombre_paises"
@@ -138,7 +137,6 @@
                     emit-value
                     option-value="country"
                     option-label="country"
-
                   />
                 </div>
                 <div>
@@ -150,7 +148,6 @@
                     dense
                     v-model="entrenador.nombre_ciudades"
                     :options="ciudades"
-
                     :disable="!ciudades || !ciudades.length"
                   />
                 </div>
@@ -402,7 +399,7 @@ function onkeyDown(evt) {
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(entrenador)
-      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .filter((k) => !["nombre_paises", "nombre_ciudades"].includes(k))
       .every((key) => entrenador[key] && entrenador[key] !== "") &&
     botonbloqueoactualizar.value
   )

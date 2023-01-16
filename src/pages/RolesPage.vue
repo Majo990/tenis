@@ -87,7 +87,6 @@
               dense
               label="Seleccionar todos"
               class="text-bold"
-
             />
 
             <q-option-group
@@ -229,21 +228,8 @@ function handleSelection(details) {
 
 }*/
 
-
-
-
-
-
-
-   if (['rol']){
-
-   }
-
-   else([
-   'rol2'])
-
-  </script>
+if (["rol"]) {
+} else ["rol2"];
+</script>
 
 <style></style>
-
-

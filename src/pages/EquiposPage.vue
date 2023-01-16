@@ -124,7 +124,7 @@
                 @update:model-value="updateSimbolo"
                 v-model="simbolo"
                 filled
-                accept=".png, .jpg, .gif, .tiff,  .jpeg image/*"
+                accept=".png, .jpg, .gif, .tiff, .jpeg image/*"
               />
             </div>
           </div>
@@ -230,7 +230,6 @@
                 dense
                 v-model="equipo.nombre_ciudades"
                 :options="ciudades"
-
                 :disable="!ciudades || !ciudades.length"
               />
             </div>
@@ -483,8 +482,6 @@ async function Actualizar() {
 }
 
 async function Delete() {
-  await deleteEquipos(datos);
-
   const datos = new FormData();
   datos.append("nombre", equipo.nombre);
   datos.append("fecha_fundo", equipo.fecha_fundo);
@@ -499,6 +496,7 @@ async function Delete() {
   datos.append("nombre_paises", equipo.nombre_paises);
   datos.append("nombre_ciudades", equipo.nombre_ciudades);
 
+  await deleteEquipos(datos);
   Object.assign(equipo, {
     nombre: null,
     fecha_fundo: null,
@@ -554,13 +552,13 @@ function handleSelection(details) {
     botonbloqueoactualizar.value = false;
     botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
+    simbolo.value = [new File([], details.rows[0].simbolo)];
   }
 
   Object.assign(equipo, rowSelected);
 }
 
 function updateSimbolo(simbolo) {
-  console.log(simbolo);
   equipo.simbolo = simbolo;
 }
 
@@ -573,19 +571,16 @@ function onkeyDown(evt) {
   }
 }
 
-
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(equipo)
-      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .filter((k) => !["nombre_paises", "nombre_ciudades"].includes(k))
       .every((key) => equipo[key] && equipo[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
-
-
 
 const botonbloqueoactualizar = ref(true);
 

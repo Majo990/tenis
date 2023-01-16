@@ -157,7 +157,6 @@ const columns = [
     format: (val) => `${val}`,
     sortable: true,
   },
-
   {
     name: "id_canchas_estadios_partidas",
     align: "center",

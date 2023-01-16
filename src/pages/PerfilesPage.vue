@@ -43,8 +43,7 @@
                 type="number"
                 v-model="perfil.edad"
                 :rules="[
-                  (val) =>
-                    (val && val > 0 && val >= 18) || 'Edad incorrecta'
+                  (val) => (val && val > 0 && val >= 18) || 'Edad incorrecta',
                 ]"
               />
             </div>
@@ -82,7 +81,6 @@
                 option-label="nombre"
                 v-model="perfil.nombre_ciudades"
                 :options="ciudades"
-
               />
             </div>
 

@@ -1,6 +1,8 @@
 <template>
   <div class="q-pa-md">
+    <q-page  padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
+      <div class="q-pa-md">
       <strong>Formulario </strong>
       <div class="q-gutter-md row items-start">
         <div>
@@ -79,8 +81,8 @@
           />
         </div>
       </div>
-    </q-form>
-  </div>
+</div>
+</q-form>
 
   <q-table
     :rows="rows"
@@ -93,6 +95,8 @@
     @selection="handleSelection"
   >
   </q-table>
+</q-page>
+</div>
 </template>
 
 <script setup>
@@ -102,7 +106,6 @@ import {
   getUsuarios,
   updateUsuarios,
   deleteUsuarios,
-
 } from "../services";
 
 const columns = [
@@ -161,7 +164,7 @@ async function Delete() {
 
 onMounted(async () => {
   rows.value = await getUsuarios();
- // roles.value = await getRoles();
+  // roles.value = await getRoles();
 });
 
 function handleSelection(details) {
@@ -223,4 +226,8 @@ h3 {
   height: 50%;
   max-width: 54%;
 }*/
+
+
+
+
 </style>

@@ -57,11 +57,11 @@
                   v-model="premio.id_equipos"
                   dense
                   lazy-rules
-                  :options="equiposFilter"
-                 @update:model-value="handleSelectionJugador"
+                  :options="equipos"
+
                 />
               </div>
-
+<!----     @update:model-value="handleSelectionJugador"-->
               <div>
                 <label
                   >Seleccione el Nombre Jugadores<span class="text-red"
@@ -78,8 +78,8 @@
                   v-model="premio.id_jugadores"
                   dense
                   lazy-rules
-                  :options="partidajugadorFilter"
-                  @update:model-value="handleSelectionJugador"
+                  :options="jugadores"
+
                   :rules="[
                     (val) =>
                       (val !== null && val !== '') ||
@@ -94,7 +94,7 @@
           </div>
         </div>
       </div>
-
+<!---         @update:model-value="handleSelectionJugador"-->
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
           dense
@@ -272,17 +272,13 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
-
-
-const equiposFilter = computed(() =>
+/*const equiposFilter = computed(() =>
   equipos.value.filter((p) => p.id_jugadores === premio.id_jugadores)
 );
 
-
-function handleSelectionJugador(){
+function handleSelectionJugador() {
   premio.id_equipos = null;
-}
-
+}*/
 </script>
 
 <style lang="scss">

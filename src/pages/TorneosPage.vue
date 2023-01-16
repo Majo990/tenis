@@ -76,8 +76,8 @@
           <div>
             <label>
               Seleccione el Nombre Pais Torneo
-              <span class="text-red"></span></label
-            >
+              <span class="text-red"></span
+            ></label>
 
             <q-select
               filled
@@ -96,8 +96,8 @@
           <div>
             <label>
               Seleccione el Ciudad Torneo
-              <span class="text-red"></span></label
-            >
+              <span class="text-red"></span
+            ></label>
 
             <q-select
               filled
@@ -298,7 +298,7 @@ function onkeyDown(evt) {
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(torneo)
-      .filter((k) =>! ["nombre_paises","nombre_ciudades"].includes(k))
+      .filter((k) => !["nombre_paises", "nombre_ciudades"].includes(k))
       .every((key) => torneo[key] && torneo[key] !== "") &&
     botonbloqueoactualizar.value
   )
@@ -306,16 +306,9 @@ const botonbloqueocrear = computed(() => {
   return true;
 });
 
-
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
-
-
-
-
-
-
 </script>
 
 <style lang="scss">

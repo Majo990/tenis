@@ -37,7 +37,7 @@
                 option-label="nombre"
                 dense
                 lazy-rules
-               :options="partidas"
+                :options="partidas"
               />
             </div>
 
@@ -55,12 +55,14 @@
                 option-label="nombre"
                 dense
                 lazy-rules
-                :options="partidajugadorFilter"
-                @update:model-value="handleSelectionJugador"
+                :options="jugadores"
+
               />
             </div>
           </div>
           <br />
+
+          <!--       @update:model-value="handleSelectionJugador"-->
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn
               dense
@@ -109,8 +111,7 @@
 </template>
 
 <script setup>
-
-import { ref, onMounted, reactive,computed } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import {
   getJugadores,
   getPartidas,
@@ -118,7 +119,6 @@ import {
   crearPartidasJugadores,
   deletePartidasJugadores,
   updatePartidasJugadores,
-
 } from "../services";
 const columns = [
   {
@@ -139,7 +139,7 @@ const columns = [
 
 const rows = ref([]);
 const filter = ref("");
-const jugadores=ref([]);
+const jugadores = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
 
@@ -209,15 +209,13 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
+const partidajugadorFilter = computed(() =>
+  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas)
+);
 
-const partidajugadorFilter= computed(() =>
-  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas));
-
-
-  function handleSelectionJugador(){
-    partidajugador.id_jugadores = null;
-  }
-
+function handleSelectionJugador() {
+  partidajugador.id_jugadores = null;
+}
 </script>
 <style lang="scss">
 .buscador {

@@ -122,9 +122,8 @@
               <div class="row justify-between q-gutter-md">
                 <div>
                   <label
-                    >Ingrese su pais estadio
-                    <span class="text-red"></span></label
-                  >
+                    >Ingrese su pais estadio <span class="text-red"></span
+                  ></label>
                   <q-select
                     filled
                     v-model="estadio.nombre_paises"
@@ -134,7 +133,6 @@
                     emit-value
                     option-value="country"
                     option-label="country"
-
                   />
                 </div>
 
@@ -177,9 +175,8 @@
                 <div>
                   <div>
                     <label
-                      >Ingrese su ciudad estadio
-                      <span class="text-red"></span></label
-                    >
+                      >Ingrese su ciudad estadio <span class="text-red"></span
+                    ></label>
                     <q-select
                       filled
                       dense
@@ -195,14 +192,14 @@
                       <span class="text-red">*</span></label
                     >
                     <q-select
-                    filled
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  v-model="estadio.id_partidas"
-                  :options="partida"
-                  dense
+                      filled
+                      map-options
+                      emit-value
+                      option-value="id"
+                      option-label="nombre"
+                      v-model="estadio.id_partidas"
+                      :options="partida"
+                      dense
                     />
                   </div>
                 </div>
@@ -352,7 +349,7 @@ const rows = ref([]);
 const paises = ref([]);
 const jugadores = ref([]);
 const canchas = ref(null);
-const partida=ref([]);
+const partida = ref([]);
 let cespeds = ["sintetico", "natural", "piso"];
 const cesped = ref(null);
 const selected = ref([]);
@@ -425,7 +422,7 @@ onMounted(async () => {
   paises.value = await getPaises();
   jugadores.value = await getJugadores();
   canchas.value = await getEstadioPartida();
-  partida.value= await getPartidas();
+  partida.value = await getPartidas();
 });
 function handleSelection(details) {
   let rowSelected = {
@@ -462,14 +459,13 @@ function onkeyDown(evt) {
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(estadio)
-      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .filter((k) => !["nombre_paises", "nombre_ciudades"].includes(k))
       .every((key) => estadio[key] && estadio[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
-
 
 const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);

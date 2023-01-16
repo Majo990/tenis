@@ -40,7 +40,6 @@
                   v-model="falta.fecha_hora"
                   dense
                   mask="datetime"
-
                 >
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer">
@@ -106,12 +105,12 @@
                   emit-value
                   option-value="id"
                   option-label="nombre"
-
-                  :options="partidajugadorFilter"
-                @update:model-value="handleSelectionJugador"
+                  :options="jugadores"
                 />
               </div>
 
+
+              <!---  @update:model-value="handleSelectionJugador"-->
               <div>
                 <label
                   >Seleccione Nombre Arbitros
@@ -253,7 +252,7 @@ const jugadores = ref([]);
 const arbitros = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
-const datetime= ref([]);
+const datetime = ref([]);
 const falta = reactive({
   nro: null,
   fecha_hora: null,
@@ -319,7 +318,13 @@ function handleSelection(details) {
   if (details.added) {
     botonbloqueoactualizar.value = false;
     botonbloqueoeliminar.value = false;
-    Object.assign(rowSelected, {...details.rows[0],fecha_hora: date.formatDate(details.rows[0].fecha_hora,"YYYY-MM-DD HH:mm")});
+    Object.assign(rowSelected, {
+      ...details.rows[0],
+      fecha_hora: date.formatDate(
+        details.rows[0].fecha_hora,
+        "YYYY-MM-DD HH:mm"
+      ),
+    });
   }
 
   Object.assign(falta, rowSelected);
@@ -338,18 +343,13 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
+const partidajugadorFilter = computed(() =>
+  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas)
+);
 
-
-
-const partidajugadorFilter= computed(() =>
-  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas));
-
-
-  function handleSelectionJugador(){
-    partidajugador.id_jugadores = null;
-  }
-
-
+function handleSelectionJugador() {
+  partidajugador.id_jugadores = null;
+}
 </script>
 <style>
 /*.q-table {

@@ -20,7 +20,7 @@
         </div>
         <br />
 
-     <!----   <div class="row">
+        <!----   <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <div>
@@ -497,7 +497,13 @@ function handleSelection(details) {
   if (details.added) {
     botonbloqueoactualizar.value = false;
     botonbloqueoeliminar.value = false;
-    Object.assign(rowSelected,{...details.rows[0],fecha_hora: date.formatDate(details.rows[0].fecha_hora,"YYYY-MM-DD HH:mm")});
+    Object.assign(rowSelected, {
+      ...details.rows[0],
+      fecha_hora: date.formatDate(
+        details.rows[0].fecha_hora,
+        "YYYY-MM-DD HH:mm"
+      ),
+    });
   }
 
   Object.assign(historialpartida, rowSelected);

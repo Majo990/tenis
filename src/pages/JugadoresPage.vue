@@ -155,9 +155,8 @@
 
                 <div>
                   <label
-                    >Selecione Nombre-Sancion
-                    <span class="text-red"></span></label
-                  >
+                    >Selecione Nombre-Sancion <span class="text-red"></span
+                  ></label>
                   <q-select
                     filled
                     v-model="jugador.id_sanciones"
@@ -167,7 +166,6 @@
                     option-value="id"
                     option-label="nombre"
                     :options="sanciones"
-
                   />
                 </div>
 
@@ -195,7 +193,7 @@
                 </div>
               </div>
 
-              <div class="row justify-between q-gutter-md"></div>
+              <!---     <div class="row justify-between q-gutter-md"></div>--->
 
               <div class="row justify-between q-gutter-md">
                 <div>
@@ -296,9 +294,7 @@
           />
         </div>
       </q-form>
-
       <br />
-
       <q-table
         :rows="rows"
         :columns="columns"
@@ -445,7 +441,6 @@ const jugador = reactive({
   nombre: null,
   nacionalidad: null,
   id_entrenadores: null,
-  sejuego: null,
   edad: null,
   sexo: null,
   id_arbitros: null,
@@ -465,7 +460,6 @@ async function onSubmit() {
     nombre: null,
     nacionalidad: null,
     id_entrenadores: null,
-    sejuego: null,
     edad: null,
     sexo: null,
     id_arbitros: null,
@@ -486,7 +480,6 @@ async function Actualizar() {
     nombre: null,
     nacionalidad: null,
     id_entrenadores: null,
-    sejuego: null,
     edad: null,
     sexo: null,
     id_arbitros: null,
@@ -507,7 +500,6 @@ async function Delete() {
     nombre: null,
     nacionalidad: null,
     id_entrenadores: null,
-    sejuego: null,
     edad: null,
     sexo: null,
     id_arbitros: null,
@@ -541,7 +533,6 @@ function handleSelection(details) {
     nombre: null,
     nacionalidad: null,
     id_entrenadores: null,
-    sejuego: null,
     edad: null,
     sexo: null,
     id_arbitros: null,
@@ -561,7 +552,6 @@ function handleSelection(details) {
     botonbloqueoeliminar.value = false;
     Object.assign(rowSelected, details.rows[0]);
   }
-
   Object.assign(jugador, rowSelected);
 }
 
@@ -578,7 +568,15 @@ function onkeyDown(evt) {
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(jugador)
-      .filter((k) =>! ["nombre_paises","nombre_ciudades","posicion","id_sanciones"].includes(k))
+      .filter(
+        (k) =>
+          ![
+            "nombre_paises",
+            "nombre_ciudades",
+            "posicion",
+            "id_sanciones",
+          ].includes(k)
+      )
       .every((key) => jugador[key] && jugador[key] !== "") &&
     botonbloqueoactualizar.value
   )
@@ -587,7 +585,6 @@ const botonbloqueocrear = computed(() => {
 });
 
 const botonbloqueoactualizar = ref(true);
-
 const botonbloqueoeliminar = ref(true);
 </script>
 

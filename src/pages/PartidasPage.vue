@@ -1,302 +1,316 @@
 <template>
-  <q-page padding>
-    <div class="q-pa-md">
-      <strong>Formulario </strong>
+  <div class="q-pa-md">
+    <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <div class="row">
-          <div class="col-6">
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese nombre Partida <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  v-model="partida.nombre"
-                  lazy-rules
-                  dense
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su Nombre Partida',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
+        <div class="q-pa-md">
+          <strong>Formulario </strong>
+          <div class="row">
+            <div class="col-6">
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese nombre Partida
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    v-model="partida.nombre"
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Nombre Partida',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Ingrese descripcion Partida
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    v-model="partida.descripcion"
+                    filled
+                    clearable
+                    type="textarea"
+                    autogrow
+                    lazy-rules
+                    dense
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor ingrese su Descripcion',
+                    ]"
+                    :onkeydown="onkeyDown"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Seleccione Deporte de la Partida
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    v-model="partida.nombre_deportes"
+                    dense
+                    :options="deportes"
+                    lazy-rules
+                  />
+                </div>
               </div>
 
-              <div>
-                <label
-                  >Ingrese descripcion Partida
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  v-model="partida.descripcion"
-                  filled
-                  clearable
-                  type="textarea"
-                  autogrow
-                  lazy-rules
-                  dense
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) ||
-                      'Por favor ingrese su Descripcion',
-                  ]"
-                  :onkeydown="onkeyDown"
-                />
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Seleccione Nombre Torneo
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    v-model="partida.id_torneos"
+                    dense
+                    :options="torneos"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Ingrese la fecha partida
+                    <span class="text-red">*</span></label
+                  >
+
+                  <q-input
+                    filled
+                    dense
+                    v-model="partida.fecha"
+                    mask="date"
+                    :rules="['date']"
+                    format24h
+                  >
+                    <template v-slot:append>
+                      <q-icon name="event" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-date v-model="partida.fecha">
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+
+                <div>
+                  <label
+                    >Ingrese tiempo_inicio Partida
+                    <span class="text-red">*</span></label
+                  >
+                  <q-input
+                    filled
+                    dense
+                    v-model="partida.tiempo_inicio"
+                    mask="fulltime"
+                    :rules="['fulltime']"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="access_time" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-time
+                            v-model="partida.tiempo_inicio"
+                            with-seconds
+                            format24h
+                          >
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-time>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
               </div>
+              <br />
+              <div class="row justify-between q-gutter-md">
+                <div>
+                  <label
+                    >Ingrese tiempo_duracion Partida
+                    <span class="text-red"></span
+                  ></label>
 
-              <div>
-                <label
-                  >Seleccione Deporte de la Partida
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  v-model="partida.nombre_deportes"
-                  dense
-                  :options="deportes"
-                  lazy-rules
-                />
-              </div>
-            </div>
+                  <q-input
+                    filled
+                    dense
+                    v-model="partida.tiempo_duracion"
+                    format24h
+                    mask="fulltime"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="access_time" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-time
+                            v-model="partida.tiempo_duracion"
+                            with-seconds
+                          >
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-time>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
 
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Seleccione Nombre Torneo
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  v-model="partida.id_torneos"
-                  dense
-                  :options="torneos"
-                />
-              </div>
+                <div>
+                  <label
+                    >Ingrese tiempo finalizo Partida
+                    <span class="text-red"></span
+                  ></label>
+                  <q-input
+                    filled
+                    dense
+                    v-model="partida.tiempo_fin"
+                    format24h
+                    mask="fulltime"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="access_time" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-time v-model="partida.tiempo_fin" with-seconds>
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-time>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
 
-              <div>
-                <label
-                  >Ingrese la fecha partida
-                  <span class="text-red">*</span></label
-                >
-
-                <q-input
-                  filled
-                  dense
-                  v-model="partida.fecha"
-                  mask="date"
-                  :rules="['date']"
-                  format24h
-                >
-                  <template v-slot:append>
-                    <q-icon name="event" class="cursor-pointer">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-date v-model="partida.fecha">
-                          <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="primary"
-                              flat
-                            />
-                          </div>
-                        </q-date>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-
-              <div>
-                <label
-                  >Ingrese tiempo_inicio Partida
-                  <span class="text-red">*</span></label
-                >
-                <q-input
-                  filled
-                  dense
-                  v-model="partida.tiempo_inicio"
-                  format24h
-                  mask="fulltime"
-                  :rules="['fulltime']"
-                >
-                  <template v-slot:append>
-                    <q-icon name="access_time" class="cursor-pointer">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-time v-model="partida.tiempo_inicio" with-seconds>
-                          <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="primary"
-                              flat
-                            />
-                          </div>
-                        </q-time>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-            </div>
-            <br />
-            <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Ingrese tiempo_duracion Partida <span class="text-red"></span
-                ></label>
-
-                <q-input
-                  filled
-                  dense
-                  v-model="partida.tiempo_duracion"
-                  format24h
-                  mask="fulltime"
-                >
-                  <template v-slot:append>
-                    <q-icon name="access_time" class="cursor-pointer">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-time v-model="partida.tiempo_duracion" with-seconds>
-                          <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="primary"
-                              flat
-                            />
-                          </div>
-                        </q-time>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-
-              <div>
-                <label
-                  >Ingrese tiempo finalizo Partida <span class="text-red"></span
-                ></label>
-                <q-input
-                  filled
-                  dense
-                  v-model="partida.tiempo_fin"
-                  format24h
-                  mask="fulltime"
-                >
-                  <template v-slot:append>
-                    <q-icon name="access_time" class="cursor-pointer">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-time v-model="partida.tiempo_fin" with-seconds>
-                          <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="primary"
-                              flat
-                            />
-                          </div>
-                        </q-time>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-
-              <div>
-                <label
-                  >Seleccione su Ronda <span class="text-red">*</span></label
-                >
-
-                <q-select
-                  filled
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nro"
-                  v-model="partida.id_rondas"
-                  dense
-                  :options="rondas"
-                />
+                <div>
+                  <label
+                    >Seleccione su Ronda <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nro"
+                    v-model="partida.id_rondas"
+                    dense
+                    :options="rondas"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-6 q-gutter-md text-center items-center">
-          <q-btn
-            dense
-            color="primary"
-            label="Crear"
-            type="submit"
-            icon="fa-solid fa-folder-plus"
-            :disable="botonbloqueocrear"
-          />
-          <q-btn
-            dense
-            color="amber"
-            label="Editar"
-            @click="Actualizar"
-            icon="fa-solid fa-pen-to-square"
-            :disable="botonbloqueoactualizar"
-          />
-          <q-btn
-            dense
-            color="red"
-            label="Borrar"
-            @click="Delete"
-            icon="fa-solid fa-trash-can"
-            :disable="botonbloqueoeliminar"
-          />
 
-          <q-btn
-            dense
-            color="accent"
-            label="Ver-Historial-Partida"
-            to="/historial-partidas"
-            icon="mdi-file-document-multiple"
-            :disable="botonbloqueoactualizar"
-          />
+
+          <br/>
+          <div class="col-6 q-gutter-md text-center items-center">
+            <q-btn
+              dense
+              color="primary"
+              label="Crear"
+              type="submit"
+              icon="fa-solid fa-folder-plus"
+              :disable="botonbloqueocrear"
+            />
+            <q-btn
+              dense
+              color="amber"
+              label="Editar"
+              @click="Actualizar"
+              icon="fa-solid fa-pen-to-square"
+              :disable="botonbloqueoactualizar"
+            />
+            <q-btn
+              dense
+              color="red"
+              label="Borrar"
+              @click="Delete"
+              icon="fa-solid fa-trash-can"
+              :disable="botonbloqueoeliminar"
+            />
+
+            <q-btn
+              dense
+              color="accent"
+              label="Ver-Historial-Partida"
+              to="/historial-partidas"
+              icon="mdi-file-document-multiple"
+              :disable="botonbloqueoactualizar"
+            />
+          </div>
         </div>
-        <br />
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          separator="cell"
-          dense
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        >
-        </q-table>
       </q-form>
-    </div>
-  </q-page>
+      <br />
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        separator="cell"
+        dense
+        row-key="id"
+        selection="single"
+        v-model:selected="selected"
+        @selection="handleSelection"
+      >
+      </q-table>
+    </q-page>
+  </div>
 </template>
+
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import {

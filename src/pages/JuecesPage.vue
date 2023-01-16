@@ -53,14 +53,12 @@
                   type="number"
                   v-model="juez.edad"
                   :rules="[
-                    (val) =>
-                      (val && val > 0 && val >= 18) || 'Edad incorrecta'
-
+                    (val) => (val && val > 0 && val >= 18) || 'Edad incorrecta',
                   ]"
                 />
               </div>
 
-              <div>
+              <!-----   <div>
                 <label
                   >Seleccione su sexo del Juez
                   <span class="text-red">*</span></label
@@ -76,9 +74,7 @@
                       (val && val.length > 0) || 'Por favor seleccione su sexo',
                   ]"
                 />
-              </div>
-
-              <!-- <div  class="q-pa-md" style="max-width: 300px">-->
+              </div>-->
             </div>
 
             <div class="row justify-between q-gutter-md">
@@ -123,9 +119,8 @@
 
               <div>
                 <label
-                  >Seleccione su Pais del Juez
-                  <span class="text-red"></span></label
-                >
+                  >Seleccione su Pais del Juez <span class="text-red"></span
+                ></label>
                 <q-select
                   filled
                   v-model="juez.nombre_paises"
@@ -140,9 +135,8 @@
 
               <div>
                 <label
-                  >Seleccione su ciudad del Juez
-                  <span class="text-red"></span></label
-                >
+                  >Seleccione su ciudad del Juez <span class="text-red"></span
+                ></label>
                 <q-select
                   filled
                   dense
@@ -150,6 +144,25 @@
                   :options="ciudades"
                   :disable="!ciudades || !ciudades.length"
                 />
+
+                <div>
+                  <label
+                    >Seleccione su sexo del Juez
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="juez.sexo"
+                    dense
+                    :options="sexos"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione su sexo',
+                    ]"
+                  />
+                </div>
               </div>
             </div>
 
@@ -357,14 +370,13 @@ function handleSelection(details) {
 const botonbloqueocrear = computed(() => {
   if (
     Object.keys(juez)
-      .filter((k) =>! ["nombre_paises", "nombre_ciudades"].includes(k))
+      .filter((k) => !["nombre_paises", "nombre_ciudades"].includes(k))
       .every((key) => juez[key] && juez[key] !== "") &&
     botonbloqueoactualizar.value
   )
     return false;
   return true;
 });
-
 
 const botonbloqueoactualizar = ref(true);
 

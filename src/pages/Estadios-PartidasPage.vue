@@ -38,7 +38,6 @@
                     (val && val.length > 0) ||
                     'Por favor ingrese su NombreArbitr',
                 ]"
-
               />
             </div>
 
@@ -71,14 +70,14 @@
                 emit-value
                 option-value="id"
                 option-label="nombre"
-                :options="estadiopartidaFilter"
+                :options="partida"
                 dense
                 lazy-rules
-                @update:model-value="handleSelectionPartida"
               />
             </div>
           </div>
           <br />
+          <!--@update:model-value="handleSelectionPartida"-->
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn
               dense
@@ -239,14 +238,14 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
+/*const estadiopartidaFilter = computed(() =>
+  estadio.value.filter((e) => e.id_partidas === estadiopartida.id_partidas)
+);
 
-const estadiopartidaFilter= computed(() =>
- estadio.value.filter((e) => e.id_partidas === estadiopartida.id_partidas));
-
-
-function handleSelectionPartida(){
+function handleSelectionPartida() {
   estadiopartida.id_estadios = null;
 }
+*/
 
 
 </script>

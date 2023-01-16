@@ -71,7 +71,7 @@
                 <span class="text-red">*</span></label
               >
               <q-select
-              filled
+                filled
                 v-model="puntajes.id_jugadores"
                 map-options
                 emit-value
@@ -79,13 +79,13 @@
                 option-label="nombre"
                 dense
                 lazy-rules
-                :options="partidajugadorFilter"
-                @update:model-value="handleSelectionJugador"
+                :options="jugadores"
 
               />
             </div>
           </div>
           <br />
+          <!---      @update:model-value="handleSelectionJugador"-->
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn
               dense
@@ -166,7 +166,7 @@ const columns = [
     field: "nombre_jugadores",
     sortable: true,
   },
-  {
+ {
     name: "id_partidas",
     align: "center",
     label: "Nombre_Partidas",
@@ -267,14 +267,14 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
-const partidajugadorFilter= computed(() =>
-  jugadores.value.filter((p) => p.id_partidas === puntajes.id_partidas));
+/*const partidajugadorFilter = computed(() =>
+  jugadores.value.filter((p) => p.id_partidas === puntajes.id_partidas)
+);
 
-
-  function handleSelectionJugador(){
-   puntajes.id_jugadores = null;
-  }
-
+function handleSelectionJugador() {
+  puntajes.id_jugadores = null;
+}
+*/
 /*const equipojugadorFilter = computed(() =>
   jugadores.value.filter((r) => r.id_equipos === puntajes.id_equipos)
 );
@@ -283,8 +283,6 @@ function handleUpdateJugador() {
   puntajes.id_jugadores = null;
 }*/
 ///
-
-
 </script>
 <style lang="scss">
 .buscador {
