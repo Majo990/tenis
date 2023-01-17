@@ -5,7 +5,7 @@
         <div class="q-pa-md">
           <strong>Formulario </strong>
           <div class="row">
-            <div class="">
+            <div class="col-6">
               <div class="row justify-between q-gutter-md">
                 <div>
                   <label
@@ -28,7 +28,7 @@
 
                 <div>
                   <label
-                    >Seleccione su nombre Jugador <span class="text-red"></span
+                    >Seleccione su nombre Jugador <span class="text-red">*</span
                   ></label>
                   <q-select
                     filled
@@ -45,7 +45,7 @@
 
                 <div>
                   <label
-                    >Seleccione su nombre cancha <span class="text-red"></span
+                    >Seleccione su nombre cancha <span class="text-red">*</span
                   ></label>
                   <q-select
                     filled
@@ -470,7 +470,7 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
-<style>
+<style scoped>
 /*.q-table {
   color: grey;
   background-color: #77d6f3;

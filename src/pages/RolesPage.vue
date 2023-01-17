@@ -232,4 +232,4 @@ if (["rol"]) {
 } else ["rol2"];
 </script>
 
-<style></style>
+<style scoped></style>

@@ -1,4 +1,5 @@
 <template>
+  <div class="q-pa-md">
   <q-page padding>
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
@@ -211,6 +212,7 @@
       </div>
     </q-form>
   </q-page>
+  </div>
 </template>
 
 <script setup>
@@ -404,4 +406,4 @@ function edad(fecha_nacimiento) {
 }
 </script>
 
-<style></style>
+<style scoped ></style>

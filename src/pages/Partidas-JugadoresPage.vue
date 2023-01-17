@@ -19,75 +19,76 @@
     </div>
 
     <q-form @submit="onSubmit" class="q-gutter-md">
-      <strong>Formulario </strong>
-      <div class="row">
-        <div class="col-6">
-          <div class="row justify-between q-gutter-md">
-            <div>
-              <label
-                >Seleccione su el Nombre Partidas
-                <span class="text-red">*</span></label
-              >
-              <q-select
-                filled
-                v-model="partidajugador.id_partidas"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
+      <div class="q-pa-md">
+        <strong>Formulario </strong>
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <div>
+                <label
+                  >Seleccione su el Nombre Partidas
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="partidajugador.id_partidas"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  dense
+                  lazy-rules
+                  :options="partidas"
+                />
+              </div>
+
+              <div>
+                <label
+                  >Seleccione el Nombre Jugador
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="partidajugador.id_jugadores"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  dense
+                  lazy-rules
+                  :options="jugadores"
+                />
+              </div>
+            </div>
+            <br />
+
+            <!--       @update:model-value="handleSelectionJugador"-->
+            <div class="col-6 q-gutter-md text-center items-center">
+              <q-btn
                 dense
-                lazy-rules
-                :options="partidas"
+                color="primary"
+                label="Crear"
+                type="submit"
+                icon="fa-solid fa-folder-plus"
+                :disable="botonbloqueocrear"
+              />
+              <q-btn
+                dense
+                color="amber"
+                label="Editar"
+                @click="Actualizar"
+                icon="fa-solid fa-pen-to-square"
+                :disable="botonbloqueoactualizar"
+              />
+              <q-btn
+                dense
+                color="red"
+                label="Borrar"
+                @click="Delete"
+                icon="fa-solid fa-trash-can"
+                :disable="botonbloqueoeliminar"
               />
             </div>
-
-            <div>
-              <label
-                >Seleccione el Nombre Jugador
-                <span class="text-red">*</span></label
-              >
-              <q-select
-                filled
-                v-model="partidajugador.id_jugadores"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                dense
-                lazy-rules
-                :options="jugadores"
-
-              />
-            </div>
-          </div>
-          <br />
-
-          <!--       @update:model-value="handleSelectionJugador"-->
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn
-              dense
-              color="primary"
-              label="Crear"
-              type="submit"
-              icon="fa-solid fa-folder-plus"
-              :disable="botonbloqueocrear"
-            />
-            <q-btn
-              dense
-              color="amber"
-              label="Editar"
-              @click="Actualizar"
-              icon="fa-solid fa-pen-to-square"
-              :disable="botonbloqueoactualizar"
-            />
-            <q-btn
-              dense
-              color="red"
-              label="Borrar"
-              @click="Delete"
-              icon="fa-solid fa-trash-can"
-              :disable="botonbloqueoeliminar"
-            />
           </div>
         </div>
       </div>
@@ -217,7 +218,7 @@ function handleSelectionJugador() {
   partidajugador.id_jugadores = null;
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .buscador {
   width: 300px;
 }

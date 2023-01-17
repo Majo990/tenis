@@ -5,7 +5,7 @@
         <div class="q-pa-md">
           <strong>Formulario </strong>
           <div class="row">
-            <div class="">
+            <div class="col-6">
               <div class="row justify-between q-gutter-md">
                 <div>
                   <label
@@ -588,4 +588,4 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 
-<style></style>
+<style scoped></style>

@@ -19,6 +19,7 @@
     </div>
 
     <q-form @submit="onSubmit" class="q-gutter-md">
+      <div class="q-pa-md">
       <strong>Formulario </strong>
       <div class="row">
         <div class="col-6">
@@ -113,6 +114,7 @@
             />
           </div>
         </div>
+      </div>
       </div>
     </q-form>
 
@@ -284,7 +286,7 @@ function handleUpdateJugador() {
 }*/
 ///
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .buscador {
   width: 600px;
 }

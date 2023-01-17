@@ -12,10 +12,10 @@
         />
 
         <q-btn
-          @click="$q.dark.set(!$q.dark.mode)"
+          @click="toggleMode"
           flat
           round
-          :icon="$q.dark.mode ? 'fa-regular fa-moon' : 'fa-solid fa-moon'"
+          :icon="$q.dark.isActive ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"
         />
 
         <q-toolbar-title> {{ $route.path.replace("/", "") }} </q-toolbar-title>
@@ -59,6 +59,7 @@ import { defineComponent, ref, computed } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import { useUserStore } from "src/stores/auth";
 import { useRouter } from "vue-router";
+import { Cookies, useQuasar } from "quasar";
 
 const linksList = [
   {
@@ -106,7 +107,7 @@ const linksList = [
     link: "/Faltas",
   },
 
- /* {
+  /* {
 
     link: "/Historial-Partidas",
   },
@@ -212,12 +213,18 @@ export default defineComponent({
     const router = useRouter();
     const leftDrawerOpen = ref(false);
     const userStore = useUserStore();
+    const $q = useQuasar();
 
     const user = computed(() => userStore.user);
 
     function logout() {
       userStore.logout();
       router.replace("/login");
+    }
+
+    function toggleMode() {
+      $q.dark.toggle();
+      Cookies.set("color-mode", $q.dark.isActive ? "dark" : "light");
     }
 
     return {
@@ -228,6 +235,7 @@ export default defineComponent({
       },
       logout,
       user,
+      toggleMode,
     };
   },
 });

@@ -1,22 +1,18 @@
 <template>
-  <q-page padding>
-    <q-page class="q-pa-md">
+  <div class="q-pa-md">
+    <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
             <div class="row justify-between q-gutter-md">
               <div>
-                <label
-                  >Ingrese nombre entrenador
-                  <span class="text-red">*</span></label
-                >
+                <label>Ingrese N° Ronda <span class="text-red">*</span></label>
                 <q-input
                   dense
                   v-model.number="ronda.nro"
                   type="number"
                   filled
-                  hint="NroRonda"
                 />
               </div>
             </div>
@@ -62,7 +58,7 @@
       >
       </q-table>
     </q-page>
-  </q-page>
+  </div>
 </template>
 
 <script setup>
@@ -141,7 +137,7 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /*.marco {
   border-style: solid;
   border-radius: 5%;

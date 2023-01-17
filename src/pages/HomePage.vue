@@ -421,7 +421,7 @@ async function obtenerPartidasActuales() {
 }
 </script>
 
-<style>
+<style scoped>
 col-6 q-col-gutter-md {
   background-color: aquamarine;
 }

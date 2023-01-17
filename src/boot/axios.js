@@ -3,7 +3,7 @@ import axios from "axios";
 import { Cookies } from "quasar";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://" + location.hostname + ":3000",
   // headers: {
   //   "Content-Type": "application/json",
   // },

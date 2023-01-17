@@ -5,7 +5,7 @@
         <div class="q-pa-md">
           <strong>Formulario </strong>
           <div class="row">
-            <div class="">
+            <div class="col-6">
               <div class="row justify-between q-gutter-md">
                 <div>
                   <label
@@ -64,7 +64,7 @@
                   />
                 </div>
 
-                <div>
+                <!----       <div>
                   <label
                     >Ingrese su sexo entrenador
                     <span class="text-red">*</span></label
@@ -81,7 +81,7 @@
                         'Por favor seleccione su sexo',
                     ]"
                   />
-                </div>
+                </div>-->
               </div>
 
               <div class="row justify-between q-gutter-md">
@@ -167,6 +167,25 @@
                     :options="jugadores"
                     dense
                     lazy-rules
+                  />
+                </div>
+
+                <div>
+                  <label
+                    >Ingrese su sexo entrenador
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="entrenador.sexo"
+                    dense
+                    :options="sexos"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'Por favor seleccione su sexo',
+                    ]"
                   />
                 </div>
               </div>
@@ -424,7 +443,7 @@ function edad(fecha_nacimiento) {
   return edad;
 }
 </script>
-<style>
+<style scoped>
 /*.q-table {
   color: rgb(128, 128, 128);
   background-color: #20b393;

@@ -2,10 +2,10 @@
   <div class="q-pa-md">
     <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
-        <div class="q-pa-md">
+
           <strong>Formulario </strong>
           <div class="row">
-            <div class="">
+            <div class="col-6">
               <div class="row justify-between q-gutter-md">
                 <div>
                   <label
@@ -204,8 +204,9 @@
               </div>
             </div>
           </div>
-        </div>
 
+        <!----arriba es el formulario -->
+<!---Botoness crud abajo  -->
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
             dense
@@ -231,11 +232,11 @@
             icon="fa-solid fa-trash-can"
             :disable="botonbloqueoeliminar"
           />
-        </div>
+  </div>
       </q-form>
 
       <br />
-
+<!--tabla-->
       <q-table
         :rows="rows"
         :columns="columns"
@@ -261,6 +262,8 @@ import {
   deleteArbitros,
 } from "../services";
 import { date } from "quasar";
+
+/*columna de la tabla */
 const columns = [
   {
     name: "name",
@@ -458,7 +461,7 @@ function edad(fecha_nacimiento) {
   return edad;
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .marco {
   border-style: solid;
   border-radius: 5%;

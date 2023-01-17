@@ -281,7 +281,7 @@ function handleSelectionJugador() {
 }*/
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /*.marco {
   border-style: solid;
   border-radius: 5%;

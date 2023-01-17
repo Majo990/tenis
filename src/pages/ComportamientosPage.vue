@@ -255,7 +255,7 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 //.q-table {
 // color: rgb(26, 25, 24);
 /// background-color: #f3eb77;

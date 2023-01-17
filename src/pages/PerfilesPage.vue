@@ -1,224 +1,232 @@
 <template>
-  <q-page padding>
-    <q-form @submit="onSubmit" class="q-gutter-md">
-      <strong>Formulario </strong>
-      <div class="row">
-        <div class="col-6">
-          <div class="row justify-between q-gutter-md">
-            <div>
-              <label>Ingrese nombre <span class="text-red">*</span></label>
-              <q-input
-                filled
-                dense
-                v-model="perfil.nombre"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Nombre',
-                ]"
-                :onkeydown="onkeyDown"
-              />
+  <div class="q-pa-md">
+    <q-page padding>
+      <q-form @submit="onSubmit" class="q-gutter-md">
+        <strong>Formulario </strong>
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <div>
+                <label>Ingrese nombre <span class="text-red">*</span></label>
+                <q-input
+                  filled
+                  dense
+                  v-model="perfil.nombre"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) || 'Por favor ingrese su Nombre',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
+              </div>
+
+              <div>
+                <label>Ingrese apellido <span class="text-red">*</span></label>
+                <q-input
+                  filled
+                  dense
+                  v-model="perfil.apellido"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su Apellido',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
+              </div>
+
+              <div>
+                <label>Selecione Edad <span class="text-red">*</span></label>
+                <q-input
+                  filled
+                  dense
+                  type="number"
+                  v-model="perfil.edad"
+                  :rules="[
+                    (val) => (val && val > 0 && val >= 18) || 'Edad incorrecta',
+                  ]"
+                />
+              </div>
             </div>
 
-            <div>
-              <label>Ingrese apellido <span class="text-red">*</span></label>
-              <q-input
-                filled
-                dense
-                v-model="perfil.apellido"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'Por favor ingrese su Apellido',
-                ]"
-                :onkeydown="onkeyDown"
-              />
+            <div class="row justify-between q-gutter-md">
+              <div>
+                <label>Selecione sexo <span class="text-red">*</span></label>
+
+                <q-select filled dense v-model="perfil.sexo" :options="sexos" />
+              </div>
+
+              <div>
+                <label>Selecione su pais <span class="text-red"></span></label>
+                <q-select
+                  filled
+                  v-model="perfil.nombre_paises"
+                  dense
+                  :options="paises"
+                  map-options
+                  emit-value
+                  option-value="country"
+                  option-label="country"
+                />
+              </div>
+
+              <div>
+                <label
+                  >Selecione su ciudad <span class="text-red"></span
+                ></label>
+                <q-select
+                  filled
+                  dense
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  v-model="perfil.nombre_ciudades"
+                  :options="ciudades"
+                />
+              </div>
+
+              <div>
+                <label>Ingrese su DNI <span class="text-red">*</span></label>
+                <q-input
+                  ref="inputRef"
+                  filled
+                  dense
+                  v-model="perfil.dni"
+                  :rules="[
+                    (val) => val.length <= 8 || 'Por favor ingrse su DNI',
+                  ]"
+                  mask="########"
+                />
+              </div>
+            </div>
+            <br />
+            <div class="row justify-between q-gutter-md"></div>
+
+            <div class="row justify-between q-gutter-md">
+              <div>
+                <label
+                  >Ingrese su Nacionalidad
+                  <span class="text-red">*</span></label
+                >
+
+                <q-input
+                  filled
+                  dense
+                  v-model="perfil.nacionalidad"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su Nacionalidad',
+                  ]"
+                  :onkeydown="onkeyDown"
+                />
+              </div>
+
+              <div>
+                <label>Ingrese su email <span class="text-red">*</span></label>
+                <q-input dense standout v-model="perfil.email" type="email">
+                  <template v-slot:prepend>
+                    <q-icon name="mail" />
+                  </template>
+                </q-input>
+              </div>
+
+              <div>
+                <label
+                  >Ingrese su direccion <span class="text-red">*</span></label
+                >
+                <q-input
+                  dense
+                  standout
+                  bottom-slots
+                  v-model="perfil.direccion"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su direccion ',
+                  ]"
+                />
+              </div>
             </div>
 
-            <div>
-              <label>Selecione Edad <span class="text-red">*</span></label>
-              <q-input
-                filled
-                dense
-                type="number"
-                v-model="perfil.edad"
-                :rules="[
-                  (val) => (val && val > 0 && val >= 18) || 'Edad incorrecta',
-                ]"
-              />
-            </div>
-          </div>
+            <div class="row justify-between q-gutter-md">
+              <div>
+                <label
+                  >Ingrese su N° Celular <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="perfil.celular"
+                  mask=" #########"
+                />
+              </div>
 
-          <div class="row justify-between q-gutter-md">
-            <div>
-              <label>Selecione sexo <span class="text-red">*</span></label>
+              <div>
+                <label
+                  >Ingrese su Cod.Postal <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  v-model="perfil.codigo_postal"
+                  mask=" #####"
+                  :rules="[
+                    (val) =>
+                      val.length <= 5 || 'Por favor ingrese su Cod.Postal',
+                  ]"
+                />
+              </div>
 
-              <q-select filled dense v-model="perfil.sexo" :options="sexos" />
-            </div>
-
-            <div>
-              <label>Selecione su pais <span class="text-red"></span></label>
-              <q-select
-                filled
-                v-model="perfil.nombre_paises"
-                dense
-                :options="paises"
-                map-options
-                emit-value
-                option-value="country"
-                option-label="country"
-              />
-            </div>
-
-            <div>
-              <label>Selecione su ciudad <span class="text-red"></span></label>
-              <q-select
-                filled
-                dense
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                v-model="perfil.nombre_ciudades"
-                :options="ciudades"
-              />
-            </div>
-
-            <div>
-              <label>Ingrese su DNI <span class="text-red">*</span></label>
-              <q-input
-                ref="inputRef"
-                filled
-                dense
-                v-model="perfil.dni"
-                :rules="[(val) => val.length <= 8 || 'Por favor ingrse su DNI']"
-                mask="########"
-              />
-            </div>
-          </div>
-          <br />
-          <div class="row justify-between q-gutter-md"></div>
-
-          <div class="row justify-between q-gutter-md">
-            <div>
-              <label
-                >Ingrese su Nacionalidad <span class="text-red">*</span></label
-              >
-
-              <q-input
-                filled
-                dense
-                v-model="perfil.nacionalidad"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su Nacionalidad',
-                ]"
-                :onkeydown="onkeyDown"
-              />
-            </div>
-
-            <div>
-              <label>Ingrese su email <span class="text-red">*</span></label>
-              <q-input dense standout v-model="perfil.email" type="email">
-                <template v-slot:prepend>
-                  <q-icon name="mail" />
-                </template>
-              </q-input>
-            </div>
-
-            <div>
-              <label
-                >Ingrese su direccion <span class="text-red">*</span></label
-              >
-              <q-input
-                dense
-                standout
-                bottom-slots
-                v-model="perfil.direccion"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su direccion ',
-                ]"
-              />
-            </div>
-          </div>
-
-          <div class="row justify-between q-gutter-md">
-            <div>
-              <label
-                >Ingrese su N° Celular <span class="text-red">*</span></label
-              >
-              <q-input
-                filled
-                dense
-                v-model="perfil.celular"
-                mask=" #########"
-              />
-            </div>
-
-            <div>
-              <label
-                >Ingrese su Cod.Postal <span class="text-red">*</span></label
-              >
-              <q-input
-                filled
-                dense
-                v-model="perfil.codigo_postal"
-                mask=" #####"
-                :rules="[
-                  (val) => val.length <= 5 || 'Por favor ingrese su Cod.Postal',
-                ]"
-              />
-            </div>
-
-            <div>
-              <label
-                >Seleccione Nombre usuarios
-                <span class="text-red">*</span></label
-              >
-              <q-select
-                filled
-                v-model="perfil.id_usuarios"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="usuarios"
-                :options="usuarios"
-                dense
-                lazy-rules
-              />
+              <div>
+                <label
+                  >Seleccione Nombre usuarios
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="perfil.id_usuarios"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="usuarios"
+                  :options="usuarios"
+                  dense
+                  lazy-rules
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <br />
+        <br />
 
-      <div class="col-6 q-gutter-md text-center items-center">
-        <q-btn
-          dense
-          color="primary"
-          label="Crear"
-          type="submit"
-          icon="fa-solid fa-folder-plus"
-          :disable="botonbloqueocrear"
-        />
-        <q-btn
-          dense
-          color="amber"
-          label="Editar"
-          @click="Actualizar"
-          icon="fa-solid fa-pen-to-square"
-          :disable="botonbloqueoactualizar"
-          row-key="id"
-          selection="single"
-          v-model:selected="selected"
-          @selection="handleSelection"
-        />
-        <!---<q-btn
+        <div class="col-6 q-gutter-md text-center items-center">
+          <q-btn
+            dense
+            color="primary"
+            label="Crear"
+            type="submit"
+            icon="fa-solid fa-folder-plus"
+            :disable="botonbloqueocrear"
+          />
+          <q-btn
+            dense
+            color="amber"
+            label="Editar"
+            @click="Actualizar"
+            icon="fa-solid fa-pen-to-square"
+            :disable="botonbloqueoactualizar"
+            row-key="id"
+            selection="single"
+            v-model:selected="selected"
+            @selection="handleSelection"
+          />
+          <!---<q-btn
           dense
           color="red"
           label="Borrar"
@@ -226,10 +234,10 @@
           icon="fa-solid fa-trash-can"
           :disable="botonbloqueoeliminar"
         />-->
-      </div>
+        </div>
 
-      <br />
-      <!--<q-table
+        <br />
+        <!--<q-table
         :rows="rows"
         :columns="columns"
         separator="cell"
@@ -240,8 +248,9 @@
         @selection="handleSelection"
       >
       </q-table>-->
-    </q-form>
-  </q-page>
+      </q-form>
+    </q-page>
+  </div>
 </template>
 
 <script setup>
@@ -489,7 +498,7 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 </script>
 
-<style>
+<style scoped>
 /*.modelo {
   background-color: #11f8ff;
 }*/

@@ -165,7 +165,7 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 </script>
-<style>
+<style scoped>
 /*.marco {
   border-style: solid;
   border-radius: 5%;
