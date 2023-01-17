@@ -45,12 +45,12 @@
                     :onkeydown="onkeyDown"
                   />
                 </div>
-                <div>
+                <!----<div>
                   <label
                     >Ingrese su edad entrenador
                     <span class="text-red">*</span></label
                   >
-                  <!---v-show="false"-->
+                  v-show="false"
                   <q-input
                     filled
                     dense
@@ -62,7 +62,7 @@
                         (val && val > 0 && val >= 18) || 'Edad incorrecta',
                     ]"
                   />
-                </div>
+                </div>-->
 
                 <!----       <div>
                   <label

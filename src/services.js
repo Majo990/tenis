@@ -255,8 +255,15 @@ export async function getLogo() {
   return r.data;
 }
 
+
+export async function getPartidajugador(){
+  const r = await api.get("/api/partidajugador")
+  return r.data;
+}
+
 export async function getPuntaje() {
   const r = await api.get("/api/puntaje");
+  return r.data;
 }
 
 export async function crearJugadores(params) {

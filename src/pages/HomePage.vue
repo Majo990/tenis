@@ -18,7 +18,7 @@
 
         <h5>CAMPEONATO FRONTÓN</h5>
 
-        <q-card flat class="bg-fondo marco">
+        <q-card flat class="bg-fondo marco letra">
           En juego:
           <q-card
             flat
@@ -229,7 +229,7 @@ const columns2 = [
 
 ///tabla momentanea
 
-const columns5 = [
+/*const columns5 = [
   {
     name: "puntaje",
     align: "center",
@@ -272,7 +272,7 @@ const columns5 = [
     field: "puntaje2",
     sortable: true,
   },
-];
+]; */
 
 //}
 const jugador1 = ref("JUGADOR 1");
@@ -464,6 +464,81 @@ h2 {
   }
 }
 
+@media (min-width: 0px) {
+  .text-home {
+    font-size: 5px;
+  }
+}
+
+@media (max-width: 599.99px) {
+  .text-home {
+    font-size: 7px;
+  }
+}
+
+@media (min-width: 600px) {
+  .text-home {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 1023.99px) {
+  .text-home {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-home {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 1043.99px) {
+  .text-home {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .text-home {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 1919.99px) {
+  .text-home {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .text-home {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 200000px) {
+  .text-home {
+    font-size: 40px;
+  }
+}
+
+
+@media all and (max-width: 2500px){
+  .text-home{
+    font-size: small;
+  }
+  .table1{
+    width: 400px ;
+  }
+  .h5{
+    font-size: 50px;
+  }
+  .letra{
+    font-size: 20px;
+  }
+}
 .q-banner {
   height: 10px;
 }

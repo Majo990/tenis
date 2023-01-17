@@ -20,93 +20,93 @@
 
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="q-pa-md">
-      <strong>Formulario </strong>
-      <div class="row">
-        <div class="col-6">
-          <div class="row justify-between q-gutter-md">
-            <div>
-              <label
-                >Ingrese nombre Cancha <span class="text-red">*</span></label
-              >
-              <q-input
-                filled
-                dense
-                type="text"
-                v-model="estadiopartida.nombre"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'Por favor ingrese su NombreArbitr',
-                ]"
-              />
-            </div>
+        <strong>Formulario </strong>
+        <div class="row">
+          <div class="col-6">
+            <div class="row justify-between q-gutter-md">
+              <div>
+                <label
+                  >Ingrese nombre Cancha <span class="text-red">*</span></label
+                >
+                <q-input
+                  filled
+                  dense
+                  type="text"
+                  v-model="estadiopartida.nombre"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'Por favor ingrese su NombreArbitr',
+                  ]"
+                />
+              </div>
 
-            <div>
-              <label
-                >Seleccione su Estadio <span class="text-red">*</span></label
-              >
-              <q-select
-                filled
-                v-model="estadiopartida.id_estadios"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="estadio"
-                dense
-                lazy-rules
-              />
-            </div>
+              <div>
+                <label
+                  >Seleccione su Estadio <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="estadiopartida.id_estadios"
+                  map-options
+                  emit-value
+                  option-label="nombre"
+                  :options="estadio"
+                  dense
+                  lazy-rules
+                  @update:model-value="handleSelectionEstadio"
+                />
+              </div>
 
-            <div>
-              <label
-                >Seleccione el nombre Partida
-                <span class="text-red">*</span></label
-              >
-              <q-select
-                filled
-                v-model="estadiopartida.id_partidas"
-                map-options
-                emit-value
-                option-value="id"
-                option-label="nombre"
-                :options="partida"
+              <div>
+                <label
+                  >Seleccione el nombre Partida
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="estadiopartida.id_partidas"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="estadiopartidaFilter"
+                  dense
+                  lazy-rules
+                />
+              </div>
+            </div>
+            <br />
+
+            <div class="col-6 q-gutter-md text-center items-center">
+              <q-btn
                 dense
-                lazy-rules
+                color="primary"
+                label="Crear"
+                type="submit"
+                icon="fa-solid fa-folder-plus"
+                :disable="botonbloqueocrear"
+              />
+              <q-btn
+                dense
+                color="amber"
+                label="Editar"
+                @click="Actualizar"
+                icon="fa-solid fa-pen-to-square"
+                :disable="botonbloqueoactualizar"
+              />
+              <q-btn
+                dense
+                color="red"
+                label="Borrar"
+                @click="Delete"
+                icon="fa-solid fa-trash-can"
+                :disable="botonbloqueoeliminar"
               />
             </div>
-          </div>
-          <br />
-          <!--@update:model-value="handleSelectionPartida"-->
-          <div class="col-6 q-gutter-md text-center items-center">
-            <q-btn
-              dense
-              color="primary"
-              label="Crear"
-              type="submit"
-              icon="fa-solid fa-folder-plus"
-              :disable="botonbloqueocrear"
-            />
-            <q-btn
-              dense
-              color="amber"
-              label="Editar"
-              @click="Actualizar"
-              icon="fa-solid fa-pen-to-square"
-              :disable="botonbloqueoactualizar"
-            />
-            <q-btn
-              dense
-              color="red"
-              label="Borrar"
-              @click="Delete"
-              icon="fa-solid fa-trash-can"
-              :disable="botonbloqueoeliminar"
-            />
           </div>
         </div>
-      </div>
       </div>
     </q-form>
 
@@ -239,17 +239,17 @@ const botonbloqueocrear = computed(() => {
 const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
+const partida_id = ref(null);
 
-/*const estadiopartidaFilter = computed(() =>
-  estadio.value.filter((e) => e.id_partidas === estadiopartida.id_partidas)
+const estadiopartidaFilter = computed(() =>
+  // partida.value
+  partida.value.filter((e) => e.id === partida_id.value)
 );
 
-function handleSelectionPartida() {
-  estadiopartida.id_estadios = null;
+function handleSelectionEstadio(val) {
+  partida_id.value = val?.id_partidas;
+  estadiopartida.id_partidas = null;
 }
-*/
-
-
 </script>
 
 <style lang="scss" scoped>

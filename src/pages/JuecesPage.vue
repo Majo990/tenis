@@ -43,7 +43,7 @@
                 />
               </div>
 
-              <div>
+            <!----  <div>
                 <label
                   >Seleccione la edad del Juez
                   <span class="text-red">*</span></label
@@ -59,7 +59,7 @@
                 />
               </div>
 
-              <!-----   <div>
+                 <div>
                 <label
                   >Seleccione su sexo del Juez
                   <span class="text-red">*</span></label

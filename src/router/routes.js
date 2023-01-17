@@ -15,13 +15,13 @@ const routes = [
         path: "/home",
         component: () => import("pages/HomePage.vue"),
       },
-      {
+    /*  {
         meta: {
           requiresAuth: true,
         },
         path: "/formulario",
         component: () => import("pages/FormularioPage.vue"),
-      },
+      },*/
       {
         meta: {
           requiresAuth: true,
@@ -156,13 +156,13 @@ const routes = [
         component: () => import("pages/RolesPage.vue"),
       },*/
 
-      {
+      /* {
         meta: {
           requiresAuth: true,
         },
         path: "/usuario",
         component: () => import("pages/UsuarioTablePage.vue"),
-      },
+        }, 
       /*{
         meta: {
           requiresAuth: true,

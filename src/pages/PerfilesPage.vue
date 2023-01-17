@@ -37,7 +37,7 @@
                 />
               </div>
 
-              <div>
+             <div>
                 <label>Selecione Edad <span class="text-red">*</span></label>
                 <q-input
                   filled

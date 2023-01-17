@@ -58,7 +58,7 @@
                 </q-input>
               </div>
 
-              <div>
+        <!-----      <div>
                 <label
                   >Seleccione nombre Jugadores
                   <span class="text-red">*</span></label
@@ -74,7 +74,9 @@
                   dense
                   lazy-rules
                 />
-              </div>
+              </div>-->
+
+
             </div>
             <div class="col-6"></div>
 
@@ -324,13 +326,13 @@ const columns = [
     format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
     sortable: true,
   },
-  {
+  /*{
     name: "id_jugadores",
     align: "center",
     label: "Nombre-Jugadores",
     field: "nombre_jugadores",
     sortable: true,
-  },
+  },*/
   {
     name: "id_entrenadores",
     align: "center",
@@ -407,7 +409,7 @@ const selected = ref([]);
 const equipo = reactive({
   nombre: null,
   fecha_fundo: null,
-  id_jugadores: null,
+ // id_jugadores: null,
   id_entrenadores: null,
   descripcion: null,
   simbolo: null,
@@ -423,7 +425,7 @@ async function onSubmit() {
   const datos = new FormData();
   datos.append("nombre", equipo.nombre);
   datos.append("fecha_fundo", equipo.fecha_fundo);
-  datos.append("id_jugadores", equipo.id_jugadores);
+ // datos.append("id_jugadores", equipo.id_jugadores);
   datos.append("id_entrenadores", equipo.id_entrenadores);
   datos.append("descripcion", equipo.descripcion);
   datos.append("simbolo", equipo.simbolo);
@@ -438,7 +440,7 @@ async function onSubmit() {
   Object.assign(equipo, {
     nombre: null,
     fecha_fundo: null,
-    id_jugadores: null,
+  //  id_jugadores: null,
     id_entrenadores: null,
     descripcion: null,
     simbolo: null,
@@ -455,7 +457,7 @@ async function Actualizar() {
   const datos = new FormData();
   datos.append("nombre", equipo.nombre);
   datos.append("fecha_fundo", equipo.fecha_fundo);
-  datos.append("id_jugadores", equipo.id_jugadores);
+  //datos.append("id_jugadores", equipo.id_jugadores);
   datos.append("id_entrenadores", equipo.id_entrenadores);
   datos.append("descripcion", equipo.descripcion);
   datos.append("simbolo", equipo.simbolo);
@@ -470,7 +472,7 @@ async function Actualizar() {
   Object.assign(equipo, {
     nombre: null,
     fecha_fundo: null,
-    id_jugadores: null,
+    //id_jugadores: null,
     id_entrenadores: null,
     descripcion: null,
     simbolo: null,
@@ -487,7 +489,7 @@ async function Delete() {
   const datos = new FormData();
   datos.append("nombre", equipo.nombre);
   datos.append("fecha_fundo", equipo.fecha_fundo);
-  datos.append("id_jugadores", equipo.id_jugadores);
+ // datos.append("id_jugadores", equipo.id_jugadores);
   datos.append("id_entrenadores", equipo.id_entrenadores);
   datos.append("descripcion", equipo.descripcion);
   datos.append("simbolo", equipo.simbolo);
@@ -502,7 +504,7 @@ async function Delete() {
   Object.assign(equipo, {
     nombre: null,
     fecha_fundo: null,
-    id_jugadores: null,
+  //  id_jugadores: null,
     id_entrenadores: null,
     descripcion: null,
     simbolo: null,
@@ -536,7 +538,7 @@ function handleSelection(details) {
   let rowSelected = {
     nombre: null,
     fecha_fundo: null,
-    id_jugadores: null,
+  //  id_jugadores: null,
     id_entrenadores: null,
     descripcion: null,
     simbolo: null,

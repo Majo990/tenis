@@ -78,8 +78,7 @@
                   v-model="premio.id_jugadores"
                   dense
                   lazy-rules
-                  :options="jugadores"
-
+                  :options="equiposFilter"
                   :rules="[
                     (val) =>
                       (val !== null && val !== '') ||
@@ -88,6 +87,9 @@
                       (val > 1 && val < 80) ||
                       'Por favor seleccione su jugador',
                   ]"
+                   @update:model-value="handleSelectionJugador"
+
+
                 />
               </div>
             </div>
@@ -147,6 +149,7 @@ import {
   crearPremios,
   updatePremios,
   deletePremios,
+
 } from "../services";
 
 const rows = ref([]);
@@ -272,13 +275,13 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
-/*const equiposFilter = computed(() =>
+const equiposFilter = computed(() =>
   equipos.value.filter((p) => p.id_jugadores === premio.id_jugadores)
 );
 
 function handleSelectionJugador() {
   premio.id_equipos = null;
-}*/
+}
 </script>
 
 <style lang="scss" scoped>

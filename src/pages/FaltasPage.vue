@@ -98,6 +98,23 @@
 
                 <div>
                   <label
+                    >Seleccione Nombre Partidas
+                    <span class="text-red">*</span></label
+                  >
+                  <q-select
+                    filled
+                    v-model="falta.id_partidas"
+                    dense
+                    map-options
+                    emit-value
+                    option-value="id"
+                    option-label="nombre"
+                    :options="partidas"
+                  />
+                </div>
+
+                <div>
+                  <label
                     >Seleccione Nombre Jugadores
                     <span class="text-red">*</span></label
                   >
@@ -109,11 +126,11 @@
                     emit-value
                     option-value="id"
                     option-label="nombre"
-                    :options="jugadores"
+                    :options="partidajugadorFilter"
+                    @update:model-value="handleSelectionJugador"
                   />
                 </div>
 
-                <!---  @update:model-value="handleSelectionJugador"-->
                 <div>
                   <label
                     >Seleccione Nombre Arbitros
@@ -127,24 +144,8 @@
                     option-value="id"
                     option-label="nombre"
                     dense
-                    :options="arbitros"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    >Seleccione Nombre Partidas
-                    <span class="text-red">*</span></label
-                  >
-                  <q-select
-                    filled
-                    v-model="falta.id_partidas"
-                    dense
-                    map-options
-                    emit-value
-                    option-value="id"
-                    option-label="nombre"
-                    :options="partidas"
+                    :options="jugadorarbitroFilter"
+                    @update:model-value="handleSelectionArbitro"
                   />
                 </div>
               </div>
@@ -207,6 +208,7 @@ import {
   crearFaltas,
   updateFaltas,
   deleteFaltas,
+  getPartidajugador,
 } from "../services";
 
 import { date } from "quasar";
@@ -257,6 +259,7 @@ const arbitros = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
 const datetime = ref([]);
+const partijugador = ref([]);
 const falta = reactive({
   nro: null,
   fecha_hora: null,
@@ -306,6 +309,7 @@ onMounted(async () => {
   jugadores.value = await getJugadores();
   arbitros.value = await getArbitros();
   partidas.value = await getPartidas();
+  partijugador.value = await getPartidajugador();
 });
 
 function handleSelection(details) {
@@ -348,11 +352,19 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 
 const partidajugadorFilter = computed(() =>
-  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas)
+  partijugador.value.filter((p) => p.id_partidas === falta.id_partidas)
 );
 
 function handleSelectionJugador() {
-  partidajugador.id_jugadores = null;
+  falta.id_jugadores = null;
+}
+
+const jugadorarbitroFilter = computed(() =>
+  jugadores.value.filter((r) => r.id_arbitros === falta.id_arbitros)
+);
+
+function handleSelectionArbitro() {
+ // falta.id_jugadores = null;
 }
 </script>
 <style scoped>

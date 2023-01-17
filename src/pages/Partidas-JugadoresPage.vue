@@ -56,13 +56,13 @@
                   option-label="nombre"
                   dense
                   lazy-rules
-                  :options="jugadores"
+                  :options="partidajugadorFilter"
+                  @update:model-value="handleSelectionJugador"
                 />
               </div>
             </div>
             <br />
 
-            <!--       @update:model-value="handleSelectionJugador"-->
             <div class="col-6 q-gutter-md text-center items-center">
               <q-btn
                 dense
@@ -120,6 +120,7 @@ import {
   crearPartidasJugadores,
   deletePartidasJugadores,
   updatePartidasJugadores,
+  getPartidajugador,
 } from "../services";
 const columns = [
   {
@@ -143,6 +144,7 @@ const filter = ref("");
 const jugadores = ref([]);
 const partidas = ref([]);
 const selected = ref([]);
+const partijugador = ref([]);
 
 const partidajugador = reactive({
   id_partidas: null,
@@ -177,6 +179,7 @@ onMounted(async () => {
   rows.value = await getPartidasJugadores();
   partidas.value = await getPartidas();
   jugadores.value = await getJugadores();
+  partijugador.value = await getPartidajugador();
 });
 
 function handleSelection(details) {
@@ -193,6 +196,8 @@ function handleSelection(details) {
   }
 
   Object.assign(partidajugador, rowSelected);
+
+  console.log(partidajugador);
 }
 
 const botonbloqueocrear = computed(() => {
@@ -211,11 +216,11 @@ const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
 
 const partidajugadorFilter = computed(() =>
-  jugadores.value.filter((p) => p.id_partidas === partidajugador.id_partidas)
+  partijugador.value.filter((p) => p.id_partidas === partidajugador.id_partidas)
 );
 
 function handleSelectionJugador() {
-  partidajugador.id_jugadores = null;
+  //partidajugador.id_jugadores = null;
 }
 </script>
 <style lang="scss" scoped>

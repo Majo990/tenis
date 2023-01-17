@@ -64,7 +64,7 @@
               </div>
 
               <div class="row justify-between q-gutter-md">
-                <div>
+                <!-----    <div>
                   <label
                     >Selecione su edad Jugador
                     <span class="text-red">*</span></label
@@ -80,6 +80,45 @@
                         (val && val > 0 && val >= 18) || 'Edad incorrecta',
                     ]"
                   />
+                </div>-->
+
+                <div>
+                  <label
+                    >Ingrese su Fecha-Nacimiento entrenador
+                    <span class="text-red">*</span></label
+                  >
+
+                  <q-input
+                    filled
+                    dense
+                    v-model="jugador.fecha_nacimiento"
+                    mask="date"
+                    :rules="[
+                      'date',
+                      (val) => edad(val) >= 18 || 'Edad incorrecta',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="event" class="cursor-pointer">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-date v-model="jugador.fecha_nacimiento">
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="primary"
+                                flat
+                              />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
                 </div>
 
                 <div>
@@ -311,6 +350,7 @@
 </template>
 
 <script setup>
+import { date } from "quasar";
 import { ref, onMounted, computed, reactive } from "vue";
 import {
   crearJugadores,
@@ -353,6 +393,14 @@ const columns = [
     align: "center",
     label: "Edad",
     field: "edad",
+    sortable: true,
+  },
+  {
+    name: "fecha_nacimiento",
+    align: "center",
+    label: "Fecha_Nacimiento",
+    field: "fecha_nacimiento",
+    format: (val, row) => date.formatDate(val, "DD/MM/YYYY"),
     sortable: true,
   },
   {
@@ -443,6 +491,7 @@ const jugador = reactive({
   id_entrenadores: null,
   edad: null,
   sexo: null,
+  fecha_nacimiento: null,
   id_arbitros: null,
   id_equipos: null,
   id_torneos: null,
@@ -461,6 +510,7 @@ async function onSubmit() {
     nacionalidad: null,
     id_entrenadores: null,
     edad: null,
+    fecha_nacimiento: null,
     sexo: null,
     id_arbitros: null,
     id_equipos: null,
@@ -481,6 +531,7 @@ async function Actualizar() {
     nacionalidad: null,
     id_entrenadores: null,
     edad: null,
+    fecha_nacimiento: null,
     sexo: null,
     id_arbitros: null,
     id_equipos: null,
@@ -502,6 +553,7 @@ async function Delete() {
     id_entrenadores: null,
     edad: null,
     sexo: null,
+    fecha_nacimiento: null,
     id_arbitros: null,
     id_equipos: null,
     id_torneos: null,
@@ -536,6 +588,7 @@ function handleSelection(details) {
     edad: null,
     sexo: null,
     id_arbitros: null,
+    fecha_nacimiento: null,
     id_equipos: null,
     id_torneos: null,
     id_sanciones: null,
@@ -586,6 +639,22 @@ const botonbloqueocrear = computed(() => {
 
 const botonbloqueoactualizar = ref(true);
 const botonbloqueoeliminar = ref(true);
+
+function edad(fecha_nacimiento) {
+  let Nacimiento = new Date(fecha_nacimiento);
+  let hoy = new Date();
+  let edad = 0;
+  if (Nacimiento < hoy) {
+    edad = date.getDateDiff(hoy, Nacimiento, "years");
+  } else {
+    console.error("la fecha de nacimiento no puede ser superior ala actual");
+  }
+  return edad;
+}
+
+function calcular_edad(fecha_nacimiento) {
+  return date.getDateDiff(new Date(), fecha_nacimiento, "years");
+}
 </script>
 
 <style scoped></style>
