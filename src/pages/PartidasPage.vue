@@ -257,6 +257,10 @@
           </div>
 
 
+
+
+
+
           <br/>
           <div class="col-6 q-gutter-md text-center items-center">
             <q-btn
@@ -307,6 +311,59 @@
         @selection="handleSelection"
       >
       </q-table>
+
+
+
+
+
+
+
+
+
+
+      <div class="col-6">
+        <q-scroll-area style="height: 500px; width: 400px">
+          <q-list
+            bordered
+            padding
+            dense
+            style="background-color: aqua"
+            class="q-pa-md"
+          >
+            <q-separator spaced />
+            <q-item-label header>Lista Equipos  </q-item-label>
+            <q-checkbox
+
+              dense
+              label="Seleccionar todos"
+              class="text-bold"
+            />
+
+            <q-option-group
+
+              :options="jugadores"
+              color="primary"
+              type="checkbox"
+              dense
+            />
+          </q-list>
+        </q-scroll-area>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </q-page>
   </div>
 </template>
@@ -326,6 +383,7 @@ import {
 import { date } from "quasar";
 const selected = ref([]);
 const rondas = ref([]);
+const jugadores= ref([]);
 
 const columns = [
   {

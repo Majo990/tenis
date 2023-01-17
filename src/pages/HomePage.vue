@@ -32,7 +32,7 @@
                 style="width: 100%; height: 45px"
               >
                 <div
-                  class="bg-fondo rounded-borders"
+                  class="bg-fondo rounded-borders text-home"
                   style="width: 50px; height: 30px"
                 >
                   {{ partida.puntaje1 }}
@@ -422,7 +422,7 @@ async function obtenerPartidasActuales() {
 </script>
 
 <style scoped>
-col-6 q-col-gutter-md {
+.col-6 .q-col-gutter-md {
   background-color: aquamarine;
 }
 h2 {
@@ -452,7 +452,16 @@ h2 {
   text-align: center;
 }
 
-@media (max-width) {
+@media (min-width: 980px) {
+  .text-home {
+    font-size: 2em;
+  }
+}
+
+@media (min-width: 1921px) {
+  .text-home {
+    font-size: 30px;
+  }
 }
 
 .q-banner {
