@@ -165,6 +165,7 @@
         selection="single"
         v-model:selected="selected"
         @selection="handleSelection"
+        :rows-per-page-options="[5,10,20,50,80,100]"
       >
       </q-table>
     </q-page>

@@ -164,14 +164,17 @@
                   >Seleccione su Estadio <span class="text-red">*</span></label
                 >
                 <q-select
-                  filled
-                  v-model="ff"
+                       filled
                   map-options
+                  multiple
                   emit-value
+                  option-value="id"
                   option-label="nombre"
-                  :options="f"
+                  v-model="campo.id_estadios"
                   dense
-                  lazy-rules
+                  :options="partidajugadorFilter"
+       
+
                 />
               </div>
 
@@ -186,13 +189,11 @@
                   emit-value
                   option-value="id"
                   option-label="nombre"
-                  v-model="partidajugador.jugadoresb"
+                  v-model="partida.nombre_jugadores"
                   dense
                   :options="partidajugadorFilter"
                   selection="multiple"
                   max-values="2"
-                  @update:model-value="handleSelectionJugador"
-
 
                 />
               </div>
@@ -258,7 +259,7 @@
                 >
                 <q-select
                   filled
-                  v-model="cancha"
+                  v-model="partida.nombre_cancha"
                   map-options
                   emit-value
                   option-label="nombre"
@@ -355,14 +356,7 @@
             icon="fa-solid fa-trash-can"
             :disable="botonbloqueoeliminar"
           />
-          <q-btn
-            dense
-            color="green"
-            label="Ver-Jugadores"
-            @click="Delete"
-            icon="fa-solid fa-trash-can"
-            :disable="botonbloqueoactualizar"
-          />
+
         </div>
       </q-form>
 
@@ -399,6 +393,7 @@ import {
   getEstadioPartida,
   getEstadios,
   getPartidajugador,
+  getCampoestadiojugador,
   //getPuntaje,
   //
 } from "../services";
@@ -488,6 +483,9 @@ const jugadores = ref([]);
 const estadiospartida = ref([]);
 const estadios = ref([]);
 const partidajugador = ref([]);
+const estadio=ref([]);
+const campoestadiopartida=ref([]);
+
 
 const deportes = [
   "Tenis",
@@ -580,6 +578,7 @@ onMounted(async () => {
   estadios.value = await getEstadios();
   partidajugador.value = await getPartidajugador();
   jugadores.value = await getJugadores();
+  campoestadiopartida.value=await getCampoestadiojugador();
 });
 
 function handleSelection(details) {
@@ -593,6 +592,7 @@ function handleSelection(details) {
     tiempo_duracion: null,
     tiempo_fin: null,
     id_rondas: null,
+
   };
 
   botonbloqueoactualizar.value = true;

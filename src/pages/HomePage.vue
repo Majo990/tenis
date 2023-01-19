@@ -1,8 +1,10 @@
 <template>
-  <q-page padding class="bg-fondo">
+  <q-page padding class="bg-fondo" >
   <!----  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
   <!----- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">-->
-    <div class="row q-col-gutter-md justify-between">
+
+
+  <div class="row q-col-gutter-md justify-between">
       <div class="col-6 q-gutter-md">
         <!----- <q-banner inline-actions class="text-white bg-light-blue-12">
           Bienvenido a nuestro sitio web
@@ -18,7 +20,7 @@
           </template>
         </q-banner>-->
 
-        <h5>CAMPEONATO FRONTÓN</h5>
+   <div class="letra">    <h5>CAMPEONATO FRONTÓN</h5> </div>
 
         <q-card flat class="bg-fondo marco ">
           En juego:
@@ -63,7 +65,8 @@
           </q-card>
         </q-card>
 
-        <h6>Proximos Encuentros:</h6>
+     <div class="tabla"  >
+     <h6>Proximos Encuentros:</h6>
         <q-table
           dense
           :rows="proximosencuentros"
@@ -71,7 +74,9 @@
           :columns="columns"
           row-key="name"
           separator="none"
+          :rows-per-page-options="[5,10,20,50,80,100]"
         />
+        </div>
       </div>
 
       <div class="col-6 q-col-gutter-md">
@@ -108,6 +113,7 @@
             :columns="columns2"
             row-key="name1"
             separator="none"
+            :rows-per-page-options="[5,10,20,50,80,100]"
           />
           <!-- <h6>Juegos:</h6>
 
@@ -127,15 +133,31 @@
             separator="none"
             row-key="name1"
           />-->
+
+
+
+
+<div v-if="$q.platform.is.ios">
+momo
+</div>
+
+
+
         </div>
       </div>
     </div>
+
   </q-page>
   <!---$indigo-13-->
 </template>
 
 <script setup>
 import _ from "lodash";
+
+import { useQuasar } from "quasar";
+
+
+
 
 import { ref, onMounted, onUnmounted } from "vue";
 import {
@@ -419,11 +441,20 @@ async function obtenerPartidasActuales() {
       };
     });
 
+
+    const $q = useQuasar()
+
+
+
+function show() {
+  console.log($q.version)
+};
+
   // console.log(partidasActuales.value);
 }
 </script>
 
-<style scoped>
+<style scoped sass>
 .col-6 .q-col-gutter-md {
   background-color: aquamarine;
 }
@@ -453,7 +484,7 @@ h2 {
 .cl {
   text-align: center;
 }
-
+/*
 @media (min-width: 980px) {
   .text-home {
     font-size: 2em;
@@ -527,7 +558,7 @@ h2 {
 }
 
 
-/*@media all and (max-width: 2500px){
+@media all and (max-width: 2500px){
   .text-home{
     font-size: small;
   }
@@ -558,7 +589,26 @@ h2 {
   height: 50px;
 }
 }
+
+
+
+
+@media all and (max-width:7000px){
+  .letra{
+  font-size:96px;
+}
+}
+
+
+
+
+
+
+
+
 */
+
+
 
 
 

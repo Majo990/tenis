@@ -256,8 +256,12 @@ export async function getLogo() {
 }
 
 
+export async function getCampoestadiojugador(){
+  const r = await api.get("/api/campoestadiojugador");
+}
+
 export async function getPartidajugador(){
-  const r = await api.get("/api/partidajugador")
+  const r = await api.get("/api/partidajugador");
   return r.data;
 }
 
