@@ -61,7 +61,7 @@
 
                 />
               </div>
-<!----     @update:model-value="handleSelectionJugador"-->
+
               <div>
                 <label
                   >Seleccione el Nombre Jugadores<span class="text-red"
@@ -78,25 +78,15 @@
                   v-model="premio.id_jugadores"
                   dense
                   lazy-rules
-                  :options="equiposFilter"
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor seleccione su jugador ',
-                    (val) =>
-                      (val > 1 && val < 80) ||
-                      'Por favor seleccione su jugador',
-                  ]"
-                   @update:model-value="handleSelectionJugador"
-
-
+                  :options="equipojugadorFilter"
+                  @update:model-value="handleSelectionEquipo"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-<!---         @update:model-value="handleSelectionJugador"-->
+
       <div class="col-6 q-gutter-md text-center items-center">
         <q-btn
           dense
@@ -135,6 +125,7 @@
       selection="single"
       v-model:selected="selected"
       @selection="handleSelection"
+      :rows-per-page-options="[5,10,20,50,80,100]"
     >
     </q-table>
   </q-page>
@@ -149,7 +140,6 @@ import {
   crearPremios,
   updatePremios,
   deletePremios,
-
 } from "../services";
 
 const rows = ref([]);
@@ -275,12 +265,12 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
-const equiposFilter = computed(() =>
-  equipos.value.filter((p) => p.id_jugadores === premio.id_jugadores)
+const equipojugadorFilter = computed(() =>
+  equipos.value.filter((p) => p.id=== premio.id_jugadores)
 );
 
-function handleSelectionJugador() {
-  premio.id_equipos = null;
+function handleSelectionEquipo() {
+
 }
 </script>
 

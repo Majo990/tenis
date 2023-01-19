@@ -43,7 +43,7 @@
                   :onkeydown="onkeyDown"
                 />
               </div>
-              <!-- <div>
+             <!---- <div>
                   <label
                     >Ingrese su edad Arbitro
                     <span class="text-red">*</span></label
@@ -59,7 +59,7 @@
                         (val && val > 0 && val >= 18) || 'Edad incorrecta',
                     ]"
                   />
-                </div> -->
+                </div>-->
             </div>
 
             <div class="row justify-between q-gutter-md">
@@ -239,11 +239,13 @@
         selection="single"
         v-model:selected="selected"
         @selection="handleSelection"
+        :rows-per-page-options="[5,10,20,50,80,100]"
       >
       </q-table>
     </q-page>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
@@ -330,6 +332,7 @@ const selected = ref([]);
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
+const fecha_nacimiento= ref([]);
 const arbitro = reactive({
   nombre: null,
   apellido: null,
