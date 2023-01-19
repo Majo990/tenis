@@ -58,6 +58,24 @@
                 </q-input>
               </div>
 
+              <div>
+                <label
+                  >Seleccione entrenadores
+                  <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="equipo.id_entrenadores"
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="nombre"
+                  :options="entrenadores"
+                  dense
+                  lazy-rules
+                />
+              </div>
+
         <!-----      <div>
                 <label
                   >Seleccione nombre Jugadores
@@ -81,23 +99,7 @@
             <div class="col-6"></div>
 
             <div class="row justify-between q-gutter-md">
-              <div>
-                <label
-                  >Seleccione entrenadores
-                  <span class="text-red">*</span></label
-                >
-                <q-select
-                  filled
-                  v-model="equipo.id_entrenadores"
-                  map-options
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  :options="entrenadores"
-                  dense
-                  lazy-rules
-                />
-              </div>
+
 
               <div>
                 <label
@@ -130,12 +132,7 @@
                   accept=".png, .jpg, .gif, .tiff, .jpeg image/*"
                 />
               </div>
-            </div>
-            <br />
-            <div class="row justify-between q-gutter-md"></div>
 
-            <div class="col-6"></div>
-            <div class="row justify-between q-gutter-md">
               <div>
                 <label
                   >Ingrese su uniforme equipo
@@ -154,6 +151,14 @@
                   :onkeydown="onkeyDown"
                 />
               </div>
+
+            </div>
+            <br />
+            <div class="row justify-between q-gutter-md"></div>
+
+            <div class="col-6"></div>
+            <div class="row justify-between q-gutter-md">
+
 
               <div>
                 <label>Ingrese su apodo <span class="text-red">*</span></label>
@@ -189,11 +194,7 @@
                   :onkeydown="onkeyDown"
                 />
               </div>
-            </div>
-
-            <div class="col-6"></div>
-            <div class="row justify-between q-gutter-md">
-              <div>
+               <div>
                 <label
                   >Seleccione nombre estadios
                   <span class="text-red">*</span></label
@@ -211,6 +212,12 @@
                 />
               </div>
 
+            </div>
+
+            <div class="col-6"></div>
+            <div class="row justify-between q-gutter-md">
+
+
               <div>
                 <label>Seleccione su pais <span class="text-red"></span></label>
 
@@ -226,7 +233,7 @@
                 />
               </div>
 
-              <div>
+              <div class="ciudad">
                 <label>Seleccione ciudad <span class="text-red"></span></label>
                 <q-select
                   filled
@@ -610,5 +617,11 @@ const botonbloqueoeliminar = ref(true);
   padding-right: 150px;
   height: 50%;
   max-width: 55%;
+}
+
+.ciudad{
+  position: relative;
+ position: center;
+ margin-right: 40%;
 }
 </style>

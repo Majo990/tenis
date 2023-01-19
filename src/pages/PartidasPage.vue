@@ -5,7 +5,7 @@
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
-            <div class="row justify-between q-gutter-md ">
+            <div class="row justify-between q-gutter-md">
               <div>
                 <label
                   >Ingrese nombre Partida <span class="text-red">*</span></label
@@ -88,9 +88,9 @@
                   emit-value
                   option-value="id"
                   option-label="nombre"
-                  v-model="partidajugador.jugadoresa"
+                  v-model="partida.jugadoresa"
                   dense
-                  :options="jugadores"
+                  :options="jugadoresA"
                   selection="multiple"
                   max-values="2"
                 />
@@ -159,24 +159,16 @@
                 </q-input>
               </div>
 
-              <div>
-                <label
-                  >Seleccione su Estadio <span class="text-red">*</span></label
-                >
-                <q-select
-                       filled
-                  map-options
-                  multiple
-                  emit-value
-                  option-value="id"
-                  option-label="nombre"
-                  v-model="campo.id_estadios"
-                  dense
-                  :options="partidajugadorFilter"
-       
-
-                />
-              </div>
+              <q-select
+                filled
+                v-model="estadiopartida"
+                map-options
+                emit-value
+                option-label="nombre"
+                :options="estadios"
+                dense
+                lazy-rules
+              />
 
               <div class="equipob">
                 <label
@@ -189,12 +181,11 @@
                   emit-value
                   option-value="id"
                   option-label="nombre"
-                  v-model="partida.nombre_jugadores"
+                  v-model="partida.jugadoresb"
                   dense
-                  :options="partidajugadorFilter"
+                  :options="jugadoresB"
                   selection="multiple"
                   max-values="2"
-
                 />
               </div>
             </div>
@@ -259,7 +250,7 @@
                 >
                 <q-select
                   filled
-                  v-model="partida.nombre_cancha"
+                  v-model="estadiospartida.nombre"
                   map-options
                   emit-value
                   option-label="nombre"
@@ -268,8 +259,6 @@
                   lazy-rules
                 />
               </div>
-
-
             </div>
 
             <div class="row justify-between q-gutter-md">
@@ -356,7 +345,6 @@
             icon="fa-solid fa-trash-can"
             :disable="botonbloqueoeliminar"
           />
-
         </div>
       </q-form>
 
@@ -371,7 +359,7 @@
         selection="single"
         v-model:selected="selected"
         @selection="handleSelection"
-        :rows-per-page-options="[5,10,20,50,80,100]"
+        :rows-per-page-options="[5, 10, 20, 50, 80, 100]"
       >
       </q-table>
     </q-page>
@@ -483,9 +471,10 @@ const jugadores = ref([]);
 const estadiospartida = ref([]);
 const estadios = ref([]);
 const partidajugador = ref([]);
-const estadio=ref([]);
-const campoestadiopartida=ref([]);
-
+const estadio = ref([]);
+const campoestadiopartida = ref([]);
+const cancha = ref([]);
+const campo = ref([]);
 
 const deportes = [
   "Tenis",
@@ -508,6 +497,8 @@ const partida = reactive({
   tiempo_duracion: null,
   tiempo_fin: null,
   id_rondas: null,
+  jugadoresa: [],
+  jugadoresb: [],
 });
 
 async function onSubmit() {
@@ -578,7 +569,7 @@ onMounted(async () => {
   estadios.value = await getEstadios();
   partidajugador.value = await getPartidajugador();
   jugadores.value = await getJugadores();
-  campoestadiopartida.value=await getCampoestadiojugador();
+  campoestadiopartida.value = await getCampoestadiojugador();
 });
 
 function handleSelection(details) {
@@ -592,7 +583,6 @@ function handleSelection(details) {
     tiempo_duracion: null,
     tiempo_fin: null,
     id_rondas: null,
-
   };
 
   botonbloqueoactualizar.value = true;
@@ -630,17 +620,17 @@ const botonbloqueoactualizar = ref(true);
 
 const botonbloqueoeliminar = ref(true);
 
+const jugadoresA = computed(() => {
+  return jugadores.value.filter(
+    (jugador) => !partida.jugadoresb.includes(jugador.id)
+  );
+});
 
-
-
-const partidajugadorFilter = computed(() =>
-  jugadores.value.filter((p) => p.id === partida.id_partida)
-);
-
-function handleSelectionJugador(){
-
-}
-//const partidajugadorFilter= computed(()=>)
+const jugadoresB = computed(() => {
+  return jugadores.value.filter(
+    (jugador) => !partida.jugadoresa.includes(jugador.id)
+  );
+});
 </script>
 
 <style scoped>
@@ -663,27 +653,21 @@ function handleSelectionJugador(){
   margin-left: 50px;
 }
 
-.cancha1{
+.cancha1 {
   margin-left: -50px;
-
 }
 
 .equipoa {
-
- margin:-40px;
-margin-top: 17px;
-margin-left: 50px;
-margin-right: -350px;
-
+  margin: -40px;
+  margin-top: 17px;
+  margin-left: 50px;
+  margin-right: -350px;
 }
 .equipob {
-  margin:-40px;
-margin-top: 17px;
-margin-left: 50px;
-margin-right: -350px;
-
+  margin: -40px;
+  margin-top: 17px;
+  margin-left: 50px;
+  margin-right: -350px;
 }
-
-
 </style>
 <!-- margin-left: 900px;-128px-->

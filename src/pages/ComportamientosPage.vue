@@ -24,7 +24,7 @@
                 />
               </div>
 
-              <div>
+              <div class="jugadores">
                 <label
                   >Seleccione Nombre Jugadores
                   <span class="text-red">*</span></label
@@ -61,7 +61,7 @@
                 />
               </div>
 
-              <div>
+              <div class="sancion">
                 <label
                   >Seleccione sancion <span class="text-red">*</span></label
                 >
@@ -257,8 +257,16 @@ const botonbloqueoeliminar = ref(true);
 </script>
 
 <style lang="scss" scoped>
-//.q-table {
-// color: rgb(26, 25, 24);
-/// background-color: #f3eb77;
-//}
+
+.jugadores{
+ position: relative;
+ position: center;
+ margin-right: 40%;
+}
+.sancion{
+  position: relative;
+ position: center;
+ margin-right: 40%;
+}
+
 </style>

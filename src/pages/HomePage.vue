@@ -1,28 +1,24 @@
 <template>
-  <q-page padding class="bg-fondo" >
-  <!----  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-  <!----- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">-->
+  <q-page padding class="bg-fondo">
+    <!----  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+    <!----- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">-->
 
-
-  <div class="row q-col-gutter-md justify-between">
+    <div class="row q-col-gutter-md justify-between">
       <div class="col-6 q-gutter-md">
-        <!----- <q-banner inline-actions class="text-white bg-light-blue-12">
+        <q-banner inline-actions class="text-white bg-light-blue-12">
           Bienvenido a nuestro sitio web
         <template v-slot:action>
-            <q-btn
-            dense
-            label="Ok"
-            @click="onSubmit"
-            :disable="botonbloqueo"
-          />
+
 
 
           </template>
-        </q-banner>-->
+        </q-banner>
 
-   <div class="letra">    <h5>CAMPEONATO FRONTÓN</h5> </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <h5>CAMPEONATO FRONTÓN</h5>
+        </div>
 
-        <q-card flat class="bg-fondo marco ">
+        <q-card flat class="bg-fondo marco">
           En juego:
           <q-card
             flat
@@ -65,17 +61,17 @@
           </q-card>
         </q-card>
 
-     <div class="tabla"  >
-     <h6>Proximos Encuentros:</h6>
-        <q-table
-          dense
-          :rows="proximosencuentros"
-          class="bg-fondo table1"
-          :columns="columns"
-          row-key="name"
-          separator="none"
-          :rows-per-page-options="[5,10,20,50,80,100]"
-        />
+        <div class="tabla">
+          <h6>Proximos Encuentros:</h6>
+          <q-table
+            dense
+            :rows="proximosencuentros"
+            class="bg-fondo table1"
+            :columns="columns"
+            row-key="name"
+            separator="none"
+            :rows-per-page-options="[5, 10, 20, 50, 80, 100]"
+          />
         </div>
       </div>
 
@@ -113,7 +109,7 @@
             :columns="columns2"
             row-key="name1"
             separator="none"
-            :rows-per-page-options="[5,10,20,50,80,100]"
+            :rows-per-page-options="[5, 10, 20, 50, 80, 100]"
           />
           <!-- <h6>Juegos:</h6>
 
@@ -133,31 +129,15 @@
             separator="none"
             row-key="name1"
           />-->
-
-
-
-
-<div v-if="$q.platform.is.ios">
-momo
-</div>
-
-
-
         </div>
       </div>
     </div>
-
   </q-page>
   <!---$indigo-13-->
 </template>
 
 <script setup>
 import _ from "lodash";
-
-import { useQuasar } from "quasar";
-
-
-
 
 import { ref, onMounted, onUnmounted } from "vue";
 import {
@@ -322,7 +302,7 @@ const partidasActuales = ref([]);
 const cancha = ref([]);
 const logo = ref([]);
 const puntaje = ref([]);
-const juegosactuamente = ref([]);
+const juegosactualmente = ref([]);
 
 let i = null;
 
@@ -441,20 +421,16 @@ async function obtenerPartidasActuales() {
       };
     });
 
-
-    const $q = useQuasar()
-
-
-
-function show() {
-  console.log($q.version)
-};
-
   // console.log(partidasActuales.value);
 }
+
+
+
+
+
 </script>
 
-<style scoped sass>
+<style lang="scss" scoped>
 .col-6 .q-col-gutter-md {
   background-color: aquamarine;
 }
@@ -484,132 +460,18 @@ h2 {
 .cl {
   text-align: center;
 }
-/*
-@media (min-width: 980px) {
-  .text-home {
-    font-size: 2em;
-  }
-}
 
-@media (min-width: 1921px) {
-  .text-home {
-    font-size: 30px;
-  }
-}
-
-@media (min-width: 0px) {
-  .text-home {
-    font-size: 5px;
-  }
-}
-
-@media (max-width: 599.99px) {
-  .text-home {
-    font-size: 7px;
-  }
-}
-
-@media (min-width: 600px) {
-  .text-home {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 1023.99px) {
-  .text-home {
-    font-size: 12px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .text-home {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 1043.99px) {
-  .text-home {
-    font-size: 12px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .text-home {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 1919.99px) {
-  .text-home {
-    font-size: 12px;
-  }
-}
-
-@media (min-width: 1920px) {
-  .text-home {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 200000px) {
-  .text-home {
-    font-size: 40px;
-  }
-}
-
-
-@media all and (max-width: 2500px){
-  .text-home{
+@media screen {
+  col-xs-12 col-sm-6 col-md-4 {
+    font-size: large;
     font-size: small;
+    font-size: xx-small;
   }
-  .table1{
-    width: 400px ;
-  }
-  .h5{
-    font-size: 50px;
-  }
-  .letra{
-    font-size: 20px;
-  }
+  $h5: (
+    size: 1.25rem,
+    line-height: 2rem,
+    letter-spacing: 0.0125em,
+    weight: 500,
+  );
 }
-.q-banner {
-  height: 10px;
-}
-
-
-
-@media all and (min-width: 7680px){
-  .text-home{
-    font-size: 20px;
-  }
-  .letra{
-    font-size: 80px;
-  }
-  .q-banner {
-  height: 50px;
-}
-}
-
-
-
-
-@media all and (max-width:7000px){
-  .letra{
-  font-size:96px;
-}
-}
-
-
-
-
-
-
-
-
-*/
-
-
-
-
-
 </style>

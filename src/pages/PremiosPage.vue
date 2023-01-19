@@ -25,7 +25,7 @@
                 />
               </div>
 
-              <div>
+              <div class="premio">
                 <label
                   >Seleccione el Tipo de Premio <span class="text-red"></span
                 ></label>
@@ -62,7 +62,7 @@
                 />
               </div>
 
-              <div>
+              <div class="jugador">
                 <label
                   >Seleccione el Nombre Jugadores<span class="text-red"
                     >*</span
@@ -282,4 +282,16 @@ function handleSelectionEquipo() {
   padding: 5px;
   max-width: 60%;
 }*/
+
+.premio{
+  position: relative;
+ position: center;
+ margin-right: 40%;
+}
+
+.jugador{
+  position: relative;
+ position: center;
+ margin-right: 40%;
+}
 </style>

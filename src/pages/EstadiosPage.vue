@@ -154,6 +154,8 @@
                     ]"
                   />
                 </div>
+
+                <div class="row justify-between q-gutter-md">
                 <div>
                   <label
                     >Ingrese su direccion <span class="text-red">*</span></label
@@ -171,9 +173,10 @@
                     ]"
                   />
                 </div>
+                </div>
 
-                <div>
-                  <div>
+                <div class="row justify-between q-gutter-md">
+                  <div class="ciudad">
                     <label
                       >Ingrese su ciudad estadio <span class="text-red"></span
                     ></label>
@@ -186,7 +189,7 @@
                     />
                   </div>
 
-                  <div>
+                  <div class="partida">
                     <label
                       >Seleccione su Partidas
                       <span class="text-red">*</span></label
@@ -203,10 +206,11 @@
                     />
                   </div>
                 </div>
-              </div>
+
             </div>
           </div>
         </div>
+      </div>
 
         <div class="col-6 q-gutter-md text-center items-center">
           <q-btn
@@ -476,4 +480,9 @@ const botonbloqueoeliminar = ref(true);
   color: grey;
   background-color: #77d6f3;
 }*/
+
+
+
+
+
 </style>

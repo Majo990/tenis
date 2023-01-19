@@ -43,7 +43,7 @@
                   </q-input>
                 </div>
 
-                <div>
+                <div class="estadio">
                   <label
                     >Seleccione el Estadio
                     <span class="text-red">*</span></label
@@ -80,7 +80,7 @@
                     :onkeydown="onkeyDown"
                   />
                 </div>
-                <div>
+                <div class="pais">
                   <label>
                     Seleccione el Nombre Pais Torneo
                     <span class="text-red"></span
@@ -335,4 +335,18 @@ const botonbloqueoeliminar = ref(true);
   height: 50%;
   max-width: 54%;
 }*/
+
+
+
+
+.estadio{
+  position: relative;
+ position: center;
+ margin-right: 40%;
+}
+.pais{
+  position: relative;
+ position: center;
+ margin-right: 30%;
+}
 </style>

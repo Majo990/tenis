@@ -2,6 +2,7 @@
   <div class="q-pa-md">
     <q-page padding>
       <q-form @submit="onSubmit" class="q-gutter-md">
+        <q-card flat class="bg-color marco">
         <strong>Formulario </strong>
         <div class="row">
           <div class="col-6">
@@ -25,7 +26,7 @@
                 />
               </div>
 
-              <div>
+              <div class="apellido">
                 <label
                   >Ingrese apellido arbitro
                   <span class="text-red">*</span></label
@@ -43,7 +44,7 @@
                   :onkeydown="onkeyDown"
                 />
               </div>
-             <!---- <div>
+              <!---- <div>
                   <label
                     >Ingrese su edad Arbitro
                     <span class="text-red">*</span></label
@@ -81,7 +82,7 @@
                 />
               </div>
 
-              <div>
+              <div class="altura">
                 <label
                   >Ingrese su Altura Arbitro
                   <span class="text-red">*</span></label
@@ -102,7 +103,9 @@
                   ]"
                 ></q-input>
               </div>
+            </div>
 
+            <div class="row justify-between q-gutter-md">
               <div>
                 <label
                   >Ingrese su Peso Arbitro
@@ -129,10 +132,8 @@
                 >
                 </q-input>
               </div>
-            </div>
 
-            <div class="row justify-between q-gutter-md">
-              <div>
+              <div class="fecha">
                 <label
                   >Ingrese su Fecha-Nacimiento Arbitro
                   <span class="text-red">*</span></label
@@ -170,7 +171,8 @@
                   </template>
                 </q-input>
               </div>
-
+            </div>
+              <div class="row justify-between q-gutter-md">
               <div>
                 <label>Ingrese su Pais <span class="text-red"></span></label>
                 <q-select
@@ -184,7 +186,7 @@
                   option-label="country"
                 />
               </div>
-              <div>
+              <div class="ciudad">
                 <label>Ingrese su Ciudad <span class="text-red"></span></label>
                 <q-select
                   filled
@@ -226,6 +228,7 @@
             :disable="botonbloqueoeliminar"
           />
         </div>
+      </q-card>
       </q-form>
 
       <br />
@@ -239,13 +242,12 @@
         selection="single"
         v-model:selected="selected"
         @selection="handleSelection"
-        :rows-per-page-options="[5,10,20,50,80,100]"
+        :rows-per-page-options="[5, 10, 20, 50, 80, 100]"
       >
       </q-table>
     </q-page>
   </div>
 </template>
-
 
 <script setup>
 import { ref, onMounted, computed, reactive } from "vue";
@@ -280,9 +282,8 @@ const columns = [
     align: "center",
     label: "Edad",
     field: "edad",
-    format: (val, row) => calcular_edad(val,"YY"),
+    format: (val, row) => calcular_edad(val, "YY"),
     sortable: true,
-
   },
   {
     name: "sexo",
@@ -332,7 +333,7 @@ const selected = ref([]);
 const sexos = ["Femenino", "Masculino"];
 const rows = ref([]);
 const paises = ref([]);
-const fecha_nacimiento= ref([]);
+const fecha_nacimiento = ref([]);
 const arbitro = reactive({
   nombre: null,
   apellido: null,
@@ -463,7 +464,6 @@ function calcular_edad(fecha_nacimiento) {
   return date.getDateDiff(new Date(), fecha_nacimiento, "years");
 }
 
-
 /*function CalcularImc(altura, peso){
    altura = Math.round(altura) /100;
    peso = Math.round(peso);
@@ -494,5 +494,40 @@ function calcular_edad(fecha_nacimiento) {
   padding-right: 150px;
   height: 50%;
   max-width: 54%;
+}
+
+.apellido {
+  position: relative;
+  position: center;
+  margin-right: -80%;
+}
+
+.altura {
+  position: relative;
+  position: center;
+  margin-right: -80%;
+}
+.fecha{
+  position: relative;
+  position: center;
+  margin-right: -100%;
+}
+
+
+.ciudad{
+  position: relative;
+  position: center;
+  margin-right: -80%;
+}
+
+
+
+.marco{
+  border-style: solid;
+  border-radius: 3%;
+  border-width: 1px;
+  padding:30px;
+  margin-right: 10%;
+  width: 33%;
 }
 </style>

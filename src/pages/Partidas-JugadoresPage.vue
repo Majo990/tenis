@@ -56,7 +56,7 @@
                   option-label="nombre"
                   dense
                   lazy-rules
-                  :options="partidajugadorFilter"
+                  :options="jugadores"
                   @update:model-value="handleSelectionJugador"
                 />
               </div>

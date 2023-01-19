@@ -131,7 +131,7 @@
                   />
                 </div>
 
-                <div>
+                <div class="arbitro">
                   <label
                     >Seleccione Nombre Arbitros
                     <span class="text-red">*</span></label
@@ -150,7 +150,7 @@
                 </div>
               </div>
 
-              <div class="col-6 q-gutter-md text-center items-center">
+              <div class="col-6 q-gutter-md text-center items-center mover">
                 <q-btn
                   dense
                   color="primary"
@@ -377,5 +377,18 @@ function handleSelectionArbitro() {
 v-model {
   text-align: center;
   margin-left: 50%;
+}
+
+
+.arbitro{
+  position: relative;
+ position: center;
+ margin-right: 40%;
+}
+
+.mover{
+  position: relative;
+  margin-right: 50%;
+  margin-top: 5%;
 }
 </style>
