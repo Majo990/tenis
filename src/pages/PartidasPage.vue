@@ -253,7 +253,7 @@
                 >
                 <q-select
                   filled
-                  v-model="estadiospartida.nombre"
+                  v-model="estadiopartida"
                   map-options
                   emit-value
                   option-label="nombre"

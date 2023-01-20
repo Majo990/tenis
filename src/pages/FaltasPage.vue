@@ -110,6 +110,7 @@
                     option-value="id"
                     option-label="nombre"
                     :options="partidas"
+                    lazy-rules
                   />
                 </div>
 
@@ -357,16 +358,18 @@ const partidajugadorFilter = computed(() =>
 );
 
 function handleSelectionJugador() {
-  falta.id_jugadores = null;
+ // falta.id_jugadores = null;
 }
 
-const jugadorarbitroFilter = computed(() =>
+/*const jugadorarbitroFilter = computed(() =>
   jugadores.value.filter((r) => r.id_arbitros === falta.id_arbitros)
 );
 
 function handleSelectionArbitro() {
  // falta.id_jugadores = null;
 }
+
+*/
 </script>
 <style scoped>
 /*.q-table {
