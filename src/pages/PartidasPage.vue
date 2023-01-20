@@ -161,18 +161,19 @@
 
               <div>
                 <label
-                  >Seleccione su estadio <span class="text-red">*</span></label>
-              <q-select
-                filled
-                v-model="estadiopartida"
-                map-options
-                emit-value
-                option-label="nombre"
-                :options="estadios"
-                dense
-                lazy-rules
-              />
-            </div>
+                  >Seleccione su estadio <span class="text-red">*</span></label
+                >
+                <q-select
+                  filled
+                  v-model="estadiopartida"
+                  map-options
+                  emit-value
+                  option-label="nombre"
+                  :options="estadios"
+                  dense
+                  lazy-rules
+                />
+              </div>
               <div class="equipob">
                 <label
                   >Seleccione su equipo B<span class="text-red">*</span></label
@@ -253,11 +254,12 @@
                 >
                 <q-select
                   filled
-                  v-model="estadiopartida"
+                  v-model="estadios"
                   map-options
                   emit-value
+                  option-value="id"
                   option-label="nombre"
-                  :options="cancha"
+                  :options="canchas"
                   dense
                   lazy-rules
                 />
@@ -331,6 +333,7 @@
             type="submit"
             icon="fa-solid fa-folder-plus"
             :disable="botonbloqueocrear"
+            guardejugadorespartida
           />
           <q-btn
             dense
@@ -378,13 +381,15 @@ import {
   getDeportes,
   getTorneos,
   updatePartidas,
+ // crearEstadioPartida,
+  crearPartidasJugadores,
   deletePartidas,
   getJugadores,
-  crearPartidasJugadores,
   getEstadioPartida,
   getEstadios,
   getPartidajugador,
   getCampoestadiojugador,
+
   //getPuntaje,
   //
 } from "../services";
@@ -472,10 +477,9 @@ const selected = ref([]);
 const rondas = ref([]);
 const jugadores = ref([]);
 const estadiospartida = ref([]);
-const estadiopartida= ref([]);
+const estadiopartida = ref([]);
 const estadios = ref([]);
-const partidajugador = ref([]);
-const estadio = ref([]);
+
 const campoestadiopartida = ref([]);
 const cancha = ref([]);
 const campo = ref([]);
@@ -507,32 +511,102 @@ const partida = reactive({
 
 async function onSubmit() {
   await crearPartidas(partida);
-
-  const partida = jugadoresSelected.value.map((p) => {
-    return {
-      id_partida: partida.id || p.insertId,
-      id_equipo: p,
-      id_jugador: p,
-    };
-  });
-
-  for (let i = 0; i < partida.length; i++) {
-    await crearPartidasJugadores(partida[i]);
-  }
-
+  //await creacionestadiopartida();
+  //await crearpartidajugador(partidajugador);
+  //await crearcancha(cancha);
   Object.assign(partida, {
+    id: null,
     nombre: null,
     descripcion: null,
     nombre_deportes: null,
     id_torneos: null,
     fecha: null,
     tiempo_inicio: null,
-    // tiempo_duracion: null,
-    //tiempo_fin: null,
+     tiempo_duracion: null,
+    tiempo_fin: null,
     id_rondas: null,
   });
 }
 
+
+
+async function crearpartidajugador() {
+  await crearPartidasJugadores(partidajugador);
+  Object.assign(partidajugador, {
+    id_partidas: null,
+    id_jugadores: null,
+  });
+
+
+const partidajugador = reactive({
+  id_partidas: null,
+  id_jugadores: null,
+});
+
+
+const partidas = partidaSelected.value.map((p) => {
+    return {
+      id_partidas: partida.id || r.insertId,
+      id_jugadores: p,
+    };
+  });
+
+  for (let i = 0; i < partidas.length; i++) {
+    await crearPartidas(partidas[i]);
+  }
+
+  Object.assign(partida,{
+    id:null,
+  })
+}
+
+
+/*async function creacionestadiopartida() {
+  await crearEstadioPartida(estadiopartida);
+  Object.assign(estadiopartida, {
+    nombre: null,
+    id_partidas: null,
+    id_estadios: null,
+  });
+
+ const estadiopartida = reactive({
+   nombre: null,
+   id_partidas: null,
+  id_estadios: null,
+  });
+}
+*/
+/*async function crearcancha() {
+  await crearEstadios(estadio);
+  Object.assign(estadio, {
+    nombre: null,
+    id_jugadores: null,
+    id_canchas_estadios_partidas: null,
+    cesped: null,
+    administrador: null,
+    propietario: null,
+    ubigeo: null,
+    direccion: null,
+    nombre_paises: null,
+    nombre_ciudades: null,
+    id_partidas: null,
+  });
+}
+
+const estadio = reactive({
+  nombre: null,
+  id_jugadores: null,
+  id_canchas_estadios_partidas: null,
+  cesped: null,
+  administrador: null,
+  propietario: null,
+  ubigeo: null,
+  direccion: null,
+  nombre_paises: null,
+  nombre_ciudades: null,
+  id_partidas: null,
+});
+*/
 async function Actualizar() {
   await updatePartidas(partida);
   Object.assign(partida, {
@@ -571,7 +645,7 @@ onMounted(async () => {
   torneos.value = await getTorneos();
   estadiospartida.value = await getEstadioPartida();
   estadios.value = await getEstadios();
-  partidajugador.value = await getPartidajugador();
+ // partidajugador.value = await getPartidajugador();
   jugadores.value = await getJugadores();
   campoestadiopartida.value = await getCampoestadiojugador();
 });

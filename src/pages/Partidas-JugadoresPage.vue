@@ -106,7 +106,7 @@
       v-model:selected="selected"
       @selection="handleSelection"
       :filter="filter"
-      :rows-per-page-options="[5,10,20,50,80,100]"
+      :rows-per-page-options="[5, 10, 20, 50, 80, 100]"
     >
     </q-table>
   </q-page>

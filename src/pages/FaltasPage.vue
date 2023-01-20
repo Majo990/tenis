@@ -145,8 +145,8 @@
                     option-value="id"
                     option-label="nombre"
                     dense
-                    :options="jugadorarbitroFilter"
-                    @update:model-value="handleSelectionArbitro"
+                    :options="arbitros"
+
                   />
                 </div>
               </div>
