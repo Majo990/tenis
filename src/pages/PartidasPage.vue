@@ -159,6 +159,9 @@
                 </q-input>
               </div>
 
+              <div>
+                <label
+                  >Seleccione su estadio <span class="text-red">*</span></label>
               <q-select
                 filled
                 v-model="estadiopartida"
@@ -169,7 +172,7 @@
                 dense
                 lazy-rules
               />
-
+            </div>
               <div class="equipob">
                 <label
                   >Seleccione su equipo B<span class="text-red">*</span></label
@@ -469,6 +472,7 @@ const selected = ref([]);
 const rondas = ref([]);
 const jugadores = ref([]);
 const estadiospartida = ref([]);
+const estadiopartida= ref([]);
 const estadios = ref([]);
 const partidajugador = ref([]);
 const estadio = ref([]);
